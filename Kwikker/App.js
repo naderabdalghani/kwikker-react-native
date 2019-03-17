@@ -6,16 +6,23 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import {
+  StatusBar,
+  View
+} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 import SwitchNavigator from './App/Routes/SwitchNavigator';
 
-type Props = {};
-class App extends React.Component {
+class App extends Component {
+  componentDidMount() {
+    SplashScreen.hide();
+  }
+
   render() {
     return (
-      <SwitchNavigator/>
+      <SwitchNavigator />
     );
   }
 }
-export default App
+export default App;
