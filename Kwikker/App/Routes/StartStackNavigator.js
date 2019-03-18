@@ -1,15 +1,24 @@
-import React, { Component } from 'react'; 
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import StartScreen from './../Screens/StartScreen/StartScreen';
-import Login from './../Screens/Login/Login';
-import Signup from './../Screens/Signup/Signup';
+import StartScreen from '../Screens/StartScreen/StartScreen';
+import Login from '../Screens/Login/Login';
+import Signup from '../Screens/Signup/Signup';
 
 
-const StartStackNavigator = createStackNavigator ({
+const StartStackNavigator = createStackNavigator({
 
-    StartScreen: { screen: StartScreen },
-    Login: { screen: Login },
-    Signup: { screen: Signup },
+  StartScreen: {
+    screen: StartScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Signup: { screen: Signup },
 
 });
 
