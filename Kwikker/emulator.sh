@@ -1,0 +1,1 @@
+cd ~/AppData/Local/Android/sdk/emulator; ./emulator -avd Pixel_2_API_28

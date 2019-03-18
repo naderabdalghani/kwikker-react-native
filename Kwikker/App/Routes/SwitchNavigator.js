@@ -1,12 +1,11 @@
-import React, { Component } from 'react'; 
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import StartStackNavigator from './StartStackNavigator';
 import DrawerNavigator from './DrawerNavigator';
 
-const SwitchNavigator = createSwitchNavigator ({
+const SwitchNavigator = createSwitchNavigator({
 
-    StartStackNavigator: { screen: StartStackNavigator },
-    DrawerNavigator: { screen: DrawerNavigator },
+  StartStackNavigator: { screen: StartStackNavigator },
+  DrawerNavigator: { screen: DrawerNavigator },
 
 });
 
