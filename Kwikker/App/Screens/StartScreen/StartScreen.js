@@ -29,11 +29,8 @@ export default class StartScreen extends Component {
         <View style={{ alignItems: 'center' }}>
           <Text style={styles.Intro}>See what's happening in the world right now.</Text>
           <CustomButton
-            onPress={this.signUp.bind(this)}
-            marginSize={90}
-            customFontSize={25}
-          >
-            Create account
+            onPress={this.signUp.bind(this)} marginSize={90} customFontSize={25}
+          >Create account
           </CustomButton>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch', marginLeft: 45, marginBottom: 30 }}>

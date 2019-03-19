@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   HeaderImage: {
-    height: 30,
-    width: 30,
+    height: 35,
+    width: 35,
     marginTop: 10,
   },
   Intro: {
