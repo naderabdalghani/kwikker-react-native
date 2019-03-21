@@ -5,7 +5,7 @@ export default styles = StyleSheet.create({
         flex: 1,    
         height: 150,
         borderColor:"lightgray",
-        borderWidth: 1,
+        borderWidth: 0.5,
     },
     profilePicture : {
         height:50,

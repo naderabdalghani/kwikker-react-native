@@ -34,6 +34,7 @@ export default class Notifications extends Component
 
   }
   render() {
+    
     return (
         <ScrollView style={{ flex:1 }}> 
         {this.state.notifications.map((item,index) => (
