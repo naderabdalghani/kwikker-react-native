@@ -12,6 +12,21 @@ export default class Notifications extends Component
       notifications:[]
     }
   }
+  
+  /** Update Notifications.
+ * gets first 20 Notification with defult With default parameter (id=null)
+ * To retrieve more send the id of the last retrieved notification.
+ * @param {int} id - The id of Notification .
+ */
+
+  MoreNotifications=({layoutMeasurement,contentOffset,contentSize })=>
+  {
+      if(layoutMeasurement.height + contentOffset.y >= contentSize.height -1)
+      {
+        this.updateNotifications(this.state.notifications.length-1)
+      }
+  }
+
 /** Update Notifications.
  * gets first 20 Notification with defult With default parameter (id=null)
  * To retrieve more send the id of the last retrieved notification.
@@ -26,7 +41,7 @@ export default class Notifications extends Component
     })
     .then((response) => {
       this.setState({
-        notifications: response.data
+        notifications: this.state.notifications.concat(response.data) 
         })
       console.log(response.data);
     })
@@ -52,8 +67,7 @@ export default class Notifications extends Component
   render() {
     
     return (
-        <ScrollView style={{ flex:1 }} onScroll={(e) => {if(e.nativeEvent.layoutMeasurement.height + e.nativeEvent.contentOffset.y >=
-          e.nativeEvent.contentSize.height -1){ this.updateNotifications(this.state.notifications.length-1)}}}> 
+        <ScrollView style={{ flex:1 }} onScroll={ ({nativeEvent})=>{this.MoreNotifications(nativeEvent)}}> 
         {this.state.notifications.map((item,index) => (
           <Notification profileUrl = {item.profile_pic_URL} kweekText={item.kweek_text} type={item.type} screenName ={item.screen_name}  ></Notification>
           ))
