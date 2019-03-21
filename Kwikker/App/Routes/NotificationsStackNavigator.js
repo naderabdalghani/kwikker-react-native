@@ -4,6 +4,11 @@ import { createStackNavigator, CreateAppContainer } from 'react-navigation'
 
 const NotificationsStackNavigator = createStackNavigator({
 
-    Notifictions: { screen: Notifications }
+    Notifictions: {
+        screen: Notifications,
+        navigationOptions: {
+            title: 'Notifications'
+        } 
+     }
 });
 export default NotificationsStackNavigator
