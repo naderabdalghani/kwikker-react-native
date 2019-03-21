@@ -60,9 +60,13 @@ export default class Notifications extends Component
  pullRefresh= () =>
   {
     this.setState({
+      refreshing:true,
       notifications: []
       });
     this.updateNotifications();
+    this.setState({
+      refreshing:false
+      });
   }
 
 
