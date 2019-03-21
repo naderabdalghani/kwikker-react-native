@@ -1,12 +1,6 @@
 import React from 'react';
-import { Text, View,ScrollView,Image} from 'react-native';
+import { TouchableOpacity, Text, View,ScrollView,Image} from 'react-native';
 import styles from './Styles';
-
-
-
-
-
-
 export default class App extends React.Component {
 
   render() {
