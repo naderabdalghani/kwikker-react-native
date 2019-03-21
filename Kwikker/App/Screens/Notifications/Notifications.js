@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View,ScrollView } from 'react-native';
+import { ScrollView,RefreshControl } from 'react-native';
 import axios from 'axios';
 import Notification from '../../Components/Notification/Notification'
 
@@ -9,7 +9,8 @@ export default class Notifications extends Component
     super(props);
     this.state=
     {
-      notifications:[]
+      notifications:[],
+      refreshing: false
     }
   }
   
@@ -23,7 +24,7 @@ export default class Notifications extends Component
   {
       if(layoutMeasurement.height + contentOffset.y >= contentSize.height -1)
       {
-        this.updateNotifications(this.state.notifications.length-3)
+        this.updateNotifications(this.state.notifications.length-1)
       }
   }
 
@@ -52,7 +53,16 @@ export default class Notifications extends Component
     .then(function () {
       // always executed
     });
-
+  }
+  /** pull to refresh functionality.
+   * gets first 20 notifications
+  */
+ pullRefresh= () =>
+  {
+    this.setState({
+      notifications: []
+      });
+    this.updateNotifications();
   }
 
 
@@ -68,6 +78,11 @@ export default class Notifications extends Component
     
     return (
         <ScrollView 
+        refreshControl ={
+        <RefreshControl
+          refreshing={this.state.refreshing}
+          onRefresh={this.pullRefresh}
+        />}
         style={{ flex:1 }}
         onScroll={ ({nativeEvent})=>{this.MoreNotifications(nativeEvent)}}> 
         {this.state.notifications.map((item,index) => (
