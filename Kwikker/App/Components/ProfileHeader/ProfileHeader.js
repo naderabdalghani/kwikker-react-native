@@ -19,7 +19,7 @@ export default class App extends React.Component {
           <ScrollView style={{flex:1}}>
           
               <View style={styles.ProfileImageContainer}>
-              <Image
+              <Image style={styles.ProfileImage}
      source={{
        uri: 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
      }}
