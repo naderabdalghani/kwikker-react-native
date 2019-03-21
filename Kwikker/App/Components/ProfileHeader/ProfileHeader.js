@@ -30,12 +30,23 @@ export default class App extends React.Component {
                 <Text style={{ fontWeight :"bold", fontSize: 20, }}>
                   NAME
                 </Text>
-                <Text style={{color:'gray',}}>
+                <Text style={styles.Gray}>
                 USERNAME
                 </Text>
                 <Text >
                 ABOUT
                 </Text>
+                <View style={{flex:1,flexDirection:'row'}}> 
+                  <Text style={styles.Gray}>Joined </Text>
+                  <Text style={styles.Gray}>date</Text>
+                </View>
+               
+                <View style={{flex:1,flexDirection:'row'}}>
+                  <Text>0</Text>
+                  <Text style={styles.Gray}> Following   </Text>
+                  <Text>0</Text>
+                  <Text style={styles.Gray}> Followers   </Text>
+                </View>
               </View>
           
           

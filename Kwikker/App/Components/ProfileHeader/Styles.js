@@ -21,5 +21,8 @@ export default styles = StyleSheet.create({
     },
     ProfileImage:{
         flex:1, width:null,height:null
-    }
+    },
+    Gray:{
+        color:'gray'
+      },
   });
