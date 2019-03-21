@@ -25,4 +25,16 @@ export default styles = StyleSheet.create({
     Gray:{
         color:'gray'
       },
+      EditProfile:{
+        borderWidth:2,
+        borderColor: 'lightgray', 
+        width:120, height:40, 
+        marginTop:100, 
+        marginLeft:120, 
+        borderRadius:20, 
+        justifyContent:'center', 
+        alignItems:'center', 
+        fontWeight:'bold', 
+        backgroundColor:'white',
+      },
   });
