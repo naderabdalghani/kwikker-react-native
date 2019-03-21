@@ -48,7 +48,7 @@ export default class Login extends Component {
 
     return (
       <Button
-        onPress={this.onButtonPress.bind(this)}
+        onPress={this.login.bind(this)}
         title="Login"
       />
     );

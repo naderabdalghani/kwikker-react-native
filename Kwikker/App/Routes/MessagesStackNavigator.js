@@ -4,6 +4,11 @@ import { createStackNavigator, CreateAppContainer } from 'react-navigation'
 
 const MessagesStackNavigator = createStackNavigator({
 
-    Messaages: { screen: Messages }
+    Messaages: {
+        screen: Messages,
+        navigationOptions: {
+            title: 'Messages'
+        } 
+    }
 });
 export default MessagesStackNavigator
