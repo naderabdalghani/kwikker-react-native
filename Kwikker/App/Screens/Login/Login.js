@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { Text, View, Button, Spinner, Image, TouchableNativeFeedback } from 'react-native';
+import axios from 'axios';
 import styles from './Styles';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Section from '../../Components/Section/Section';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  state = { email: '', password: '', error: '', loading: false };
+  state = { emailOrUsername: '', password: '', error: '', loading: false };
 
   onButtonPress() {
   }
@@ -25,8 +22,23 @@ export default class Login extends Component {
     this.props.navigation.push('Signup');
   }
 
-  login() {
+  logIn() {
+    axios.post('/profile', {
+      name: 'test5'
+    })
+      .then(
+        (response) => {
+          console.log(response);
+        }
+      )
+      .catch((error) => {
+        console.log(error);
+      });
     this.props.navigation.navigate('DrawerNavigator');
+  }
+
+  forgotPassword() {
+    this.props.navigation.push('ForgotPassword');
   }
 
   renderButton() {
@@ -43,43 +55,48 @@ export default class Login extends Component {
   }
 
   render() {
+    const { ParentView, Header, DummyElement, ImageContainer, HeaderImage, SignUpButton, LogInText, LogInButtonStyle, LoginButtonContainer, LoginButtonBorder, ForgotPasswordStyle } = styles;
     return (
-      <View>
-        <View style={{ flexDirection: 'row', backgroundColor: 'red' }}>
-          <Image
-            style={styles.HeaderImage}
-            source={require('./../../Assets/Images/Twitter_Logo_Blue.png')}
-          />
-          <Text style={styles.SignUpButton} onPress={this.signUp.bind(this)}>Sign Up</Text>
+      <View style={ParentView}>
+        <View style={Header}>
+          <View style={DummyElement} />
+          <View style={ImageContainer}>
+            <Image
+              style={HeaderImage}
+              source={require('./../../Assets/Images/Twitter_Logo_Blue.png')}
+            />
+          </View>
+          <Text style={SignUpButton} onPress={this.signUp.bind(this)}>Sign up</Text>
         </View>
 
-        <Text style={styles.Intro}>Log in to Twitter.</Text>
-        <Section>
-          <CustomTextInput
-            placeholder="user@gmail.com"
-            label="Email"
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
-          />
-        </Section>
+        <Text style={LogInText}>Log in to Twitter.</Text>
 
-        <Section>
+        <View>
           <CustomTextInput
-            secureTextEntry
-            placeholder="password"
+            placeholder=""
+            label="Email or username"
+            secureTextEntry={false}
+            value={this.state.emailOrUsername}
+            onChangeText={(emailOrUsername) => this.setState({ emailOrUsername })}
+            autoFocus
+          />
+          <CustomTextInput
+            placeholder=""
             label="Password"
+            secureTextEntry
             value={this.state.password}
-            onChangeText={password => this.setState({ password })}
+            onChangeText={(password) => this.setState({ password })}
+            autoFocus={false}
           />
-        </Section>
-
-        <Text style={styles.errorTextStyle}>
-          {this.state.error}
-        </Text>
-
-        <Section>
-          {this.renderButton()}
-        </Section>
+        </View>
+        <Text style={ForgotPasswordStyle} onPress={this.forgotPassword.bind(this)}>Forgot password?</Text>
+        <View style={LoginButtonContainer}>
+          <View style={LoginButtonBorder}>
+            <View style={LogInButtonStyle}>
+              <CustomButton onPress={this.logIn.bind(this)} marginSize={15} customFontSize={17}>Log in</CustomButton>
+            </View>
+          </View>
+        </View>
       </View>
     );
   }

@@ -21,6 +21,7 @@ module.exports = {
     "no-unused-vars": 0,
     "global-require": 0,
     "comma-dangle": 0,
+    "max-len": 0,
     
     "react/forbid-prop-types": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
@@ -29,6 +30,8 @@ module.exports = {
     "react/prop-types": 0,
     "react/no-unescaped-entities": 0,
     "react/jsx-no-duplicate-props": 0,
+    "react/jsx-max-props-per-line": 0,
+    "react/jsx-one-expression-per-line": 0,
   },
   "parserOptions": {
     "ecmaVersion": 6,

@@ -1,0 +1,91 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "nader"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "test5"
+  },
+  "notifications": [
+    {
+      "id": 0,
+      "profile_pic_URL": "https://secure.i.telegraph.co.uk/multimedia/archive/03013/selfie02_3013424b.jpg",
+      "created_at": "2019-03-14T20:40:36.457Z",
+      "type": "LIKE",
+      "username": "monkey1998",
+      "screen_name": "monkey",
+      "kweek_id": "1",
+      "kweek_text": "I like bannna"
+    },
+    {
+      "id": 1,
+      "profile_pic_URL": "https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg",
+      "created_at": "2019-03-14T20:40:36.457Z",
+      "type": "LIKE",
+      "username": "monkey1998",
+      "screen_name": "dude",
+      "kweek_id": "1",
+      "kweek_text": "I like dudes"
+    },
+    {
+      "id": 2,
+      "profile_pic_URL": "https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg",
+      "created_at": "2019-03-14T20:40:36.457Z",
+      "type": "REKWEEK",
+      "username": "monkey1998",
+      "screen_name": "user",
+      "kweek_id": "1",
+      "kweek_text": "I like dudes"
+    },
+    {
+      "id": 3,
+      "profile_pic_URL": "https://lefunny.net/wp-content/uploads/2014/04/Funniest-cat-selfie-picture.jpg",
+      "created_at": "2019-03-14T20:40:36.457Z",
+      "type": "FOLLOW",
+      "username": "khaled",
+      "screen_name": "khaledA",
+      "kweek_id": "1",
+      "kweek_text": ""
+    },
+    {
+      "id": 4,
+      "profile_pic_URL": "https://thumbnailer.mixcloud.com/unsafe/300x300/extaudio/5/d/3/4/a4f7-f879-436c-834b-e72605bd3f2f.jpg",
+      "created_at": "2019-03-14T20:40:36.457Z",
+      "type": "REPLY",
+      "username": "khaled",
+      "screen_name": "khaledA",
+      "kweek_id": "1",
+      "kweek_text": "i love bannana tooooo"
+    },
+    {
+      "id": 5,
+      "profile_pic_URL": "http://www.lovethispic.com/uploaded_images/blogs/30-Very-Funny-Selfie-Pictures-4721-29.jpg",
+      "created_at": "2019-03-14T20:40:36.457Z",
+      "type": "MESSAGE",
+      "username": "khaled",
+      "screen_name": "khaledA",
+      "kweek_id": "1",
+      "kweek_text": "be my friend plzz"
+    },
+    {
+      "id": 6,
+      "profile_pic_URL": "http://www.lovethispic.com/uploaded_images/blogs/30-Very-Funny-Selfie-Pictures-4721-29.jpg",
+      "created_at": "2019-03-14T20:40:36.457Z",
+      "type": "MESSAGE",
+      "username": "khaled",
+      "screen_name": "khaledA",
+      "kweek_id": "1",
+      "kweek_text": "be my friend plzz"
+    }
+  ]
+}

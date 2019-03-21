@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
+import ProfileHeader from '../../Components/ProfileHeader/ProfileHeader'
 
 export default class Profile extends Component
 {
@@ -10,8 +11,8 @@ export default class Profile extends Component
 
   render() {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>Profile!</Text>
+        <View style={{ flex: 1}}>
+          <ProfileHeader></ProfileHeader>
         </View>
     );
   }

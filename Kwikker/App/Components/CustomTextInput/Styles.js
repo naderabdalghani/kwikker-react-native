@@ -1,23 +1,20 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  containerStyle: {
+    paddingTop: 10,
+    flexDirection: 'column',
+  },
   inputStyle: {
-    color: '#000',
-    paddingRight: 5,
-    paddingLeft: 5,
-    fontSize: 18,
+    marginRight: 5,
+    marginLeft: 5,
+    fontSize: 20,
     lineHeight: 23,
-    flex: 2,
+    height: 50,
   },
   labelStyle: {
-    fontSize: 18,
-    paddingLeft: 20,
-    flex: 1,
-  },
-  containerStyle: {
-    height: 40,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    fontSize: 16,
+    paddingLeft: 10,
+    color: '#657786',
   },
 });
