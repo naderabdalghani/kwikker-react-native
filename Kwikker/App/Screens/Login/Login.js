@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, Button, Spinner, Image, TouchableNativeFeedback } from 'react-native';
+import axios from 'axios';
 import styles from './Styles';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Section from '../../Components/Section/Section';
@@ -22,6 +23,17 @@ export default class Login extends Component {
   }
 
   logIn() {
+    axios.post('/profile', {
+      name: 'test5'
+    })
+      .then(
+        (response) => {
+          console.log(response);
+        }
+      )
+      .catch((error) => {
+        console.log(error);
+      });
     this.props.navigation.navigate('DrawerNavigator');
   }
 
