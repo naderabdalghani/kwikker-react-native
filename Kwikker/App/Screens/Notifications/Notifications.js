@@ -22,7 +22,7 @@ export default class Notifications extends Component
  */
   MoreNotifications=({layoutMeasurement,contentOffset,contentSize })=>
   {
-      if(layoutMeasurement.height + contentOffset.y >= contentSize.height -1)
+      if(layoutMeasurement.height + contentOffset.y >= contentSize.height)
       {
         this.updateNotifications(this.state.notifications.length-1)
       }
