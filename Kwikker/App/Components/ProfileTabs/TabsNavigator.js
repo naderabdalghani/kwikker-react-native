@@ -11,20 +11,20 @@ import Likes from './Likes'
 
 const TabsNavigator = createMaterialTopTabNavigator({
   Kweeks:{screen:Kweeks},
-  KweeksReplies:{screen:KweeksReplies},
+  Replies:{screen:KweeksReplies},
   Media:{screen:Media},
   Likes:{screen:Likes}
 },{
   tabBarOptions: {
+  upperCaseLabel: false,
   labelStyle: {
     fontSize: 12,
-    
+    color:"gary"
   },
   tabStyle: {
-    width: 100,
   },
   style: {
-    backgroundColor: 'gray',
+    backgroundColor: 'white',
   },
 }
 });
