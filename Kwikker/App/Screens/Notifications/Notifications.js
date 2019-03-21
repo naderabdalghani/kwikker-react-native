@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View,ScrollView } from 'react-native';
+import Notification from '../../Components/Notification/Notification'
 
 export default class Notifications extends Component
 {
-
   constructor(props) {
     super(props);
   }
-
   render() {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>Notifications!</Text>
-        </View>
+        <ScrollView style={{ flex:1 }}>         
+          <Notification></Notification>
+          <Notification></Notification>
+          <Notification></Notification>
+          <Notification></Notification>
+        </ScrollView>
     );
   }
 }
