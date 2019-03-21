@@ -17,6 +17,9 @@ export default styles = StyleSheet.create({
         marginTop: 10,
         marginLeft: 40,
     },
+    ProfileImage:{
+        flex:1, width:null,height:null
+    },
     textContainer : {
         flex: 1,   
         marginLeft: 40,
