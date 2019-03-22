@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View ,ScrollView} from 'react-native';
 import Followers from '../../Components/Fillowers/Followers'
 
 
@@ -12,9 +12,17 @@ export default class FillowersList extends Component
 
   render() {
     return (
-        <View style={{ flex: 1}}>
+        <ScrollView style={{ flex: 1}}>
           <Followers></Followers>
-        </View>
+          <Followers></Followers>
+          <Followers></Followers>
+          <Followers></Followers>
+          <Followers></Followers>
+          <Followers></Followers>
+          <Followers></Followers>
+          <Followers></Followers>
+          <Followers></Followers>
+        </ScrollView>
     );
   }
 }

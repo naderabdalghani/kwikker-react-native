@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View,Image } from 'react-native';
-export default class Following extends React.Component {
+
+
+export default class Notification extends React.Component {
   constructor(props) {
     super(props);
     
@@ -32,12 +34,11 @@ export default class Following extends React.Component {
 const styles = StyleSheet.create({
   container : {
         flex: 1,    
-        height: 150,
+        height: 120,
         borderColor:"lightgray",
         borderWidth: 1,
         flexDirection:'row',
-        marginTop:10,
-        paddingTop:10,
+        paddingTop:20,
     },
     profilePicture : {
         height:80,
@@ -66,5 +67,17 @@ const styles = StyleSheet.create({
       alignItems:'center', 
       fontWeight:'bold', 
       backgroundColor:'blue',
+      marginTop:10,
+
     },
 });
+
+
+
+
+
+
+
+
+
+

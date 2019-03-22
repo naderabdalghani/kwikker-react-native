@@ -18,7 +18,7 @@ export default class Followers extends React.Component {
           <Text style={{color:'gray'}}>userName</Text>
           <Text >about</Text>
         </View> 
-        <View style={styles.following}>
+        <View style={styles.follow}>
             <Text style={{color:'white', fontWeight:'bold'}}>
             Follow
             </Text>
@@ -32,12 +32,11 @@ export default class Followers extends React.Component {
 const styles = StyleSheet.create({
   container : {
         flex: 1,    
-        height: 150,
+        height: 120,
         borderColor:"lightgray",
         borderWidth: 1,
         flexDirection:'row',
-        marginTop:10,
-        paddingTop:10,
+        paddingTop:20,
     },
     profilePicture : {
         height:80,
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     },
     
     
-     following:{
+     follow:{
       borderWidth:2,
       borderColor: 'lightgray', 
       width:120, height:40, 
@@ -66,5 +65,8 @@ const styles = StyleSheet.create({
       alignItems:'center', 
       fontWeight:'bold', 
       backgroundColor:'gray',
+      marginTop:10,
+
     },
 });
+

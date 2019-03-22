@@ -12,9 +12,17 @@ export default class FollowingList extends Component
 
   render() {
     return (
-        <View style={{ flex: 1}}>
+        <ScrollView style={{ flex: 1}}>
           <Following></Following>
-        </View>
+          <Following></Following>
+          <Following></Following>
+          <Following></Following>
+          <Following></Following>
+          <Following></Following>
+          <Following></Following>
+          <Following></Following>
+          <Following></Following>
+        </ScrollView>
     );
   }
 }

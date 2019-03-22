@@ -18,7 +18,8 @@ export default class App extends React.Component {
                   uri: 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
                   }}/>
             </View>
-            <TouchableOpacity style={styles.EditProfile}>
+            <TouchableOpacity style={styles.EditProfile} 
+            onPress={() => this.props.navigation.navigate('EditProfileNavigator')}>
             <Text>
             Edit Profile
             </Text>
@@ -42,11 +43,11 @@ export default class App extends React.Component {
                
                 <View style={{flex:1,flexDirection:'row'}}>
                 <Text>0</Text>
-                <TouchableOpacity >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowingListNavigator')}>>
                   <Text style={styles.Gray}> Following   </Text>
                   </TouchableOpacity>
                   <Text>0</Text>
-                  <TouchableOpacity >
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowersListNavigator')}>>
                   <Text style={styles.Gray}> Followers   </Text>
                   </TouchableOpacity>
                 </View>
