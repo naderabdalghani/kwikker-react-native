@@ -1,19 +1,23 @@
 {
-  "posts": [
+  "account": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "nader"
+      "login": [
+        {
+          "username": "KalaJacobson",
+          "email": "Kala.Jacobson@hotmail.com",
+          "password": "FjvdjCVi"
+        },
+        {
+          "username": "Romaine39",
+          "email": "Romaine39@yahoo.com",
+          "password": "IOVc_4i"
+        },
+        {
+          "username": "LeonardCasper",
+          "email": "Deion99@yahoo.com",
+          "password": "T_8NrpXIinQDwGz"
+        }
+      ]
     }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "test5"
-  }
+  ]
 }

@@ -5,10 +5,6 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 
 
 export default class StartScreen extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   logIn() {
     this.props.navigation.push('Login');
   }
@@ -18,27 +14,28 @@ export default class StartScreen extends Component {
   }
 
   render() {
+    const { parentView, header, headerImage, startScreenText, textButtonContainer, logInContainer, logInText, logInButton } = styles;
     return (
-      <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
-        <View style={{ alignItems: 'center' }}>
+      <View style={parentView}>
+        <View style={header}>
           <Image
-            style={styles.HeaderImage}
+            style={headerImage}
             source={require('./../../Assets/Images/Twitter_Logo_Blue.png')}
           />
         </View>
-        <View style={{ alignItems: 'center' }}>
-          <Text style={styles.Intro}>See what's happening in the world right now.</Text>
+        <View style={textButtonContainer}>
+          <Text style={startScreenText}>See what's happening in the world right now.</Text>
           <CustomButton
             onPress={this.signUp.bind(this)} marginSize={90} customFontSize={25}
           >Create account
           </CustomButton>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch', marginLeft: 45, marginBottom: 30 }}>
-          <Text style={{ fontSize: 15 }}>Have an account already?</Text>
+        <View style={logInContainer}>
+          <Text style={logInText}>Have an account already?</Text>
           <TouchableNativeFeedback
             onPress={this.logIn.bind(this)}
           >
-            <Text style={{ color: '#38A1F3', fontSize: 15 }}> Log in</Text>
+            <Text style={logInButton}> Log in</Text>
           </TouchableNativeFeedback>
         </View>
       </View>

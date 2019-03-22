@@ -5922,6 +5922,18 @@ react-native-global-font@^1.0.2:
   dependencies:
     lodash.wrap "^4.1.1"
 
+react-native-keychain@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-keychain/-/react-native-keychain-3.1.1.tgz#119cbf734d8dceaf80de82ee979a4db268fbc380"
+  integrity sha512-+qZn6uRevd/rdyzuh4YBBhjhv/hxj+N408+vD8/otnsZ+c3mcc2FmRw3n+n2g0Z6tfgfT30jVETe6ZhfcER7yQ==
+
+react-native-loading-spinner-overlay@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-loading-spinner-overlay/-/react-native-loading-spinner-overlay-1.0.1.tgz#07f85a072b6f7d05b8749668cd626df4cc330347"
+  integrity sha512-njZZWs+cgyq6Ni7tkYEowMmuAuHVljuH4CqTWA0plNOfSzZhEcrW209y7WcgHjRWz0RvvEYF5oWGT8DWtTq8bA==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-menu-button@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-menu-button/-/react-native-menu-button-1.0.0.tgz#ede4636e27891aea4f22a612c954fa55b85709b1"

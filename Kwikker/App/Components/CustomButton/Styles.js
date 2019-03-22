@@ -9,4 +9,11 @@ export default StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
   },
+  textStyle: {
+    color: '#FFFF',
+    fontWeight: 'bold',
+    paddingTop: 3,
+    paddingBottom: 3,
+    textAlign: 'center',
+  },
 });
