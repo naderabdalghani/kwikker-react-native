@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-
-// eslint-disable-next-line no-undef
+let styles;
 export default styles = StyleSheet.create({
   notificationContainer: {
     flex: 1,
