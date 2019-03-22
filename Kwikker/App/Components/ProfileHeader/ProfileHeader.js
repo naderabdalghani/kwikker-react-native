@@ -3,6 +3,18 @@ import { TouchableOpacity, Text, View,ScrollView,Image} from 'react-native';
 import styles from './Styles';
 export default class App extends React.Component {
 
+  Follower() {
+    this.props.navigation.push('FollowersListNavigator');
+  }
+
+  Following() {
+    this.props.navigation.push('FollowingListNavigator');
+  }
+
+  EditProfile() {
+    this.props.navigation.push('EditProfileNavigator');
+  }
+
   render() {
     return (
       
@@ -19,7 +31,7 @@ export default class App extends React.Component {
                   }}/>
             </View>
             <TouchableOpacity style={styles.EditProfile} 
-            onPress={() => this.props.navigation.navigate('EditProfileNavigator')}>
+            onPress={this.EditProfile.bind(this)}>
             <Text>
             Edit Profile
             </Text>
@@ -43,11 +55,11 @@ export default class App extends React.Component {
                
                 <View style={{flex:1,flexDirection:'row'}}>
                 <Text>0</Text>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowingListNavigator')}>>
+                <TouchableOpacity onPress={this.Following.bind(this)}>
                   <Text style={styles.Gray}> Following   </Text>
                   </TouchableOpacity>
                   <Text>0</Text>
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowersListNavigator')}>>
+                  <TouchableOpacity onPress={this.Follower.bind(this)}>
                   <Text style={styles.Gray}> Followers   </Text>
                   </TouchableOpacity>
                 </View>
