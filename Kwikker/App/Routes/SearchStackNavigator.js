@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Search from './../Screens/Search/Search'
-import { createStackNavigator, CreateAppContainer } from 'react-navigation'
+import { createStackNavigator, CreateAppContainer } from 'react-navigation';
+import Search from '../Screens/Search/Search';
 
 const SearchStackNavigator = createStackNavigator({
 
-    Search: { screen: Search }
+  Search: { screen: Search }
 });
-export default SearchStackNavigator
+export default SearchStackNavigator;

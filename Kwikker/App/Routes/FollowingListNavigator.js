@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import FollowingList from './../Screens/FollowingList/FollowingList';
-import { createStackNavigator, CreateAppContainer } from 'react-navigation'
+import { createStackNavigator, CreateAppContainer } from 'react-navigation';
+import FollowingList from '../Screens/FollowingList/FollowingList';
 
 const FollowingListNavigator = createStackNavigator({
 
-    FollowingList: { screen: FollowingList,
-        navigationOptions: {
-            title: 'Following',
-        } 
+  FollowingList: { screen: FollowingList,
+    navigationOptions: {
+      title: 'Following',
     }
+  }
 });
-export default FollowingListNavigator
+export default FollowingListNavigator;
