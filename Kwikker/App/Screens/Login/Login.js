@@ -26,24 +26,25 @@ export default class Login extends Component {
   }
 
   logInButtonPress() {
-    this.setState({
-      loading: true,
-      error: ''
-    });
-    axios.post('/account/login', {
-      username: this.state.username,
-      password: this.state.password
-    })
-      .then((res) => {
-        Keychain.setGenericPassword('session', res.data.token);
-        Keychain.getGenericPassword.then((creds) => creds.password).then((token) => {
-          axios.defaults.headers.common['Authorization'] = token;
-        });
-        this.onLoginSuccess.bind(this);
-      })
-      .catch((err) => {
-        this.onLoginFail.bind(this);
-      });
+    // this.setState({
+    //   loading: true,
+    //   error: ''
+    // });
+    // axios.post('/account/login', {
+    //   username: this.state.username,
+    //   password: this.state.password
+    // })
+    //   .then((res) => {
+    //     Keychain.setGenericPassword('session', res.data.token);
+    //     Keychain.getGenericPassword.then((creds) => creds.password).then((token) => {
+    //       axios.defaults.headers.common['Authorization'] = token;
+    //     });
+    //     this.onLoginSuccess();
+    //   })
+    //   .catch((err) => {
+    //     this.onLoginFail();
+    //   });
+    this.onLoginSuccess(); //THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
   }
 
   forgotPassword() {
