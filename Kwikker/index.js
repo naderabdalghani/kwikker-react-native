@@ -5,6 +5,8 @@ import { name as appName } from './app.json';
 
 // 3000 is your own server port, it could be a different number
 // therefore copy the link json-server outputs once you run json-server --watch db.json
-axios.defaults.baseURL = 'http://localhost:3000';
+
+// axios.defaults.baseURL = 'http://localhost:3000'; // fake json-server
+axios.defaults.baseURL = 'http://3dd22c03.ngrok.io/'; // actual server
 
 AppRegistry.registerComponent(appName, () => App);

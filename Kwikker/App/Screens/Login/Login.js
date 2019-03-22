@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, Button, Image, TouchableNativeFeedback, ToastAndroid } from 'react-native';
+import { Text, View, Button, Image, TouchableNativeFeedback, ToastAndroid, AsyncStorage } from 'react-native';
 import axios from 'axios';
-import * as Keychain from 'react-native-keychain';
 import styles from './Styles';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Section from '../../Components/Section/Section';
@@ -26,25 +25,25 @@ export default class Login extends Component {
   }
 
   logInButtonPress() {
-    // this.setState({
-    //   loading: true,
-    //   error: ''
-    // });
-    // axios.post('/account/login', {
-    //   username: this.state.username,
-    //   password: this.state.password
-    // })
-    //   .then((res) => {
-    //     Keychain.setGenericPassword('session', res.data.token);
-    //     Keychain.getGenericPassword.then((creds) => creds.password).then((token) => {
-    //       axios.defaults.headers.common['Authorization'] = token;
-    //     });
-    //     this.onLoginSuccess();
-    //   })
-    //   .catch((err) => {
-    //     this.onLoginFail();
-    //   });
-    this.onLoginSuccess(); //THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
+    this.setState({
+      loading: true,
+      error: ''
+    });
+    axios.post('/account/login', {
+      username: this.state.username,
+      password: this.state.password
+    })
+      .then((res) => {
+        AsyncStorage.setItem('@app:session', res.data.token);
+        AsyncStorage.getItem('@app:session').then((token) => {
+          axios.defaults.headers.common['Authorization'] = token;
+        });
+        this.onLoginSuccess();
+      })
+      .catch((err) => {
+        this.onLoginFail();
+      });
+    // this.onLoginSuccess(); //THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
   }
 
   forgotPassword() {
