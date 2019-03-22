@@ -10,4 +10,4 @@ const FollowersListNavigator = createStackNavigator({
         } 
     }
 });
-export default FollowersListNavigator
+export default CreateAppContainer(FollowersListNavigator);
