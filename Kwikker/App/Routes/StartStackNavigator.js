@@ -2,7 +2,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import StartScreen from '../Screens/StartScreen/StartScreen';
 import Login from '../Screens/Login/Login';
 import Signup from '../Screens/Signup/Signup';
-import ForgotPassword from '../Screens/ForgotPassword/ForgotPassword'
+import ForgotPassword from '../Screens/ForgotPassword/ForgotPassword';
 
 
 const StartStackNavigator = createStackNavigator({
