@@ -4,6 +4,10 @@ import { createStackNavigator, CreateAppContainer } from 'react-navigation'
 
 const FollowingListNavigator = createStackNavigator({
 
-    FollowingList: { screen: FollowingList }
+    FollowingList: { screen: FollowingList,
+        navigationOptions: {
+            title: 'Following',
+        } 
+    }
 });
 export default FollowingListNavigator
