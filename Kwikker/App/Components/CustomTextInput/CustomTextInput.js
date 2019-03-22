@@ -48,6 +48,7 @@ class CustomTextInput extends React.Component {
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           autoFocus={autoFocus}
+          selectionColor={BLUE}
         />
       </View>
     );

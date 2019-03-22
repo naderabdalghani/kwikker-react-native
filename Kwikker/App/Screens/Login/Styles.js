@@ -1,15 +1,15 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  ParentView: {
+  parentView: {
     height: '100%',
   },
-  HeaderImage: {
+  headerImage: {
     height: 35,
     width: 35,
     marginTop: 10,
   },
-  SignUpButton: {
+  signUpButton: {
     fontSize: 17,
     color: '#1DA1F2',
     textAlign: 'center',
@@ -18,7 +18,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     flex: 1,
   },
-  LogInText: {
+  logInText: {
     fontSize: 25,
     color: '#000',
     fontWeight: 'bold',
@@ -26,31 +26,31 @@ export default StyleSheet.create({
     marginRight: 10,
     marginBottom: 10,
   },
-  ImageContainer: {
+  imageContainer: {
     flex: 1,
     alignItems: 'center',
   },
-  Header: {
+  header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  DummyElement: {
+  dummyElement: {
     flex: 1,
   },
-  LogInButtonStyle: {
+  logInButtonStyle: {
     alignItems: 'flex-end',
     marginTop: 10,
     marginBottom: 10,
   },
-  LoginButtonBorder: {
+  loginButtonBorder: {
     borderTopWidth: 0.75,
     borderTopColor: '#AAB8C2',
   },
-  LoginButtonContainer: {
+  loginButtonContainer: {
     justifyContent: 'flex-end',
     flex: 1,
   },
-  ForgotPasswordStyle: {
+  forgotPasswordStyle: {
     color: '#657786',
     alignSelf: 'center',
     marginTop: 10,

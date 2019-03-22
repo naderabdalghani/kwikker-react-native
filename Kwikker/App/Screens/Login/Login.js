@@ -1,83 +1,81 @@
 import React, { Component } from 'react';
-import { Text, View, Button, Spinner, Image, TouchableNativeFeedback } from 'react-native';
+import { Text, View, Button, Image, TouchableNativeFeedback, ToastAndroid } from 'react-native';
 import axios from 'axios';
+import * as Keychain from 'react-native-keychain';
 import styles from './Styles';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Section from '../../Components/Section/Section';
 import CustomButton from '../../Components/CustomButton/CustomButton';
+import Loader from '../../Components/Loader/Loader';
 
 export default class Login extends Component {
-  state = { emailOrUsername: '', password: '', error: '', loading: false };
+  state = { username: '', password: '', loading: false, error: '' };
 
-  onButtonPress() {
-  }
 
   onLoginFail() {
+    this.setState({ error: 'Authentication Failed', loading: false });
+    ToastAndroid.show(this.state.error, ToastAndroid.SHORT);
   }
 
   onLoginSuccess() {
+    this.props.navigation.navigate('DrawerNavigator');
   }
 
   signUp() {
     this.props.navigation.push('Signup');
   }
 
-  logIn() {
-    axios.post('/profile', {
-      name: 'test5'
+  logInButtonPress() {
+    this.setState({
+      loading: true,
+      error: ''
+    });
+    axios.post('/account/login', {
+      username: this.state.username,
+      password: this.state.password
     })
-      .then(
-        (response) => {
-          console.log(response);
-        }
-      )
-      .catch((error) => {
-        console.log(error);
+      .then((res) => {
+        Keychain.setGenericPassword('session', res.data.token);
+        Keychain.getGenericPassword.then((creds) => creds.password).then((token) => {
+          axios.defaults.headers.common['Authorization'] = token;
+        });
+        this.onLoginSuccess.bind(this);
+      })
+      .catch((err) => {
+        this.onLoginFail.bind(this);
       });
-    this.props.navigation.navigate('DrawerNavigator');
   }
 
   forgotPassword() {
     this.props.navigation.push('ForgotPassword');
   }
 
-  renderButton() {
-    if (this.state.loading) {
-      return <Spinner size="small" />;
-    }
-
-    return (
-      <Button
-        onPress={this.login.bind(this)}
-        title="Login"
-      />
-    );
-  }
-
   render() {
-    const { ParentView, Header, DummyElement, ImageContainer, HeaderImage, SignUpButton, LogInText, LogInButtonStyle, LoginButtonContainer, LoginButtonBorder, ForgotPasswordStyle } = styles;
+    const { parentView, header, dummyElement, imageContainer, headerImage, signUpButton, logInText, logInButtonStyle, loginButtonContainer, loginButtonBorder, forgotPasswordStyle } = styles;
+    const buttonDisabled = (this.state.emailOrUsername === '') || (this.state.password === '');
     return (
-      <View style={ParentView}>
-        <View style={Header}>
-          <View style={DummyElement} />
-          <View style={ImageContainer}>
+      <View style={parentView}>
+        <Loader loading={this.state.loading} />
+        <View style={header}>
+          <View style={dummyElement} />
+          <View style={imageContainer}>
             <Image
-              style={HeaderImage}
+              style={headerImage}
               source={require('./../../Assets/Images/Twitter_Logo_Blue.png')}
             />
           </View>
-          <Text style={SignUpButton} onPress={this.signUp.bind(this)}>Sign up</Text>
+          <Text style={signUpButton} onPress={this.signUp.bind(this)}>Sign up</Text>
         </View>
 
-        <Text style={LogInText}>Log in to Twitter.</Text>
+        <Text style={logInText}>Log in to Twitter.</Text>
 
         <View>
           <CustomTextInput
             placeholder=""
-            label="Email or username"
+            label="Username"
             secureTextEntry={false}
-            value={this.state.emailOrUsername}
-            onChangeText={(emailOrUsername) => this.setState({ emailOrUsername })}
+            value={this.state.username}
+            onChangeText={(username) => this.setState({ username })}
             autoFocus
           />
           <CustomTextInput
@@ -89,11 +87,11 @@ export default class Login extends Component {
             autoFocus={false}
           />
         </View>
-        <Text style={ForgotPasswordStyle} onPress={this.forgotPassword.bind(this)}>Forgot password?</Text>
-        <View style={LoginButtonContainer}>
-          <View style={LoginButtonBorder}>
-            <View style={LogInButtonStyle}>
-              <CustomButton onPress={this.logIn.bind(this)} marginSize={15} customFontSize={17}>Log in</CustomButton>
+        <Text style={forgotPasswordStyle} onPress={this.forgotPassword.bind(this)}>Forgot password?</Text>
+        <View style={loginButtonContainer}>
+          <View style={loginButtonBorder}>
+            <View style={logInButtonStyle}>
+              <CustomButton onPress={this.logInButtonPress.bind(this)} marginSize={15} customFontSize={17} disabled={buttonDisabled}>Log in</CustomButton>
             </View>
           </View>
         </View>
