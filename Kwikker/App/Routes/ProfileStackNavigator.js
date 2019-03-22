@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import Profile from './../Screens/Profile/Profile';
-import FollowersListNavigator from './FolloersListNavigator'
-import FollowingListNavigator from './FollowingListNavigator'
+import FollowerList from './../Screens/FollowerList/FollowersList'
+import FollowingList from './../Screens/FollowingList/FollowingList'
 import EditProfileNavigator from './EditProfileNavigation'
 import { createStackNavigator, CreateAppContainer } from 'react-navigation'
 
 const ProfileStackNavigator = createStackNavigator({
 
     Profile: { screen: Profile },
-    FollowersListNavigator: { screen: FollowersListNavigator},
-    FollowingListNavigator: { screen :FollowingListNavigator},
+    FollowerList: { screen: FollowerList},
+    FollowingList: { screen: FollowingList},
     EditProfileNavigator: {screen: EditProfileNavigator},
 });
 export default ProfileStackNavigator
