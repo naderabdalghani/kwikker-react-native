@@ -52,9 +52,8 @@ export default class Notifications extends Component {
     })
 
       .then((response) => {
-        this.setState({
-          notifications: this.setState((prevState) => ({ notifications: prevState.notifications.concat(response.data) }))
-        });
+        this.setState((prevState) => ({ notifications: prevState.notifications.concat(response.data)
+        }));
         // console.log(response.data);
       })
       .catch((error) => {
