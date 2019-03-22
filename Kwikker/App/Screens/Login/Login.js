@@ -36,7 +36,7 @@ export default class Login extends Component {
       .then((res) => {
         AsyncStorage.setItem('@app:session', res.data.token);
         AsyncStorage.getItem('@app:session').then((token) => {
-          axios.defaults.headers.common['Authorization'] = token;
+          axios.defaults.headers.common['TOKEN'] = token;
         });
         this.onLoginSuccess();
       })

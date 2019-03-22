@@ -8,7 +8,7 @@ export default class Notifications extends Component {
     super(props);
     this.state = {
       notifications: [],
-      refreshing: false
+      refreshing: false,
     };
   }
 
@@ -50,7 +50,6 @@ export default class Notifications extends Component {
         id
       }
     })
-
       .then((response) => {
         this.setState((prevState) => ({ notifications: prevState.notifications.concat(response.data)
         }));
@@ -58,7 +57,7 @@ export default class Notifications extends Component {
       })
       .catch((error) => {
       // handle error
-        // console.log(error);
+      // console.log(error);
       })
       .then(() => {
       // always executed
