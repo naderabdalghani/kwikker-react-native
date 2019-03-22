@@ -1,8 +1,7 @@
 import React from 'react';
 import {  Text, View,Image } from 'react-native';
 import styles from './Styles';
-
-export default class Notification extends React.Component {
+export default class Followers extends React.Component {
   constructor(props) {
     super(props);
     
@@ -20,9 +19,9 @@ export default class Notification extends React.Component {
           <Text style={{color:'gray'}}>userName</Text>
           <Text >about</Text>
         </View> 
-        <View style={styles.following}>
+        <View style={styles.follow}>
             <Text style={{color:'white', fontWeight:'bold'}}>
-            Following
+            Follow
             </Text>
            
         </View>

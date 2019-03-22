@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View ,ScrollView} from 'react-native';
-import Followers from '../../Components/Fillowers/Followers'
+import Followers from '../../Components/Followers/Followers'
 
 
 export default class FillowersList extends Component
