@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Messages from './../Screens/Messages/Messages'
-import { createStackNavigator, CreateAppContainer } from 'react-navigation'
+import { createStackNavigator, CreateAppContainer } from 'react-navigation';
+import Messages from '../Screens/Messages/Messages';
 
 const MessagesStackNavigator = createStackNavigator({
 
-    Messaages: {
-        screen: Messages,
-        navigationOptions: {
-            title: 'Messages'
-        } 
+  Messaages: {
+    screen: Messages,
+    navigationOptions: {
+      title: 'Messages'
     }
+  }
 });
-export default MessagesStackNavigator
+export default MessagesStackNavigator;
