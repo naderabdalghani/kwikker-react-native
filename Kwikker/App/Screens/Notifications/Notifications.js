@@ -13,6 +13,9 @@ export default class Notifications extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      notifications: []
+    });
     this.updateNotifications();
   }
 
@@ -34,8 +37,8 @@ export default class Notifications extends Component {
  * @param  {int} contentSize - size of all content
  */
   MoreNotifications=({ layoutMeasurement, contentOffset, contentSize }) => {
-    if (layoutMeasurement.height + contentOffset.y >= contentSize.height) {
-      this.updateNotifications(this.state.notifications.length - 1);
+    if (layoutMeasurement.height + contentOffset.y >= contentSize.height && this.state.notifications.length !== 0) {
+      this.updateNotifications(this.state.notifications[this.state.notifications.length - 1].id);
     }
   }
 
@@ -45,15 +48,14 @@ export default class Notifications extends Component {
  * @param {int} id - The id of Notification .
  */
   updateNotifications(id = null) {
-    axios.get('/notifications', {
+    axios.get('notifications', {
       params: {
-        id
+        last_notification_retrieved_id: id
       }
     })
       .then((response) => {
         this.setState((prevState) => ({ notifications: prevState.notifications.concat(response.data)
         }));
-        // console.log(response.data);
       })
       .catch((error) => {
       // handle error
