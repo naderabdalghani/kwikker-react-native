@@ -1,51 +1,65 @@
 import React, { Component } from 'react';
-import { Text, View, Button, Image, TouchableNativeFeedback, ToastAndroid, AsyncStorage } from 'react-native';
+import { Text, View, Button, Image, TouchableNativeFeedback, ToastAndroid } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import styles from './Styles';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
-import Section from '../../Components/Section/Section';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Loader from '../../Components/Loader/Loader';
 
 export default class Login extends Component {
   state = { username: '', password: '', loading: false, error: '' };
 
-
+  /**
+   * Shows a toast message "Authentication Failed" and turns off the loading screen
+   */
   onLoginFail() {
     this.setState({ error: 'Authentication Failed', loading: false });
     ToastAndroid.show(this.state.error, ToastAndroid.SHORT);
   }
 
+  /**
+   * Specifies header config defaults that will be applied to every request and redirects the user to the Home screen
+   */
   onLoginSuccess() {
+    AsyncStorage.getItem('@app:session').then((token) => {
+      axios.defaults.headers.common['TOKEN'] = token;
+    });
     this.props.navigation.navigate('DrawerNavigator');
   }
 
+  /**
+   * Redirects the user to the signing up form
+   */
   signUp() {
     this.props.navigation.push('Signup');
   }
 
+  /**
+   * Processes the user's credentials and either calls {@link #onloginsuccess|onLoginSuccess} or calls {@link #onloginfail|onLoginFail}
+   */
   logInButtonPress() {
-    this.setState({
-      loading: true,
-      error: ''
-    });
-    axios.post('/account/login', {
-      username: this.state.username,
-      password: this.state.password
-    })
-      .then((res) => {
-        AsyncStorage.setItem('@app:session', res.data.token);
-        AsyncStorage.getItem('@app:session').then((token) => {
-          axios.defaults.headers.common['TOKEN'] = token;
-        });
-        this.onLoginSuccess();
-      })
-      .catch((err) => {
-        this.onLoginFail();
-      });
-    // this.onLoginSuccess(); //THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
+    // this.setState({
+    //   loading: true,
+    //   error: ''
+    // });
+    // axios.post('/account/login', {
+    //   username: this.state.username,
+    //   password: this.state.password
+    // })
+    //   .then((res) => {
+    //     AsyncStorage.setItem('@app:session', res.data.token);
+    //     return this.onLoginSuccess();
+    //   })
+    //   .catch((err) => {
+    //     return this.onLoginFail();
+    //   });
+    this.onLoginSuccess(); // THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
   }
 
+  /**
+   * Redirects the user to the 'forgot password' form
+   */
   forgotPassword() {
     this.props.navigation.push('ForgotPassword');
   }

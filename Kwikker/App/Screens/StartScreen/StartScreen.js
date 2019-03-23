@@ -5,10 +5,16 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 
 
 export default class StartScreen extends Component {
+  /**
+   * Redirects the user to the login form
+   */
   logIn() {
     this.props.navigation.push('Login');
   }
 
+  /**
+   * Redirects the user to the signing up form
+   */
   signUp() {
     this.props.navigation.push('Signup');
   }

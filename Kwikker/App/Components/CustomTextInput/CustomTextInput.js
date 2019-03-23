@@ -12,20 +12,18 @@ class CustomTextInput extends React.Component {
 
   state = { isFocused: false };
 
-  handleFocus = (event) => {
+  /**
+   * Sets isFocused to true should the text input field is selected
+   */
+  handleFocus = () => {
     this.setState({ isFocused: true });
-
-    if (this.props.onFocus) {
-      this.props.onFocus(event);
-    }
   };
 
-  handleBlur = (event) => {
+  /**
+   * Sets isFocused to false should the text input field is unselected
+   */
+  handleBlur = () => {
     this.setState({ isFocused: false });
-
-    if (this.props.onBlur) {
-      this.props.onBlur(event);
-    }
   };
 
   render() {
