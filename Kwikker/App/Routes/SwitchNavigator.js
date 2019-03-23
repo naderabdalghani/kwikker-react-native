@@ -2,7 +2,7 @@ import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import StartStackNavigator from './StartStackNavigator';
 import DrawerNavigator from './DrawerNavigator';
 import ProfileStackNavigator from './ProfileStackNavigator';
-import SettingsStackNavigator from './SettingsStackNavigator'
+import SettingsStackNavigator from './SettingsStackNavigator';
 
 const SwitchNavigator = createSwitchNavigator({
 
