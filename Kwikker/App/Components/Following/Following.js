@@ -17,7 +17,7 @@ export default class Notification extends React.Component {
         </View>
         <View style={styles.textContainer}>
           <Text style={{fontWeight:"bold"}} >name</Text>
-          <Text style={{color:'gray'}}>userName</Text>
+          <Text style={{color:'#AAB8C2'}}>userName</Text>
           <Text >about</Text>
         </View> 
         <View style={styles.following}>
