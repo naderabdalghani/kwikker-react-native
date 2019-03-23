@@ -24,7 +24,7 @@ export default class Profile extends Component {
     return (
       <View style={{ flex: 1 }}>
         <ProfileHeader
-          ref={(ref) => this.feedback = ref}
+          ref={(ref) => { this.feedback = ref; }}
           Following={this.Following.bind(this)}
           Follower={this.Follower.bind(this)}
           EditProfile={this.EditProfile.bind(this)}
