@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Settings from './../Screens/Settings/Settings';
-import { createStackNavigator, createAppContainer } from 'react-navigation'
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import Settings from '../Screens/Settings/Settings';
 
 const SettingsStackNavigator = createStackNavigator({
 
-    Settings: { screen: Settings }
+  Settings: { screen: Settings }
 });
-export default SettingsStackNavigator
+export default SettingsStackNavigator;
