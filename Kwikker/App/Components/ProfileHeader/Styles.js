@@ -23,18 +23,18 @@ export default styles = StyleSheet.create({
         flex:1, width:null,height:null
     },
     Gray:{
-        color:'gray'
+        color:'#657786'
       },
-      EditProfile:{
-        borderWidth:2,
-        borderColor: 'lightgray', 
-        width:120, height:40, 
-        marginTop:100, 
-        marginLeft:120, 
+        EditProfile:{
+        borderWidth:1,
+        borderColor: '#657786', 
+        width:'30%', height:30, 
+        marginTop:130, 
+        marginLeft:'42%', 
         borderRadius:20, 
         justifyContent:'center', 
         alignItems:'center', 
         fontWeight:'bold', 
         backgroundColor:'white',
-      },
+      }
   });
