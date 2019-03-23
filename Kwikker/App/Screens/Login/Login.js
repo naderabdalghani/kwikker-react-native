@@ -49,10 +49,10 @@ export default class Login extends Component {
     })
       .then((res) => {
         AsyncStorage.setItem('@app:session', res.data.token);
-        this.onLoginSuccess();
+        return this.onLoginSuccess();
       })
       .catch((err) => {
-        this.onLoginFail();
+        return this.onLoginFail();
       });
     // this.onLoginSuccess(); // THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
   }
