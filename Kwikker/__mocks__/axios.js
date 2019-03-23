@@ -3,5 +3,10 @@ export default {
     response: {
       data: {}
     }
+  })),
+  get: jest.fn(() => Promise.resolve({
+    response: {
+      data: {}
+    }
   }))
 };
