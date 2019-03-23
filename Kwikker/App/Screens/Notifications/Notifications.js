@@ -30,9 +30,11 @@ export default class Notifications extends Component {
  * @param  {int} contentSize - size of all content
  */
   MoreNotifications=({ layoutMeasurement, contentOffset, contentSize }) => {
-    if (layoutMeasurement.height + contentOffset.y >= contentSize.height) {
+    if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true) {
+      this.setState({
+        refreshing: true,
+      });
       this.updateNotifications(this.state.notifications[this.state.notifications.length - 1].id);
-      console.warn(this.state.notifications[this.state.notifications.length - 1].id);
     }
   }
 
@@ -57,7 +59,6 @@ export default class Notifications extends Component {
           }));
         }
         this.setState({ refreshing: false });
-        console.warn(response.data);
       })
       .catch((error) => {
       // handle error
