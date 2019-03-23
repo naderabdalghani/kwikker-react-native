@@ -13,21 +13,15 @@ export default class Notifications extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      notifications: []
-    });
     this.updateNotifications();
   }
 
   pullRefresh= () => {
     this.setState({
       refreshing: true,
-      notifications: []
     });
     this.updateNotifications();
-    this.setState({
-      refreshing: false
-    });
+    this.setState({ refreshing: false });
   }
 
   /** Get more Notifications when we get to the end of the scrollView.
@@ -37,8 +31,9 @@ export default class Notifications extends Component {
  * @param  {int} contentSize - size of all content
  */
   MoreNotifications=({ layoutMeasurement, contentOffset, contentSize }) => {
-    if (layoutMeasurement.height + contentOffset.y >= contentSize.height && this.state.notifications.length !== 0) {
+    if (layoutMeasurement.height + contentOffset.y >= contentSize.height) {
       this.updateNotifications(this.state.notifications[this.state.notifications.length - 1].id);
+      console.warn(this.state.notifications[this.state.notifications.length - 1].id);
     }
   }
 
@@ -54,8 +49,16 @@ export default class Notifications extends Component {
       }
     })
       .then((response) => {
-        this.setState((prevState) => ({ notifications: prevState.notifications.concat(response.data)
-        }));
+        if (id === null) {
+          this.setState({
+            notifications: response.data
+          });
+        } else {
+          this.setState((prevState) => ({ notifications: prevState.notifications.concat(response.data)
+          }));
+        }
+
+        console.warn(response.data);
       })
       .catch((error) => {
       // handle error
@@ -85,6 +88,7 @@ export default class Notifications extends Component {
       >
         {this.state.notifications.map((item, index) => (
           <Notification
+            key={item.id}
             profileUrl={item.profile_pic_URL}
             kweekText={item.kweek_text}
             type={item.type}
