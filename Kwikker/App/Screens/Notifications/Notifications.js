@@ -13,7 +13,7 @@ export default class Notifications extends Component {
   }
 
   componentDidMount() {
-    this.updateNotifications();
+    this.pullRefresh();
   }
 
   pullRefresh= () => {
@@ -21,7 +21,6 @@ export default class Notifications extends Component {
       refreshing: true,
     });
     this.updateNotifications();
-    this.setState({ refreshing: false });
   }
 
   /** Get more Notifications when we get to the end of the scrollView.
@@ -57,7 +56,7 @@ export default class Notifications extends Component {
           this.setState((prevState) => ({ notifications: prevState.notifications.concat(response.data)
           }));
         }
-
+        this.setState({ refreshing: false });
         console.warn(response.data);
       })
       .catch((error) => {
