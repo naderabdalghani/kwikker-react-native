@@ -38,20 +38,6 @@ export default styles = StyleSheet.create({
         fontWeight:'bold', 
         backgroundColor:'#1DA1F2',
         marginTop:10,
-
-
-  following: {
-    borderWidth: 2,
-    borderColor: 'lightgray',
-    width: 120,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontWeight: 'bold',
-    backgroundColor: 'blue',
-    marginTop: 10,
-
   },
 
 });
