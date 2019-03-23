@@ -42,7 +42,7 @@ export default class Notifications extends Component {
   }
 
   /** Update Notifications.
- * gets first 20 Notification with defult With default parameter (id=null)
+ * gets first 20 Notification With default parameter (id=null)
  * To retrieve more send the id of the last retrieved notification.
  * @param {int} id - The id of Notification .
  */
