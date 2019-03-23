@@ -22,12 +22,12 @@ export default class DrawerNavContainer extends Component {
             <Text style={Styles.userHandle}>@user_handle</Text>
           </TouchableOpacity>
           <View style={{ flex: 1, flexDirection: 'row' }}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowingsList')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowingsList')} style={{ flex: 1 }}>
               <Text style={Styles.followingCount}>500
                 <Text style={Styles.followingCountText}>{' '}Following</Text>
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowersList')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowersList')} style={{ flex: 1 }}>
               <Text style={Styles.followersCount}>1500
                 <Text style={Styles.followersCountText}>{' '}Follower</Text>
               </Text>
