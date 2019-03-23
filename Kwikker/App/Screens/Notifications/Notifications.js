@@ -16,6 +16,9 @@ export default class Notifications extends Component {
     this.pullRefresh();
   }
 
+  /** pull to refresh functionality.
+   * gets first 20 notifications
+  */
   pullRefresh= () => {
     this.setState({
       refreshing: true,
@@ -68,10 +71,6 @@ export default class Notifications extends Component {
       // always executed
       });
   }
-
-  /** pull to refresh functionality.
-   * gets first 20 notifications
-  */
 
 
   render() {
