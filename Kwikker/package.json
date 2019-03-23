@@ -5,11 +5,15 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "lint": "eslint *.js **/*.js"
+    "lint": "eslint *.js **/*.js",
+    "refreshDoc": "documentation build App/** -f html -o docs"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.2.1",
     "acorn": "^6.1.1",
+    "async-storage": "^0.1.0",
     "axios": "^0.18.0",
+    "documentation": "^9.3.1",
     "install": "^0.12.2",
     "jest-haste-map": "^24.5.0",
     "json-server": "^0.14.2",
@@ -30,21 +34,36 @@
     "react-navigation": "^3.5.1"
   },
   "devDependencies": {
-    "@babel/core": "7.3.4",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
     "@babel/runtime": "7.3.4",
     "babel-eslint": "^10.0.1",
-    "babel-jest": "24.5.0",
-    "eslint": "^5.15.2",
+    "babel-jest": "^24.5.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "enzyme-react-16-adapter-setup": "^0.1.0",
+    "eslint": "^5.15.3",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jest": "^22.4.1",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "jest": "24.5.0",
+    "jest-enzyme": "^7.0.2",
     "metro-react-native-babel-preset": "0.53.0",
     "react-test-renderer": "16.8.3"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "./node_modules/jest-enzyme/lib/index.js"
+    ],
+    "setupFiles": [
+      "enzyme-react-16-adapter-setup"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|react-navigation)/"
+    ]
   },
   "rnpm": {
     "assets": [
