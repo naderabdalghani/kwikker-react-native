@@ -4,6 +4,10 @@ import Settings from '../Screens/Settings/Settings';
 
 const SettingsStackNavigator = createStackNavigator({
 
-  Settings: { screen: Settings }
+    Settings: { screen: Settings,
+        navigationOptions: {
+            title: 'About Kwikker',
+        }  
+    }
 });
 export default SettingsStackNavigator;

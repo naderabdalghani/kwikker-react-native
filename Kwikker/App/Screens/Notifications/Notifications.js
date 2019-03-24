@@ -13,21 +13,17 @@ export default class Notifications extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      notifications: []
-    });
-    this.updateNotifications();
+    this.pullRefresh();
   }
 
+  /** pull to refresh functionality.
+   * gets first 20 notifications
+  */
   pullRefresh= () => {
     this.setState({
       refreshing: true,
-      notifications: []
     });
     this.updateNotifications();
-    this.setState({
-      refreshing: false
-    });
   }
 
   /** Get more Notifications when we get to the end of the scrollView.
@@ -37,13 +33,16 @@ export default class Notifications extends Component {
  * @param  {int} contentSize - size of all content
  */
   MoreNotifications=({ layoutMeasurement, contentOffset, contentSize }) => {
-    if (layoutMeasurement.height + contentOffset.y >= contentSize.height && this.state.notifications.length !== 0) {
+    if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true) {
+      this.setState({
+        refreshing: true,
+      });
       this.updateNotifications(this.state.notifications[this.state.notifications.length - 1].id);
     }
   }
 
   /** Update Notifications.
- * gets first 20 Notification with defult With default parameter (id=null)
+ * gets first 20 Notification With default parameter (id=null)
  * To retrieve more send the id of the last retrieved notification.
  * @param {int} id - The id of Notification .
  */
@@ -54,8 +53,15 @@ export default class Notifications extends Component {
       }
     })
       .then((response) => {
-        this.setState((prevState) => ({ notifications: prevState.notifications.concat(response.data)
-        }));
+        if (id === null) {
+          this.setState({
+            notifications: response.data
+          });
+        } else {
+          this.setState((prevState) => ({ notifications: prevState.notifications.concat(response.data)
+          }));
+        }
+        this.setState({ refreshing: false });
       })
       .catch((error) => {
       // handle error
@@ -65,10 +71,6 @@ export default class Notifications extends Component {
       // always executed
       });
   }
-
-  /** pull to refresh functionality.
-   * gets first 20 notifications
-  */
 
 
   render() {
@@ -85,6 +87,7 @@ export default class Notifications extends Component {
       >
         {this.state.notifications.map((item, index) => (
           <Notification
+            key={item.id}
             profileUrl={item.profile_pic_URL}
             kweekText={item.kweek_text}
             type={item.type}
