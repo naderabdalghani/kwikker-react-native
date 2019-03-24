@@ -1,0 +1,894 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>Kwikker 0.0.1 | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' rel='stylesheet' />
+  <link href='assets/style.css' rel='stylesheet' />
+  <link href='assets/github.css' rel='stylesheet' />
+  <link href='assets/split.css' rel='stylesheet' />
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'>Kwikker</h3>
+          <div class='mb1'><code>0.0.1</code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#handlefocus'
+                  class="">
+                  handleFocus
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#handleblur'
+                  class="">
+                  handleBlur
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#settype'
+                  class="">
+                  setType
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#onloginfail'
+                  class="">
+                  onLoginFail
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#onloginsuccess'
+                  class="">
+                  onLoginSuccess
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#signup'
+                  class="">
+                  signUp
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#loginbuttonpress'
+                  class="">
+                  logInButtonPress
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#forgotpassword'
+                  class="">
+                  forgotPassword
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#pullrefresh'
+                  class="">
+                  pullRefresh
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#morenotifications'
+                  class="">
+                  MoreNotifications
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#updatenotifications'
+                  class="">
+                  updateNotifications
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#login'
+                  class="">
+                  logIn
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#signup'
+                  class="">
+                  signUp
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='https://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='handlefocus'>
+      handleFocus
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets isFocused to true should the text input field is selected</p>
+
+    <div class='pre p1 fill-light mt0'>handleFocus</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='handleblur'>
+      handleBlur
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets isFocused to false should the text input field is unselected</p>
+
+    <div class='pre p1 fill-light mt0'>handleBlur</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='settype'>
+      setType
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Set type of notification when it's loaded.</p>
+
+    <div class='pre p1 fill-light mt0'>setType()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='onloginfail'>
+      onLoginFail
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Shows a toast message "Authentication Failed" and turns off the loading screen</p>
+
+    <div class='pre p1 fill-light mt0'>onLoginFail()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='onloginsuccess'>
+      onLoginSuccess
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Specifies header config defaults that will be applied to every request and redirects the user to the Home screen</p>
+
+    <div class='pre p1 fill-light mt0'>onLoginSuccess()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='signup'>
+      signUp
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Redirects the user to the signing up form</p>
+
+    <div class='pre p1 fill-light mt0'>signUp()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='loginbuttonpress'>
+      logInButtonPress
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Processes the user's credentials and either calls <a href="#onloginsuccess">onLoginSuccess</a> or calls <a href="#onloginfail">onLoginFail</a></p>
+
+    <div class='pre p1 fill-light mt0'>logInButtonPress()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='forgotpassword'>
+      forgotPassword
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Redirects the user to the 'forgot password' form</p>
+
+    <div class='pre p1 fill-light mt0'>forgotPassword()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='pullrefresh'>
+      pullRefresh
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>pull to refresh functionality.
+gets first 20 notifications</p>
+
+    <div class='pre p1 fill-light mt0'>pullRefresh</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='morenotifications'>
+      MoreNotifications
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Get more Notifications when we get to the end of the scrollView.
+Check we reached end of content</p>
+
+    <div class='pre p1 fill-light mt0'>MoreNotifications</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>$0</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>$0.layoutMeasurement</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>$0.contentOffset</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>$0.contentSize</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layoutMeasurement</span> <code class='quiet'>(int)</code>
+	    size of the layout .
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contentOffset</span> <code class='quiet'>(int)</code>
+	    position on screen
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contentSize</span> <code class='quiet'>(int)</code>
+	    size of all content
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updatenotifications'>
+      updateNotifications
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Update Notifications.
+gets first 20 Notification With default parameter (id=null)
+To retrieve more send the id of the last retrieved notification.</p>
+
+    <div class='pre p1 fill-light mt0'>updateNotifications(id: int)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(int
+            = <code>null</code>)</code>
+	    The id of Notification .
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='login'>
+      logIn
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Redirects the user to the login form</p>
+
+    <div class='pre p1 fill-light mt0'>logIn()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='signup'>
+      signUp
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Redirects the user to the signing up form</p>
+
+    <div class='pre p1 fill-light mt0'>signUp()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>
