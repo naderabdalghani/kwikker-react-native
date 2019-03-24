@@ -9,7 +9,7 @@ const DrawerNavigator = createDrawerNavigator({
 
   Home: { screen: TabNavigator },
   Profile: { screen: ProfileStackNavigator },
-  Settings: { screen: SettingsStackNavigator }
+  Settings: { screen: SettingsStackNavigator },
 },
 {
   contentComponent: ({ navigation }) => <DrawerNavContainer navigation={navigation} />
