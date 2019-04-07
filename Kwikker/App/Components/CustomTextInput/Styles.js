@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   containerStyle: {
-    paddingTop: 10,
     flexDirection: 'column',
   },
   inputStyle: {
