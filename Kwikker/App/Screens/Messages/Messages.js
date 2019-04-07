@@ -33,7 +33,7 @@ export default class Messages extends Component {
  * @param  {int} contentOffset - position on screen
  * @param  {int} contentSize - size of all content
  */
-MoreConversations=({ layoutMeasurement, contentOffset, contentSize }) => {
+moreConversations=({ layoutMeasurement, contentOffset, contentSize }) => {
   if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true) {
     this.setState({
       refreshing: true,
@@ -73,6 +73,7 @@ updateConversations(id = null) {
     });
 }
 
+
 render() {
   return (
     <View style={{ flex: 1 }}>
@@ -84,10 +85,17 @@ render() {
           />
 )}
         style={{ flex: 1 }}
-        onScroll={({ nativeEvent }) => { this.MoreConversations(nativeEvent); }}
+        onScroll={({ nativeEvent }) => { this.moreConversations(nativeEvent); }}
       >
         {this.state.conversations.map((item, index) => (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            this.props.navigation.navigate('ConversationScreen', {
+              title: item.user.screen_name,
+              profileUrl: item.user.profile_image_url,
+              userName: item.user.username,
+            });
+          }}
+          >
             <Conversation
               key={index}
               profileUrl={item.user.profile_image_url}
