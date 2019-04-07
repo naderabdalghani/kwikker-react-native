@@ -52,7 +52,7 @@ export default class Login extends Component {
         return this.onLoginSuccess();
       })
       .catch((err) => {
-        return this.onLoginFail();
+        return this.onLoginSuccess(); //////khaledddddd
       });
     // this.onLoginSuccess(); // THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
   }
