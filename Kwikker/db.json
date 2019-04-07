@@ -30,6 +30,82 @@
   "profile": {
     "name": "test5"
   },
+  "conversations":[
+    {
+      "user": {
+        "username": "Khaled1998",
+        "screen_name": "Khaled",
+        "profile_image_url": "https://secure.i.telegraph.co.uk/multimedia/archive/03013/selfie02_3013424b.jpg",
+        "following": true,
+        "follows_you": true,
+        "blocked": true,
+        "muted": true
+      },
+      "last_message": {
+        "created_at": "13m",
+        "text": "hi",
+        "media_url": "string"
+      }
+    }
+  ],
+  "direct_message":
+  [
+    {
+      "created_at": "2019-03-21T15:14:16.718Z",
+      "text": " string1   string1   string1   string1   string1   string1   string1   string1   string1   string1   string1   string1   string1  ",
+      "media_url": "string",
+      "type":1
+    },
+    {
+      "created_at": "2019-03-21T15:14:16.718Z",
+      "text": "string2",
+      "media_url": "string"
+      ,
+      "type":0
+    },
+    {
+      "created_at": "2019-03-21T15:14:16.718Z",
+      "text": "string3",
+      "media_url": "string"
+      ,
+      "type":1
+    },
+    {
+      "created_at": "2019-03-21T15:14:16.718Z",
+      "text": "string4",
+      "media_url": "string"
+      ,
+      "type":0
+    },
+    {
+      "created_at": "2019-03-21T15:14:16.718Z",
+      "text": "string4",
+      "media_url": "string"
+      ,
+      "type":0
+    },
+    {
+      "created_at": "2019-03-21T15:14:16.718Z",
+      "text": "string4",
+      "media_url": "string"
+      ,
+      "type":0
+    },
+    {
+      "created_at": "2019-03-21T15:14:16.718Z",
+      "text": "string4",
+      "media_url": "string"
+      ,
+      "type":0
+    },
+    {
+      "created_at": "2019-03-21T15:14:16.718Z",
+      "text": "string4",
+      "media_url": "string"
+      ,
+      "type":0
+    }
+  ],
   "notifications": [
     {
       "id": 0,

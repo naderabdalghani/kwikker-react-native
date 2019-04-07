@@ -32,7 +32,7 @@ export default class Notifications extends Component {
  * @param  {int} contentOffset - position on screen
  * @param  {int} contentSize - size of all content
  */
-  MoreNotifications=({ layoutMeasurement, contentOffset, contentSize }) => {
+  moreNotifications=({ layoutMeasurement, contentOffset, contentSize }) => {
     if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true) {
       this.setState({
         refreshing: true,
@@ -83,7 +83,7 @@ export default class Notifications extends Component {
           />
 )}
         style={{ flex: 1 }}
-        onScroll={({ nativeEvent }) => { this.MoreNotifications(nativeEvent); }}
+        onScroll={({ nativeEvent }) => { this.moreNotifications(nativeEvent); }}
       >
         {this.state.notifications.map((item, index) => (
           <Notification
