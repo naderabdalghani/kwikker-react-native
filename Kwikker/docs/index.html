@@ -55,6 +55,46 @@
               
                 
                 <li><a
+                  href='#pullrefresh'
+                  class="">
+                  pullRefresh
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#moremessages'
+                  class="">
+                  moreMessages
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#messagetype'
+                  class="">
+                  messageType
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#updatemessages'
+                  class="">
+                  updateMessages
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#onloginfail'
                   class="">
                   onLoginFail
@@ -115,9 +155,39 @@
               
                 
                 <li><a
+                  href='#moreconversations'
+                  class="">
+                  moreConversations
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#updateconversations'
+                  class="">
+                  updateConversations
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#pullrefresh'
+                  class="">
+                  pullRefresh
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#morenotifications'
                   class="">
-                  MoreNotifications
+                  moreNotifications
                   
                 </a>
                 
@@ -285,6 +355,313 @@
   
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='pullrefresh'>
+      pullRefresh
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>pull to refresh functionality.
+gets first 20 messages</p>
+
+    <div class='pre p1 fill-light mt0'>pullRefresh</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='moremessages'>
+      moreMessages
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Get more Messages when we get to the end of the scrollView.
+Check we reached end of content</p>
+
+    <div class='pre p1 fill-light mt0'>moreMessages</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>$0</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>$0.layoutMeasurement</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>$0.contentOffset</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>$0.contentSize</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layoutMeasurement</span> <code class='quiet'>(int)</code>
+	    size of the layout .
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contentOffset</span> <code class='quiet'>(int)</code>
+	    position on screen
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contentSize</span> <code class='quiet'>(int)</code>
+	    size of all content
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='messagetype'>
+      messageType
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>styles messages.
+if message from me text will be on the right.
+if message from the other text will be on the left.</p>
+
+    <div class='pre p1 fill-light mt0'>messageType</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>type</span> <code class='quiet'>(int)</code>
+	    The id of Message .
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updatemessages'>
+      updateMessages
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Update Messages.
+gets first 20 Message With default parameter (id=null)
+To retrieve more send the id of the last retrieved message.</p>
+
+    <div class='pre p1 fill-light mt0'>updateMessages(id: int)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(int
+            = <code>null</code>)</code>
+	    The id of Message .
+
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -561,6 +938,249 @@
   
 
   <p>pull to refresh functionality.
+gets first 20 conversations</p>
+
+    <div class='pre p1 fill-light mt0'>pullRefresh</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='moreconversations'>
+      moreConversations
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Get more Conversations when we get to the end of the scrollView.
+Check we reached end of content</p>
+
+    <div class='pre p1 fill-light mt0'>moreConversations</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>$0</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>$0.layoutMeasurement</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>$0.contentOffset</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>$0.contentSize</span> <code class='quiet'>any</code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>layoutMeasurement</span> <code class='quiet'>(int)</code>
+	    size of the layout .
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contentOffset</span> <code class='quiet'>(int)</code>
+	    position on screen
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contentSize</span> <code class='quiet'>(int)</code>
+	    size of all content
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updateconversations'>
+      updateConversations
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Update Conversations.
+gets first 20 Conversation With default parameter (id=null)
+To retrieve more send the id of the last retrieved conversation.</p>
+
+    <div class='pre p1 fill-light mt0'>updateConversations(id: int)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(int
+            = <code>null</code>)</code>
+	    The id of Conversation .
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='pullrefresh'>
+      pullRefresh
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>pull to refresh functionality.
 gets first 20 notifications</p>
 
     <div class='pre p1 fill-light mt0'>pullRefresh</div>
@@ -602,7 +1222,7 @@ gets first 20 notifications</p>
   <div class='clearfix'>
     
     <h3 class='fl m0' id='morenotifications'>
-      MoreNotifications
+      moreNotifications
     </h3>
     
     
@@ -612,7 +1232,7 @@ gets first 20 notifications</p>
   <p>Get more Notifications when we get to the end of the scrollView.
 Check we reached end of content</p>
 
-    <div class='pre p1 fill-light mt0'>MoreNotifications</div>
+    <div class='pre p1 fill-light mt0'>moreNotifications</div>
   
   
 
