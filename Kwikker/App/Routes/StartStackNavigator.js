@@ -27,7 +27,10 @@ const StartStackNavigator = createStackNavigator({
     },
   },
   ForgotPassword: {
-    screen: ForgotPassword
+    screen: ForgotPassword,
+    navigationOptions: {
+      header: null,
+    },
   },
 });
 

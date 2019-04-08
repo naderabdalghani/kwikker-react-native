@@ -10,19 +10,10 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   backButton: {
-    height: 25,
-    width: 25,
+    height: 26,
+    width: 26,
     marginTop: 10,
     marginLeft: 12,
-  },
-  signUpButton: {
-    fontSize: 17,
-    color: '#1DA1F2',
-    textAlign: 'center',
-    alignSelf: 'center',
-    marginTop: 10,
-    fontWeight: 'bold',
-    flex: 1,
   },
   createAccountText: {
     fontSize: 32,
@@ -39,7 +30,7 @@ export default StyleSheet.create({
   backButtonContainer: {
     flex: 1,
     alignItems: 'flex-start',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   header: {
     flexDirection: 'row',
@@ -61,4 +52,8 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
     flex: 1,
   },
+  textInputsContainer: {
+    height: '50%',
+    justifyContent: 'center',
+  }
 });

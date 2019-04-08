@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, Image, TouchableNativeFeedback, ToastAndroid, KeyboardAvoidingView } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import { Text, View, Image, TouchableNativeFeedback, KeyboardAvoidingView } from 'react-native';
 import axios from 'axios';
 import styles from './Styles';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
@@ -29,7 +28,7 @@ export default class Login extends Component {
   }
 
   render() {
-    const { parentView, header, headerImage, backButtonContainer, backButton, dummyElement, imageContainer, createAccountText, nextButtonStyle, nextButtonContainer, nextButtonBorder } = styles;
+    const { parentView, header, headerImage, backButtonContainer, backButton, dummyElement, imageContainer, createAccountText, nextButtonStyle, nextButtonContainer, nextButtonBorder, textInputsContainer } = styles;
     const buttonDisabled = (this.state.username === '') || (this.state.email === '') || (this.state.password === '');
     return (
       <View style={parentView}>
@@ -56,7 +55,7 @@ export default class Login extends Component {
           <Text style={createAccountText}>Create your account</Text>
         </View>
 
-        <View>
+        <View style={textInputsContainer}>
           <CustomTextInput
             placeholder="Username"
             secureTextEntry={false}
