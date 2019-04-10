@@ -7599,6 +7599,13 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-camera@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-2.2.2.tgz#2636e3ec681aef5a786ae7856820ee64e59fa060"
+  integrity sha512-sdokHPlHsPNL0VoCfpuHwnRl6qISE+olZkCZe0zTgkEaTEniD64p37x3+acaJtNwAzxAznAISUkvsyBprBUETQ==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-gesture-handler@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.1.0.tgz#2a7d545ad2e0ca23adce22b2af441ad360ecccee"
