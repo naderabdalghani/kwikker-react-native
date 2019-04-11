@@ -4,7 +4,10 @@ import PrivacyAndSafety from '../Screens/PrivacyAndSafety/PrivacyAndSafety';
 
 const PrivacyAndSafetyNavigator = createStackNavigator({
 
-  PrivacyAndSafety: { screen: PrivacyAndSafety }
+  PrivacyAndSafety: { screen: PrivacyAndSafety,
+    navigationOptions: {
+      header: null,
+    }, }
 });
 PrivacyAndSafetyNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
