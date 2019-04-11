@@ -6,6 +6,7 @@ import Home from '../Screens/Home/Home';
 import FollowersList from '../Screens/FollowerList/FollowersList';
 import FollowingsList from '../Screens/FollowingList/FollowingList';
 import CreateTweet from '../Screens/CreateTweet/CreateTweet';
+import Camera from '../Screens/Camera/Camera'
 
 const HomeStackNavigator = createStackNavigator({
 
@@ -18,6 +19,7 @@ const HomeStackNavigator = createStackNavigator({
   FollowersList: { screen: FollowersList },
   FollowingsList: { screen: FollowingsList },
   CreateTweet: { screen: CreateTweet },
+  Camera: { screen: Camera }
 });
 HomeStackNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;

@@ -31,20 +31,24 @@ constructor(props) {
 
 render() {
   return (
-    <View style={{ flex: 1, flexDirection: 'row' }}>
+    <View style={{ flex: 1 }}>
+      <View style={{ flex: 10, flexDirection: 'row' }}>
+        <View style={{ flex: 1 }}>
+          <Image source={require('../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, alignSelf: 'flex-start', marginTop: '15%', marginLeft: '15%' }} />
+        </View>
+        <View style={{ flex: 6 }}>
+          <TextInput
+            onChangeText={(text) => this.setState({ text })}
+            value={this.state.text}
+            placeholder="What's happening?"
+            placeholderTextColor="#657786"
+            style={{ fontSize: 18 }}
+          />
+        </View>
+      </View>
       <View style={{ flex: 1 }}>
-        <Image source={require('../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, alignSelf: 'flex-start', marginTop: '15%', marginLeft: '15%' }} />
+        <CustomButton onPress={() => this.props.navigation.navigate('Camera')}>Camera</CustomButton>
       </View>
-      <View style={{ flex: 6 }}>
-        <TextInput
-          onChangeText={(text) => this.setState({ text })}
-          value={this.state.text}
-          placeholder="What's happening?"
-          placeholderTextColor="#657786"
-          style={{ fontSize: 18 }}
-        />
-      </View>
-
     </View>
   );
 }
