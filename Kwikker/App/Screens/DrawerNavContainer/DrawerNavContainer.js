@@ -10,6 +10,9 @@ export default class DrawerNavContainer extends Component {
     super(props);
   }
 
+  /**
+   *
+   */
   logoutButtonPressed() {
     AsyncStorage.removeItem('@app:session');
     axios.defaults.headers.common['TOKEN'] = '';

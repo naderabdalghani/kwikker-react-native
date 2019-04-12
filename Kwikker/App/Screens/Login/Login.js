@@ -39,22 +39,22 @@ export default class Login extends Component {
    * Processes the user's credentials and either calls {@link #onloginsuccess|onLoginSuccess} or calls {@link #onloginfail|onLoginFail}
    */
   logInButtonPress() {
-    this.setState({
-      loading: true,
-      error: ''
-    });
-    axios.post('account/login', {
-      username: this.state.username,
-      password: this.state.password
-    })
-      .then((res) => {
-        AsyncStorage.setItem('@app:session', res.data.token);
-        return this.onLoginSuccess();
-      })
-      .catch((err) => {
-        return this.onLoginSuccess(); //////khaledddddd
-      });
-    // this.onLoginSuccess(); // THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
+    // this.setState({
+    //   loading: true,
+    //   error: ''
+    // });
+    // axios.post('account/login', {
+    //   username: this.state.username,
+    //   password: this.state.password
+    // })
+    //   .then((res) => {
+    //     AsyncStorage.setItem('@app:session', res.data.token);
+    //     return this.onLoginSuccess();
+    //   })
+    //   .catch((err) => {
+    //     return this.onLoginFail();
+    //   });
+    this.onLoginSuccess(); // THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
   }
 
   /**
