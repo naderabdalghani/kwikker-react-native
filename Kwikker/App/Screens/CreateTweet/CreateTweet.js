@@ -6,7 +6,6 @@ import Styles from './Styles';
 
 
 export default class CreateTweet extends Component {
-state = { text: '', count: 280 };
 
 static navigationOptions = ({ navigation }) => {
   const { params = {} } = navigation.state;
@@ -19,6 +18,8 @@ static navigationOptions = ({ navigation }) => {
   <Feather name="x" size={24} color="rgb(29, 161, 242)" />
   };
 };
+
+state = { text: '', count: 280 };
 
 componentWillMount() {
   this.props.navigation.setParams({ buttonDisabled: (this.state.count <= 0) || (this.state.count === 280) });
