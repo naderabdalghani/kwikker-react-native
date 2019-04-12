@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Image, KeyboardAvoidingView } from 'react-native';
+import axios from 'axios';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -12,6 +13,15 @@ export default class Username extends React.Component {
 
 
   doneButtonPress() {
+    axios.put('user/username', {
+      username: this.state.Name
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
