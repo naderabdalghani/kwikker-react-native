@@ -66,7 +66,7 @@ export default class Login extends Component {
 
   render() {
     const { parentView, header, dummyElement, imageContainer, headerImage, signUpButton, logInText, logInButtonStyle, loginButtonContainer, loginButtonBorder, forgotPasswordStyle } = styles;
-    const buttonDisabled = (this.state.emailOrUsername === '') || (this.state.password === '');
+    const buttonDisabled = (this.state.username === '') || (this.state.password === '');
     return (
       <View style={parentView}>
         <Loader loading={this.state.loading} />
@@ -91,6 +91,7 @@ export default class Login extends Component {
             value={this.state.username}
             onChangeText={(username) => this.setState({ username })}
             autoFocus
+            autoCapitalize="none"
           />
           <CustomTextInput
             placeholder=""

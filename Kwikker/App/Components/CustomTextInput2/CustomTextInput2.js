@@ -2,47 +2,42 @@ import React from 'react';
 import { TextInput, View, Text } from 'react-native';
 import styles from './Styles';
 
-const BLUE = '#1DA1F2';
-const LIGHT_GRAY = '#AAB8C2';
+const BLUE = '#89CCFD';
+const GRAY = '#AAB8C2';
+let customBorderColor = GRAY;
 
-class CustomTextInput extends React.Component {
+class CustomTextInput2 extends React.Component {
   constructor(props) {
     super(props);
   }
 
   state = { isFocused: false };
 
-  /**
-   * Sets isFocused to true should the text input field is selected
-   */
   handleFocus = () => {
     this.setState({ isFocused: true });
   };
 
-  /**
-   * Sets isFocused to false should the text input field is unselected
-   */
   handleBlur = () => {
     this.setState({ isFocused: false });
   };
 
   render() {
     const { isFocused } = this.state;
+    if (isFocused) {
+      customBorderColor = BLUE;
+    } else {
+      customBorderColor = GRAY;
+    }
     const { inputStyle, labelStyle, containerStyle } = styles;
     const { onFocus, onBlur, label, secureTextEntry, placeholder, value, onChangeText, autoFocus, autoCapitalize, marginSize, marginTopSize = 10 } = this.props;
     return (
-      <View style={{ ...containerStyle, marginLeft: marginSize, marginRight: marginSize, marginTop: marginTopSize }}>
-        <Text style={labelStyle}>{label}</Text>
+      <View style={{ ...containerStyle, marginLeft: marginSize, marginRight: marginSize, marginTop: marginTopSize, borderColor: customBorderColor }}>
         <TextInput
           secureTextEntry={secureTextEntry}
-          placeholder={placeholder}
           autoCorrect={false}
-          style={inputStyle}
+          style={{ ...inputStyle }}
           value={value}
           onChangeText={onChangeText}
-          underlineColorAndroid={
-            isFocused ? BLUE : LIGHT_GRAY
-          }
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           autoFocus={autoFocus}
@@ -55,4 +50,4 @@ class CustomTextInput extends React.Component {
   }
 }
 
-export default CustomTextInput;
+export default CustomTextInput2;

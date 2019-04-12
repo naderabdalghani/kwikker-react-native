@@ -3,17 +3,14 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   containerStyle: {
     flexDirection: 'column',
+    borderWidth: 2,
+    borderRadius: 50,
   },
   inputStyle: {
-    marginRight: 5,
-    marginLeft: 5,
-    fontSize: 20,
+    marginRight: 10,
+    marginLeft: 10,
+    fontSize: 15,
     lineHeight: 23,
-    height: 50,
-  },
-  labelStyle: {
-    fontSize: 16,
-    paddingLeft: 10,
-    color: '#657786',
+    height: 40,
   },
 });
