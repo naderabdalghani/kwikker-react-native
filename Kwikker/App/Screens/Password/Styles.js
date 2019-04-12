@@ -1,6 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#E1E8ED',
+  },
+  upperPart: {
+    backgroundColor: '#fff',
+  },
   labelStyle: {
     fontSize: 16,
     paddingLeft: 10,
@@ -27,4 +34,30 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
     flex: 1,
   },
+  UpdatePasswordText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
+    paddingVertical: 9,
+  },
+  UpdatePasswordContainer: {
+    flex: 1,
+    alignItems: 'center',
+    width: '96%',
+    backgroundColor: '#1DA1F2',
+    marginTop: 5,
+    borderRadius: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
+  },
+  aligneCenter: {
+    alignItems: 'center',
+  }
 });
