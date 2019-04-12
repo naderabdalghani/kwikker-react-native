@@ -39,21 +39,33 @@ export default StyleSheet.create({
   dummyElement: {
     flex: 1,
   },
-  nextButtonStyle: {
+  submitButtonStyle: {
     alignItems: 'flex-end',
     marginTop: 12,
     marginBottom: 12,
   },
-  nextButtonBorder: {
+  submitButtonBorder: {
     borderTopWidth: 0.75,
     borderTopColor: '#AAB8C2',
   },
-  nextButtonContainer: {
+  submitButtonContainer: {
     justifyContent: 'flex-end',
     flex: 1,
   },
   textInputsContainer: {
     height: '50%',
     justifyContent: 'center',
-  }
+  },
+  errorMessage: {
+    fontSize: 15,
+    color: 'red',
+    marginTop: 0,
+    marginLeft: 40,
+  },
+  successMessage: {
+    fontSize: 15,
+    color: 'green',
+    marginTop: 0,
+    marginLeft: 40,
+  },
 });

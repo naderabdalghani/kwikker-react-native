@@ -6,29 +6,93 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Loader from '../../Components/Loader/Loader';
 
+const { parentView, header, headerImage, backButtonContainer, backButton, dummyElement, imageContainer, createAccountText, submitButtonStyle, submitButtonContainer, submitButtonBorder, textInputsContainer, errorMessage, successMessage } = styles;
+let messageStyle = successMessage;
+const messages = {
+  null: '',
+  success: 'Registeration successfull, email confirmation pending.',
+  fail: 'An error occurred, please try again.',
+  usernameAlreadyExists: 'Username already exists',
+  emailAlreadyExists: 'Email already exists',
+  bothExists: 'Both email and username exists'
+};
+
 export default class Login extends Component {
-  state = { username: '', password: '', email: '', loading: false, error: '' };
+  state = { username: '', password: '', email: '', loading: false, message: '' }
 
   /**
    *
    */
-  onRegisterationFail() {
+  onRegisterationFail(error) {
+    messageStyle = errorMessage;
+    this.setState({
+      loading: false,
+    });
+    if (error.response.status === 403) {
+      if (error.respone.data.username_already_exists && error.respone.data.email_already_exists) {
+        this.setState({
+          message: messages.bothExists
+        });
+      } else if (error.respone.data.username_already_exists) {
+        this.setState({
+          message: messages.usernameAlreadyExists
+        });
+      } else {
+        this.setState({
+          message: messages.emailAlreadyExists
+        });
+      }
+    } else {
+      this.setState({
+        message: messages.fail
+      });
+    }
   }
 
   /**
    *
    */
   onRegisterationSuccess() {
+    messageStyle = successMessage;
+    this.setState({
+      loading: false,
+      message: messages.success
+    });
   }
 
   /**
    *
    */
-  nextButtonPress() {
+  submitButtonPress() {
+    this.setState({
+      loading: true,
+      message: messages.null
+    });
+    axios.post('/account/registration', {
+      username: this.state.username,
+      password: this.state.password,
+      email: this.state.email
+    })
+      .then((res) => {
+        return this.onRegisterationSuccess();
+      })
+      .catch((err) => {
+        return this.onRegisterationFail(err);
+      });
+  }
+
+  /**
+   *
+   */
+  renderRegisterationMessage() {
+    return (
+      <View>
+        <Text style={messageStyle}>{this.state.message}</Text>
+      </View>
+    );
   }
 
   render() {
-    const { parentView, header, headerImage, backButtonContainer, backButton, dummyElement, imageContainer, createAccountText, nextButtonStyle, nextButtonContainer, nextButtonBorder, textInputsContainer } = styles;
     const buttonDisabled = (this.state.username === '') || (this.state.email === '') || (this.state.password === '');
     return (
       <View style={parentView}>
@@ -51,6 +115,7 @@ export default class Login extends Component {
           </View>
           <View style={dummyElement} />
         </View>
+
         <View>
           <Text style={createAccountText}>Create your account</Text>
         </View>
@@ -85,11 +150,12 @@ export default class Login extends Component {
             marginSize={30}
             marginTopSize={0}
           />
+          {this.renderRegisterationMessage()}
         </View>
-        <KeyboardAvoidingView style={nextButtonContainer} keyboardVerticalOffset={0}>
-          <KeyboardAvoidingView style={nextButtonBorder} behavior="padding">
-            <View style={nextButtonStyle}>
-              <CustomButton onPress={this.nextButtonPress.bind(this)} marginSize={15} customFontSize={17} disabled={buttonDisabled}>Next</CustomButton>
+        <KeyboardAvoidingView style={submitButtonContainer} keyboardVerticalOffset={0}>
+          <KeyboardAvoidingView style={submitButtonBorder} behavior="padding">
+            <View style={submitButtonStyle}>
+              <CustomButton onPress={this.submitButtonPress.bind(this)} marginSize={15} customFontSize={17} disabled={buttonDisabled}>Submit</CustomButton>
             </View>
           </KeyboardAvoidingView>
         </KeyboardAvoidingView>

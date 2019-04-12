@@ -8,5 +8,12 @@ export default {
     response: {
       data: {}
     }
-  }))
+  })),
+  defaults: {
+    headers: {
+      common: {
+        TOKEN: ''
+      }
+    }
+  }
 };
