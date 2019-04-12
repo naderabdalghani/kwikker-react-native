@@ -97,7 +97,7 @@ render() {
           }}
           >
             <Conversation
-              key={index}
+              key={item.user.id}
               profileUrl={item.user.profile_image_url}
               messageText={item.last_message.text}
               userName={item.user.username}
