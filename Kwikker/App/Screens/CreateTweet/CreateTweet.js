@@ -6,12 +6,6 @@ import Styles from './Styles';
 
 
 export default class CreateTweet extends Component {
-/*
-  static navigationOptions = {
-  headerRight:
-  <Button title="tweet" style={{ marginRight: '5%', borderRadius: 20 }} />
-};
-*/
 static navigationOptions = ({ navigation }) => {
   return {
     headerRight:
@@ -23,13 +17,10 @@ static navigationOptions = ({ navigation }) => {
   };
 };
 
-constructor(props) {
-  super(props);
-  this.state = { text: '' };
-}
-
+state = { text: '', count: 280 };
 
 render() {
+  const maxLength = 280;
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 10, flexDirection: 'row' }}>
@@ -38,16 +29,18 @@ render() {
         </View>
         <View style={{ flex: 6 }}>
           <TextInput
-            onChangeText={(text) => this.setState({ text })}
+            onChangeText={(t) => this.setState({ text: t, count: maxLength - t.length })}
             value={this.state.text}
             placeholder="What's happening?"
             placeholderTextColor="#657786"
             style={{ fontSize: 18 }}
+            multiline
           />
         </View>
       </View>
-      <View style={{ flex: 1 }}>
-        <CustomButton onPress={() => this.props.navigation.navigate('Camera')}>Camera</CustomButton>
+      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 0.75, borderTopColor: '#AAB8C2' }}>
+        <Feather name="camera" size={36} color="rgb(29, 161, 242)" onPress={() => this.props.navigation.navigate('Camera')} style={{ marginLeft: '3%', marginTop: '1%' }}/>
+        <Text>{this.state.count}</Text>
       </View>
     </View>
   );
