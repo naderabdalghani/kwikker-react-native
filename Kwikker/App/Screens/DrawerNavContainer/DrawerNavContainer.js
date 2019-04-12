@@ -11,7 +11,7 @@ export default class DrawerNavContainer extends Component {
   }
 
   /**
-   *
+   * Completely deletes the access token and redirects the user to the start screen
    */
   logoutButtonPressed() {
     AsyncStorage.removeItem('@app:session');
