@@ -3,6 +3,7 @@ package com.kwikker;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import fr.bamlab.rncameraroll.CameraRollPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new CameraRollPackage(),
             new RNCameraPackage(),
             new AsyncStoragePackage(),
             new VectorIconsPackage(),
