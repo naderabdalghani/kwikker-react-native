@@ -45,6 +45,18 @@ export default StyleSheet.create({
     marginTop: 20,
     marginLeft: 15,
   },
+  errorMessage: {
+    fontSize: 20,
+    color: 'red',
+    marginTop: 20,
+    marginLeft: 15,
+  },
+  successMessage: {
+    fontSize: 20,
+    color: 'green',
+    marginTop: 20,
+    marginLeft: 15,
+  },
   searchButtonStyle: {
     alignItems: 'flex-start',
     marginTop: 30,

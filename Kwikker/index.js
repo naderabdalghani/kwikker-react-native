@@ -8,5 +8,6 @@ import { name as appName } from './app.json';
 
 // axios.defaults.baseURL = 'http://localhost:3000'; // fake json-server
 axios.defaults.baseURL = 'http://8978be66.ngrok.io/'; // actual server
+axios.defaults.timeout = 5000;
 
 AppRegistry.registerComponent(appName, () => App);

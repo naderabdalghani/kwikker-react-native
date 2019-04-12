@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   containerStyle: {
     flexDirection: 'column',
+    borderWidth: 2,
     borderRadius: 50,
   },
   inputStyle: {
