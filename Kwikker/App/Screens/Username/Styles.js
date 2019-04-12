@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  container: {
+    flex: 1
+  },
   labelStyle: {
     fontSize: 16,
     paddingLeft: 10,
@@ -16,8 +19,8 @@ export default StyleSheet.create({
   },
   ButtonStyle: {
     alignItems: 'flex-end',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 12,
+    marginBottom: 12,
   },
   ButtonBorder: {
     borderTopWidth: 0.75,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, KeyboardAvoidingView } from 'react-native';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -10,10 +10,14 @@ export default class Email extends React.Component {
     this.state = { Name: '@Email' };
   }
 
+
+  nextButtonPress() {
+  }
+
   render() {
     return (
 
-      <View>
+      <View style={styles.container}>
         <View>
           <View>
             <Text style={styles.labelStyle}> Current </Text>
@@ -30,6 +34,13 @@ export default class Email extends React.Component {
             autoFocus={false}
           />
         </View>
+        <KeyboardAvoidingView style={styles.ButtonContainer} keyboardVerticalOffset={0}>
+          <KeyboardAvoidingView style={styles.ButtonBorder} behavior="padding">
+            <View style={styles.ButtonStyle}>
+              <CustomButton onPress={this.nextButtonPress.bind(this)} marginSize={15} customFontSize={17}>Next </CustomButton>
+            </View>
+          </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
       </View>
     );
   }
