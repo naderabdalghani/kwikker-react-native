@@ -6,18 +6,23 @@ import Styles from './Styles';
 
 
 export default class CreateTweet extends Component {
+state = { text: '', count: 280 };
+
 static navigationOptions = ({ navigation }) => {
+  const { params = {} } = navigation.state;
   return {
     headerRight:
   <View style={{ marginRight: 10 }}>
-    <CustomButton marginSize={10} customFontSize={15}>Kweek</CustomButton>
+    <CustomButton marginSize={10} customFontSize={15} disabled={params.buttonDisabled}>Kweek</CustomButton>
   </View>,
     headerBackImage:
   <Feather name="x" size={24} color="rgb(29, 161, 242)" />
   };
 };
 
-state = { text: '', count: 280 };
+componentWillMount() {
+  this.props.navigation.setParams({ buttonDisabled: (this.state.count <= 0) || (this.state.count === 280) });
+}
 
 render() {
   const maxLength = 280;
@@ -29,7 +34,10 @@ render() {
         </View>
         <View style={{ flex: 6 }}>
           <TextInput
-            onChangeText={(t) => this.setState({ text: t, count: maxLength - t.length })}
+            onChangeText={(t) => {
+              this.setState({ text: t, count: maxLength - t.length });
+              this.props.navigation.setParams({ buttonDisabled: (this.state.count <= 0) || (this.state.count === 280) });
+            }}
             value={this.state.text}
             placeholder="What's happening?"
             placeholderTextColor="#657786"
@@ -40,7 +48,7 @@ render() {
       </View>
       <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 0.75, borderTopColor: '#AAB8C2' }}>
         <Feather name="camera" size={36} color="rgb(29, 161, 242)" onPress={() => this.props.navigation.navigate('Camera')} style={{ marginLeft: '3%', marginTop: '1%' }}/>
-        <Text>{this.state.count}</Text>
+        <Text style={{ marginLeft: '65%', marginTop: '4%' }}>{this.state.count} / 280</Text>
       </View>
     </View>
   );
