@@ -29,17 +29,26 @@ export default class ConversationScreen extends Component {
     this.pullRefresh();
   }
 
-  /** pull to refresh functionality.
-   * gets first 20 messages
-  */
- pullRefresh= () => {
-   this.setState({
-     refreshing: true,
-   });
-   this.updateMessages();
- }
 
- /** Get more Messages when we get to the end of the scrollView.
+  /** Send message
+ *  sends message to specifice user
+ *  (Post request) we send the message and the user name
+ * @param {string} message - the message that i will send
+ */
+  onSubmit() {
+    if (this.state.message !== '') {
+      axios.post('direct_message', {
+        text: this.state.message,
+        username: this.props.navigation.state.params.userName
+      })
+        .then((response) => {
+        })
+        .catch((error) => {
+        });
+    }
+  }
+
+  /** Get more Messages when we get to the end of the scrollView.
  * Check we reached end of content
  * @param {int} layoutMeasurement - size of the layout .
  * @param  {int} contentOffset - position on screen
@@ -54,23 +63,15 @@ moreMessages=({ contentOffset }) => {
   }
 }
 
-/** Send message
- *  sends message to specifice user
- *  (Post request) we send the message and the user name
- * @param {string} message - the message that i will send
- */
-onSubmit() {
-  if (this.state.message !== '') {
-    axios.post('direct_message', {
-      text: this.state.message,
-      username: this.props.navigation.state.params.userName
-    })
-      .then((response) => {
-      })
-      .catch((error) => {
-      });
-  }
-}
+/** pull to refresh functionality.
+   * gets first 20 messages
+  */
+ pullRefresh= () => {
+   this.setState({
+     refreshing: true,
+   });
+   this.updateMessages();
+ }
 
 
 /** styles messages.

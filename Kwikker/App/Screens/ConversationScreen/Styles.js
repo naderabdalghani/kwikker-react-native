@@ -11,6 +11,8 @@ export default StyleSheet.create({
     height: 35,
     borderRadius: 20,
     margin: 5,
+    paddingBottom: 0,
+    alignSelf: 'flex-end'
   },
   messageButton: {
     width: '25%',
