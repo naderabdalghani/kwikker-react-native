@@ -30,7 +30,7 @@
   "profile": {
     "name": "test5"
   },
-  "conversations":[
+  "conversations": [
     {
       "user": {
         "username": "Khaled1998",
@@ -48,62 +48,62 @@
       }
     }
   ],
-  "direct_message":
-  [
+  "direct_message": [
     {
-      "created_at": "2019-03-21T15:14:16.718Z",
+      "id": 0,
+      "created_at": "Sunday, 4:14 PM",
       "text": " string1   string1   string1   string1   string1   string1   string1   string1   string1   string1   string1   string1   string1  ",
       "media_url": "string",
-      "type":1
+      "type": 1
     },
     {
-      "created_at": "2019-03-21T15:14:16.718Z",
-      "text": "string2",
-      "media_url": "string"
-      ,
-      "type":0
+      "id": 1,
+      "created_at": "Sunday, 4:14 PM",
+      "text": "string2 string2string2string2string2string2string2 string2 string2 string2  string2  string2  string2  string2  string2 string2",
+      "media_url": "string",
+      "type": 0
     },
     {
-      "created_at": "2019-03-21T15:14:16.718Z",
+      "id": 2,
+      "created_at": "Sunday, 4:14 PM",
       "text": "string3",
-      "media_url": "string"
-      ,
-      "type":1
+      "media_url": "string",
+      "type": 1
     },
     {
-      "created_at": "2019-03-21T15:14:16.718Z",
+      "id": 3,
+      "created_at": "Sunday, 4:14 PM",
       "text": "string4",
-      "media_url": "string"
-      ,
-      "type":0
+      "media_url": "string",
+      "type": 0
     },
     {
-      "created_at": "2019-03-21T15:14:16.718Z",
+      "id": 4,
+      "created_at": "Sunday, 4:14 PM",
       "text": "string4",
-      "media_url": "string"
-      ,
-      "type":0
+      "media_url": "string",
+      "type": 0
     },
     {
-      "created_at": "2019-03-21T15:14:16.718Z",
+      "id": 5,
+      "created_at": "Sunday, 4:14 PM",
       "text": "string4",
-      "media_url": "string"
-      ,
-      "type":0
+      "media_url": "string",
+      "type": 0
     },
     {
-      "created_at": "2019-03-21T15:14:16.718Z",
+      "id": 6,
+      "created_at": "Sunday, 4:14 PM",
       "text": "string4",
-      "media_url": "string"
-      ,
-      "type":0
+      "media_url": "string",
+      "type": 0
     },
     {
-      "created_at": "2019-03-21T15:14:16.718Z",
+      "id": 7,
+      "created_at": "Sunday, 4:14 PM",
       "text": "string4",
-      "media_url": "string"
-      ,
-      "type":0
+      "media_url": "string",
+      "type": 0
     }
   ],
   "notifications": [

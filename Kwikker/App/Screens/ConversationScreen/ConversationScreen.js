@@ -5,15 +5,13 @@ import styles from './Styles';
 
 export default class ConversationScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: `${navigation.state.params.title}`,
-    headerTitleStyle: { textAlign: 'center', alignSelf: 'center' },
-    headerStyle: {
-      backgroundColor: 'white',
-    },
-    headerLeft:
-  <TouchableOpacity>
-    <Image source={{ uri: `${navigation.state.params.profileUrl}` }} style={styles.userImage} />
-  </TouchableOpacity>
+    headerTitle: (
+      <View>
+        <Text style={styles.header}>{navigation.state.params.title}</Text>
+        <Text>@{navigation.state.params.userName} </Text>
+      </View>
+    ),
+
   });
 
   constructor(props) {
@@ -21,9 +19,11 @@ export default class ConversationScreen extends Component {
     this.state = {
       messages: [],
       refreshing: false,
+      scrolledDown: false,
       message: '',
     };
   }
+
 
   componentDidMount() {
     this.pullRefresh();
@@ -45,14 +45,33 @@ export default class ConversationScreen extends Component {
  * @param  {int} contentOffset - position on screen
  * @param  {int} contentSize - size of all content
  */
-moreMessages=({ layoutMeasurement, contentOffset, contentSize }) => {
-  if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true) {
+moreMessages=({ contentOffset }) => {
+  if (contentOffset.y === 0) {
     this.setState({
       refreshing: true,
     });
     this.updateMessages(this.state.messages[this.state.messages.length - 1].id);
   }
 }
+
+/** Send message
+ *  sends message to specifice user
+ *  (Post request) we send the message and the user name
+ * @param {string} message - the message that i will send
+ */
+onSubmit() {
+  if (this.state.message !== '') {
+    axios.post('direct_message', {
+      text: this.state.message,
+      username: this.props.navigation.state.params.userName
+    })
+      .then((response) => {
+      })
+      .catch((error) => {
+      });
+  }
+}
+
 
 /** styles messages.
  * if message from me text will be on the right.
@@ -61,13 +80,33 @@ moreMessages=({ layoutMeasurement, contentOffset, contentSize }) => {
  */
 messageType=(type) => {
   if (type === 1) {
-    return {
-      alignSelf: 'flex-start', backgroundColor: 'lightgray', borderRadius: 10, padding: 5, margin: 5,
-    };
+    return styles.otherMessage;
   }
-  return {
-    alignSelf: 'flex-end', backgroundColor: 'skyblue', borderRadius: 10, padding: 5, color: 'white', margin: 5,
-  };
+  return styles.message;
+}
+
+
+/** styles messages.
+ * if message from the other his image will be on the left.
+ * @param {int} type - The id of Message .
+ */
+userImage(type) {
+  if (type === 1) {
+    return <Image source={{ uri: this.props.navigation.state.params.profileUrl }} style={styles.userImage} />;
+  }
+  return (null);
+}
+
+/** Scroll Down once on opening conversation
+ *
+ */
+scrollDown() {
+  if (!this.state.scrolledDown) {
+    this.scrollView.scrollToEnd({ animated: true });
+    this.setState({
+      scrolledDown: true
+    });
+  }
 }
 
 
@@ -79,7 +118,8 @@ messageType=(type) => {
 updateMessages(id = null) {
   axios.get('direct_message', {
     params: {
-      last_message_retrieved_id: id
+      last_message_retrieved_id: id,
+      username: this.props.navigation.state.params.userName
     }
   })
     .then((response) => {
@@ -108,19 +148,26 @@ render() {
     <View style={{ flex: 1 }}>
 
       <ScrollView
+        ref={(ref) => { this.scrollView = ref; }}
+        onContentSizeChange={(contentWidth, contentHeight) => {
+          this.scrollDown();
+        }}
         refreshControl={(
           <RefreshControl
             refreshing={this.state.refreshing}
             onRefresh={this.pullRefresh}
           />
 )}
-        style={{ flex: 1 }}
+        style={{ flex: 1, margin: 2 }}
         onScroll={({ nativeEvent }) => { this.moreMessages(nativeEvent); }}
       >
-        {this.state.messages.map((item, index) => (
+        {this.state.messages.slice(0).reverse().map((item, index) => (
           <View>
-            <Text style={this.messageType(item.type)}>{item.text}</Text>
-            <Text style={[this.messageType(item.type), { backgroundColor: 'white', color: 'gray', padding: 0, margin: 5 }]}>{item.created_at}</Text>
+            <View style={{ flexDirection: 'row' }}>
+              {this.userImage(item.type)}
+              <Text style={this.messageType(item.type)}>{item.text}</Text>
+            </View>
+            <Text style={[this.messageType(item.type), styles.messageTime]}>{item.created_at}</Text>
           </View>
 
         ))
@@ -129,16 +176,14 @@ render() {
 
       <View style={{ flexDirection: 'row' }}>
         <TextInput
-          style={{ width: '85%' }}
-          placeholder=""
-          secureTextEntry={false}
-          value={this.state.message}
+          style={styles.textInput}
+          placeholder="Start a message"
           onChangeText={(message) => this.setState({ message })}
-          autoFocus={false}
           multiline
+          onSubmitEditing={() => { this.onSubmit(); }}
         />
 
-        <TouchableOpacity style={styles.messageButton}>
+        <TouchableOpacity onPress={() => { this.onSubmit(); }} style={styles.messageButton}>
           <Image source={require('../../Assets/Images/send.png')} style={styles.buttomImage} />
         </TouchableOpacity>
       </View>
