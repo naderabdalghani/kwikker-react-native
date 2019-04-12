@@ -5,7 +5,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
   },
-  developers: {
+  Title: {
     padding: 20,
     fontSize: 20,
     color: '#657786',
@@ -13,7 +13,7 @@ export default StyleSheet.create({
     borderColor: '#E1E8ED',
     fontWeight: 'bold'
   },
-  developersContainer: {
+  TitleContainer: {
     backgroundColor: '#E1E8ED',
     marginTop: 2
   },
@@ -37,5 +37,13 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E1E8ED',
     fontWeight: 'bold'
+  },
+  blackFont: {
+    color: '#14171A',
+    fontSize: 15,
+  },
+  grayFont: {
+    color: '#657786',
   }
+
 });
