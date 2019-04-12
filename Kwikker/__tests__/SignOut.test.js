@@ -7,13 +7,13 @@ import mockAsyncStorage from '@react-native-community/async-storage';
 import DrawerNavContainer from '../App/Screens/DrawerNavContainer/DrawerNavContainer';
 
 describe('SignOut component', () => {
-  it('logoutButtonPressed: should delete the access token and redirect the user to the start screen', () => {
+  it('logoutButtonPressed: should delete the access token and username then redirect the user to the start screen', () => {
     const navigationMock = { navigate: jest.fn() };
     const wrapper = shallow(<DrawerNavContainer navigation={navigationMock} />);
     const instance = wrapper.instance();
     instance.logoutButtonPressed();
-    expect(mockAsyncStorage.removeItem).toHaveBeenCalledTimes(1);
-    expect(mockAsyncStorage.removeItem).toHaveBeenCalledWith('@app:session');
+    expect(mockAsyncStorage.multiRemove).toHaveBeenCalledTimes(1);
+    expect(mockAsyncStorage.multiRemove).toHaveBeenCalledWith(['@app:session', '@app:id']);
     expect(mockAxios.defaults.headers.common.TOKEN).toBe('');
     expect(navigationMock.navigate).toHaveBeenCalledWith('StartScreen');
   });
