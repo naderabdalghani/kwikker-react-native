@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { InAppNotificationProvider } from 'react-native-in-app-notification';
 import SplashScreen from 'react-native-splash-screen';
+import { InAppNotificationProvider } from './App/Components/react-native-in-app-notification/src/index';
 import SwitchNavigator from './App/Routes/SwitchNavigator';
 
 class App extends Component {

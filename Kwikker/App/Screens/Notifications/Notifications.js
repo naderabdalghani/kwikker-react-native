@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
-import { withInAppNotification } from 'react-native-in-app-notification';
+import { withInAppNotification } from '../../Components/react-native-in-app-notification/src/index';
 import axios from 'axios';
 import Notification from '../../Components/Notification/Notification';
 
@@ -130,7 +130,7 @@ class Notifications extends Component {
                 title: `${item.screen_name} ${this.setType(item.type)}`,
                 message: item.kweek_text,
                 vibrate: true,
-                icon: { uri: item.profile_pic_URL },
+
 
               });
             }}
