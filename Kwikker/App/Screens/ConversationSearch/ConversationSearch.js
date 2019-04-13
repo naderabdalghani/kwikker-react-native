@@ -26,7 +26,7 @@ export default class Search extends Component {
       headerTitle: (
         <View style={{ width: '70%', marginTop: 8 }}>
           <TextInput
-            onChangeText={(value) => { this.setState({ search: value }); this.searchList(); }}
+            onChangeText={(value) => { this.setState({ search: value }, () => { this.searchList(); }); }}
             placeholder=" Search for People "
             clearButtonMode="always"
           />
@@ -42,6 +42,7 @@ export default class Search extends Component {
     this.updateList();
   }
 
+
 /** Get more Lists when we get to the end of the scrollView.
  * Check we reached end of content
  * @param {int} layoutMeasurement - size of the layout .
@@ -49,9 +50,12 @@ export default class Search extends Component {
  * @param  {int} contentSize - size of all content
  */
 moreLists=({ layoutMeasurement, contentOffset, contentSize }) => {
-  if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true) {
-    if (this.state.search.length > 0) this.updateList(this.state.usersList[this.state.usersList.length - 1].username);
-    else this.searchList(this.state.usersList[this.state.usersList.length - 1].username);
+  if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true && this.state.usersList.length) {
+    if (this.state.search.length === 0) {
+      this.updateList(this.state.usersList[this.state.usersList.length - 1].username);
+    } else {
+      this.searchList(this.state.usersList[this.state.usersList.length - 1].username);
+    }
   }
 }
 
@@ -62,13 +66,13 @@ moreLists=({ layoutMeasurement, contentOffset, contentSize }) => {
  * @param {int} username - The username of user .
  */
 updateList(username = null) {
+  this.setState({ refreshing: true });
   axios.get('direct_message/recent_conversationers', {
     params: {
       last_conversationers_retrieved_username: username,
     }
   })
     .then((response) => {
-      this.setState({ refreshing: true });
       if (username === null) {
         this.setState({
           usersList: response.data
@@ -94,6 +98,7 @@ updateList(username = null) {
  * @param {int} username - The username of user .
  */
 searchList(username = null) {
+  this.setState({ refreshing: true });
   axios.post('direct_message/recent_conversationers',
     {
       search_user: this.state.search
@@ -104,7 +109,6 @@ searchList(username = null) {
       }
     })
     .then((response) => {
-      this.setState({ refreshing: true });
       if (username === null) {
         this.setState({
           usersList: response.data
@@ -137,7 +141,7 @@ render() {
     >
       {this.state.usersList.map((item, index) => (
         <TouchableOpacity
-          key={item.id}
+          key={item.username}
           onPress={() => {
             this.props.navigation.navigate('ConversationScreen', {
               title: item.screen_name,
@@ -147,6 +151,7 @@ render() {
           }}
         >
           <PeopleSearch
+            key={item.username}
             profileUrl={item.profile_image_url}
             userName={item.username}
             screenName={item.screen_name}

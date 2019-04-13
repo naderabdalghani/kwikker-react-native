@@ -27,7 +27,7 @@ export default class Search extends Component {
       headerTitle: (
         <View style={{ width: '85%', marginTop: 5 }}>
           <TextInput
-            onChangeText={(value) => { this.setState({ search: value }); this.updateList(); }}
+            onChangeText={(value) => { this.setState({ search: value }, () => { this.updateList(); }); }}
             placeholder=" Search Kwikker "
             clearButtonMode="always"
           />
@@ -43,6 +43,10 @@ export default class Search extends Component {
     this.updateList();
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
 /** Get more Lists when we get to the end of the scrollView.
  * Check we reached end of content
  * @param {int} layoutMeasurement - size of the layout .
@@ -50,7 +54,7 @@ export default class Search extends Component {
  * @param  {int} contentSize - size of all content
  */
 moreLists=({ layoutMeasurement, contentOffset, contentSize }) => {
-  if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true) {
+  if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true && this.state.usersList.length) {
     this.updateList(this.state.usersList[this.state.usersList.length - 1].username);
   }
 }
@@ -62,6 +66,7 @@ moreLists=({ layoutMeasurement, contentOffset, contentSize }) => {
  * @param {int} username - The username of user .
  */
 updateList(username = null) {
+  this.setState({ refreshing: true });
   axios.get('search/users', {
     params: {
       last_retrieved_username: username,
@@ -69,7 +74,6 @@ updateList(username = null) {
     }
   })
     .then((response) => {
-      this.setState({ refreshing: true });
       if (username === null) {
         this.setState({
           usersList: response.data

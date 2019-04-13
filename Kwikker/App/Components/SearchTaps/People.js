@@ -14,9 +14,9 @@ export default class People extends React.Component {
 )} onScroll={({ nativeEvent }) => { this.props.screenProps.moreLists(nativeEvent); }} style={{ flex: 1 }}
       >
         {this.props.screenProps.users.map((item, index) => (
-          <TouchableOpacity key={item.id}>
+          <TouchableOpacity key={item.username}>
             <UserInSearch
-              key={item.id}
+              key={item.username}
               profileUrl={item.profile_image_url}
               userName={item.username}
               screenName={item.screen_name}

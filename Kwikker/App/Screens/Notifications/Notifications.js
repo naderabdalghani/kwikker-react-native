@@ -71,7 +71,7 @@ export class Notifications extends Component {
  * @param  {int} contentSize - size of all content
  */
   moreNotifications=({ layoutMeasurement, contentOffset, contentSize }) => {
-    if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true) {
+    if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true && this.state.notifications.length) {
       this.setState({
         refreshing: true,
       });
@@ -125,7 +125,7 @@ export class Notifications extends Component {
       >
         {this.state.notifications.map((item, index) => (
           <TouchableOpacity
-            key={item.id}
+            key={item}
             onPress={() => {
               this.props.showNotification({
                 title: `${item.screen_name} ${this.setType(item.type)}`,

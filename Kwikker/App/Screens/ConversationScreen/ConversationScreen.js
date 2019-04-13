@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image, RefreshControl, TextInput } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import styles from './Styles';
 import { auth } from '../../Utils/Authorization';
@@ -22,12 +23,16 @@ export default class ConversationScreen extends Component {
       refreshing: false,
       scrolledDown: false,
       message: '',
+      currentUsername: '',
     };
   }
 
 
   componentDidMount() {
-    this.pullRefresh();
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.setState({ currentUsername: id });
+      this.pullRefresh();
+    });
   }
 
 
@@ -36,7 +41,8 @@ export default class ConversationScreen extends Component {
  *  (Post request) we send the message and the user name
  */
   async onSubmit() {
-    if (this.state.message.length > 0) {
+    if (this.state.message.length > 0 && !this.state.refreshing) {
+      this.setState({ refreshing: true });
       axios.post('direct_message/',
         {
           text: this.state.message,
@@ -46,14 +52,15 @@ export default class ConversationScreen extends Component {
         .then((response) => {
           this.setState({
             message: '',
+            refreshing: false,
             scrolledDown: false,
           });
           this.textInput.clear();
+          this.updateMessages();
         })
         .catch((error) => {
         });
     }
-    this.updateMessages();
   }
 
   /** Get more Messages when we get to the end of the scrollView.
@@ -63,7 +70,7 @@ export default class ConversationScreen extends Component {
  * @param  {int} contentSize - size of all content
  */
 moreMessages=({ contentOffset }) => {
-  if (contentOffset.y === 0) {
+  if (contentOffset.y === 0 && this.state.messages.length) {
     this.setState({
       refreshing: true,
     });
@@ -88,7 +95,7 @@ moreMessages=({ contentOffset }) => {
  * @param {string} type - user name of the sender .
  */
  messageType(type) {
-   if (auth(type) === false) {
+   if (type !== this.state.currentUsername) {
      return styles.otherMessage;
    }
    return styles.message;
@@ -100,7 +107,7 @@ moreMessages=({ contentOffset }) => {
  * @param {string} type - The id of Message .
  */
  userImage(type) {
-   if (auth(type) === false) {
+   if (type !== this.state.currentUsername) {
      return <Image source={{ uri: this.props.navigation.state.params.profileUrl }} style={styles.userImage} />;
    }
    return (null);
@@ -125,6 +132,7 @@ moreMessages=({ contentOffset }) => {
  * @param {int} id - The id of Message .
  */
  updateMessages(id = null) {
+   this.setState({ refreshing: true });
    axios.get('direct_message/', {
      params: {
        last_message_retrieved_id: id,
