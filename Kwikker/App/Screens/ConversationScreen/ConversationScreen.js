@@ -36,7 +36,7 @@ export default class ConversationScreen extends Component {
  * @param {string} message - the message that i will send
  */
   onSubmit() {
-    if (this.state.message !== '') {
+    if (this.state.message.length > 0) {
       axios.post('direct_message', {
         text: this.state.message,
         username: this.props.navigation.state.params.userName
@@ -46,6 +46,10 @@ export default class ConversationScreen extends Component {
         .catch((error) => {
         });
     }
+    this.setState({
+      message: '',
+    });
+    setTimeout(() => { this.updateMessages(); }, 1000);
   }
 
   /** Get more Messages when we get to the end of the scrollView.
@@ -155,6 +159,7 @@ render() {
         }}
         refreshControl={(
           <RefreshControl
+            enabled={false}
             refreshing={this.state.refreshing}
             onRefresh={this.pullRefresh}
           />
@@ -177,14 +182,13 @@ render() {
 
       <View style={{ flexDirection: 'row' }}>
         <TextInput
+          ref={(input) => { this.textInput = input; }}
           style={styles.textInput}
           placeholder="Start a message"
           onChangeText={(message) => this.setState({ message })}
-          multiline
-          onSubmitEditing={() => { this.onSubmit(); }}
         />
 
-        <TouchableOpacity onPress={() => { this.onSubmit(); }} style={styles.messageButton}>
+        <TouchableOpacity onPress={() => { this.onSubmit(); this.textInput.clear(); }} style={styles.messageButton}>
           <Image source={require('../../Assets/Images/send.png')} style={styles.buttomImage} />
         </TouchableOpacity>
       </View>

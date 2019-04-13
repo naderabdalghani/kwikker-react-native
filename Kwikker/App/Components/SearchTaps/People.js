@@ -1,0 +1,28 @@
+import React, { Component } from 'react';
+import { Text, View, ScrollView, TouchableOpacity, Image, TextInput, Button } from 'react-native';
+import UserInSearch from '../UserInSearch/UserInSearch';
+
+export default class People extends React.Component {
+  render() {
+    return (
+      <ScrollView onScroll={({ nativeEvent }) => { this.props.screenProps.moreLists(nativeEvent); }} style={{ flex: 1 }}>
+        {this.props.screenProps.users.map((item, index) => (
+          <TouchableOpacity>
+            <UserInSearch
+              key={item.id}
+              profileUrl={item.profile_image_url}
+              userName={item.username}
+              screenName={item.screen_name}
+              following={item.following}
+              followsYou={item.follows_you}
+              blocked={item.blocked}
+              muted={item.muted}
+            />
+          </TouchableOpacity>
+        ))
+        }
+
+      </ScrollView>
+    );
+  }
+}

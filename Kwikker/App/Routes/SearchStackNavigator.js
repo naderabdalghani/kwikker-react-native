@@ -3,8 +3,7 @@ import { createStackNavigator, CreateAppContainer } from 'react-navigation';
 import Search from '../Screens/Search/Search';
 
 const SearchStackNavigator = createStackNavigator({
-
-  Search: { screen: Search }
+  Search: { screen: Search },
 });
 SearchStackNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;

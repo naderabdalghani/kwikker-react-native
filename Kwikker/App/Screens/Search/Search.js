@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image, TextInput, Button } from 'react-native';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import axios from 'axios';
-import UserInSearch from '../../Components/UserInSearch/UserInSearch';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import SearchTap from '../../Components/SearchTaps/SearchTaps';
 import styles from './Styles';
 
 export default class Search extends Component {
@@ -10,6 +10,7 @@ export default class Search extends Component {
     const { params } = navigation.state;
     return params;
   };
+
 
   constructor(props) {
     super(props);
@@ -91,25 +92,12 @@ updateList(username = null) {
 
 render() {
   return (
-    <ScrollView onScroll={({ nativeEvent }) => { this.moreLists(nativeEvent); }} style={{ flex: 1 }}>
-      {this.state.usersList.map((item, index) => (
-        <TouchableOpacity>
-          <UserInSearch
-            key={item.id}
-            profileUrl={item.profile_image_url}
-            userName={item.username}
-            screenName={item.screen_name}
-            following={item.following}
-            followsYou={item.follows_you}
-            blocked={item.blocked}
-            muted={item.muted}
+    <View style={{ flex: 1 }}>
 
-          />
-        </TouchableOpacity>
-      ))
-        }
 
-    </ScrollView>
+      <SearchTap screenProps={{ rootNav: this.props.navigation, users: this.state.usersList, moreLists: (data) => this.moreLists(data) }} />
+
+    </View>
   );
 }
 }
