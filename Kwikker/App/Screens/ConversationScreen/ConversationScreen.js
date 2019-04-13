@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image, RefreshControl, TextInput } from 'react-native';
 import axios from 'axios';
 import styles from './Styles';
+import { auth } from '../../Utils/Authorization';
 
 export default class ConversationScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -34,21 +35,25 @@ export default class ConversationScreen extends Component {
  *  sends message to specifice user
  *  (Post request) we send the message and the user name
  */
-  onSubmit() {
+  async onSubmit() {
     if (this.state.message.length > 0) {
-      axios.post('direct_message', {
-        text: this.state.message,
-        username: this.props.navigation.state.params.userName
-      })
+      axios.post('direct_message/',
+        {
+          text: this.state.message,
+          username: this.props.navigation.state.params.userName,
+          media_url: null
+        })
         .then((response) => {
+          this.setState({
+            message: '',
+          });
+          this.textInput.clear();
         })
         .catch((error) => {
+          console.warn(error);
         });
     }
-    this.setState({
-      message: '',
-    });
-    setTimeout(() => { this.updateMessages(); }, 1000);
+    this.updateMessages();
   }
 
   /** Get more Messages when we get to the end of the scrollView.
@@ -77,121 +82,121 @@ moreMessages=({ contentOffset }) => {
  }
 
 
-/** styles messages.
+ /** styles messages.
  * if message from me text will be on the right.
  * if message from the other text will be on the left.
- * @param {int} type - The id of Message .
+ * @param {int} type - user name of the sender .
  */
-messageType=(type) => {
-  if (type === 1) {
-    return styles.otherMessage;
-  }
-  return styles.message;
-}
+ messageType(type) {
+   if (!auth(type)) {
+     return styles.otherMessage;
+   }
+   return styles.message;
+ }
 
 
-/** styles messages.
+ /** styles messages.
  * if message from the other his image will be on the left.
  * @param {int} type - The id of Message .
  */
-userImage(type) {
-  if (type === 1) {
-    return <Image source={{ uri: this.props.navigation.state.params.profileUrl }} style={styles.userImage} />;
-  }
-  return (null);
-}
+ userImage(type) {
+   if (!auth(type)) {
+     return <Image source={{ uri: this.props.navigation.state.params.profileUrl }} style={styles.userImage} />;
+   }
+   return (null);
+ }
 
-/** Scroll Down once on opening conversation
+ /** Scroll Down once on opening conversation
  *
  */
-scrollDown() {
-  if (!this.state.scrolledDown) {
-    this.scrollView.scrollToEnd({ animated: true });
-    this.setState({
-      scrolledDown: true
-    });
-  }
-}
+ scrollDown() {
+   if (!this.state.scrolledDown) {
+     this.scrollView.scrollToEnd({ animated: true });
+     this.setState({
+       scrolledDown: true
+     });
+   }
+ }
 
 
-/** Update Messages.
+ /** Update Messages.
  * gets first 20 Message With default parameter (id=null)
  * To retrieve more send the id of the last retrieved message.
  * @param {int} id - The id of Message .
  */
-updateMessages(id = null) {
-  axios.get('direct_message', {
-    params: {
-      last_message_retrieved_id: id,
-      username: this.props.navigation.state.params.userName
-    }
-  })
-    .then((response) => {
-      if (id === null) {
-        this.setState({
-          messages: response.data
-        });
-      } else {
-        this.setState((prevState) => ({ messages: prevState.messages.concat(response.data)
-        }));
-      }
-      this.setState({ refreshing: false });
-    })
-    .catch((error) => {
-    // handle error
-    // console.log(error);
-    })
-    .then(() => {
-    // always executed
-    });
-}
+ updateMessages(id = null) {
+   axios.get('direct_message/', {
+     params: {
+       last_message_retrieved_id: id,
+       username: this.props.navigation.state.params.userName
+     }
+   })
+     .then((response) => {
+       if (id === null) {
+         this.setState({
+           messages: response.data
+         });
+       } else {
+         this.setState((prevState) => ({ messages: prevState.messages.concat(response.data)
+         }));
+       }
+       this.setState({ refreshing: false });
+     })
+     .catch((error) => {
+       // handle error
+       // console.log(error);
+     })
+     .then(() => {
+       // always executed
+     });
+ }
 
 
-render() {
-  return (
-    <View style={{ flex: 1 }}>
+ render() {
+   return (
+     <View style={{ flex: 1 }}>
 
-      <ScrollView
-        ref={(ref) => { this.scrollView = ref; }}
-        onContentSizeChange={(contentWidth, contentHeight) => {
-          this.scrollDown();
-        }}
-        refreshControl={(
-          <RefreshControl
-            enabled={false}
-            refreshing={this.state.refreshing}
-            onRefresh={this.pullRefresh}
-          />
+       <ScrollView
+         ref={(ref) => { this.scrollView = ref; }}
+         onContentSizeChange={(contentWidth, contentHeight) => {
+           this.scrollDown();
+         }}
+         refreshControl={(
+           <RefreshControl
+             enabled={false}
+             refreshing={this.state.refreshing}
+             onRefresh={this.pullRefresh}
+           />
 )}
-        style={{ flex: 1, margin: 2 }}
-        onScroll={({ nativeEvent }) => { this.moreMessages(nativeEvent); }}
-      >
-        {this.state.messages.slice(0).reverse().map((item, index) => (
-          <View>
-            <View style={{ flexDirection: 'row' }}>
-              {this.userImage(item.type)}
-              <Text style={this.messageType(item.type)}>{item.text}</Text>
-            </View>
-            <Text style={[this.messageType(item.type), styles.messageTime]}>{item.created_at}</Text>
-          </View>
+         style={{ flex: 1, margin: 2 }}
+         onScroll={({ nativeEvent }) => { this.moreMessages(nativeEvent); }}
+       >
+         {this.state.messages.slice(0).reverse().map((item, index) => (
+           <View key={item.id}>
+             <View style={{ flexDirection: 'row' }}>
+               {this.userImage(item.from_username)}
+               <Text style={this.messageType(item.from_username)}>{item.text}</Text>
+             </View>
+             <Text style={[this.messageType(item.from_username), styles.messageTime]}>{item.created_at}</Text>
+           </View>
 
-        ))
+         ))
         }
-      </ScrollView>
+       </ScrollView>
 
-      <View style={{ flexDirection: 'row' }}>
-        <TextInput
-          ref={(input) => { this.textInput = input; }}
-          style={styles.textInput}
-          placeholder="Start a message"
-          onChangeText={(message) => this.setState({ message })}
-        />
+       <View style={{ flexDirection: 'row' }}>
+         <TextInput
+           ref={(input) => { this.textInput = input; }}
+           style={styles.textInput}
+           placeholder="Start a message"
+           onChangeText={(message) => this.setState({ message })}
+         />
 
-        <TouchableOpacity onPress={() => { this.onSubmit(); this.textInput.clear(); }} style={styles.messageButton}>
-          <Image source={require('../../Assets/Images/send.png')} style={styles.buttomImage} />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-}
+         <TouchableOpacity onPress={() => { this.onSubmit(); }} style={styles.messageButton}>
+           <Image source={require('../../Assets/Images/send.png')} style={styles.buttomImage} />
+         </TouchableOpacity>
+       </View>
+     </View>
+   );
+ }
 }

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
-import { withInAppNotification } from '../../Components/react-native-in-app-notification/src/index';
 import axios from 'axios';
+import { withInAppNotification } from '../../Components/react-native-in-app-notification/src/index';
 import Notification from '../../Components/Notification/Notification';
 
 
-class Notifications extends Component {
+export class Notifications extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -125,6 +125,7 @@ class Notifications extends Component {
       >
         {this.state.notifications.map((item, index) => (
           <TouchableOpacity
+            key={item.id}
             onPress={() => {
               this.props.showNotification({
                 title: `${item.screen_name} ${this.setType(item.type)}`,

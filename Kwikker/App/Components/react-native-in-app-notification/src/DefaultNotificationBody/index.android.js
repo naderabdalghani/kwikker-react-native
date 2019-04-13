@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, View, Text, Image, Vibration } from 'react-native';
+import {
+ TouchableOpacity, View, Text, Image, Vibration 
+} from 'react-native';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
 const styles = {
@@ -8,7 +10,7 @@ const styles = {
     flex: 1,
   },
   content: {
-    flex: 1, 
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 30,
@@ -30,9 +32,11 @@ const styles = {
     marginLeft: 20,
   },
   title: {
+    width: '80%',
     color: '#FFF',
   },
   view: {
+    width: '20%',
     color: '#FFF',
     fontWeight: 'bold',
   },
@@ -87,10 +91,10 @@ class DefaultNotificationBody extends React.Component {
           underlayColor="transparent"
           onPress={this.onNotificationPress}
         >
-          
-            <Text  style={styles.title}>{title}</Text>
-            <Text  style={styles.view}>VIEW</Text>
-          
+
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.view}>VIEW</Text>
+
         </TouchableOpacity>
       </GestureRecognizer>
     );

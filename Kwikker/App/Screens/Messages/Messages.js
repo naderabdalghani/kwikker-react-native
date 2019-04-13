@@ -38,7 +38,7 @@ moreConversations=({ layoutMeasurement, contentOffset, contentSize }) => {
     this.setState({
       refreshing: true,
     });
-    this.updateConversations(this.state.conversations[this.state.conversations.length - 1].id);
+    this.updateConversations(this.state.conversations[this.state.conversations.length - 1].last_message.id);
   }
 }
 
@@ -48,9 +48,9 @@ moreConversations=({ layoutMeasurement, contentOffset, contentSize }) => {
  * @param {int} id - The id of Conversation .
  */
 updateConversations(id = null) {
-  axios.get('conversations', {
+  axios.get('direct_message/conversations', {
     params: {
-      last_conversation_retrieved_id: id
+      last_conversations_retrieved_id: id
     }
   })
     .then((response) => {
@@ -88,16 +88,17 @@ render() {
         onScroll={({ nativeEvent }) => { this.moreConversations(nativeEvent); }}
       >
         {this.state.conversations.map((item, index) => (
-          <TouchableOpacity onPress={() => {
-            this.props.navigation.navigate('ConversationScreen', {
-              title: item.user.screen_name,
-              profileUrl: item.user.profile_image_url,
-              userName: item.user.username,
-            });
-          }}
+          <TouchableOpacity
+            key={item.last_message.id} onPress={() => {
+              this.props.navigation.navigate('ConversationScreen', {
+                title: item.user.screen_name,
+                profileUrl: item.user.profile_image_url,
+                userName: item.user.username,
+              });
+            }}
           >
             <Conversation
-              key={item.user.id}
+              key={item.last_message.id}
               profileUrl={item.user.profile_image_url}
               messageText={item.last_message.text}
               userName={item.user.username}

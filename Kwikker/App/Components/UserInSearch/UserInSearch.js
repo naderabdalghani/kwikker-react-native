@@ -18,6 +18,9 @@ export default class UserInSearch extends React.Component {
       username: this.state.userName
     })
       .then((response) => {
+        this.setState({
+          following: true,
+        });
       })
       .catch((error) => {
       });
@@ -27,7 +30,11 @@ export default class UserInSearch extends React.Component {
  *  (Post request) follow user
  */
   unfollow() {
-    axios.delete('interactions/follow', { data: { username: this.state.userName } });
+    axios.delete('interactions/follow', { data: { username: this.state.userName } }).then((response) => {
+      this.setState({
+        following: false,
+      });
+    });
   }
 
 
@@ -79,10 +86,7 @@ export default class UserInSearch extends React.Component {
       return (
         <TouchableOpacity
           style={styles.following} onPress={() => {
-            this.setState({
-              following: false,
-            });
-            setTimeout(() => { this.unfollow(); }, 500);
+            this.unfollow();
           }}
         >
           <Text style={{ color: 'white', fontWeight: 'bold' }}>
@@ -96,10 +100,7 @@ export default class UserInSearch extends React.Component {
     return (
       <TouchableOpacity
         style={styles.follow} onPress={() => {
-          this.setState({
-            following: true,
-          });
-          setTimeout(() => { this.follow(); }, 500);
+          this.follow();
         }}
       >
         <Text style={{ color: '#1DA1F2', fontWeight: 'bold' }}>
