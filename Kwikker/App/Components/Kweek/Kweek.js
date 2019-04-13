@@ -1,30 +1,56 @@
 import React, { Component } from 'react';
-import { Thumbnail } from 'native-base';
+import { Thumbnail, Container, Header, Content } from 'native-base';
 import { Text, View, TouchableOpacity, Image, Button, StyleSheet, TextInput } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-//import console = require('console');
+import axios from 'axios';
 
 export default class Kweek extends Component {
   constructor(props) {
     super(props);
+    this.state = { liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };
   }
 
-  state = { liked: true, rekeeked: true, likesCounter: 17, rekweeksCounter: 18 };
+  kweekHeader() {
+    if (this.props.rekweekerUserName === null) {
+      return (null);
+    }
+    if (this.props.rekweekerUserName !== null) {
+      return (
+        <TouchableOpacity style={{ marginTop: '2%', marginBottom: '1%' }}>
+          <View style={{ flexDirection: 'row' }}>
+            <EvilIcons name="retweet" size={11} color="#657786" style={{ marginLeft: '15%', marginTop: '1%' }} />
+            <Text style={{ color: '#657786', marginLeft: '4.5%' }}>{this.props.rekweekerUserName} rekweeked</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    }
+    /*if (this.props.likerUserName != null) {
+      return (
+        <TouchableOpacity style={{ marginTop: '2%', marginBottom: '1%' }}>
+          <View style={{ flexDirection: 'row' }}>
+            <Ionicons name="ios-heart" size={11} color="#657786" style={{ marginLeft: '15%', marginTop: '1%' }} />
+            <Text style={{ color: '#657786', marginLeft: '4.5%' }}>{this.props.likerUserName} liked</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    }
+    */
+  }
 
   likeStatus() {
     if (this.state.liked) {
       return (
         <TouchableOpacity onPress={this.likePressed.bind(this)} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
           <Ionicons name="ios-heart" size={18} color="#FF0000" />
-          <Text style={{ marginLeft: '3%' }}>{this.state.likesCounter}</Text>
+          <Text style={{ marginLeft: '3%' }}>{this.state.likesCounter === 0 ? null : this.state.likesCounter }</Text>
         </TouchableOpacity>
       );
     }
     return (
       <TouchableOpacity onPress={this.likePressed.bind(this)} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
         <Ionicons name="ios-heart-empty" size={18} color="#657786" />
-        <Text style={{ marginLeft: '3%' }}>{this.state.likesCounter}</Text>
+        <Text style={{ marginLeft: '3%' }}>{this.state.likesCounter === 0 ? null : this.state.likesCounter }</Text>
       </TouchableOpacity>
     );
   }
@@ -34,14 +60,14 @@ export default class Kweek extends Component {
       return (
         <TouchableOpacity onPress={this.rekweekPressed.bind(this)} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
           <EvilIcons name="retweet" size={28} color="#009900" />
-          <Text>{this.state.rekweeksCounter}</Text>
+          <Text>{this.state.rekweeksCounter === 0 ? null : this.state.rekweeksCounter }</Text>
         </TouchableOpacity>
       );
     }
     return (
       <TouchableOpacity onPress={this.rekweekPressed.bind(this)} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
         <EvilIcons name="retweet" size={28} color="#657786" />
-        <Text>{this.state.rekweeksCounter}</Text>
+        <Text>{this.state.rekweeksCounter === 0 ? null : this.state.rekweeksCounter }</Text>
       </TouchableOpacity>
     );
   }
@@ -51,9 +77,19 @@ export default class Kweek extends Component {
     if (this.state.liked) {
       this.setState({ liked: false });
       this.setState((prevState) => ({ likesCounter: prevState.likesCounter - 1 }));
+      axios.delete('kweeks/like', {
+        params: {
+          id: this.props.key
+        }
+      });
     } else {
       this.setState({ liked: true });
       this.setState((prevState) => ({ likesCounter: prevState.likesCounter + 1 }));
+      axios.post('kweeks/like', {
+        params: {
+          id: this.props.key
+        }
+      });
     }
   }
 
@@ -62,9 +98,19 @@ export default class Kweek extends Component {
     if (this.state.rekeeked) {
       this.setState({ rekeeked: false });
       this.setState((prevState) => ({ rekweeksCounter: prevState.rekweeksCounter - 1 }));
+      axios.delete('kweeks/rekweek', {
+        params: {
+          id: this.props.key
+        }
+      });
     } else {
       this.setState({ rekeeked: true });
       this.setState((prevState) => ({ rekweeksCounter: prevState.rekweeksCounter + 1 }));
+      axios.post('kweeks/rekweek', {
+        params: {
+          id: this.props.key
+        }
+      });
     }
   }
 
@@ -72,30 +118,31 @@ export default class Kweek extends Component {
     console.log('inside home');
     return (
       <View style={{ borderBottomWidth: 0.5, borderBottomColor: '#AAB8C2' }}>
-        <TouchableOpacity style={{ marginTop: '2%', marginBottom: '1%' }}>
-          <View style={{ flexDirection: 'row' }}>
-            <Ionicons name="ios-heart" size={11} color="#657786" style={{ marginLeft: '15%', marginTop: '1%' }} />
-            <Text style={{ color: '#657786', marginLeft: '4.5%' }}>user liked</Text>
-          </View>
-        </TouchableOpacity>
+        {this.kweekHeader()}
         <TouchableOpacity style={{ marginLeft: '3%' }}>
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity style={{ flex: 1 }}>
-              <Thumbnail source={require('./../../Assets/Images/pp.png')} />
+              <Thumbnail source={{ url: this.props.profileImageUrl }} />
             </TouchableOpacity>
             <View style={{ flex: 4, flexDirection: 'column' }}>
-              <TouchableOpacity style={{ flexDirection: 'row' }}>
-                <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#000000' }}>UserName</Text>
-                <Text style={{ fontSize: 15, color: '#657786', marginLeft: '2%' }}>@UserHandle</Text>
-              </TouchableOpacity>
-              <Text style={{ fontSize: 15, color: '#000000' }}>this is the tweet stupid text</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={{ flex: 8, flexDirection: 'row' }}>
+                  <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#000000' }}>{this.props.screenName}</Text>
+                  <Text style={{ fontSize: 15, color: '#657786', marginLeft: '2%' }}>@{this.props.userName}</Text>
+                  <Text style={{ fontSize: 15, color: '#657786', marginLeft: '2%' }}> . 4h</Text>
+                </View>
+                <TouchableOpacity style={{ flex: 1 }}>
+                  <Ionicons name="ios-arrow-down" size={15} color="#657786" />
+                </TouchableOpacity>
+              </View>
+              <Text style={{ fontSize: 15, color: '#000000' }}>{this.props.kweekText}</Text>
             </View>
           </View>
         </TouchableOpacity>
         <View style={{ flexDirection: 'row', marginTop: '3%', marginBottom: '3%' }}>
           <TouchableOpacity style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <EvilIcons name="comment" size={26} color="#657786" />
-            <Text>12</Text>
+            <Text>{this.props.numberOfReplies === 0 ? null : this.props.numberOfReplies}</Text>
           </TouchableOpacity>
           {this.rekweekStatus()}
           {this.likeStatus()}

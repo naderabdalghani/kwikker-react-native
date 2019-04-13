@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, Image, Button, StyleSheet, TextInput } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import axios from 'axios';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Styles from './Styles';
 
 
 export default class CreateTweet extends Component {
-
 static navigationOptions = ({ navigation }) => {
   const { params = {} } = navigation.state;
   return {
@@ -21,8 +21,16 @@ static navigationOptions = ({ navigation }) => {
 
 state = { text: '', count: 280 };
 
-componentWillMount() {
+componentDidMount() {
   this.props.navigation.setParams({ buttonDisabled: (this.state.count <= 0) || (this.state.count === 280) });
+}
+
+submitTweet() {
+  axios.post('kweeks', {
+    params: {
+      text: this.state.text
+    }
+  });
 }
 
 render() {
