@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, TouchableOpacity, Image, TextInput, Button } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Image, TextInput, RefreshControl } from 'react-native';
 import UserInSearch from '../UserInSearch/UserInSearch';
 
 export default class People extends React.Component {
   render() {
     return (
-      <ScrollView onScroll={({ nativeEvent }) => { this.props.screenProps.moreLists(nativeEvent); }} style={{ flex: 1 }}>
+      <ScrollView
+        refreshControl={(
+          <RefreshControl
+            enabled={false}
+            refreshing={this.props.screenProps.refreshing}
+          />
+)} onScroll={({ nativeEvent }) => { this.props.screenProps.moreLists(nativeEvent); }} style={{ flex: 1 }}
+      >
         {this.props.screenProps.users.map((item, index) => (
           <TouchableOpacity key={item.id}>
             <UserInSearch

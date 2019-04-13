@@ -41,16 +41,16 @@ export default class ConversationScreen extends Component {
         {
           text: this.state.message,
           username: this.props.navigation.state.params.userName,
-          media_url: null
+          media_url: 'null'
         })
         .then((response) => {
           this.setState({
             message: '',
+            scrolledDown: false,
           });
           this.textInput.clear();
         })
         .catch((error) => {
-          console.warn(error);
         });
     }
     this.updateMessages();
@@ -85,10 +85,10 @@ moreMessages=({ contentOffset }) => {
  /** styles messages.
  * if message from me text will be on the right.
  * if message from the other text will be on the left.
- * @param {int} type - user name of the sender .
+ * @param {string} type - user name of the sender .
  */
  messageType(type) {
-   if (!auth(type)) {
+   if (auth(type) === false) {
      return styles.otherMessage;
    }
    return styles.message;
@@ -97,10 +97,10 @@ moreMessages=({ contentOffset }) => {
 
  /** styles messages.
  * if message from the other his image will be on the left.
- * @param {int} type - The id of Message .
+ * @param {string} type - The id of Message .
  */
  userImage(type) {
-   if (!auth(type)) {
+   if (auth(type) === false) {
      return <Image source={{ uri: this.props.navigation.state.params.profileUrl }} style={styles.userImage} />;
    }
    return (null);
@@ -140,7 +140,7 @@ moreMessages=({ contentOffset }) => {
          this.setState((prevState) => ({ messages: prevState.messages.concat(response.data)
          }));
        }
-       this.setState({ refreshing: false });
+       this.setState({ refreshing: false, scrolledDown: false });
      })
      .catch((error) => {
        // handle error

@@ -62,7 +62,7 @@ moreLists=({ layoutMeasurement, contentOffset, contentSize }) => {
  * @param {int} username - The username of user .
  */
 updateList(username = null) {
-  axios.get('/search/users', {
+  axios.get('search/users', {
     params: {
       last_retrieved_username: username,
       search_text: this.state.search
@@ -95,7 +95,7 @@ render() {
     <View style={{ flex: 1 }}>
 
 
-      <SearchTap screenProps={{ rootNav: this.props.navigation, users: this.state.usersList, moreLists: (data) => this.moreLists(data) }} />
+      <SearchTap screenProps={{ rootNav: this.props.navigation, refreshing: this.state.refreshing, users: this.state.usersList, moreLists: (data) => this.moreLists(data) }} />
 
     </View>
   );

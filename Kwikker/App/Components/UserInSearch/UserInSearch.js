@@ -6,7 +6,9 @@ import styles from './Styles';
 export default class UserInSearch extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props;
+    this.state = {
+      following: this.props.following
+    };
   }
 
 
@@ -15,7 +17,7 @@ export default class UserInSearch extends React.Component {
  */
   follow() {
     axios.post('interactions/follow', {
-      username: this.state.userName
+      username: this.props.userName
     })
       .then((response) => {
         this.setState({
@@ -30,7 +32,7 @@ export default class UserInSearch extends React.Component {
  *  (Post request) follow user
  */
   unfollow() {
-    axios.delete('interactions/follow', { data: { username: this.state.userName } }).then((response) => {
+    axios.delete('interactions/follow', { data: { username: this.props.userName } }).then((response) => {
       this.setState({
         following: false,
       });
@@ -42,7 +44,7 @@ export default class UserInSearch extends React.Component {
  * render "Muted" Text according to data from the backend
  */
   isMuted() {
-    if (this.state.muted) {
+    if (this.props.muted) {
       return (<Image style={{ width: 25, height: 25, }} source={require('../../Assets/Images/mute.png')} />);
     }
     return (<Text />);
@@ -52,16 +54,16 @@ export default class UserInSearch extends React.Component {
  * render right Text according to data from the backend
  */
   followText() {
-    if (this.state.blocked) {
+    if (this.props.blocked) {
       return (<Text />);
     }
-    if (this.state.following && this.state.followsYou) {
+    if (this.state.following && this.props.followsYou) {
       return (<Text style={{ color: '#AAB8C2', fontSize: 12 }}>You follow each other</Text>);
     }
     if (this.state.following) {
       return (<Text style={{ color: '#AAB8C2', fontSize: 12 }}>Following</Text>);
     }
-    if (this.state.followsYou) {
+    if (this.props.followsYou) {
       return (<Text style={{ color: '#AAB8C2', fontSize: 12 }}>Follows you</Text>);
     }
     return (<Text />);
@@ -71,7 +73,7 @@ export default class UserInSearch extends React.Component {
  * render right Component according to data from the backend
  */
   isFollowingOrBlock() {
-    if (this.state.blocked) {
+    if (this.props.blocked) {
       return (
         <TouchableOpacity style={styles.blocked}>
           <Text style={{ color: '#000', fontWeight: 'bold' }}>
@@ -115,12 +117,12 @@ export default class UserInSearch extends React.Component {
 
       <View style={styles.container}>
         <View style={styles.profilePicture}>
-          <Image style={styles.ProfileImage} source={{ uri: this.state.profileUrl }} />
+          <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
         </View>
         <View style={styles.textContainer}>
           {this.followText()}
-          <Text style={{ fontWeight: 'bold' }}>{this.state.screenName}</Text>
-          <Text style={{ color: '#AAB8C2' }}>{this.state.userName}</Text>
+          <Text style={{ fontWeight: 'bold' }}>{this.props.screenName}</Text>
+          <Text style={{ color: '#AAB8C2' }}>{this.props.userName}</Text>
           {this.isMuted()}
         </View>
 

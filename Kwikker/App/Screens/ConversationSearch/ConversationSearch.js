@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, TouchableOpacity, Image, TextInput, Button } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Image, TextInput, RefreshControl } from 'react-native';
 import axios from 'axios';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import PeopleSearch from '../../Components/PeopleSearch/PeopleSearch';
@@ -127,18 +127,26 @@ searchList(username = null) {
 
 render() {
   return (
-    <ScrollView onScroll={({ nativeEvent }) => { this.moreLists(nativeEvent); }} style={{ flex: 1 }}>
+    <ScrollView
+      refreshControl={(
+        <RefreshControl
+          enabled={false}
+          refreshing={this.state.refreshing}
+        />
+)} onScroll={({ nativeEvent }) => { this.moreLists(nativeEvent); }} style={{ flex: 1 }}
+    >
       {this.state.usersList.map((item, index) => (
-        <TouchableOpacity onPress={() => {
-          this.props.navigation.navigate('ConversationScreen', {
-            title: item.screen_name,
-            profileUrl: item.profile_image_url,
-            userName: item.username,
-          });
-        }}
+        <TouchableOpacity
+          key={item.id}
+          onPress={() => {
+            this.props.navigation.navigate('ConversationScreen', {
+              title: item.screen_name,
+              profileUrl: item.profile_image_url,
+              userName: item.username,
+            });
+          }}
         >
           <PeopleSearch
-            key={item.id}
             profileUrl={item.profile_image_url}
             userName={item.username}
             screenName={item.screen_name}
