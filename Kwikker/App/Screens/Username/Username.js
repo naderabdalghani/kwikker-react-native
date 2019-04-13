@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, KeyboardAvoidingView } from 'react-native';
+import { Text, View, Image, KeyboardAvoidingView, TouchableNativeFeedback } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
@@ -29,7 +29,7 @@ export default class Username extends React.Component {
       username: this.state.Name
     })
       .then((res) => {
-        console.log(res);
+        console.log(res.data.status);
         this.props.navigation.goBack(null);
       })
       .catch((err) => {
@@ -43,6 +43,23 @@ export default class Username extends React.Component {
 
       <View style={styles.container}>
         <View>
+
+          <View style={styles.header}>
+            <View style={styles.backButtonContainer}>
+              <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
+                <Image
+                  style={styles.backButton}
+                  source={require('./../../Assets/Images/back_button.png')}
+                />
+              </TouchableNativeFeedback>
+            </View>
+            <View>
+              <Text style={styles.title}>Change username</Text>
+            </View>
+            <View />
+            <View style={styles.dummyElement} />
+          </View>
+
           <View>
             <Text style={styles.labelStyle}> Current </Text>
             <View style={styles.border}>

@@ -44,6 +44,35 @@ export default StyleSheet.create({
   },
   grayFont: {
     color: '#657786',
-  }
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  backButtonContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  backButton: {
+    height: 30,
+    width: 30,
+    marginLeft: 12,
+  },
+  dummyElement: {
+    flex: 1,
+  },
+  titleContainer: {
+    alignItems: 'flex-start',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  username: {
+    fontSize: 14,
+    color: '#657786',
+  },
 
 });

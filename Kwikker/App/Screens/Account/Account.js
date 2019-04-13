@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Image, TouchableNativeFeedback } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Styles from './Styles';
 
@@ -44,6 +44,23 @@ export default class Account extends React.Component {
       <View style={Styles.container}>
         <View>
 
+          <View style={Styles.header}>
+            <View style={Styles.backButtonContainer}>
+              <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
+                <Image
+                  style={Styles.backButton}
+                  source={require('./../../Assets/Images/back_button.png')}
+                />
+              </TouchableNativeFeedback>
+            </View>
+            <View>
+              <Text style={Styles.title}>Account</Text>
+              <Text style={Styles.username}>@{this.state.currentUsername}</Text>
+            </View>
+            <View />
+            <View style={Styles.dummyElement} />
+          </View>
+
           <View style={Styles.TitleContainer}>
             <Text style={Styles.Title}>
               Login and security
@@ -54,7 +71,7 @@ export default class Account extends React.Component {
           <View style={Styles.box}>
             <TouchableOpacity onPress={this.Username.bind(this)}>
               <Text style={Styles.blackFont}> Username </Text>
-              <Text style={Styles.grayFont}> {this.state.currentUsername} </Text>
+              <Text style={Styles.grayFont}> @{this.state.currentUsername} </Text>
             </TouchableOpacity>
           </View>
           <View style={Styles.box}>
