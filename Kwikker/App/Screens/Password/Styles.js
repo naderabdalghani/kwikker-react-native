@@ -57,6 +57,12 @@ export default StyleSheet.create({
 
     elevation: 4,
   },
+  valid: {
+    backgroundColor: '#1DA1F2',
+  },
+  invalid: {
+    backgroundColor: '#AAB8C2',
+  },
   aligneCenter: {
     alignItems: 'center',
   }

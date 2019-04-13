@@ -16,9 +16,9 @@ export default class Account extends React.Component {
     this.props.navigation.push('Email');
   }
 
-  Phone() {
-    this.props.navigation.push('Phone');
-  }
+  // Phone() {
+  //   this.props.navigation.push('Phone');
+  // }
 
   Password() {
     this.props.navigation.push('Password');
@@ -43,12 +43,12 @@ export default class Account extends React.Component {
               <Text style={Styles.grayFont}> @Username </Text>
             </TouchableOpacity>
           </View>
-          <View style={Styles.box}>
+          {/* <View style={Styles.box}>
             <TouchableOpacity onPress={this.Phone.bind(this)}>
               <Text style={Styles.blackFont}> Phone </Text>
               <Text style={Styles.grayFont}> 0123456789 </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View style={Styles.box}>
             <TouchableOpacity onPress={this.Email.bind(this)}>
               <Text style={Styles.blackFont}> Email </Text>

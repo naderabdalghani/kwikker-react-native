@@ -14,5 +14,18 @@ export default StyleSheet.create({
   containerStyle: {
     padding: '10%',
     backgroundColor: '#1DA1F2',
-  }
+  },
+  ButtonStyle: {
+    alignItems: 'flex-end',
+    marginTop: 12,
+    marginBottom: 12,
+  },
+  ButtonBorder: {
+    borderTopWidth: 0.75,
+    borderTopColor: '#AAB8C2',
+  },
+  ButtonContainer: {
+    justifyContent: 'flex-end',
+    flex: 1,
+  },
 });

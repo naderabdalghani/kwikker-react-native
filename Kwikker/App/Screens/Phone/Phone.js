@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, KeyboardAvoidingView } from 'react-native';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -10,7 +10,12 @@ export default class Phone extends React.Component {
     this.state = { Name: '' };
   }
 
+  addPhoneButtonPress() {
+  }
+
   render() {
+    const buttonDisabled = (this.state.Name === '');
+
     return (
 
       <View style={styles.container}>
@@ -32,6 +37,13 @@ export default class Phone extends React.Component {
             autoFocus={false}
           />
         </View>
+        <KeyboardAvoidingView style={styles.ButtonContainer} keyboardVerticalOffset={0}>
+          <KeyboardAvoidingView style={styles.ButtonBorder} behavior="padding">
+            <View style={styles.ButtonStyle}>
+              <CustomButton onPress={this.addPhoneButtonPress.bind(this)} marginSize={15} customFontSize={17} disabled={buttonDisabled}>Add Phone</CustomButton>
+            </View>
+          </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
       </View>
     );
   }
