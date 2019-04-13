@@ -7740,29 +7740,6 @@ react-native-global-font@^1.0.2:
   dependencies:
     lodash.wrap "^4.1.1"
 
-react-native-invertible-scroll-view@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-native-invertible-scroll-view/-/react-native-invertible-scroll-view-1.1.1.tgz#43039037e6537dc8c4f29baae1cd1a223bc25d81"
-  integrity sha512-qjb0OoloibCQSxo36BlaUxQgJBRElAgzdmJqwDAqoqc1bOrc2b7h2ijDivz+R/oaOCzg8WV1vcK1yukhBtt4Dg==
-  dependencies:
-    create-react-class "^15.6.0"
-    prop-types "^15.5.10"
-    react-clone-referenced-element "^1.0.1"
-    react-native-scrollable-mixin "^1.0.1"
-
-react-native-iphone-x-helper@^1.0.3:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.0.tgz#9f8a376eb00bc712115abff4420318a0063fa796"
-  integrity sha512-xIeTo4s77wwKgBZLVRIZC9tM9/PkXS46Ul76NXmvmixEb3ZwqGdQesR3zRiLMOoIdfOURB6N9bba9po7+x9Bag==
-
-react-native-keyboard-aware-scroll-view@0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.8.0.tgz#00bcaa38c91323913bb7a733059ad2bc4875f88c"
-  integrity sha512-gPfhgHQI/z7Cc5aeNOEmK0b250QkAeU6V+4oH8EC7mmFneEKn6MAIDjpoiwqt6bV+lFJPABXfx9MtrRmtCeJ/Q==
-  dependencies:
-    prop-types "^15.6.2"
-    react-native-iphone-x-helper "^1.0.3"
-
 react-native-in-app-notification@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-native-in-app-notification/-/react-native-in-app-notification-3.0.0.tgz#1ebc4f8f463fe70b366b17901441c81806656632"
@@ -7782,10 +7759,18 @@ react-native-invertible-scroll-view@^1.1.1:
     react-clone-referenced-element "^1.0.1"
     react-native-scrollable-mixin "^1.0.1"
 
-react-native-iphone-x-helper@^1.2.0:
+react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.0.tgz#9f8a376eb00bc712115abff4420318a0063fa796"
   integrity sha512-xIeTo4s77wwKgBZLVRIZC9tM9/PkXS46Ul76NXmvmixEb3ZwqGdQesR3zRiLMOoIdfOURB6N9bba9po7+x9Bag==
+
+react-native-keyboard-aware-scroll-view@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.8.0.tgz#00bcaa38c91323913bb7a733059ad2bc4875f88c"
+  integrity sha512-gPfhgHQI/z7Cc5aeNOEmK0b250QkAeU6V+4oH8EC7mmFneEKn6MAIDjpoiwqt6bV+lFJPABXfx9MtrRmtCeJ/Q==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-iphone-x-helper "^1.0.3"
 
 react-native-keychain@^3.1.1:
   version "3.1.1"
@@ -7893,10 +7878,10 @@ react-native-web@^0.11.1:
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.4"
 
-react-native@^0.59.1:
-  version "0.59.1"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.59.1.tgz#3274dcc0f9558799bd41c8092acac2a79bd627ce"
-  integrity sha512-KA/MyoCQLGavPBc/Q2QRfdbxHuKHTcYTks9xwwRPzgDqTfmTuDcyoC6jUBTfhZ0LEes5GMoKVM4eVrYUbprOmw==
+react-native@^0.59.4:
+  version "0.59.4"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.59.4.tgz#c0725e2e8efdea135533794ce95fea2289fe619a"
+  integrity sha512-etnXQp9IZgC8Vj5gsxZEDP4xRjJVNIj5/BSE1WcNAONG6tu6+mDBntx1jxHInwh61WYNgoQJuQGsbN5Na59ZDw==
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^1.2.1"
