@@ -48,7 +48,7 @@ export default class Login extends Component {
       password: this.state.password
     })
       .then((res) => {
-        AsyncStorage.setItem('@app:session', res.data.token);
+        AsyncStorage.multiSet([['@app:session', res.data.token], ['@app:id', this.state.username]]);
         return this.onLoginSuccess();
       })
       .catch((err) => {
