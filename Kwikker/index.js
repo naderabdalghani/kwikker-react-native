@@ -7,11 +7,7 @@ import { name as appName } from './app.json';
 // therefore copy the link json-server outputs once you run json-server --watch db.json
 
 // axios.defaults.baseURL = 'http://localhost:3000'; // fake json-server
-<<<<<<< HEAD
 axios.defaults.baseURL = 'http://localhost:3000/'; // actual server
-=======
-axios.defaults.baseURL = 'http://6d5bcddc.ngrok.io/'; // actual server
->>>>>>> development
 axios.defaults.timeout = 5000;
 
 axios.interceptors.response.use((response) => {
