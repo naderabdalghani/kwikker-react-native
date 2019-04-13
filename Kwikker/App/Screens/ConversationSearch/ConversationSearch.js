@@ -26,7 +26,7 @@ export default class Search extends Component {
       headerTitle: (
         <View style={{ width: '70%', marginTop: 8 }}>
           <TextInput
-            onChangeText={(value) => { this.setState({ search: value }); setTimeout(() => { this.updateList(); }, 500); }}
+            onChangeText={(value) => { this.setState({ search: value }); this.searchList(); }}
             placeholder=" Search for People "
             clearButtonMode="always"
           />
@@ -50,21 +50,21 @@ export default class Search extends Component {
  */
 moreLists=({ layoutMeasurement, contentOffset, contentSize }) => {
   if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true) {
-    this.updateList(this.state.usersList[this.state.usersList.length - 1].username);
+    if (this.state.search.length > 0) this.updateList(this.state.usersList[this.state.usersList.length - 1].username);
+    else this.searchList(this.state.usersList[this.state.usersList.length - 1].username);
   }
 }
 
 
 /** Update List.
  * gets first 20 users With default parameter (id=null)
- * To retrieve more send the username of the last retrieved user.
+ * To retrieve more send the id of the last retrieved user.
  * @param {int} username - The username of user .
  */
 updateList(username = null) {
-  axios.get('search', {
+  axios.get('direct_message/recent_conversationers', {
     params: {
-      last_retrieved_username: username,
-      search_text: this.state.search
+      last_conversationers_retrieved_username: username,
     }
   })
     .then((response) => {
@@ -85,6 +85,42 @@ updateList(username = null) {
     })
     .then(() => {
       // always executed
+    });
+}
+
+/** Search List.
+ * gets first 20 users With default parameter (id=null)
+ * To retrieve more send the id of the last retrieved user.
+ * @param {int} username - The username of user .
+ */
+searchList(username = null) {
+  axios.post('direct_message/recent_conversationers',
+    {
+      search_user: this.state.search
+    },
+    {
+      params: {
+        last_conversationers_retrieved_username: username,
+      }
+    })
+    .then((response) => {
+      this.setState({ refreshing: true });
+      if (username === null) {
+        this.setState({
+          usersList: response.data
+        });
+      } else {
+        this.setState((prevState) => ({ usersList: prevState.usersList.concat(response.data)
+        }));
+      }
+      this.setState({ refreshing: false });
+    })
+    .catch((error) => {
+      // handle error
+      // console.log(error);
+    })
+    .then(() => {
+      if (this.state.search.length === 0) this.updateList();
     });
 }
 

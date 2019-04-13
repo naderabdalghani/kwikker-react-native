@@ -27,7 +27,7 @@ export default class Search extends Component {
       headerTitle: (
         <View style={{ width: '85%', marginTop: 5 }}>
           <TextInput
-            onChangeText={(value) => { this.setState({ search: value }); setTimeout(() => { this.updateList(); }, 500); }}
+            onChangeText={(value) => { this.setState({ search: value }); this.updateList(); }}
             placeholder=" Search Kwikker "
             clearButtonMode="always"
           />
@@ -62,7 +62,7 @@ moreLists=({ layoutMeasurement, contentOffset, contentSize }) => {
  * @param {int} username - The username of user .
  */
 updateList(username = null) {
-  axios.get('search', {
+  axios.get('/search/users', {
     params: {
       last_retrieved_username: username,
       search_text: this.state.search
