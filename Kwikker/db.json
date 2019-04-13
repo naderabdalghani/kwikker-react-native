@@ -106,6 +106,58 @@
       "type": 0
     }
   ],
+  "search": [
+    {
+      "id":0,
+      "username": "0",
+      "screen_name": "0",
+      "profile_image_url": "https://secure.i.telegraph.co.uk/multimedia/archive/03013/selfie02_3013424b.jpg",
+      "following": false,
+      "follows_you": true,
+      "blocked": false,
+      "muted": false
+    },
+    {
+      "id":1,
+      "username": "1",
+      "screen_name": "1",
+      "profile_image_url": "https://secure.i.telegraph.co.uk/multimedia/archive/03013/selfie02_3013424b.jpg",
+      "following": true,
+      "follows_you": true,
+      "blocked": false,
+      "muted": false
+    },
+    {
+      "id":2,
+      "username": "2",
+      "screen_name": "2",
+      "profile_image_url": "https://secure.i.telegraph.co.uk/multimedia/archive/03013/selfie02_3013424b.jpg",
+      "following": true,
+      "follows_you": true,
+      "blocked": true,
+      "muted": true
+    },
+    {
+      "id":3,
+      "username": "3",
+      "screen_name": "3",
+      "profile_image_url": "https://secure.i.telegraph.co.uk/multimedia/archive/03013/selfie02_3013424b.jpg",
+      "following": true,
+      "follows_you": false,
+      "blocked": false,
+      "muted": false
+    },
+    {
+      "id":4,
+      "username": "4",
+      "screen_name": "4",
+      "profile_image_url": "https://secure.i.telegraph.co.uk/multimedia/archive/03013/selfie02_3013424b.jpg",
+      "following": false,
+      "follows_you": false,
+      "blocked": false,
+      "muted": false
+    }
+  ],
   "notifications": [
     {
       "id": 0,
