@@ -21,10 +21,16 @@ static navigationOptions = ({ navigation }) => {
 
 state = { text: '', count: 280 };
 
+/**
+ * Disable kweek button when kweek is over 280 charecters
+ */
 componentDidMount() {
   this.props.navigation.setParams({ buttonDisabled: (this.state.count <= 0) || (this.state.count === 280) });
 }
 
+/**
+ * Handle submitting a kweek
+ */
 submitTweet() {
   axios.post('kweeks', {
     params: {
