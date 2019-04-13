@@ -1,17 +1,41 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import axios from 'axios';
 import styles from './Styles';
 
-export default class Followers extends React.Component {
+export default class UserInSearch extends React.Component {
   constructor(props) {
     super(props);
+    this.state = this.props;
   }
+
+
+  /** follow user
+ *  (Post request) follow user
+ */
+  follow() {
+    axios.post('interactions/follow', {
+      username: this.state.userName
+    })
+      .then((response) => {
+      })
+      .catch((error) => {
+      });
+  }
+
+  /** unfollow user
+ *  (Post request) follow user
+ */
+  unfollow() {
+    axios.delete('interactions/follow', { data: { username: this.state.userName } });
+  }
+
 
   /** isMuted.
  * render "Muted" Text according to data from the backend
  */
   isMuted() {
-    if (this.props.muted) {
+    if (this.state.muted) {
       return (<Image style={{ width: 25, height: 25, }} source={require('../../Assets/Images/mute.png')} />);
     }
     return (<Text />);
@@ -21,16 +45,16 @@ export default class Followers extends React.Component {
  * render right Text according to data from the backend
  */
   followText() {
-    if (this.props.blocked) {
+    if (this.state.blocked) {
       return (<Text />);
     }
-    if (this.props.following && this.props.followsYou) {
+    if (this.state.following && this.state.followsYou) {
       return (<Text style={{ color: '#AAB8C2', fontSize: 12 }}>You follow each other</Text>);
     }
-    if (this.props.following) {
+    if (this.state.following) {
       return (<Text style={{ color: '#AAB8C2', fontSize: 12 }}>Following</Text>);
     }
-    if (this.props.followsYou) {
+    if (this.state.followsYou) {
       return (<Text style={{ color: '#AAB8C2', fontSize: 12 }}>Follows you</Text>);
     }
     return (<Text />);
@@ -40,34 +64,48 @@ export default class Followers extends React.Component {
  * render right Component according to data from the backend
  */
   isFollowingOrBlock() {
-    if (this.props.blocked) {
+    if (this.state.blocked) {
       return (
-        <View style={styles.blocked}>
+        <TouchableOpacity style={styles.blocked}>
           <Text style={{ color: '#000', fontWeight: 'bold' }}>
               blocked
           </Text>
 
-        </View>
+        </TouchableOpacity>
 
       );
     }
-    if (this.props.following) {
+    if (this.state.following) {
       return (
-        <View style={styles.following}>
+        <TouchableOpacity
+          style={styles.following} onPress={() => {
+            this.setState({
+              following: false,
+            });
+            setTimeout(() => { this.unfollow(); }, 500);
+          }}
+        >
           <Text style={{ color: 'white', fontWeight: 'bold' }}>
             Following
           </Text>
 
-        </View>
+        </TouchableOpacity>
 
       );
     }
     return (
-      <View style={styles.follow}>
+      <TouchableOpacity
+        style={styles.follow} onPress={() => {
+          this.setState({
+            following: true,
+          });
+          setTimeout(() => { this.follow(); }, 500);
+        }}
+      >
         <Text style={{ color: '#1DA1F2', fontWeight: 'bold' }}>
           Follow
         </Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 
@@ -76,12 +114,12 @@ export default class Followers extends React.Component {
 
       <View style={styles.container}>
         <View style={styles.profilePicture}>
-          <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
+          <Image style={styles.ProfileImage} source={{ uri: this.state.profileUrl }} />
         </View>
         <View style={styles.textContainer}>
           {this.followText()}
-          <Text style={{ fontWeight: 'bold' }}>{this.props.screenName}</Text>
-          <Text style={{ color: '#AAB8C2' }}>{this.props.userName}</Text>
+          <Text style={{ fontWeight: 'bold' }}>{this.state.screenName}</Text>
+          <Text style={{ color: '#AAB8C2' }}>{this.state.userName}</Text>
           {this.isMuted()}
         </View>
 

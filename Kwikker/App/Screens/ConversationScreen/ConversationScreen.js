@@ -33,7 +33,6 @@ export default class ConversationScreen extends Component {
   /** Send message
  *  sends message to specifice user
  *  (Post request) we send the message and the user name
- * @param {string} message - the message that i will send
  */
   onSubmit() {
     if (this.state.message.length > 0) {
