@@ -1,9 +1,11 @@
 import React from 'react';
 import { Text, View, Image, KeyboardAvoidingView } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
+
 
 export default class Email extends React.Component {
   constructor(props) {
@@ -12,15 +14,20 @@ export default class Email extends React.Component {
   }
 
 
+  /**
+   * update user's Email and go back to account settings
+   */
   nextButtonPress() {
     axios.put('user/email', {
       email: this.state.Name
     })
       .then((response) => {
         console.log(response);
+        this.props.navigation.goBack(null);
       })
       .catch((error) => {
         console.log(error);
+        this.props.navigation.goBack(null);
       });
   }
 
