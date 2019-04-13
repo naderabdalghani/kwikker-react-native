@@ -110,7 +110,11 @@ render() {
 
 
       </ScrollView>
-      <TouchableOpacity style={styles.messageButton}>
+      <TouchableOpacity
+        style={styles.messageButton} onPress={() => {
+          this.props.navigation.push('ConversationSearch');
+        }}
+      >
         <Image source={require('./../../Assets/Images/Message1.png')} style={styles.buttomImage} />
       </TouchableOpacity>
     </View>
