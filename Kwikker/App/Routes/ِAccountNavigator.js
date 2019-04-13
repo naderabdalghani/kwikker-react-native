@@ -3,7 +3,6 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Account from '../Screens/Account/Account';
 import Username from '../Screens/Username/Username';
 import Email from '../Screens/Email/Email';
-import Phone from '../Screens/Phone/Phone';
 import Password from '../Screens/Password/Password';
 
 const AccountNavigator = createStackNavigator({
@@ -13,7 +12,6 @@ const AccountNavigator = createStackNavigator({
       header: null,
     }, },
   Username: { screen: Username },
-  Phone: { screen: Phone },
   Password: { screen: Password },
   Email: { screen: Email },
 });

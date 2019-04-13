@@ -1,26 +1,40 @@
 import React from 'react';
 import { Text, View, Image, KeyboardAvoidingView } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 
+
 export default class Username extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Name: '@Username' };
+    this.state = { Name: '', currentUsername: '' };
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.setState({ currentUsername: id });
+      this.setState({ Name: id });
+    });
   }
 
 
+  /**
+   * update user's username and go back to account settings
+   */
   doneButtonPress() {
     axios.put('user/username', {
       username: this.state.Name
     })
-      .then((response) => {
-        console.log(response);
+      .then((res) => {
+        console.log(res);
+        this.props.navigation.goBack(null);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
+        this.props.navigation.goBack(null);
       });
   }
 
@@ -32,7 +46,9 @@ export default class Username extends React.Component {
           <View>
             <Text style={styles.labelStyle}> Current </Text>
             <View style={styles.border}>
-              <Text style={styles.labelStyle}>@Username </Text>
+              <Text style={styles.labelStyle}>
+                {this.state.currentUsername}
+              </Text>
             </View>
           </View>
           <CustomTextInput
