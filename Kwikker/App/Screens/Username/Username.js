@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, KeyboardAvoidingView } from 'react-native';
+import axios from 'axios';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -10,10 +11,23 @@ export default class Username extends React.Component {
     this.state = { Name: '@Username' };
   }
 
+
+  doneButtonPress() {
+    axios.put('user/username', {
+      username: this.state.Name
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
 
-      <View>
+      <View style={styles.container}>
         <View>
           <View>
             <Text style={styles.labelStyle}> Current </Text>
@@ -30,6 +44,13 @@ export default class Username extends React.Component {
             autoFocus={false}
           />
         </View>
+        <KeyboardAvoidingView style={styles.ButtonContainer} keyboardVerticalOffset={0}>
+          <KeyboardAvoidingView style={styles.ButtonBorder} behavior="padding">
+            <View style={styles.ButtonStyle}>
+              <CustomButton onPress={this.doneButtonPress.bind(this)} marginSize={15} customFontSize={17}>Done</CustomButton>
+            </View>
+          </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
       </View>
     );
   }
