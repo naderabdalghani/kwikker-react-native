@@ -65,5 +65,35 @@ export default StyleSheet.create({
   },
   aligneCenter: {
     alignItems: 'center',
-  }
+  },
+  backButtonContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  backButton: {
+    height: 30,
+    width: 30,
+    marginLeft: 12,
+  },
+  dummyElement: {
+    flex: 1,
+  },
+  titleContainer: {
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000',
+    marginTop: 5,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    height: 50,
+    borderBottomWidth: 1,
+    borderBottomColor: '#AAB8C2',
+  },
 });

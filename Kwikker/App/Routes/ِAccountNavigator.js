@@ -11,9 +11,18 @@ const AccountNavigator = createStackNavigator({
     navigationOptions: {
       header: null,
     }, },
-  Username: { screen: Username },
-  Password: { screen: Password },
-  Email: { screen: Email },
+  Username: { screen: Username,
+    navigationOptions: {
+      header: null,
+    }, },
+  Password: { screen: Password,
+    navigationOptions: {
+      header: null,
+    }, },
+  Email: { screen: Email,
+    navigationOptions: {
+      header: null,
+    }, },
 });
 AccountNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;

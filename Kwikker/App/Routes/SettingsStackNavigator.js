@@ -10,8 +10,14 @@ const SettingsStackNavigator = createStackNavigator({
     navigationOptions: {
       title: 'Settings',
     } },
-  Account: { screen: Account },
-  PrivacyAndSafety: { screen: PrivacyAndSafety }
+  Account: { screen: Account,
+    navigationOptions: {
+      header: null,
+    }, },
+  PrivacyAndSafety: { screen: PrivacyAndSafety,
+    navigationOptions: {
+      header: null,
+    }, }
 });
 SettingsStackNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;

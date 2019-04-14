@@ -11,6 +11,26 @@ export default class Kweek extends Component {
     this.state = { liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };
   }
 
+  /**
+   * Calculate kweek date and time
+   */
+  dateAndTime() {
+    const now = new Date();
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const day = this.props.date.getDate();
+    const year = this.props.date.getFullYear();
+    const month = this.props.date.getMonth();
+    const hour = this.props.date.getHours();
+    const minutes = this.props.date.getMinutes();
+    if (now.getFullYear() === year && now.getMonth() === month && now.getDate() === day && now.getHours() === hour) { return ((now.getMinutes() - minutes).toString().concat('m')); }
+    if (now.getFullYear() === year && now.getMonth() === month && now.getDate() === day) { return ((now.getHours() - hour).toString().concat('h')); }
+    if (now.getFullYear() === year) { return ((day).toString().concat(months[month])); }
+    return ((months[month]).concat(year.toString()));
+  }
+
+  /**
+   * Determine if it is a kweek shared by a followed user or it is rekweeked by him
+   */
   kweekHeader() {
     if (this.props.rekweekerUserName === null) {
       return (null);
@@ -25,7 +45,7 @@ export default class Kweek extends Component {
         </TouchableOpacity>
       );
     }
-    /*if (this.props.likerUserName != null) {
+    /* if (this.props.likerUserName != null) {
       return (
         <TouchableOpacity style={{ marginTop: '2%', marginBottom: '1%' }}>
           <View style={{ flexDirection: 'row' }}>
@@ -38,6 +58,9 @@ export default class Kweek extends Component {
     */
   }
 
+  /**
+  * Determine whether the kweek is liked by the user or not
+  */
   likeStatus() {
     if (this.state.liked) {
       return (
@@ -55,6 +78,9 @@ export default class Kweek extends Component {
     );
   }
 
+  /**
+   * Determine whether the kweek is rekweeked by the user or not
+   */
   rekweekStatus() {
     if (this.state.rekeeked) {
       return (
@@ -72,6 +98,9 @@ export default class Kweek extends Component {
     );
   }
 
+  /**
+   * Handle like button press by changing the button color and changing the counter
+   */
   likePressed() {
     console.log('like pressed');
     if (this.state.liked) {
@@ -93,6 +122,9 @@ export default class Kweek extends Component {
     }
   }
 
+  /**
+   * Handle rekweek button press by changing button color and changing counter
+   */
   rekweekPressed() {
     console.log('rekweek pressed');
     if (this.state.rekeeked) {
@@ -129,7 +161,7 @@ export default class Kweek extends Component {
                 <View style={{ flex: 8, flexDirection: 'row' }}>
                   <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#000000' }}>{this.props.screenName}</Text>
                   <Text style={{ fontSize: 15, color: '#657786', marginLeft: '2%' }}>@{this.props.userName}</Text>
-                  <Text style={{ fontSize: 15, color: '#657786', marginLeft: '2%' }}> . 4h</Text>
+                  <Text style={{ fontSize: 15, color: '#657786', marginLeft: '2%' }}>{ this.dateAndTime() }</Text>
                 </View>
                 <TouchableOpacity style={{ flex: 1 }}>
                   <Ionicons name="ios-arrow-down" size={15} color="#657786" />

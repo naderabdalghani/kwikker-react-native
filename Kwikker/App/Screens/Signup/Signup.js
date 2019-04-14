@@ -17,7 +17,7 @@ const messages = {
   bothExists: 'Both email and username exists'
 };
 
-export default class Login extends Component {
+export default class SignUp extends Component {
   state = { username: '', password: '', email: '', loading: false, message: '' }
 
   /**
