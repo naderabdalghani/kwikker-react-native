@@ -53,7 +53,7 @@ export default class Account extends React.Component {
                 />
               </TouchableNativeFeedback>
             </View>
-            <View>
+            <View style={Styles.titleContainer}>
               <Text style={Styles.title}>Account</Text>
               <Text style={Styles.username}>@{this.state.currentUsername}</Text>
             </View>
