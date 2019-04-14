@@ -52,7 +52,6 @@ export default class ConversationScreen extends Component {
         .then((response) => {
           this.setState({
             message: '',
-            refreshing: false,
             scrolledDown: false,
           });
           this.textInput.clear();
