@@ -3,7 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer'; // Note: test renderer must be required after react-native.
 import { shallow } from 'enzyme';
 import mockAxios from 'axios';
-import Notifications from '../App/Screens/Notifications/Notifications';
+import { Notifications } from '../App/Screens/Notifications/Notifications';
 
 describe('notificationsComponent component', () => {
   it('Mount:  get 20 notifications on component Mount ', async () => {

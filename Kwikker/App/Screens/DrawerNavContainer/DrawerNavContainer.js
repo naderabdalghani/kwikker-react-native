@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { NavigationActions, DrawerActions } from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 import Styles from './Styles';
 
 export default class DrawerNavContainer extends Component {
   constructor(props) {
     super(props);
+  }
+
+  /**
+   * Completely deletes the access token and username then redirects the user to the start screen
+   */
+  logoutButtonPressed() {
+    AsyncStorage.multiRemove(['@app:session', '@app:id']);
+    axios.defaults.headers.common['TOKEN'] = '';
+    this.props.navigation.navigate('StartScreen');
   }
 
   render() {
@@ -42,7 +53,7 @@ export default class DrawerNavContainer extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')}>
             <Text style={Styles.text}> Settings and privacy </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('StartScreen')}>
+          <TouchableOpacity onPress={this.logoutButtonPressed.bind(this)}>
             <Text style={Styles.text}> Logout </Text>
           </TouchableOpacity>
         </View>

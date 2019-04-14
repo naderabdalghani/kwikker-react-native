@@ -29,9 +29,9 @@ class CustomTextInput extends React.Component {
   render() {
     const { isFocused } = this.state;
     const { inputStyle, labelStyle, containerStyle } = styles;
-    const { onFocus, onBlur, label, secureTextEntry, placeholder, value, onChangeText, autoFocus } = this.props;
+    const { onFocus, onBlur, label, secureTextEntry, placeholder, value, onChangeText, autoFocus, autoCapitalize, marginSize, marginTopSize = 10 } = this.props;
     return (
-      <View style={containerStyle}>
+      <View style={{ ...containerStyle, marginLeft: marginSize, marginRight: marginSize, marginTop: marginTopSize }}>
         <Text style={labelStyle}>{label}</Text>
         <TextInput
           secureTextEntry={secureTextEntry}
@@ -46,6 +46,8 @@ class CustomTextInput extends React.Component {
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           autoFocus={autoFocus}
+          selectionColor={BLUE}
+          autoCapitalize={autoCapitalize}
           selectionColor={BLUE}
         />
       </View>

@@ -8,5 +8,22 @@ export default {
     response: {
       data: {}
     }
-  }))
+  })),
+  put: jest.fn(() => Promise.resolve({
+    response: {
+      data: {}
+    }
+  })),
+  delete: jest.fn(() => Promise.resolve({
+    response: {
+      data: {}
+    }
+  })),
+  defaults: {
+    headers: {
+      common: {
+        TOKEN: ''
+      }
+    }
+  }
 };

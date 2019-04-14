@@ -6,7 +6,7 @@ const EditProfileNavigator = createStackNavigator({
 
   EditProfile: { screen: EditProfile,
     navigationOptions: {
-      title: 'EditProfile',
+      header: null,
     }
   }
 });

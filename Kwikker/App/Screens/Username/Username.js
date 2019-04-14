@@ -1,0 +1,90 @@
+import React from 'react';
+import { Text, View, Image, KeyboardAvoidingView, TouchableNativeFeedback } from 'react-native';
+import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
+import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
+import styles from './Styles';
+import CustomButton from '../../Components/CustomButton/CustomButton';
+
+
+export default class Username extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { Name: '', currentUsername: '' };
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.setState({ currentUsername: id });
+      this.setState({ Name: id });
+    });
+  }
+
+
+  /**
+   * update user's username and go back to account settings
+   */
+  doneButtonPress() {
+    axios.put('user/username', {
+      username: this.state.Name
+    })
+      .then((res) => {
+        console.warn('success');
+        this.props.navigation.goBack(null);
+      })
+      .catch((err) => {
+        console.warn(err);
+        this.props.navigation.goBack(null);
+      });
+  }
+
+  render() {
+    return (
+
+      <View style={styles.container}>
+        <View>
+
+          <View style={styles.header}>
+            <View style={styles.backButtonContainer}>
+              <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
+                <Image
+                  style={styles.backButton}
+                  source={require('./../../Assets/Images/back_button.png')}
+                />
+              </TouchableNativeFeedback>
+            </View>
+            <View>
+              <Text style={styles.title}>Change username</Text>
+            </View>
+            <View />
+            <View style={styles.dummyElement} />
+          </View>
+
+          <View>
+            <Text style={styles.labelStyle}> Current </Text>
+            <View style={styles.border}>
+              <Text style={styles.labelStyle}>
+                {this.state.currentUsername}
+              </Text>
+            </View>
+          </View>
+          <CustomTextInput
+            placeholder=""
+            label="New"
+            secureTextEntry={false}
+            value={this.state.Name}
+            onChangeText={(Name) => this.setState({ Name })}
+            autoFocus={false}
+          />
+        </View>
+        <KeyboardAvoidingView style={styles.ButtonContainer} keyboardVerticalOffset={0}>
+          <KeyboardAvoidingView style={styles.ButtonBorder} behavior="padding">
+            <View style={styles.ButtonStyle}>
+              <CustomButton onPress={this.doneButtonPress.bind(this)} marginSize={15} customFontSize={17}>Done</CustomButton>
+            </View>
+          </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </View>
+    );
+  }
+}
