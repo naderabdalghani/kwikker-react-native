@@ -9,6 +9,11 @@ export default {
       data: {}
     }
   })),
+  delete: jest.fn(() => Promise.resolve({
+    response: {
+      data: {}
+    }
+  })),
   defaults: {
     headers: {
       common: {
