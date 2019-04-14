@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableNativeFeedback, KeyboardAvoidingView } from 'react-native';
+import { Text, View, Image, TouchableNativeFeedback, KeyboardAvoidingView, ScrollView } from 'react-native';
 import axios from 'axios';
+import { Container, Header, Content, DatePicker } from 'native-base';
 import styles from './Styles';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -18,7 +19,7 @@ const messages = {
 };
 
 export default class SignUp extends Component {
-  state = { username: '', password: '', email: '', loading: false, message: '' }
+  state = { username: '', screenname: '', password: '', email: '', loading: false, message: '', date: '' }
 
   /**
    *
@@ -71,7 +72,9 @@ export default class SignUp extends Component {
     axios.post('/account/registration', {
       username: this.state.username,
       password: this.state.password,
-      email: this.state.email
+      email: this.state.email,
+      screen_name: this.state.screenname,
+      birth_date: this.state.date,
     })
       .then((res) => {
         return this.onRegisterationSuccess();
@@ -93,10 +96,10 @@ export default class SignUp extends Component {
   }
 
   render() {
-    const buttonDisabled = (this.state.username === '') || (this.state.email === '') || (this.state.password === '');
+    const buttonDisabled = (this.state.username === '') || (this.state.email === '') || (this.state.password === '') || (this.state.screenname === '') || (this.state.date === '');
     return (
       <View style={parentView}>
-        <Loader loading={this.state.loading} />
+        <Loader loading={this.state.loading} loadingMessage='Loading' />
 
         <View style={header}>
           <View style={backButtonContainer}>
@@ -120,7 +123,7 @@ export default class SignUp extends Component {
           <Text style={createAccountText}>Create your account</Text>
         </View>
 
-        <View style={textInputsContainer}>
+        <ScrollView style={textInputsContainer}>
           <CustomTextInput
             placeholder="Username"
             secureTextEntry={false}
@@ -129,6 +132,17 @@ export default class SignUp extends Component {
             autoFocus
             marginSize={30}
             marginTopSize={0}
+            autoCapitalize="none"
+          />
+          <CustomTextInput
+            placeholder="Screen name"
+            secureTextEntry={false}
+            value={this.state.screenname}
+            onChangeText={(screenname) => this.setState({ screenname })}
+            autoFocus
+            marginSize={30}
+            marginTopSize={0}
+            autoCapitalize="none"
           />
           <CustomTextInput
             placeholder="Email address"
@@ -150,8 +164,27 @@ export default class SignUp extends Component {
             marginSize={30}
             marginTopSize={0}
           />
+          <View style={{ alignSelf: 'center', flexDirection: 'row', marginLeft: 40, marginRight: 40, marginTop: 10, borderBottomWidth: 1, borderBottomColor: '#AAB8C2' }}>
+            <Text style={{ fontSize: 20, color: '#9e9e9e', alignSelf: 'center' }}>Birth date</Text>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <DatePicker
+              locale="en"
+              timeZoneOffsetInMinutes={undefined}
+              modalTransparent={false}
+              animationType="fade"
+              androidMode="default"
+              placeHolderText="Add your date of birth"
+              textStyle={{ color: 'black', fontSize: 20 }}
+              placeHolderTextStyle={{ color: '#9e9e9e', fontSize: 18 }}
+              onDateChange={(date) => this.setState({ date })}
+              disabled={false}
+              />
+            </View>
+            
+          </View>
+
           {this.renderRegisterationMessage()}
-        </View>
+        </ScrollView>
         <KeyboardAvoidingView style={submitButtonContainer} keyboardVerticalOffset={0}>
           <KeyboardAvoidingView style={submitButtonBorder} behavior="padding">
             <View style={submitButtonStyle}>

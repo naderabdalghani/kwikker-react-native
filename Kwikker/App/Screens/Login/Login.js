@@ -69,7 +69,7 @@ export default class Login extends Component {
     const buttonDisabled = (this.state.username === '') || (this.state.password === '');
     return (
       <View style={parentView}>
-        <Loader loading={this.state.loading} />
+        <Loader loading={this.state.loading} loadingMessage='Logging In' />
         <View style={header}>
           <View style={dummyElement} />
           <View style={imageContainer}>

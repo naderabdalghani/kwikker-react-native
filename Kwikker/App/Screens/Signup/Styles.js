@@ -47,6 +47,7 @@ export default StyleSheet.create({
   submitButtonBorder: {
     borderTopWidth: 0.75,
     borderTopColor: '#AAB8C2',
+    backgroundColor: 'white',
   },
   submitButtonContainer: {
     justifyContent: 'flex-end',
@@ -54,7 +55,6 @@ export default StyleSheet.create({
   },
   textInputsContainer: {
     height: '50%',
-    justifyContent: 'center',
   },
   errorMessage: {
     fontSize: 15,
