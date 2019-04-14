@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableNativeFeedback, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Text, View, Image, TouchableNativeFeedback, KeyboardAvoidingView, ScrollView, Keyboard } from 'react-native';
 import axios from 'axios';
 import { Container, Header, Content, DatePicker } from 'native-base';
 import styles from './Styles';
@@ -25,16 +25,19 @@ export default class SignUp extends Component {
    *
    */
   onRegisterationFail(error) {
+    const statusCode = error.response.status;
+    const usernameAlreadyExists = error.response.data.username_already_exists;
+    const emailAlreadyExists = error.response.data.email_already_exists;
     messageStyle = errorMessage;
     this.setState({
       loading: false,
     });
-    if (error.response.status === 403) {
-      if (error.respone.data.username_already_exists && error.respone.data.email_already_exists) {
+    if (statusCode === 403) {
+      if (usernameAlreadyExists && emailAlreadyExists) {
         this.setState({
           message: messages.bothExists
         });
-      } else if (error.respone.data.username_already_exists) {
+      } else if (usernameAlreadyExists) {
         this.setState({
           message: messages.usernameAlreadyExists
         });
@@ -65,6 +68,7 @@ export default class SignUp extends Component {
    *
    */
   submitButtonPress() {
+    Keyboard.dismiss();
     this.setState({
       loading: true,
       message: messages.null
@@ -80,7 +84,10 @@ export default class SignUp extends Component {
         return this.onRegisterationSuccess();
       })
       .catch((err) => {
-        return this.onRegisterationFail(err);
+        let error = JSON.stringify(err);
+        error = JSON.parse(error);
+        console.log(error);
+        return this.onRegisterationFail(error);
       });
   }
 
@@ -99,7 +106,7 @@ export default class SignUp extends Component {
     const buttonDisabled = (this.state.username === '') || (this.state.email === '') || (this.state.password === '') || (this.state.screenname === '') || (this.state.date === '');
     return (
       <View style={parentView}>
-        <Loader loading={this.state.loading} loadingMessage='Loading' />
+        <Loader loading={this.state.loading} loadingMessage="Loading" />
 
         <View style={header}>
           <View style={backButtonContainer}>
@@ -168,19 +175,19 @@ export default class SignUp extends Component {
             <Text style={{ fontSize: 20, color: '#9e9e9e', alignSelf: 'center' }}>Birth date</Text>
             <View style={{ flex: 1, alignItems: 'center' }}>
               <DatePicker
-              locale="en"
-              timeZoneOffsetInMinutes={undefined}
-              modalTransparent={false}
-              animationType="fade"
-              androidMode="default"
-              placeHolderText="Add your date of birth"
-              textStyle={{ color: 'black', fontSize: 20 }}
-              placeHolderTextStyle={{ color: '#9e9e9e', fontSize: 18 }}
-              onDateChange={(date) => this.setState({ date })}
-              disabled={false}
+                locale="en"
+                timeZoneOffsetInMinutes={undefined}
+                modalTransparent={false}
+                animationType="fade"
+                androidMode="default"
+                placeHolderText="Add your date of birth"
+                textStyle={{ color: 'black', fontSize: 20 }}
+                placeHolderTextStyle={{ color: '#9e9e9e', fontSize: 18 }}
+                onDateChange={(date) => this.setState({ date })}
+                disabled={false}
               />
             </View>
-            
+
           </View>
 
           {this.renderRegisterationMessage()}
