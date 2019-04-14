@@ -13,13 +13,18 @@ const SearchTapNavigator = createMaterialTopTabNavigator({
     upperCaseLabel: false,
     labelStyle: {
       fontSize: 12,
-      color: 'gray'
+      color: '#1DA1F2'
     },
     tabStyle: {
     },
+    tabBarStyle: {
+      backgroundColor: '#eeeeee',
+    },
+    indicatorStyle: {
+      backgroundColor: '#1DA1F2'
+    },
     style: {
       backgroundColor: 'white',
-      color: 'blue'
 
     },
   }

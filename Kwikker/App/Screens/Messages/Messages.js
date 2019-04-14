@@ -5,6 +5,11 @@ import Conversation from '../../Components/Conversation/Conversation';
 import styles from './Styles';
 
 export default class Messages extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+    return params;
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +18,15 @@ export default class Messages extends Component {
     };
   }
 
+
   componentDidMount() {
+    this.props.navigation.setParams({
+      headerLeft: (
+        <TouchableOpacity>
+          <Image source={require('./../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+        </TouchableOpacity>
+      ),
+    });
     this.pullRefresh();
   }
 
