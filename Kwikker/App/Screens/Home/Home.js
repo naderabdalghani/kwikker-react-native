@@ -21,15 +21,18 @@ constructor(props) {
 
 componentDidMount() {
   this.pullRefresh();
+  console.log('componentdidMount');
 }
 
 /**
  * Pull to refresh functionality
  */
 pullRefresh= () => {
+  console.log('pullRefresh');
   this.setState({
     refreshing: true,
   });
+  console.log(this.state.refreshing);
   this.updateKweeks();
 }
 
@@ -54,6 +57,7 @@ moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
  * @param {int} id - The id of Kweek .
  */
 updateKweeks(id = null) {
+  console.log('updateKweeks');
   axios.get('kweeks/timelines/home', {
     params: {
       last_retrieved_kweek_id: id
@@ -61,6 +65,7 @@ updateKweeks(id = null) {
   })
     .then((response) => {
       if (id === null) {
+        console.log('response id null');
         this.setState({
           kweeks: response.data
         });
@@ -72,7 +77,7 @@ updateKweeks(id = null) {
     })
     .catch((error) => {
     // handle error
-    // console.log(error);
+     console.log('error');
     })
     .then(() => {
     // always executed

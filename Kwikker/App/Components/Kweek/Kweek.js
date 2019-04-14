@@ -110,7 +110,18 @@ export default class Kweek extends Component {
         params: {
           id: this.props.key
         }
-      });
+      })
+        .then((response) => {
+
+        })
+
+        .catch((error) => {
+        // handle error
+        // console.log(error);
+        })
+        .then(() => {
+        // always executed
+        });
     } else {
       this.setState({ liked: true });
       this.setState((prevState) => ({ likesCounter: prevState.likesCounter + 1 }));
@@ -118,7 +129,18 @@ export default class Kweek extends Component {
         params: {
           id: this.props.key
         }
-      });
+      })
+        .then((response) => {
+
+        })
+
+        .catch((error) => {
+        // handle error
+        // console.log(error);
+        })
+        .then(() => {
+        // always executed
+        });
     }
   }
 
@@ -134,7 +156,18 @@ export default class Kweek extends Component {
         params: {
           id: this.props.key
         }
-      });
+      })
+        .then((response) => {
+
+        })
+
+        .catch((error) => {
+        // handle error
+        // console.log(error);
+        })
+        .then(() => {
+        // always executed
+        });
     } else {
       this.setState({ rekeeked: true });
       this.setState((prevState) => ({ rekweeksCounter: prevState.rekweeksCounter + 1 }));
@@ -142,7 +175,18 @@ export default class Kweek extends Component {
         params: {
           id: this.props.key
         }
-      });
+      })
+        .then((response) => {
+
+        })
+
+        .catch((error) => {
+        // handle error
+        // console.log(error);
+        })
+        .then(() => {
+        // always executed
+        });
     }
   }
 

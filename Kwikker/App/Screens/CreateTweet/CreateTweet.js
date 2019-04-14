@@ -12,7 +12,7 @@ static navigationOptions = ({ navigation }) => {
   return {
     headerRight:
   <View style={{ marginRight: 10 }}>
-    <CustomButton marginSize={10} customFontSize={15} disabled={params.buttonDisabled}>Kweek</CustomButton>
+    <CustomButton marginSize={10} customFontSize={15} disabled={params.buttonDisabled} onPress={() => this.submitKweek.bind(this)}>Kweek</CustomButton>
   </View>,
     headerBackImage:
   <Feather name="x" size={24} color="rgb(29, 161, 242)" />
@@ -31,12 +31,24 @@ componentDidMount() {
 /**
  * Handle submitting a kweek
  */
-submitTweet() {
+submitKweek() {
   axios.post('kweeks', {
     params: {
       text: this.state.text
     }
-  });
+  })
+    .then((response) => {
+
+    })
+
+    .catch((error) => {
+    // handle error
+    // console.log(error);
+    })
+    .then(() => {
+    // always executed
+      this.navigation.setRoot('Home');
+    });
 }
 
 render() {
