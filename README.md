@@ -26,6 +26,7 @@ Don't you wish that Twitter were more... Kwikker? Say no more! We've got your ba
 - Functions documentation are located in Kwikker/docs/index.html
 
 *This application isn't by any means intended for public or commerical use, it's merely a school project, so please don't sue us, thanks for understanding
-   [link1]: <https://facebook.github.io/react-native/docs/getting-started>
-   [link2]: <https://facebook.github.io/react-native/docs/getting-started#preparing-the-android-device>
-   [link3]: <https://github.com/typicode/json-server>
+
+[link1]: <https://facebook.github.io/react-native/docs/getting-started>
+[link2]: <https://facebook.github.io/react-native/docs/getting-started#preparing-the-android-device>
+[link3]: <https://github.com/typicode/json-server>
