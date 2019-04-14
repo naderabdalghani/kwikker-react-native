@@ -43,9 +43,6 @@ export default class Search extends Component {
     this.updateList();
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
 
 /** Get more Lists when we get to the end of the scrollView.
  * Check we reached end of content
