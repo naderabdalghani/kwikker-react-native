@@ -5,6 +5,7 @@ import styles from './Styles';
 const Loader = (props) => {
   const {
     loading,
+    loadingMessage,
     ...attributes
   } = props;
   const { modalBackground, activityIndicatorWrapper, loadingText, activityIndicatorStyle } = styles;
@@ -15,7 +16,7 @@ const Loader = (props) => {
           <View style={activityIndicatorStyle}>
             <ActivityIndicator animating={loading} size={50} />
           </View>
-          <Text style={loadingText}>Logging In</Text>
+          <Text style={loadingText}>{loadingMessage}</Text>
         </View>
       </View>
     </Modal>
