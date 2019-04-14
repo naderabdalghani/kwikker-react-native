@@ -9,6 +9,11 @@ export default {
       data: {}
     }
   })),
+  put: jest.fn(() => Promise.resolve({
+    response: {
+      data: {}
+    }
+  })),
   delete: jest.fn(() => Promise.resolve({
     response: {
       data: {}
