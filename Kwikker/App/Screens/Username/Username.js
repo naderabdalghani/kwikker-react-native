@@ -29,11 +29,11 @@ export default class Username extends React.Component {
       username: this.state.Name
     })
       .then((res) => {
-        console.log(res.data.status);
+        console.warn('success');
         this.props.navigation.goBack(null);
       })
       .catch((err) => {
-        console.log(err);
+        console.warn(err);
         this.props.navigation.goBack(null);
       });
   }

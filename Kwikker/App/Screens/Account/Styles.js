@@ -64,6 +64,7 @@ export default StyleSheet.create({
   },
   titleContainer: {
     alignItems: 'flex-start',
+    width: '70%',
   },
   title: {
     fontSize: 18,
