@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, Image, TouchableNativeFeedback, ToastAndroid } from 'react-native';
+import { Text, View, Button, Image, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import styles from './Styles';
@@ -8,14 +8,14 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 import Loader from '../../Components/Loader/Loader';
 
 export default class Login extends Component {
-  state = { username: '', password: '', loading: false, error: '' };
+  state = { username: '', password: '', loading: false, message: '' };
 
   /**
    * Shows a toast message "Authentication Failed" and turns off the loading screen
    */
   onLoginFail() {
-    this.setState({ error: 'Authentication Failed', loading: false });
-    ToastAndroid.show(this.state.error, ToastAndroid.SHORT);
+    this.setState({ message: 'Authentication Failed', loading: false });
+    ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
   }
 
   /**
@@ -41,7 +41,7 @@ export default class Login extends Component {
   logInButtonPress() {
     this.setState({
       loading: true,
-      error: ''
+      message: ''
     });
     axios.post('account/login', {
       username: this.state.username,

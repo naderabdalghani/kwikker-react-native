@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Button, TouchableNativeFeedback, Linking, Platform, ToastAndroid } from 'react-native';
+import { Text, View, Image, TouchableNativeFeedback, Linking, Platform, ToastAndroid } from 'react-native';
 import axios from 'axios';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -88,7 +88,16 @@ export default class StartScreen extends Component {
   }
 
   render() {
-    const { parentView, header, headerImage, startScreenText, textButtonContainer, logInContainer, logInText, logInButton } = styles;
+    const {
+      parentView,
+      header,
+      headerImage,
+      startScreenText,
+      textButtonContainer,
+      logInContainer,
+      logInText,
+      logInButton
+    } = styles;
     return (
       <View style={parentView}>
         <Loader loading={this.state.loading} loadingMessage="Loading" />

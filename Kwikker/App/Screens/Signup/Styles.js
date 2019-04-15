@@ -74,4 +74,30 @@ export default StyleSheet.create({
     marginLeft: 40,
     textDecorationLine: 'underline'
   },
+  datePickerContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  datePickerText: {
+    color: 'black',
+    fontSize: 20,
+  },
+  datePickerPlaceholder: {
+    color: '#9e9e9e',
+    fontSize: 18,
+  },
+  dateText: {
+    fontSize: 20,
+    color: '#9e9e9e',
+    alignSelf: 'center',
+  },
+  dateContainer: {
+    alignSelf: 'center',
+    flexDirection: 'row',
+    marginLeft: 40,
+    marginRight: 40,
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#AAB8C2',
+  },
 });
