@@ -6,7 +6,7 @@ const BLUE = '#89CCFD';
 const GRAY = '#AAB8C2';
 let customBorderColor = GRAY;
 
-class CustomTextInput2 extends React.Component {
+class CustomRoundedTextInput extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -50,4 +50,4 @@ class CustomTextInput2 extends React.Component {
   }
 }
 
-export default CustomTextInput2;
+export default CustomRoundedTextInput;

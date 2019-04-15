@@ -1,14 +1,37 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableNativeFeedback, KeyboardAvoidingView, ScrollView, Keyboard } from 'react-native';
 import axios from 'axios';
-import { Container, Header, Content, DatePicker } from 'native-base';
+import { DatePicker } from 'native-base';
 import styles from './Styles';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Loader from '../../Components/Loader/Loader';
 
-const { parentView, header, headerImage, backButtonContainer, backButton, dummyElement, imageContainer, createAccountText, submitButtonStyle, submitButtonContainer, submitButtonBorder, textInputsContainer, errorMessage, successMessage, resendButton } = styles;
+const {
+  parentView,
+  header,
+  headerImage,
+  backButtonContainer,
+  backButton,
+  dummyElement,
+  imageContainer,
+  createAccountText,
+  submitButtonStyle,
+  submitButtonContainer,
+  submitButtonBorder,
+  textInputsContainer,
+  errorMessage,
+  successMessage,
+  resendButton,
+  dateContainer,
+  dateText,
+  datePickerPlaceholder,
+  datePickerText,
+  datePickerContainer,
+} = styles;
+
 let messageStyle = successMessage;
+
 const messages = {
   null: '',
   success: 'Registeration successfull, email confirmation pending.',
@@ -207,9 +230,9 @@ export default class SignUp extends Component {
             marginSize={30}
             marginTopSize={0}
           />
-          <View style={{ alignSelf: 'center', flexDirection: 'row', marginLeft: 40, marginRight: 40, marginTop: 10, borderBottomWidth: 1, borderBottomColor: '#AAB8C2' }}>
-            <Text style={{ fontSize: 20, color: '#9e9e9e', alignSelf: 'center' }}>Birth date</Text>
-            <View style={{ flex: 1, alignItems: 'center' }}>
+          <View style={dateContainer}>
+            <Text style={dateText}>Birth date</Text>
+            <View style={datePickerContainer}>
               <DatePicker
                 locale="en"
                 timeZoneOffsetInMinutes={undefined}
@@ -217,13 +240,12 @@ export default class SignUp extends Component {
                 animationType="fade"
                 androidMode="default"
                 placeHolderText="Add your date of birth"
-                textStyle={{ color: 'black', fontSize: 20 }}
-                placeHolderTextStyle={{ color: '#9e9e9e', fontSize: 18 }}
+                textStyle={datePickerText}
+                placeHolderTextStyle={datePickerPlaceholder}
                 onDateChange={(date) => this.setState({ date })}
                 disabled={false}
               />
             </View>
-
           </View>
 
           {this.renderRegisterationMessage()}
