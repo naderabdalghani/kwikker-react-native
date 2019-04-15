@@ -5,6 +5,8 @@ import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Loader from '../../Components/Loader/Loader';
 
+/** @module StartScreen **/
+
 export default class StartScreen extends Component {
   state = { loading: false };
 
@@ -31,6 +33,7 @@ export default class StartScreen extends Component {
   /**
    * Confirms the user who has clicked on a confirmation link. Displays a success message if the confirmation was successful, otherwise,
    * it displays an error message
+   * @memberof StartScreen
    */
   confirmUser = (url) => {
     const confirmationCode = url.replace('http://kwikker.me/confirm/', '');
@@ -57,6 +60,7 @@ export default class StartScreen extends Component {
 
   /**
    * Specifies temporary header config defaults then redirects the user to the 'Update password' form
+   * @memberof StartScreen
    */
   resetPassword = (url) => {
     this.setState({
@@ -69,6 +73,7 @@ export default class StartScreen extends Component {
 
   /**
    * Handles opening a kwikker URL in iOS
+   * @memberof StartScreen
    */
   handleOpenURL = (event) => {
     this.confirmUser(event.url);
@@ -76,6 +81,7 @@ export default class StartScreen extends Component {
 
   /**
    * Redirects the user to the login form
+   * @memberof StartScreen
    */
   logIn() {
     this.props.navigation.push('Login');
@@ -83,6 +89,7 @@ export default class StartScreen extends Component {
 
   /**
    * Redirects the user to the signing up form
+   * @memberof StartScreen
    */
   signUp() {
     this.props.navigation.push('Signup');

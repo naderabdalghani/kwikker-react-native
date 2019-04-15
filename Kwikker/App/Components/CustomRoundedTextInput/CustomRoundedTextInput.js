@@ -6,6 +6,8 @@ const BLUE = '#89CCFD';
 const GRAY = '#AAB8C2';
 let customBorderColor = GRAY;
 
+/** @module CustomRoundedTextInput **/
+
 class CustomRoundedTextInput extends React.Component {
   constructor(props) {
     super(props);
@@ -13,10 +15,18 @@ class CustomRoundedTextInput extends React.Component {
 
   state = { isFocused: false };
 
+  /**
+   * Sets text Input border color to blue should the text input field is selected
+   * @memberof CustomRoundedTextInput
+   */
   handleFocus = () => {
     this.setState({ isFocused: true });
   };
 
+  /**
+   * Sets text Input border color to gray should the text input field is selected
+   * @memberof CustomRoundedTextInput
+   */
   handleBlur = () => {
     this.setState({ isFocused: false });
   };

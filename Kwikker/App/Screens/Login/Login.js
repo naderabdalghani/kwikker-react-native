@@ -7,11 +7,14 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Loader from '../../Components/Loader/Loader';
 
+/** @module Login **/
+
 export default class Login extends Component {
   state = { username: '', password: '', loading: false, message: '' };
 
   /**
    * Shows a toast message "Authentication Failed" and turns off the loading screen
+   * @memberof Login
    */
   onLoginFail() {
     this.setState({ message: 'Authentication Failed', loading: false });
@@ -20,6 +23,7 @@ export default class Login extends Component {
 
   /**
    * Specifies header config defaults that will be applied to every request and redirects the user to the Home screen
+   * @memberof Login
    */
   onLoginSuccess() {
     AsyncStorage.getItem('@app:session').then((token) => {
@@ -30,6 +34,7 @@ export default class Login extends Component {
 
   /**
   * Redirects the user to the signing up form
+   * @memberof Login
   */
   signUp() {
     this.props.navigation.push('Signup');
@@ -37,6 +42,7 @@ export default class Login extends Component {
 
   /**
   * Processes the user's credentials and either calls {@link #onloginsuccess|onLoginSuccess} or calls {@link #onloginfail|onLoginFail}
+   * @memberof Login
   */
   logInButtonPress() {
     this.setState({
@@ -59,6 +65,7 @@ export default class Login extends Component {
 
   /**
   * Redirects the user to the 'forgot password' form
+   * @memberof Login
   */
   forgotPassword() {
     this.props.navigation.push('ForgotPassword');
