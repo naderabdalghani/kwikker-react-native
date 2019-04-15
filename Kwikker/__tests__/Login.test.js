@@ -11,7 +11,7 @@ describe('Login component', () => {
     const wrapper = shallow(<Login />);
     const instance = wrapper.instance();
     instance.onLoginFail();
-    expect(wrapper.instance().state.error).toBe('Authentication Failed');
+    expect(wrapper.instance().state.message).toBe('Authentication Failed');
     expect(wrapper.instance().state.loading).toBe(false);
   });
   it('onLoginSuccess: should set default header common access token, then, navigate to "Home" screen', () => {
@@ -33,7 +33,7 @@ describe('Login component', () => {
     const instance = wrapper.instance();
     const logInButtonPressInstance = await instance.logInButtonPress();
     expect(wrapper.instance().state.loading).toBe(true);
-    expect(wrapper.instance().state.error).toBe('');
+    expect(wrapper.instance().state.message).toBe('');
     expect(mockAxios.post).toHaveBeenCalledTimes(1);
     expect(mockAxios.post).toHaveBeenCalledWith('account/login', {
       username: instance.state.username,

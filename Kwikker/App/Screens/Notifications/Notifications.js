@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 import axios from 'axios';
-import { withInAppNotification } from '../../Components/react-native-in-app-notification/src/index';
+import { withInAppNotification } from 'react-native-in-app-notification/src/index';
 import Notification from '../../Components/Notification/Notification';
 
 
