@@ -42,11 +42,14 @@ const messages = {
   resend: 'Confirmation email resent successfully.'
 };
 
+/** @module SignUp **/
+
 export default class SignUp extends Component {
   state = { username: '', screenname: '', password: '', email: '', loading: false, message: '', date: '' }
 
   /**
    * Displays an error message according to the error type received in the response
+   * @memberof SignUp
    */
   onRegistrationFail(error) {
     const statusCode = error.response.status;
@@ -79,6 +82,7 @@ export default class SignUp extends Component {
 
   /**
    * Stops the loading screen and displays a success message
+   * @memberof SignUp
    */
   onRegistrationSuccess() {
     messageStyle = successMessage;
@@ -90,6 +94,7 @@ export default class SignUp extends Component {
 
   /**
    * Sends a user's credentials and data then either calls {@link #onRegistrationSuccess|onRegistrationSuccess} or calls {@link #onRegistrationFail|onRegistrationFail}
+   * @memberof SignUp
    */
   submitButtonPress() {
     Keyboard.dismiss();
@@ -116,6 +121,7 @@ export default class SignUp extends Component {
 
   /**
    * Sends a user's email then either displays a success message upon sending a new confirmation email or displays an error otherwise
+   * @memberof SignUp
    */
   resendButtonPress() {
     this.setState({
@@ -142,6 +148,7 @@ export default class SignUp extends Component {
 
   /**
    * Renders a 'resend' button if an unconfirmed user has already registered successfully or his email already exists
+   * @memberof SignUp
    */
   renderRegistrationMessage() {
     if (this.state.message === messages.success || this.state.message === messages.emailAlreadyExists || this.state.message === messages.bothExists) {

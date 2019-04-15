@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import Styles from './Styles';
 
+/** @module DrawerNavContainer **/
+
 export default class DrawerNavContainer extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +14,7 @@ export default class DrawerNavContainer extends Component {
 
   /**
    * Completely deletes the access token and username then redirects the user to the start screen
+   * @memberof DrawerNavContainer
    */
   logoutButtonPressed() {
     AsyncStorage.multiRemove(['@app:session', '@app:id']);

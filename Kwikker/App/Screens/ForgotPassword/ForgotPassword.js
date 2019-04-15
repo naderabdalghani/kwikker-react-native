@@ -22,11 +22,14 @@ const {
 } = styles;
 let messageStyle;
 
+/** @module ForgotPassword **/
+
 export default class ForgotPassword extends Component {
   state = { email: '', loading: false, message: '' };
 
   /**
    * Stops the loading screen and provides the user with an error
+   * @memberof ForgotPassword
    */
   onFail() {
     messageStyle = errorMessage;
@@ -38,6 +41,7 @@ export default class ForgotPassword extends Component {
 
   /**
    * Stops the loading screen and provides the user with a success message
+   * @memberof ForgotPassword
    */
   onSuccess() {
     messageStyle = successMessage;
@@ -51,6 +55,7 @@ export default class ForgotPassword extends Component {
   /**
    * Searches for the entered email, if it exists, a password-reset email is sent to that email and {@link #onSuccess|onSuccess} is called,
    * if not, {@link #onFail|onFail} is called
+   * @memberof ForgotPassword
    */
   searchButtonPress() {
     this.setState({
@@ -69,6 +74,7 @@ export default class ForgotPassword extends Component {
 
   /**
    * Renders a message if it already exists, or an introductory text if not
+   * @memberof ForgotPassword
    */
   renderContent() {
     if (this.state.message !== '') {
