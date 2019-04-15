@@ -29,7 +29,8 @@ export default class StartScreen extends Component {
   }
 
   /**
-   *
+   * Confirms the user who has clicked on a confirmation link. Displays a success message if the confirmation was successful, otherwise,
+   * it displays an error message
    */
   confirmUser = (url) => {
     const confirmationCode = url.replace('http://kwikker.me/confirm/', '');
@@ -55,7 +56,7 @@ export default class StartScreen extends Component {
   }
 
   /**
-   *
+   * Specifies temporary header config defaults then redirects the user to the 'Update password' form
    */
   resetPassword = (url) => {
     this.setState({
@@ -67,7 +68,7 @@ export default class StartScreen extends Component {
   }
 
   /**
-   *
+   * Handles opening a kwikker URL in iOS
    */
   handleOpenURL = (event) => {
     this.confirmUser(event.url);
