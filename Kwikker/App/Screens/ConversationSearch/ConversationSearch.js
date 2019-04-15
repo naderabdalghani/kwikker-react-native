@@ -18,7 +18,8 @@ export default class ConversationSearch extends Component {
     this.state = {
       search: '',
       usersList: [],
-      refreshing: true
+      refreshing: true,
+
 
     };
   }
@@ -28,6 +29,7 @@ export default class ConversationSearch extends Component {
       headerTitle: (
         <View style={{ width: '70%', marginTop: 8 }}>
           <TextInput
+            ref={(input) => { this.textInput = input; }}
             onChangeText={(value) => { this.setState({ search: value }, () => { this.searchList(); }); }}
             placeholder=" Search for People "
             clearButtonMode="always"
@@ -45,7 +47,7 @@ export default class ConversationSearch extends Component {
     this.willFocusListener = this.props.navigation.addListener(
       'willFocus',
       () => {
-        this.updateList();
+        if (this.state.search === '') { this.updateList(); } else { this.searchList(); }
       }
     );
   }

@@ -30,6 +30,7 @@ export default class Search extends Component {
       headerTitle: (
         <View style={{ width: '85%', marginTop: 5 }}>
           <TextInput
+            ref={(input) => { this.textInput = input; }}
             onChangeText={(value) => { this.setState({ search: value }, () => { this.updateList(); }); }}
             placeholder=" Search Kwikker "
             clearButtonMode="always"
