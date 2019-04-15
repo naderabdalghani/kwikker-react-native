@@ -68,4 +68,10 @@ export default StyleSheet.create({
     marginTop: 0,
     marginLeft: 40,
   },
+  resendButton: {
+    color: 'black',
+    fontSize: 15,
+    marginLeft: 40,
+    textDecorationLine: 'underline'
+  },
 });

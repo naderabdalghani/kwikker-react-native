@@ -7,7 +7,7 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Loader from '../../Components/Loader/Loader';
 
-const { parentView, header, headerImage, backButtonContainer, backButton, dummyElement, imageContainer, createAccountText, submitButtonStyle, submitButtonContainer, submitButtonBorder, textInputsContainer, errorMessage, successMessage } = styles;
+const { parentView, header, headerImage, backButtonContainer, backButton, dummyElement, imageContainer, createAccountText, submitButtonStyle, submitButtonContainer, submitButtonBorder, textInputsContainer, errorMessage, successMessage, resendButton } = styles;
 let messageStyle = successMessage;
 const messages = {
   null: '',
@@ -15,7 +15,8 @@ const messages = {
   fail: 'An error occurred, please try again.',
   usernameAlreadyExists: 'Username already exists',
   emailAlreadyExists: 'Email already exists',
-  bothExists: 'Both email and username exists'
+  bothExists: 'Both email and username exists',
+  resend: 'Confirmation email resent successfully.'
 };
 
 export default class SignUp extends Component {
@@ -93,7 +94,43 @@ export default class SignUp extends Component {
   /**
    *
    */
+  resendButtonPress() {
+    this.setState({
+      loading: true,
+      message: messages.null
+    });
+    axios.post('/account/registration/resend_email', {
+      email: this.state.email
+    })
+      .then((res) => {
+        messageStyle = successMessage;
+        this.setState({
+          loading: false,
+          message: messages.resend
+        });
+      })
+      .catch((err) => {
+        this.setState({
+          loading: false,
+          message: messages.fail
+        });
+      });
+  }
+
+  /**
+   *
+   */
   renderRegisterationMessage() {
+    if (this.state.message === messages.success || this.state.message === messages.emailAlreadyExists || this.state.message === messages.bothExists) {
+      return (
+        <View>
+          <Text style={messageStyle}>{this.state.message}</Text>
+          <TouchableNativeFeedback onPress={this.resendButtonPress.bind(this)}>
+            <Text style={resendButton}>Resend confirmation email</Text>
+          </TouchableNativeFeedback>
+        </View>
+      );
+    }
     return (
       <View>
         <Text style={messageStyle}>{this.state.message}</Text>
