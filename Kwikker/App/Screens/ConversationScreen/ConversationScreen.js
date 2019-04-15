@@ -5,6 +5,8 @@ import axios from 'axios';
 import styles from './Styles';
 import { auth } from '../../Utils/Authorization';
 
+/** @module ConversationScreen **/
+
 export default class ConversationScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: (
@@ -39,6 +41,7 @@ export default class ConversationScreen extends Component {
   /** Send message
  *  sends message to specifice user
  *  (Post request) we send the message and the user name
+ * @memberof ConversationScreen
  */
   async onSubmit() {
     if (this.state.message.length > 0 && !this.state.refreshing) {
@@ -62,11 +65,10 @@ export default class ConversationScreen extends Component {
     }
   }
 
-  /** Get more Messages when we get to the end of the scrollView.
- * Check we reached end of content
- * @param {int} layoutMeasurement - size of the layout .
+  /** Get more Messages above when we get to the beginning of the scrollView.
+ * Check we reached beginning of content
+ * @memberof ConversationScreen
  * @param  {int} contentOffset - position on screen
- * @param  {int} contentSize - size of all content
  */
 moreMessages=({ contentOffset }) => {
   if (contentOffset.y === 0 && this.state.messages.length) {
@@ -79,6 +81,7 @@ moreMessages=({ contentOffset }) => {
 
 /** pull to refresh functionality.
    * gets first 20 messages
+   * @memberof ConversationScreen
   */
  pullRefresh= () => {
    this.setState({
@@ -91,6 +94,7 @@ moreMessages=({ contentOffset }) => {
  /** styles messages.
  * if message from me text will be on the right.
  * if message from the other text will be on the left.
+ * @memberof ConversationScreen
  * @param {string} type - user name of the sender .
  */
  messageType(type) {
@@ -103,7 +107,8 @@ moreMessages=({ contentOffset }) => {
 
  /** styles messages.
  * if message from the other his image will be on the left.
- * @param {string} type - The id of Message .
+ * @memberof ConversationScreen
+ * @param {string} type - username of the sender .
  */
  userImage(type) {
    if (type !== this.state.currentUsername) {
@@ -113,7 +118,7 @@ moreMessages=({ contentOffset }) => {
  }
 
  /** Scroll Down once on opening conversation
- *
+ * @memberof ConversationScreen
  */
  scrollDown() {
    if (!this.state.scrolledDown) {
@@ -128,6 +133,7 @@ moreMessages=({ contentOffset }) => {
  /** Update Messages.
  * gets first 20 Message With default parameter (id=null)
  * To retrieve more send the id of the last retrieved message.
+ * @memberof ConversationScreen
  * @param {int} id - The id of Message .
  */
  updateMessages(id = null) {

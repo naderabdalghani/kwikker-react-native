@@ -4,6 +4,7 @@ import axios from 'axios';
 import { withInAppNotification } from 'react-native-in-app-notification/src/index';
 import Notification from '../../Components/Notification/Notification';
 
+/** @module Notifications **/
 
 export class Notifications extends Component {
   constructor(props) {
@@ -19,7 +20,9 @@ export class Notifications extends Component {
   }
 
 
-  /** Set type of notification when it's loaded. */
+  /** Set type of notification when it's loaded.
+   * @memberof Notifications
+   */
   setType(type) {
     switch (type) {
       case 'LIKE':
@@ -55,6 +58,7 @@ export class Notifications extends Component {
 
   /** pull to refresh functionality.
    * gets first 20 notifications
+   * @memberof Notifications
   */
  pullRefresh= () => {
    this.setState({
@@ -66,6 +70,7 @@ export class Notifications extends Component {
 
   /** Get more Notifications when we get to the end of the scrollView.
  * Check we reached end of content
+ * @memberof Notifications
  * @param {int} layoutMeasurement - size of the layout .
  * @param  {int} contentOffset - position on screen
  * @param  {int} contentSize - size of all content
@@ -82,6 +87,7 @@ export class Notifications extends Component {
   /** Update Notifications.
  * gets first 20 Notification With default parameter (id=null)
  * To retrieve more send the id of the last retrieved notification.
+ * @memberof Notifications
  * @param {int} id - The id of Notification .
  */
   updateNotifications(id = null) {
@@ -125,7 +131,7 @@ export class Notifications extends Component {
       >
         {this.state.notifications.map((item, index) => (
           <TouchableOpacity
-            key={item}
+            key={item.id}
             onPress={() => {
               this.props.showNotification({
                 title: `${item.screen_name} ${this.setType(item.type)}`,

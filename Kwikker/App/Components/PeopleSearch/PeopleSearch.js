@@ -3,6 +3,8 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import styles from './Styles';
 
+/** @module PeopleSearch **/
+
 export default class PeopleSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -10,6 +12,7 @@ export default class PeopleSearch extends React.Component {
 
   /** followText.
  * render right Text according to data from the backend
+ * @memberof PeopleSearch
  */
   followText() {
     if (this.props.blocked) {

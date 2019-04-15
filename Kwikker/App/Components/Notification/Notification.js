@@ -2,6 +2,8 @@ import React from 'react';
 import { Text, View, Image } from 'react-native';
 import styles from './Styles';
 
+/** @module Notification **/
+
 export default class Notification extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,9 @@ export default class Notification extends React.Component {
     this.setType();
   }
 
-  /** Set type of notification when it's loaded. */
+  /** Set type of notification when it's loaded.
+   * @memberof Notification
+   */
   setType() {
     switch (this.props.type) {
       case 'LIKE':

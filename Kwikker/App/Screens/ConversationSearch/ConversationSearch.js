@@ -4,7 +4,9 @@ import axios from 'axios';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import PeopleSearch from '../../Components/PeopleSearch/PeopleSearch';
 
-export default class Search extends Component {
+/** @module ConversationSearch **/
+
+export default class ConversationSearch extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
     return params;
@@ -45,6 +47,7 @@ export default class Search extends Component {
 
 /** Get more Lists when we get to the end of the scrollView.
  * Check we reached end of content
+ * @memberof ConversationSearch
  * @param {int} layoutMeasurement - size of the layout .
  * @param  {int} contentOffset - position on screen
  * @param  {int} contentSize - size of all content
@@ -61,9 +64,10 @@ moreLists=({ layoutMeasurement, contentOffset, contentSize }) => {
 
 
 /** Update List.
- * gets first 20 users With default parameter (id=null)
- * To retrieve more send the id of the last retrieved user.
- * @param {int} username - The username of user .
+ * gets first 20 users (recent people i had a conversation with) With default parameter (username=null)
+ * To retrieve more send the username of the last retrieved user.
+ * @memberof ConversationSearch
+ * @param {string} username - The username of user .
  */
 updateList(username = null) {
   this.setState({ refreshing: true });
@@ -93,9 +97,10 @@ updateList(username = null) {
 }
 
 /** Search List.
- * gets first 20 users With default parameter (id=null)
- * To retrieve more send the id of the last retrieved user.
- * @param {int} username - The username of user .
+ * gets first 20 users (results of search) With default parameter (username=null)
+ * To retrieve more send the username of the last retrieved user.
+ * @memberof ConversationSearch
+ * @param {string} username - The username of user .
  */
 searchList(username = null) {
   this.setState({ refreshing: true });
