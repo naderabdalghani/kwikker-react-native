@@ -6,13 +6,27 @@ import CustomRoundedTextInput from '../../Components/CustomRoundedTextInput/Cust
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Loader from '../../Components/Loader/Loader';
 
-const { parentView, header, backButtonContainer, backButton, changePasswordText, changePasswordTextContainer, Text1Style, Text2Style, errorMessage, successMessage, searchButtonStyle, textInputsContainer } = styles;
+const {
+  parentView,
+  header,
+  backButtonContainer,
+  backButton,
+  changePasswordText,
+  changePasswordTextContainer,
+  Text1Style,
+  Text2Style,
+  errorMessage,
+  successMessage,
+  searchButtonStyle,
+  textInputsContainer
+} = styles;
 let messageStyle;
+
 export default class ForgotPassword extends Component {
   state = { email: '', loading: false, message: '' };
 
   /**
-   *
+   * Stops the loading screen and provides the user with an error
    */
   onFail() {
     messageStyle = errorMessage;
@@ -23,7 +37,7 @@ export default class ForgotPassword extends Component {
   }
 
   /**
-   *
+   * Stops the loading screen and provides the user with a success message
    */
   onSuccess() {
     messageStyle = successMessage;
@@ -35,7 +49,8 @@ export default class ForgotPassword extends Component {
   }
 
   /**
-   *
+   * Searches for the entered email, if it exists, a password-reset email is sent to that email and {@link #onSuccess|onSuccess} is called,
+   * if not, {@link #onFail|onFail} is called
    */
   searchButtonPress() {
     this.setState({
@@ -53,7 +68,7 @@ export default class ForgotPassword extends Component {
   }
 
   /**
-   *
+   * Renders a message if it already exists, or an introductory text if not
    */
   renderContent() {
     if (this.state.message !== '') {

@@ -34,7 +34,7 @@ let messageStyle = successMessage;
 
 const messages = {
   null: '',
-  success: 'Registeration successfull, email confirmation pending.',
+  success: 'Registration successfull, email confirmation pending.',
   fail: 'An error occurred, please try again.',
   usernameAlreadyExists: 'Username already exists',
   emailAlreadyExists: 'Email already exists',
@@ -46,9 +46,9 @@ export default class SignUp extends Component {
   state = { username: '', screenname: '', password: '', email: '', loading: false, message: '', date: '' }
 
   /**
-   *
+   * Displays an error message according to the error type received in the response
    */
-  onRegisterationFail(error) {
+  onRegistrationFail(error) {
     const statusCode = error.response.status;
     const usernameAlreadyExists = error.response.data.username_already_exists;
     const emailAlreadyExists = error.response.data.email_already_exists;
@@ -78,9 +78,9 @@ export default class SignUp extends Component {
   }
 
   /**
-   *
+   * Stops the loading screen and displays a success message
    */
-  onRegisterationSuccess() {
+  onRegistrationSuccess() {
     messageStyle = successMessage;
     this.setState({
       loading: false,
@@ -89,7 +89,7 @@ export default class SignUp extends Component {
   }
 
   /**
-   *
+   * Sends a user's credentials and data then either calls {@link #onRegistrationSuccess|onRegistrationSuccess} or calls {@link #onRegistrationFail|onRegistrationFail}
    */
   submitButtonPress() {
     Keyboard.dismiss();
@@ -105,17 +105,17 @@ export default class SignUp extends Component {
       birth_date: this.state.date,
     })
       .then((res) => {
-        return this.onRegisterationSuccess();
+        return this.onRegistrationSuccess();
       })
       .catch((err) => {
         let error = JSON.stringify(err);
         error = JSON.parse(error);
-        return this.onRegisterationFail(error);
+        return this.onRegistrationFail(error);
       });
   }
 
   /**
-   *
+   * Sends a user's email then either displays a success message upon sending a new confirmation email or displays an error otherwise
    */
   resendButtonPress() {
     this.setState({
@@ -141,9 +141,9 @@ export default class SignUp extends Component {
   }
 
   /**
-   *
+   * Renders a 'resend' button if an unconfirmed user has already registered successfully or his email already exists
    */
-  renderRegisterationMessage() {
+  renderRegistrationMessage() {
     if (this.state.message === messages.success || this.state.message === messages.emailAlreadyExists || this.state.message === messages.bothExists) {
       return (
         <View>
@@ -248,7 +248,7 @@ export default class SignUp extends Component {
             </View>
           </View>
 
-          {this.renderRegisterationMessage()}
+          {this.renderRegistrationMessage()}
         </ScrollView>
         <KeyboardAvoidingView style={submitButtonContainer} keyboardVerticalOffset={0}>
           <KeyboardAvoidingView style={submitButtonBorder} behavior="padding">
