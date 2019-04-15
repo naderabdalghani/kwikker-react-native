@@ -35,6 +35,12 @@ export default class ConversationScreen extends Component {
       this.setState({ currentUsername: id });
       this.pullRefresh();
     });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.pullRefresh();
+      }
+    );
   }
 
 

@@ -17,6 +17,12 @@ export class Notifications extends Component {
 
   componentDidMount() {
     this.pullRefresh();
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.pullRefresh();
+      }
+    );
   }
 
 

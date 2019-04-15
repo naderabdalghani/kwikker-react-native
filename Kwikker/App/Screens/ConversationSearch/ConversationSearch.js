@@ -42,6 +42,12 @@ export default class ConversationSearch extends Component {
       ),
     });
     this.updateList();
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.updateList();
+      }
+    );
   }
 
 

@@ -30,6 +30,12 @@ export default class Messages extends Component {
       ),
     });
     this.pullRefresh();
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.pullRefresh();
+      }
+    );
   }
 
   /** pull to refresh functionality.

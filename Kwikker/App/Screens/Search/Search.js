@@ -19,6 +19,7 @@ export default class Search extends Component {
     this.state = {
       search: '',
       usersList: [],
+      kweeksList: [],
       refreshing: true
 
     };
@@ -43,6 +44,12 @@ export default class Search extends Component {
       ),
     });
     this.updateList();
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.updateList();
+      }
+    );
   }
 
 
@@ -61,30 +68,40 @@ moreLists=({ layoutMeasurement, contentOffset, contentSize }) => {
 
 
 /** Update List.
- * gets first 20 users With default parameter (username=null)
+ * gets first 20 users/kweeks With default parameter (username=null)
  * To retrieve more send the username of the last retrieved user.
  * @memberof Search
  * @param {string} username - The username of user .
  */
 updateList(username = null) {
   this.setState({ refreshing: true });
-  axios.get('search/users', {
-    params: {
-      last_retrieved_username: username,
-      search_text: this.state.search
-    }
-  })
-    .then((response) => {
+  axios.all([
+    axios.get('search/users', {
+      params: {
+        last_retrieved_username: username,
+        search_text: this.state.search
+      }
+    }),
+    axios.get('search/kweeks', {
+      params: {
+        last_retrieved_kweek_id: username,
+        search_text: this.state.search
+      }
+    })])
+    .then(axios.spread((usersRes, kweeksRes) => {
       if (username === null) {
         this.setState({
-          usersList: response.data
+          usersList: usersRes.data,
+          //kweeksList: kweeksRes.data
         });
       } else {
-        this.setState((prevState) => ({ usersList: prevState.usersList.concat(response.data)
+        this.setState((prevState) => ({
+          usersList: prevState.usersList.concat(usersRes.data),
+          //kweeksList: prevState.kweeksList.concat(kweeksRes.data)
         }));
       }
       this.setState({ refreshing: false });
-    })
+    }))
     .catch((error) => {
       // handle error
       // console.log(error);
@@ -100,7 +117,7 @@ render() {
     <View style={{ flex: 1 }}>
 
 
-      <SearchTap screenProps={{ rootNav: this.props.navigation, refreshing: this.state.refreshing, users: this.state.usersList, moreLists: (data) => this.moreLists(data) }} />
+      <SearchTap screenProps={{ rootNav: this.props.navigation, refreshing: this.state.refreshing, users: this.state.usersList, kweeks: this.state.kweeksList, moreLists: (data) => this.moreLists(data) }} />
 
     </View>
   );
