@@ -29,15 +29,15 @@ export default class Login extends Component {
   }
 
   /**
-   * Redirects the user to the signing up form
-   */
+  * Redirects the user to the signing up form
+  */
   signUp() {
     this.props.navigation.push('Signup');
   }
 
   /**
-   * Processes the user's credentials and either calls {@link #onloginsuccess|onLoginSuccess} or calls {@link #onloginfail|onLoginFail}
-   */
+  * Processes the user's credentials and either calls {@link #onloginsuccess|onLoginSuccess} or calls {@link #onloginfail|onLoginFail}
+  */
   logInButtonPress() {
     this.setState({
       loading: true,
@@ -54,12 +54,12 @@ export default class Login extends Component {
       .catch((err) => {
         return this.onLoginFail();
       });
-    // this.onLoginSuccess(); // THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
+  // this.onLoginSuccess(); // THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
   }
 
   /**
-   * Redirects the user to the 'forgot password' form
-   */
+  * Redirects the user to the 'forgot password' form
+  */
   forgotPassword() {
     this.props.navigation.push('ForgotPassword');
   }
@@ -69,7 +69,7 @@ export default class Login extends Component {
     const buttonDisabled = (this.state.username === '') || (this.state.password === '');
     return (
       <View style={parentView}>
-        <Loader loading={this.state.loading} loadingMessage='Logging In' />
+        <Loader loading={this.state.loading} loadingMessage="Logging In" />
         <View style={header}>
           <View style={dummyElement} />
           <View style={imageContainer}>
@@ -90,7 +90,7 @@ export default class Login extends Component {
             secureTextEntry={false}
             value={this.state.username}
             onChangeText={(username) => this.setState({ username })}
-            autoFocus
+            autoFocus={false}
             autoCapitalize="none"
           />
           <CustomTextInput

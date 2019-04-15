@@ -86,7 +86,6 @@ export default class SignUp extends Component {
       .catch((err) => {
         let error = JSON.stringify(err);
         error = JSON.parse(error);
-        console.log(error);
         return this.onRegisterationFail(error);
       });
   }
