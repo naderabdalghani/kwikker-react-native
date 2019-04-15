@@ -36,9 +36,10 @@ export default class ForgotPassword extends Component {
     })
       .then((res) => {
         messageStyle = successMessage;
+        const { email } = this.state;
         this.setState({
           loading: false,
-          message: 'A new password was sent successfully.'
+          message: `We've sent an email to ${email}. Click the link in the email to reset your password.`
         });
       })
       .catch((err) => {

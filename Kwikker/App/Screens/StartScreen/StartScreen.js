@@ -11,7 +11,11 @@ export default class StartScreen extends Component {
   componentDidMount() {
     if (Platform.OS === 'android') {
       Linking.getInitialURL().then((url) => {
-        this.confirmUser(url);
+        if (url.includes('kwikker.me/confirm')) {
+          this.confirmUser(url);
+        } else if (url.includes('kwikker.me/reset_password')) {
+          this.resetPassword(url);
+        }
       })
         .catch((err) => {
         });
@@ -48,6 +52,18 @@ export default class StartScreen extends Component {
         });
         ToastAndroid.show('Confirmation failed, please try again', ToastAndroid.LONG);
       });
+  }
+
+  /**
+   *
+   */
+  resetPassword = (url) => {
+    this.setState({
+      loading: true,
+    });
+    const token = url.replace('http://kwikker.me/reset_password/', '');
+    axios.defaults.headers.common['TOKEN'] = token;
+    this.props.navigation.navigate('Password', { forgotPassword: true });
   }
 
   /**
