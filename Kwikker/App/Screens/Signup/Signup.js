@@ -45,7 +45,11 @@ const messages = {
 /** @module SignUp **/
 
 export default class SignUp extends Component {
-  state = { username: '', screenname: '', password: '', email: '', loading: false, message: '', date: '' }
+  constructor(props) {
+    super(props);
+    this.state = { username: '', screenname: '', password: '', email: '', loading: false, message: '', date: '' };
+    this.resendButtonPress = this.resendButtonPress.bind(this);
+  }
 
   /**
    * Displays an error message according to the error type received in the response
@@ -155,7 +159,7 @@ export default class SignUp extends Component {
       return (
         <View>
           <Text style={messageStyle}>{this.state.message}</Text>
-          <TouchableNativeFeedback onPress={this.resendButtonPress.bind(this)}>
+          <TouchableNativeFeedback onPress={this.resendButtonPress}>
             <Text style={resendButton}>Resend confirmation email</Text>
           </TouchableNativeFeedback>
         </View>
