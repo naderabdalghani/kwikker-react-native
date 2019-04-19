@@ -194,6 +194,7 @@ export default class Kweek extends Component {
   }
 
   render() {
+    console.log(this.props.mediaUrl);
     const url = 'http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
     return (
       <View style={{ borderBottomWidth: 0.5, borderBottomColor: '#AAB8C2' }}>
@@ -214,7 +215,12 @@ export default class Kweek extends Component {
                   <Ionicons name="ios-arrow-down" size={15} color="#657786" />
                 </TouchableOpacity>
               </View>
-              <Text style={{ fontSize: 15, color: '#000000' }}>{this.props.kweekText}</Text>
+              <Text style={{ fontSize: 15, color: '#000000' }}>{this.props.kweetText}</Text>
+              { this.props.mediaUrl === null ? null : (
+                <TouchableOpacity style={{ height: 200, width: '80%', marginTop: '2%', borderWidth: 1, borderColor: '#AAB8C2', borderRadius: 5 }}>
+                  <Image source={{ uri: this.props.mediaUrl }} style={{ height: '100%', width: '100%' }} />
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </TouchableOpacity>
