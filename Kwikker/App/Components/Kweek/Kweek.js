@@ -8,7 +8,7 @@ import axios from 'axios';
 export default class Kweek extends Component {
   constructor(props) {
     super(props);
-    this.state = { liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };
+    this.state = { key: this.props.key, liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };
   }
 
   /**
@@ -16,16 +16,17 @@ export default class Kweek extends Component {
    */
   dateAndTime() {
     const now = new Date();
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const day = this.props.date.getDate();
-    const year = this.props.date.getFullYear();
-    const month = this.props.date.getMonth();
-    const hour = this.props.date.getHours();
-    const minutes = this.props.date.getMinutes();
+    const months = [' Jan', ' Feb', ' Mar', ' Apr', ' May', ' Jun', ' Jul', ' Aug', ' Sep', ' Oct', ' Nov', ' Dec'];
+    const dateTime = new Date(this.props.date);
+    const day = dateTime.getDate();
+    const year = dateTime.getFullYear();
+    const month = dateTime.getMonth();
+    const hour = dateTime.getHours();
+    const minutes = dateTime.getMinutes();
     if (now.getFullYear() === year && now.getMonth() === month && now.getDate() === day && now.getHours() === hour) { return ((now.getMinutes() - minutes).toString().concat('m')); }
     if (now.getFullYear() === year && now.getMonth() === month && now.getDate() === day) { return ((now.getHours() - hour).toString().concat('h')); }
     if (now.getFullYear() === year) { return ((day).toString().concat(months[month])); }
-    return ((months[month]).concat(year.toString()));
+    return ((months[month]).concat(' ').concat(year.toString()));
   }
 
   /**
@@ -40,7 +41,7 @@ export default class Kweek extends Component {
         <TouchableOpacity style={{ marginTop: '2%', marginBottom: '1%' }}>
           <View style={{ flexDirection: 'row' }}>
             <EvilIcons name="retweet" size={11} color="#657786" style={{ marginLeft: '15%', marginTop: '1%' }} />
-            <Text style={{ color: '#657786', marginLeft: '4.5%' }}>{this.props.rekweekerUserName} rekweeked</Text>
+            <Text style={{ color: '#657786', marginLeft: '4.5%' }}> rekweeked</Text>
           </View>
         </TouchableOpacity>
       );
@@ -108,7 +109,7 @@ export default class Kweek extends Component {
       this.setState((prevState) => ({ likesCounter: prevState.likesCounter - 1 }));
       axios.delete('kweeks/like', {
         params: {
-          id: this.props.key
+          id: this.state.key
         }
       })
         .then((response) => {
@@ -127,7 +128,7 @@ export default class Kweek extends Component {
       this.setState((prevState) => ({ likesCounter: prevState.likesCounter + 1 }));
       axios.post('kweeks/like', {
         params: {
-          id: this.props.key
+          id: this.state.key
         }
       })
         .then((response) => {
@@ -154,7 +155,7 @@ export default class Kweek extends Component {
       this.setState((prevState) => ({ rekweeksCounter: prevState.rekweeksCounter - 1 }));
       axios.delete('kweeks/rekweek', {
         params: {
-          id: this.props.key
+          id: this.state.key
         }
       })
         .then((response) => {
@@ -173,7 +174,7 @@ export default class Kweek extends Component {
       this.setState((prevState) => ({ rekweeksCounter: prevState.rekweeksCounter + 1 }));
       axios.post('kweeks/rekweek', {
         params: {
-          id: this.props.key
+          id: this.state.key
         }
       })
         .then((response) => {
