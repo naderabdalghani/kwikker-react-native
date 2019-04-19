@@ -6,7 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "lint": "eslint *.js **/*.js",
-    "refreshDoc": "documentation build App/** -f html -o docs"
+    "refreshDoc": "documentation build App/** -f html -o docs",
+    "testNader": "yarn test Authorization.test.js CustomRoundedTextInput.test.js CustomTextInput.test.js ForgotPassword.test.js Login.test.js Registration.test.js SignOut.test.js StartScreen.test.js"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.2.1",
