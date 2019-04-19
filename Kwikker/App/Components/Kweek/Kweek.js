@@ -8,7 +8,7 @@ import axios from 'axios';
 export default class Kweek extends Component {
   constructor(props) {
     super(props);
-    this.state = { key: this.props.key, liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };
+    this.state = { liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };
   }
 
   /**
@@ -109,7 +109,7 @@ export default class Kweek extends Component {
       this.setState((prevState) => ({ likesCounter: prevState.likesCounter - 1 }));
       axios.delete('kweeks/like', {
         params: {
-          id: this.state.key
+          id: this.props.id
         }
       })
         .then((response) => {
@@ -128,7 +128,7 @@ export default class Kweek extends Component {
       this.setState((prevState) => ({ likesCounter: prevState.likesCounter + 1 }));
       axios.post('kweeks/like', {
         params: {
-          id: this.state.key
+          id: this.props.id
         }
       })
         .then((response) => {
@@ -155,16 +155,17 @@ export default class Kweek extends Component {
       this.setState((prevState) => ({ rekweeksCounter: prevState.rekweeksCounter - 1 }));
       axios.delete('kweeks/rekweek', {
         params: {
-          id: this.state.key
+          id: this.props.id
         }
       })
         .then((response) => {
-
+          console.log(response.status);
         })
 
         .catch((error) => {
         // handle error
-        // console.log(error);
+         console.log('unrekweek error');
+         console.log(error);
         })
         .then(() => {
         // always executed
@@ -174,16 +175,17 @@ export default class Kweek extends Component {
       this.setState((prevState) => ({ rekweeksCounter: prevState.rekweeksCounter + 1 }));
       axios.post('kweeks/rekweek', {
         params: {
-          id: this.state.key
+          id: this.props.id
         }
       })
         .then((response) => {
-
+          console.log(response.status);
         })
 
         .catch((error) => {
         // handle error
-        // console.log(error);
+         console.log(error);
+         console.log('rekweek error');
         })
         .then(() => {
         // always executed
@@ -192,7 +194,6 @@ export default class Kweek extends Component {
   }
 
   render() {
-    console.log('inside home');
     return (
       <View style={{ borderBottomWidth: 0.5, borderBottomColor: '#AAB8C2' }}>
         {this.kweekHeader()}
