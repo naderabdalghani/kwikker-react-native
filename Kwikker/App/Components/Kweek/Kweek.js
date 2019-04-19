@@ -38,10 +38,10 @@ export default class Kweek extends Component {
     }
     if (this.props.rekweekerUserName !== null) {
       return (
-        <TouchableOpacity style={{ marginTop: '2%', marginBottom: '1%' }}>
+        <TouchableOpacity style={{ marginTop: '2%', marginBottom: '-2%' }}>
           <View style={{ flexDirection: 'row' }}>
-            <EvilIcons name="retweet" size={11} color="#657786" style={{ marginLeft: '15%', marginTop: '1%' }} />
-            <Text style={{ color: '#657786', marginLeft: '4.5%' }}> rekweeked</Text>
+            <EvilIcons name="retweet" size={16} color="#657786" style={{ marginLeft: '15%', marginTop: '1%' }} />
+            <Text style={{ color: '#657786', marginLeft: '3%' }}>{this.props.rekweekerUserName.rekweeker_username} rekweeked</Text>
           </View>
         </TouchableOpacity>
       );
@@ -194,13 +194,14 @@ export default class Kweek extends Component {
   }
 
   render() {
+    const url = 'http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
     return (
       <View style={{ borderBottomWidth: 0.5, borderBottomColor: '#AAB8C2' }}>
         {this.kweekHeader()}
-        <TouchableOpacity style={{ marginLeft: '3%' }}>
+        <TouchableOpacity style={{ marginLeft: '3%', marginTop: '3%' }}>
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity style={{ flex: 1 }}>
-              <Thumbnail source={{ url: this.props.profileImageUrl }} />
+              <Thumbnail source={{ uri: url }} />
             </TouchableOpacity>
             <View style={{ flex: 4, flexDirection: 'column' }}>
               <View style={{ flexDirection: 'row' }}>

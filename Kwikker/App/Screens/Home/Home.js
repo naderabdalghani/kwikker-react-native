@@ -68,6 +68,7 @@ updateKweeks(id = null) {
     }
   })
     .then((response) => {
+      console.log(response.status);
       if (id === null) {
         console.log('response id null');
         this.setState({
@@ -81,7 +82,7 @@ updateKweeks(id = null) {
     })
     .catch((error) => {
     // handle error
-     console.log(error.response.status);
+     console.log('get tweets error');
     })
     .then(() => {
     // always executed
@@ -114,13 +115,13 @@ render() {
             kweetText={item.text}
             liked={item.liked_by_user}
             rekweeked={item.rekweeked_by_user}
-            rekweekerUserName={item.rekweek_info.rekweeker_username}
+            rekweekerUserName={item.rekweek_info}
           />
         ))
        }
       </ScrollView>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('CreateTweet')} style={{ width: 60, height: 60, borderRadius: 30, alignItems: 'flex-end', marginLeft: '80%', marginBottom: '4%' }}>
-        <Image source={require('./../../Assets/Images/tweet1.png')} style={{ width: 60, height: 60, borderRadius: 30, alignItems: 'flex-end', marginLeft: '80%', marginBottom: '4%' }} />
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('CreateTweet')} style={{ position: 'absolute', right: 20, bottom: 20, width: 60, height: 60, borderRadius: 30, alignItems: 'flex-end' }}>
+        <Image source={require('./../../Assets/Images/tweet1.png')} style={{ width: 60, height: 60, borderRadius: 30, alignItems: 'flex-end' }} />
       </TouchableOpacity>
     </View>
   );
