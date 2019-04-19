@@ -116,6 +116,7 @@ render() {
             liked={item.liked_by_user}
             rekweeked={item.rekweeked_by_user}
             rekweekerUserName={item.rekweek_info}
+            mediaUrl={item.media_url}
           />
         ))
        }
