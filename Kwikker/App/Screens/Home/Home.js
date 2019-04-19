@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Text, View, Image, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import axios from 'axios';
+import { DrawerActions } from 'react-navigation';
 import Kweek from '../../Components/Kweek/Kweek';
 
 export default class Home extends Component {
-static navigationOptions = {
-  headerLeft:
-  <TouchableOpacity>
+static navigationOptions = ({ navigation }) => {
+  return {
+    headerLeft:
+  <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
     <Image source={require('./../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
   </TouchableOpacity>
+  };
 };
 
 constructor(props) {
@@ -18,6 +21,7 @@ constructor(props) {
     refreshing: false,
   };
 }
+
 
 componentDidMount() {
   this.pullRefresh();
@@ -77,7 +81,7 @@ updateKweeks(id = null) {
     })
     .catch((error) => {
     // handle error
-     console.log('error');
+     console.log(error.response.status);
     })
     .then(() => {
     // always executed
