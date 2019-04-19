@@ -82,7 +82,7 @@ updateKweeks(id = null) {
     })
     .catch((error) => {
     // handle error
-     console.log('get tweets error');
+      console.log('get tweets error');
     })
     .then(() => {
     // always executed
