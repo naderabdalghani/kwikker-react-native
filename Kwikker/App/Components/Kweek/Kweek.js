@@ -113,7 +113,7 @@ export default class Kweek extends Component {
         }
       })
         .then((response) => {
-
+          console.log(response.status);
         })
 
         .catch((error) => {
@@ -127,12 +127,10 @@ export default class Kweek extends Component {
       this.setState({ liked: true });
       this.setState((prevState) => ({ likesCounter: prevState.likesCounter + 1 }));
       axios.post('kweeks/like', {
-        params: {
-          id: this.props.id
-        }
+        id: this.props.id
       })
         .then((response) => {
-
+          console.log(response.status);
         })
 
         .catch((error) => {
@@ -174,9 +172,7 @@ export default class Kweek extends Component {
       this.setState({ rekeeked: true });
       this.setState((prevState) => ({ rekweeksCounter: prevState.rekweeksCounter + 1 }));
       axios.post('kweeks/rekweek', {
-        params: {
-          id: this.props.id
-        }
+        id: this.props.id
       })
         .then((response) => {
           console.log(response.status);
@@ -194,7 +190,7 @@ export default class Kweek extends Component {
   }
 
   render() {
-    console.log(this.props.mediaUrl);
+    console.log(this.props.id);
     const url = 'http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
     return (
       <View style={{ borderBottomWidth: 0.5, borderBottomColor: '#AAB8C2' }}>

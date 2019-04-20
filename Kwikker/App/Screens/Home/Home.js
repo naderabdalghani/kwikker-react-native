@@ -105,6 +105,7 @@ render() {
         {this.state.kweeks.map((item, index) => (
           <Kweek
             key={item.id}
+            id={item.id}
             date={item.created_at}
             profileImageUrl={item.user.profile_image_url}
             screenName={item.user.screen_name}
