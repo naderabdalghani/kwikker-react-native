@@ -28,8 +28,10 @@ export default class Login extends Component {
   onLoginSuccess() {
     AsyncStorage.getItem('@app:session').then((token) => {
       axios.defaults.headers.common['TOKEN'] = token;
+    }).catch((error) => {
+    }).then(() => {
+      this.props.navigation.navigate('Home');
     });
-    this.props.navigation.navigate('DrawerNavigator');
   }
 
   /**
@@ -54,13 +56,16 @@ export default class Login extends Component {
       password: this.state.password
     })
       .then((res) => {
-        AsyncStorage.multiSet([['@app:session', res.data.token], ['@app:id', this.state.username]]);
-        return this.onLoginSuccess();
+        AsyncStorage.multiSet([['@app:session', res.data.token], ['@app:id', this.state.username]])
+          .catch((error) => {})
+          .then(() => {
+            return this.onLoginSuccess();
+          });
       })
       .catch((err) => {
         return this.onLoginFail();
       });
-  // this.onLoginSuccess(); // THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
+    // this.onLoginSuccess(); // THIS SHOULD BE REMOVED AND THE ABOVE CODE SECTION GETS UNCOMMENTED
   }
 
   /**
