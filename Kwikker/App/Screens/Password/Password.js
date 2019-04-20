@@ -9,7 +9,7 @@ export default class Password extends React.Component {
   constructor(props) {
     super(props);
     const boolVar = this.props.navigation.getParam('forgotPassword');
-    this.state = { New: '', Confirm: '', error: '', disable: false, forgotPasswordForm: boolVar };
+    this.state = { New: '', Confirm: '', error: '', error2: '', disable: false, forgotPasswordForm: boolVar, message: '' };
   }
 
   componentWillMount() {
@@ -24,28 +24,35 @@ export default class Password extends React.Component {
    */
   updatePasswordButtonPress() {
     if (!(this.state.disable)) {
-      axios.put('user/password', {
-        password: this.state.New
-      })
-        .then((response) => {
-          console.log(response);
+      if (this.state.New < 6) {
+        axios.put('user/password', {
+          password: this.state.New
         })
-        .catch((error) => {
-          console.log(error);
-        })
-        .then(() => {
-          // always executed
-          // //// Nader //////
-          if (this.state.forgotPasswordForm === true) {
-            axios.defaults.headers.common['TOKEN'] = '';
-            this.props.navigation.navigate('Login');
-          } else {
-            this.props.navigation.goBack(null);
-          }
-        });
+          .then((response) => {
+            this.setState({ message: 'password changed successfully' });
+            ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+          })
+          .catch((error) => {
+            this.setState({ message: "error: username didn't change, try again later" });
+            ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+          })
+          .then(() => {
+            // always executed
+            // //// Nader //////
+            if (this.state.forgotPasswordForm === true) {
+              axios.defaults.headers.common['TOKEN'] = '';
+              this.props.navigation.navigate('Login');
+            } else {
+              this.props.navigation.goBack(null);
+            }
+          });
+      } else {
+        this.setState({ error: 'passwords must be at least 6 characters' });
+        ToastAndroid.show(this.state.error, ToastAndroid.SHORT);
+      }
     } else {
-      this.setState({ error: "passwords don't match or empty" });
-      ToastAndroid.show(this.state.error, ToastAndroid.SHORT);
+      this.setState({ error2: "passwords don't match or empty" });
+      ToastAndroid.show(this.state.error2, ToastAndroid.SHORT);
     }
   }
 
