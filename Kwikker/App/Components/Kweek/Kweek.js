@@ -5,12 +5,17 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import ParsedText from 'react-native-parsed-text';
+import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
 import styles from './Styles';
 
 export default class Kweek extends Component {
   constructor(props) {
     super(props);
     this.state = { liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };
+  }
+
+  showActionSheet = () => {
+    this.ActionSheet.show();
   }
 
   /**
@@ -209,7 +214,7 @@ export default class Kweek extends Component {
                   <Text style={{ fontSize: 15, color: '#657786', marginLeft: '2%' }}>@{this.props.userName}</Text>
                   <Text style={{ fontSize: 15, color: '#657786', marginLeft: '2%' }}>{ this.dateAndTime() }</Text>
                 </View>
-                <TouchableOpacity style={{ flex: 1 }}>
+                <TouchableOpacity style={{ flex: 1 }} onPress={this.showActionSheet}>
                   <Ionicons name="ios-arrow-down" size={15} color="#657786" />
                 </TouchableOpacity>
               </View>
@@ -239,6 +244,13 @@ export default class Kweek extends Component {
           {this.rekweekStatus()}
           {this.likeStatus()}
         </View>
+        <ActionSheet
+          ref={(o) => this.ActionSheet = o}
+          options={['Follow', 'Mute', 'Block']}
+          cancelButtonIndex={2}
+          //destructiveButtonIndex={1}
+          onPress={(index) => { /* do something */ }}
+        />
       </View>
     );
   }
