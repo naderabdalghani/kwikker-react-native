@@ -7806,6 +7806,13 @@ react-native-menu-button@^1.0.0:
   dependencies:
     react-native-root-modal "~1.0.6"
 
+react-native-parsed-text@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/react-native-parsed-text/-/react-native-parsed-text-0.0.21.tgz#86cf233aedc7a848b801b674c81d6b5ee37162df"
+  integrity sha512-0oqnn7/2TxkQW+6z7MN8SrPdEldDlDYScCK4QfHRsCmzllZFeBfdGNdYaIkSX35JWN++SSq7VBfHR74pUDmb2A==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-push-notification-popup@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-push-notification-popup/-/react-native-push-notification-popup-1.2.0.tgz#857540c3c719287a43f1e9c38c3be3bc0d830673"
