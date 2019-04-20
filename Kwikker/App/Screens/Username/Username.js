@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, KeyboardAvoidingView, TouchableNativeFeedback } from 'react-native';
+import { Text, View, Image, KeyboardAvoidingView, TouchableNativeFeedback, ToastAndroid } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
@@ -10,7 +10,7 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 export default class Username extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Name: '', currentUsername: '' };
+    this.state = { Name: '', currentUsername: '', message: '' };
   }
 
   componentDidMount() {
@@ -29,11 +29,13 @@ export default class Username extends React.Component {
       username: this.state.Name
     })
       .then((res) => {
-        console.warn('success');
+        this.setState({ message: 'username changed successfully' });
+        ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
         this.props.navigation.goBack(null);
       })
       .catch((err) => {
-        console.warn(err);
+        this.setState({ message: "error: username didn't change, try again later" });
+        ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
         this.props.navigation.goBack(null);
       });
   }
