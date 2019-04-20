@@ -47,8 +47,8 @@ export default class PrivecyAndSafety extends React.Component {
           </View>
 
 
-          <View style={Styles.TitleContainer}>
-            <Text style={Styles.Title}>
+          <View style={Styles.subTitleContainer}>
+            <Text style={Styles.subTitle}>
               Safety
             </Text>
           </View>

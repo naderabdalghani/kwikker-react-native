@@ -5,7 +5,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
   },
-  Title: {
+  subTitle: {
     padding: 20,
     fontSize: 20,
     color: '#657786',
@@ -13,7 +13,7 @@ export default StyleSheet.create({
     borderColor: '#E1E8ED',
     fontWeight: 'bold'
   },
-  TitleContainer: {
+  subTitleContainer: {
     backgroundColor: '#E1E8ED',
     marginTop: 2
   },
@@ -23,13 +23,6 @@ export default StyleSheet.create({
     color: '#14171A',
     borderWidth: 0.5,
     borderColor: '#E1E8ED',
-  },
-  text: {
-    fontSize: 20,
-    color: '#000',
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: '10%'
   },
   box: {
     padding: 20,
@@ -41,9 +34,6 @@ export default StyleSheet.create({
   blackFont: {
     color: '#14171A',
     fontSize: 15,
-  },
-  grayFont: {
-    color: '#657786',
   },
   header: {
     flexDirection: 'row',
