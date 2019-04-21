@@ -25,7 +25,8 @@ export default styles = StyleSheet.create({
     flex: 1, width: null, height: null
   },
   Gray: {
-    color: '#657786'
+    color: '#657786',
+    padding: 3,
   },
   EditProfile: {
     borderWidth: 1,

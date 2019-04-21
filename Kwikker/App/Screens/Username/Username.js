@@ -10,7 +10,7 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 export default class Username extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Name: '', currentUsername: '', message: '' };
+    this.state = { Password: '', Name: '', currentUsername: '', message: '' };
   }
 
   componentDidMount() {
@@ -26,7 +26,8 @@ export default class Username extends React.Component {
    */
   doneButtonPress() {
     axios.put('user/username', {
-      username: this.state.Name
+      username: this.state.Name,
+      Updateusername: this.state.Password
     })
       .then((res) => {
         this.setState({ message: 'username changed successfully' });
@@ -76,6 +77,14 @@ export default class Username extends React.Component {
             secureTextEntry={false}
             value={this.state.Name}
             onChangeText={(Name) => this.setState({ Name })}
+            autoFocus={false}
+          />
+          <CustomTextInput
+            placeholder=""
+            label="Password"
+            secureTextEntry={false}
+            value={this.state.Password}
+            onChangeText={(Password) => this.setState({ Password })}
             autoFocus={false}
           />
         </View>
