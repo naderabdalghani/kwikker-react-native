@@ -15,7 +15,7 @@ export default class Trend extends React.Component {
       <View style={styles.TrendContainer}>
         <View style={styles.textContainer}>
           <View style={styles.textHeader}>
-            <Text style={{ fontWeight: 'bold' }}>{this.props.text}</Text>
+            <Text style={{ color: '#38A1F3' }}>{this.props.text}</Text>
           </View>
           <Text style={styles.textContent}>{this.props.numberOfKweeks}</Text>
         </View>

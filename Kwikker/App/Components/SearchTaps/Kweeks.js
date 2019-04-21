@@ -13,10 +13,10 @@ export default class Kweeks extends React.Component {
             enabled={false}
             refreshing={this.props.screenProps.refreshing}
           />
-)} onScroll={({ nativeEvent }) => { this.props.screenProps.moreLists(nativeEvent); }} style={{ flex: 1 }}
+)} onScroll={({ nativeEvent }) => { this.props.screenProps.moreKweeksLists(nativeEvent); }} style={{ flex: 1 }}
       >
-        {/* {this.props.screenProps.kweeks.map((item, index) => (
-          <TouchableOpacity key={item.username}>
+        {this.props.screenProps.kweeks.map((item, index) => (
+          <TouchableOpacity key={item.id}>
             <Kweek
               key={item.id}
               id={item.id}
@@ -35,7 +35,7 @@ export default class Kweeks extends React.Component {
             />
           </TouchableOpacity>
         ))
-        } */}
+        }
 
       </ScrollView>
     );

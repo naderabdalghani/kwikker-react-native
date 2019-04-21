@@ -23,7 +23,6 @@ export default class ConversationScreen extends Component {
     this.state = {
       messages: [],
       refreshing: false,
-      scrolledDown: false,
       message: '',
       currentUsername: '',
     };
@@ -32,7 +31,7 @@ export default class ConversationScreen extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem('@app:id').then((id) => {
-      this.setState({ currentUsername: id });
+      this.setState({ currentUsername: id, });
       this.pullRefresh();
     });
     this.willFocusListener = this.props.navigation.addListener(
@@ -61,7 +60,6 @@ export default class ConversationScreen extends Component {
         .then((response) => {
           this.setState({
             message: '',
-            scrolledDown: false,
           });
           this.textInput.clear();
           this.updateMessages();
@@ -77,7 +75,7 @@ export default class ConversationScreen extends Component {
  * @param  {int} contentOffset - position on screen
  */
 moreMessages=({ contentOffset }) => {
-  if (contentOffset.y === 0 && this.state.messages.length) {
+  if (contentOffset.y === 0 && this.state.messages.length && this.state.refreshing !== true) {
     this.setState({
       refreshing: true,
     });
@@ -92,8 +90,8 @@ moreMessages=({ contentOffset }) => {
  pullRefresh= () => {
    this.setState({
      refreshing: true,
-   });
-   this.updateMessages();
+   },
+   () => { this.updateMessages(); });
  }
 
 
@@ -123,18 +121,6 @@ moreMessages=({ contentOffset }) => {
    return (null);
  }
 
- /** Scroll Down once on opening conversation
- * @memberof ConversationScreen
- */
- scrollDown() {
-   if (!this.state.scrolledDown) {
-     this.scrollView.scrollToEnd({ animated: true });
-     this.setState({
-       scrolledDown: true
-     });
-   }
- }
-
 
  /** Update Messages.
  * gets first 20 Message With default parameter (id=null)
@@ -155,12 +141,13 @@ moreMessages=({ contentOffset }) => {
          this.setState({
            messages: response.data,
            refreshing: false,
-         });
+         },
+         () => { this.scrollView.scrollToEnd({ animated: true }); });
        } else {
          this.setState((prevState) => ({
            messages: prevState.messages.concat(response.data),
            refreshing: false,
-         }));
+         }), () => { this.scrollView.scrollTo({ y: 5 }); });
        }
      })
      .catch((error) => {
@@ -179,9 +166,6 @@ moreMessages=({ contentOffset }) => {
 
        <ScrollView
          ref={(ref) => { this.scrollView = ref; }}
-         onContentSizeChange={(contentWidth, contentHeight) => {
-           this.scrollDown();
-         }}
          refreshControl={(
            <RefreshControl
              enabled={false}
@@ -193,7 +177,9 @@ moreMessages=({ contentOffset }) => {
          onScroll={({ nativeEvent }) => { this.moreMessages(nativeEvent); }}
        >
          {this.state.messages.slice(0).reverse().map((item, index) => (
-           <View key={item.id}>
+           <View
+             key={item.id}
+           >
              <View style={{ flexDirection: 'row' }}>
                {this.userImage(item.from_username)}
                <Text style={this.messageType(item.from_username)}>{item.text}</Text>
