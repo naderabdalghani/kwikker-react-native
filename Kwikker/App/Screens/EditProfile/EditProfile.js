@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, Image, } from 'react-native';
+import { Text, View, ScrollView, Image, TouchableNativeFeedback } from 'react-native';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 
@@ -13,6 +13,22 @@ export default class App extends React.Component {
     return (
 
       <View style={{ flex: 1 }}>
+        <View style={styles.header}>
+          <View style={styles.backButtonContainer}>
+            <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
+              <Image
+                style={styles.backButton}
+                source={require('./../../Assets/Images/back_button.png')}
+              />
+            </TouchableNativeFeedback>
+          </View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Edit profile</Text>
+          </View>
+          <View />
+          <View style={styles.dummyElement} />
+        </View>
+
         <View style={styles.Cover} />
 
         <ScrollView style={{ flex: 1 }}>

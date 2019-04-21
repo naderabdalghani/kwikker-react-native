@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, TouchableNativeFeedback, Image } from 'react-native';
 import Styles from './Styles';
 
 export default class Settings extends Component {
@@ -19,6 +19,22 @@ export default class Settings extends Component {
     return (
       <View style={Styles.container}>
         <View>
+
+          <View style={Styles.header}>
+            <View style={Styles.backButtonContainer}>
+              <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
+                <Image
+                  style={Styles.backButton}
+                  source={require('./../../Assets/Images/back_button.png')}
+                />
+              </TouchableNativeFeedback>
+            </View>
+            <View style={Styles.titleContainer}>
+              <Text style={Styles.title}>Settings and privacy</Text>
+            </View>
+            <View />
+            <View style={Styles.dummyElement} />
+          </View>
 
           <View style={Styles.developersContainer}>
             <Text style={Styles.developers}>

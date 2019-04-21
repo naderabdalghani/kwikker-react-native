@@ -38,5 +38,10 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     fontWeight: 'bold',
     backgroundColor: 'white',
+  },
+  backButton: {
+    height: 30,
+    width: 30,
+    marginLeft: 12,
   }
 });
