@@ -7,9 +7,21 @@ import EditProfileNavigator from './EditProfileNavigation';
 
 const ProfileStackNavigator = createStackNavigator({
 
-  Profile: { screen: Profile },
-  FollowerList: { screen: FollowerList },
-  FollowingList: { screen: FollowingList },
-  EditProfileNavigator: { screen: EditProfileNavigator },
+  Profile: { screen: Profile,
+    navigationOptions: {
+      header: null,
+    }, },
+  FollowerList: { screen: FollowerList,
+    navigationOptions: {
+      header: null,
+    }, },
+  FollowingList: { screen: FollowingList,
+    navigationOptions: {
+      header: null,
+    }, },
+  EditProfileNavigator: { screen: EditProfileNavigator,
+    navigationOptions: {
+      header: null,
+    }, },
 });
 export default ProfileStackNavigator;
