@@ -12,7 +12,7 @@ export default class App extends React.Component {
             <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
               <Image
                 style={styles.backButton}
-                source={require('./../../Assets/Images/black_back_button.png')}
+                source={require('./../../Assets/Images/back_button.png')}
               />
             </TouchableNativeFeedback>
           </View>
