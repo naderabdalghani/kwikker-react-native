@@ -30,7 +30,7 @@ export default class ConversationSearch extends Component {
         <View style={{ width: '70%', marginTop: 8 }}>
           <TextInput
             ref={(input) => { this.textInput = input; }}
-            onChangeText={(value) => { this.setState({ search: value }, () => { this.searchList(); }); }}
+            onChangeText={(search) => { this.setState({ search }, () => { this.searchList(); }); }}
             placeholder=" Search for People "
             clearButtonMode="always"
           />

@@ -33,7 +33,6 @@ export default class Search extends Component {
         <View style={{ width: '85%', marginTop: 5 }}>
           <TextInput
             ref={(ref) => { this.textInput = ref; }}
-            value={this.state.search}
             onChangeText={(search) => { this.setState({ search }, () => { this.updateList(); }); }}
             placeholder=" Search Kwikker "
             clearButtonMode="always"
@@ -117,9 +116,10 @@ tapsOrTrends() {
                     <View style={{ width: '85%', marginTop: 5 }}>
                       <TextInput
                         ref={(ref) => { this.textInput = ref; }}
-                        value={this.state.search}
+                        defaultValue={item.text}
                         onChangeText={(search) => { this.setState({ search }, () => { this.updateList(); }); }}
                         placeholder=" Search Kwikker "
+                        clearButtonMode="always"
                       />
                     </View>
                   ),
