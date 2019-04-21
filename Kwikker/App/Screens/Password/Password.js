@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, ScrollView, ToastAndroid, TouchableNativeFeedback, BackHandler } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
@@ -9,7 +10,8 @@ export default class Password extends React.Component {
   constructor(props) {
     super(props);
     const boolVar = this.props.navigation.getParam('forgotPassword');
-    this.state = { Current: '', New: '', Confirm: '', disable: false, forgotPasswordForm: boolVar, message: '' };
+    const code = this.props.navigation.getParam('resetCode');
+    this.state = { Current: '', New: '', Confirm: '', disable: false, forgotPasswordForm: boolVar, resetPasswordCode: code, message: '' };
   }
 
   componentWillMount() {
@@ -25,28 +27,46 @@ export default class Password extends React.Component {
   updatePasswordButtonPress() {
     if (!(this.state.disable)) {
       if (this.state.New.length > 5) {
-        axios.put('user/password', {
-          password: this.state.New,
-          Updatepassword: this.state.Current
-        })
-          .then((response) => {
-            this.setState({ message: 'password changed successfully' });
-            ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-          })
-          .catch((error) => {
-            this.setState({ message: "error: username didn't change, try again later" });
-            ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-          })
-          .then(() => {
-          // always executed
-          // //// Nader //////
-            if (this.state.forgotPasswordForm === true) {
-              axios.defaults.headers.common['TOKEN'] = '';
-              this.props.navigation.navigate('Login');
-            } else {
-              this.props.navigation.goBack(null);
+        if (this.state.forgotPasswordForm === true) {
+          axios.put('/account/reset_password', {
+            password: this.state.New,
+          }, {
+            headers: {
+              CODE: this.state.resetPasswordCode
             }
-          });
+          })
+            .then((response) => {
+              this.setState({ message: 'password changed successfully' });
+              ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+              this.props.navigation.navigate('Login');
+            })
+            .catch((error) => {
+              this.setState({ message: "error: password didn't change, try again later" });
+              ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+            })
+            .then(() => {
+            });
+        } else {
+          axios.put('user/password', {
+            password: this.state.New,
+            old_password: this.state.Current
+          })
+            .then((response) => {
+              AsyncStorage.setItem('@app:session', response.data.token).then(() => {}).catch(() => {}).then(() => {
+                axios.defaults.headers.common['TOKEN'] = response.data.token;
+                this.setState({ message: 'password changed successfully' });
+                ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+              });
+            })
+            .catch((error) => {
+              this.setState({ message: "error: username didn't change, try again later" });
+              ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+            })
+            .then(() => {
+              // always executed
+              this.props.navigation.goBack(null);
+            });
+        }
       } else {
         ToastAndroid.show('passwords must be at least 6 characters', ToastAndroid.SHORT);
       }
@@ -80,6 +100,25 @@ export default class Password extends React.Component {
     );
   }
 
+  /**
+   * Doesn't render the current password text input if it's considered as a forgotPassword form, renders it otherwise
+   */
+  currentPasswordRenderer() {
+    if (this.state.forgotPasswordForm === true) {
+      return (null);
+    }
+    return (
+      <CustomTextInput
+        placeholder=""
+        label="Current password"
+        secureTextEntry
+        value={this.state.Current}
+        onChangeText={(Current) => this.setState({ Current })}
+        autoFocus={false}
+      />
+    );
+  }
+
   render() {
     const buttonDisabled = (this.state.New === '') || (this.state.Confirm === '') || (this.state.New !== this.state.Confirm);
     this.state.disable = buttonDisabled;
@@ -98,16 +137,7 @@ export default class Password extends React.Component {
                 <View />
                 <View style={styles.dummyElement} />
               </View>
-              <CustomTextInput
-                placeholder=""
-                label="Current password"
-                secureTextEntry
-                value={this.state.Current}
-                onChangeText={(Current) => this.setState({ Current })}
-                autoFocus={false}
-              />
-
-
+              {this.currentPasswordRenderer()}
               <CustomTextInput
                 placeholder="At least 6 characters"
                 label="New password"

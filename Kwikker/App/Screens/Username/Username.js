@@ -27,7 +27,7 @@ export default class Username extends React.Component {
   doneButtonPress() {
     axios.put('user/username', {
       username: this.state.Name,
-      Updateusername: this.state.Password
+      password: this.state.Password
     })
       .then((res) => {
         this.setState({ message: 'username changed successfully' });

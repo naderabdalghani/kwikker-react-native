@@ -24,8 +24,10 @@ describe('StartScreen component', () => {
     const url = 'http://kwikker.me/confirm/1234';
     const instance = wrapper.instance();
     const confirmUser = await instance.confirmUser(url);
-    expect(mockAxios.post).toHaveBeenCalledWith('account/registration/confirmation', {
-      confirmation_code: '1234'
+    expect(mockAxios.post).toHaveBeenCalledWith('account/registration/confirmation', {}, {
+      headers: {
+        CODE: 1234
+      }
     });
     expect(navigationMock.push).toHaveBeenCalledWith('Login');
     expect(instance.state.loading).toBe(false);
@@ -36,9 +38,8 @@ describe('StartScreen component', () => {
     const url = 'http://kwikker.me/reset_password/1234';
     const instance = wrapper.instance();
     const resetPassword = await instance.resetPassword(url);
-    expect(mockAxios.defaults.headers.common.TOKEN).toBe('1234');
     expect(instance.state.loading).toBe(true);
-    expect(navigationMock.navigate).toHaveBeenCalledWith('Password', { forgotPassword: true });
+    expect(navigationMock.navigate).toHaveBeenCalledWith('Password', { forgotPassword: true, resetCode: '1234' });
   });
   it('handleOpenURL: should handle opening a kwikker URL in iOS', () => {
     const wrapper = shallow(<StartScreen />);
