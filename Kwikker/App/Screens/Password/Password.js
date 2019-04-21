@@ -9,7 +9,7 @@ export default class Password extends React.Component {
   constructor(props) {
     super(props);
     const boolVar = this.props.navigation.getParam('forgotPassword');
-    this.state = { New: '', Confirm: '', error: '', error2: '', disable: false, forgotPasswordForm: boolVar, message: '' };
+    this.state = { New: '', Confirm: '', disable: false, forgotPasswordForm: boolVar, message: '' };
   }
 
   componentWillMount() {
@@ -47,12 +47,10 @@ export default class Password extends React.Component {
             }
           });
       } else {
-        this.setState({ error: 'passwords must be at least 6 characters' });
-        ToastAndroid.show(this.state.error, ToastAndroid.SHORT);
+        ToastAndroid.show('passwords must be at least 6 characters', ToastAndroid.SHORT);
       }
     } else {
-      this.setState({ error2: "passwords don't match or empty" });
-      ToastAndroid.show(this.state.error2, ToastAndroid.SHORT);
+      ToastAndroid.show("passwords don't match or empty", ToastAndroid.SHORT);
     }
   }
 
