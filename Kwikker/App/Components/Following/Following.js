@@ -15,10 +15,10 @@ export default class Notification extends React.Component {
           <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
         </View>
         <View style={styles.textContainer}>
-          <Text style={{fontWeight:"bold"}} >name</Text>
-          <Text style={{color:'#AAB8C2'}}>userName</Text>
-          <Text >about</Text>
-        </View> 
+          <Text style={{ fontWeight: 'bold' }}>name</Text>
+          <Text style={{ color: '#AAB8C2' }}>userName</Text>
+          <Text>about</Text>
+        </View>
         <View style={styles.following}>
           <Text style={{ color: 'white', fontWeight: 'bold' }}>
             Following
