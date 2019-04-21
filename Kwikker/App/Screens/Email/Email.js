@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, KeyboardAvoidingView, TouchableNativeFeedback } from 'react-native';
+import { Text, View, Image, KeyboardAvoidingView, TouchableNativeFeedback, ToastAndroid } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
@@ -10,7 +10,7 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 export default class Email extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Name: '@Email' };
+    this.state = { Name: '@Email', message: '' };
   }
 
 
@@ -22,11 +22,13 @@ export default class Email extends React.Component {
       email: this.state.Name
     })
       .then((response) => {
-        console.log(response);
+        this.setState({ message: 'Email changed successfully' });
+        ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
         this.props.navigation.goBack(null);
       })
       .catch((error) => {
-        console.log(error);
+        this.setState({ message: "error: Email didn't change, try again later" });
+        ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
         this.props.navigation.goBack(null);
       });
   }
