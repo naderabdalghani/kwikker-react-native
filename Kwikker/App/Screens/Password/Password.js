@@ -9,7 +9,7 @@ export default class Password extends React.Component {
   constructor(props) {
     super(props);
     const boolVar = this.props.navigation.getParam('forgotPassword');
-    this.state = { New: '', Confirm: '', disable: false, forgotPasswordForm: boolVar, message: '' };
+    this.state = { Current: '', New: '', Confirm: '', disable: false, forgotPasswordForm: boolVar, message: '' };
   }
 
   componentWillMount() {
@@ -24,9 +24,10 @@ export default class Password extends React.Component {
    */
   updatePasswordButtonPress() {
     if (!(this.state.disable)) {
-      if (this.state.New < 6) {
+      if (this.state.New.length > 5) {
         axios.put('user/password', {
-          password: this.state.New
+          password: this.state.New,
+          Updatepassword: this.state.Current
         })
           .then((response) => {
             this.setState({ message: 'password changed successfully' });
@@ -37,8 +38,8 @@ export default class Password extends React.Component {
             ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
           })
           .then(() => {
-            // always executed
-            // //// Nader //////
+          // always executed
+          // //// Nader //////
             if (this.state.forgotPasswordForm === true) {
               axios.defaults.headers.common['TOKEN'] = '';
               this.props.navigation.navigate('Login');
@@ -97,6 +98,15 @@ export default class Password extends React.Component {
                 <View />
                 <View style={styles.dummyElement} />
               </View>
+              <CustomTextInput
+                placeholder=""
+                label="Current password"
+                secureTextEntry
+                value={this.state.Current}
+                onChangeText={(Current) => this.setState({ Current })}
+                autoFocus={false}
+              />
+
 
               <CustomTextInput
                 placeholder="At least 6 characters"

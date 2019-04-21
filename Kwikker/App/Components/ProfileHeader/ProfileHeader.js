@@ -1,13 +1,26 @@
 import React from 'react';
-import { TouchableOpacity, Text, View, ScrollView, Image, TouchableNativeFeedback } from 'react-native';
+import { TouchableOpacity, Text, View, ScrollView, Image, TouchableNativeFeedback, Animated } from 'react-native';
 import styles from './Styles';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrollY: new Animated.Value(0)
+    };
+  }
+
   render() {
+    const ProfileImageHeight = this.state.scrollY.interpolate({
+      inputRange: [0, 50],
+      outputRange: [80, 40],
+      extrapolate: 'clamp'
+    });
+
     return (
 
       <View style={{ flex: 1 }}>
-        <View style={styles.Cover} />
+        <Animated.View style={styles.Cover} />
 
         <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -28,13 +41,13 @@ export default class App extends React.Component {
           </View>
 
           <View style={{ marginLeft: 10, marginTop: 4 }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 20, }}>
-                  NAME
+            <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000' }}>
+              {this.props.username}
             </Text>
             <Text style={styles.Gray}>
               @{this.props.username}
             </Text>
-            <Text>
+            <Text style={styles.Gray}>
                 ABOUT
             </Text>
             <View style={{ flex: 1, flexDirection: 'row' }}>
