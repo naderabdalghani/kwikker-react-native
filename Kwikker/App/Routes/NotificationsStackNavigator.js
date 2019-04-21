@@ -7,9 +7,12 @@ const NotificationsStackNavigator = createStackNavigator({
   Notifictions: {
     screen: Notifications,
     navigationOptions: {
-      title: 'Notifications'
+      title: 'Notifications',
+      headerStyle: {
+        backgroundColor: 'transparent'
+      },
     }
-  }
+  },
 });
 NotificationsStackNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;

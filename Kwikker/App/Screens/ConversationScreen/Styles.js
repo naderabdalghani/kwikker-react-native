@@ -23,9 +23,10 @@ export default StyleSheet.create({
     alignSelf: 'flex-end'
   },
   buttomImage: {
-    marginLeft: 5,
+    marginRight: 25,
     width: 40,
     height: 40,
+    alignSelf: 'center'
   },
   otherMessage: {
     maxWidth: '75%',

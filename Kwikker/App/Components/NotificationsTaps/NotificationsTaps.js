@@ -1,13 +1,13 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { createAppContainer, createMaterialTopTabNavigator } from 'react-navigation';
-import Kweeks from './Kweeks';
-import People from './People';
+import Mentions from './Mentions';
+import All from './All';
 
 
 const SearchTapNavigator = createMaterialTopTabNavigator({
-  Kweeks: { screen: Kweeks },
-  People: { screen: People },
+  All: { screen: All },
+  Mentions: { screen: Mentions },
 }, {
   tabBarOptions: {
     upperCaseLabel: false,

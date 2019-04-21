@@ -153,13 +153,15 @@ moreMessages=({ contentOffset }) => {
      .then((response) => {
        if (id === null) {
          this.setState({
-           messages: response.data
+           messages: response.data,
+           refreshing: false,
          });
        } else {
-         this.setState((prevState) => ({ messages: prevState.messages.concat(response.data)
+         this.setState((prevState) => ({
+           messages: prevState.messages.concat(response.data),
+           refreshing: false,
          }));
        }
-       this.setState({ refreshing: false, scrolledDown: false });
      })
      .catch((error) => {
        // handle error
@@ -208,6 +210,7 @@ moreMessages=({ contentOffset }) => {
            ref={(input) => { this.textInput = input; }}
            style={styles.textInput}
            placeholder="Start a message"
+           value={this.state.message}
            onChangeText={(message) => this.setState({ message })}
          />
 
