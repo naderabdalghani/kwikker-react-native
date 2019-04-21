@@ -40,8 +40,10 @@ export default class StartScreen extends Component {
     this.setState({
       loading: true,
     });
-    axios.post('account/registration/confirmation', {
-      confirmation_code: confirmationCode
+    axios.post('account/registration/confirmation', {}, {
+      headers: {
+        CODE: confirmationCode
+      }
     })
       .then((res) => {
         this.setState({
@@ -66,9 +68,8 @@ export default class StartScreen extends Component {
     this.setState({
       loading: true,
     });
-    const token = url.replace('http://kwikker.me/reset_password/', '');
-    axios.defaults.headers.common['TOKEN'] = token;
-    this.props.navigation.navigate('Password', { forgotPassword: true });
+    const code = url.replace('http://kwikker.me/reset_password/', '');
+    this.props.navigation.navigate('Password', { forgotPassword: true, resetCode: code });
   }
 
   /**
