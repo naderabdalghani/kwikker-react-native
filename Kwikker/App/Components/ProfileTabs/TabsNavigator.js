@@ -2,7 +2,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { createAppContainer, createMaterialTopTabNavigator } from 'react-navigation';
-
 import Kweeks from './Kweeks';
 import KweeksReplies from './KweeksReplies';
 import Media from './Media';
@@ -18,10 +17,17 @@ const TabsNavigator = createMaterialTopTabNavigator({
   tabBarOptions: {
     upperCaseLabel: false,
     labelStyle: {
-      fontSize: 12,
-      color: '#657786'
+      fontSize: 14,
+      color: '#1DA1F2',
+      fontWeight: 'bold',
     },
     tabStyle: {
+    },
+    tabBarStyle: {
+      backgroundColor: '#eeeeee',
+    },
+    indicatorStyle: {
+      backgroundColor: '#1DA1F2'
     },
     style: {
       backgroundColor: 'white',

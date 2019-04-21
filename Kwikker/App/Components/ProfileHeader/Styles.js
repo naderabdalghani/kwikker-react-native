@@ -9,6 +9,7 @@ export default styles = StyleSheet.create({
     right: 0,
     backgroundColor: '#1DA1F2',
     height: 120,
+    zIndex: -1,
   },
   ProfileImageContainer: {
     height: 80,
