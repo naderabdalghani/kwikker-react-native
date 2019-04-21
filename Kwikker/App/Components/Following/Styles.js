@@ -5,7 +5,7 @@ export default styles = StyleSheet.create({
   container: {
     flex: 1,
     height: 120,
-    borderColor: 'lightgray',
+    borderColor: '#E1E8ED',
     borderWidth: 0.5,
     flexDirection: 'row',
     paddingTop: 10,
@@ -14,7 +14,7 @@ export default styles = StyleSheet.create({
     height: 60,
     width: 60,
     borderRadius: 30,
-    borderColor: 'lightgray',
+    borderColor: '#E1E8ED',
     borderWidth: 1,
     overflow: 'hidden',
     marginLeft: 10,

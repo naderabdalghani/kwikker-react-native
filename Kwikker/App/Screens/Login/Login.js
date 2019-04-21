@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, Image, TouchableNativeFeedback, ToastAndroid } from 'react-native';
+import { Text, View, Button, Image, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import styles from './Styles';
@@ -7,49 +7,60 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Loader from '../../Components/Loader/Loader';
 
+/** @module Login **/
+
 export default class Login extends Component {
-  state = { username: '', password: '', loading: false, error: '' };
+  state = { username: '', password: '', loading: false, message: '' };
 
   /**
    * Shows a toast message "Authentication Failed" and turns off the loading screen
+   * @memberof Login
    */
   onLoginFail() {
-    this.setState({ error: 'Authentication Failed', loading: false });
-    ToastAndroid.show(this.state.error, ToastAndroid.SHORT);
+    this.setState({ message: 'Authentication Failed', loading: false });
+    ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
   }
 
   /**
    * Specifies header config defaults that will be applied to every request and redirects the user to the Home screen
+   * @memberof Login
    */
   onLoginSuccess() {
     AsyncStorage.getItem('@app:session').then((token) => {
       axios.defaults.headers.common['TOKEN'] = token;
+    }).catch((error) => {
+    }).then(() => {
+      this.props.navigation.navigate('Home');
     });
-    this.props.navigation.navigate('DrawerNavigator');
   }
 
   /**
-   * Redirects the user to the signing up form
-   */
+  * Redirects the user to the signing up form
+   * @memberof Login
+  */
   signUp() {
     this.props.navigation.push('Signup');
   }
 
   /**
-   * Processes the user's credentials and either calls {@link #onloginsuccess|onLoginSuccess} or calls {@link #onloginfail|onLoginFail}
-   */
+  * Processes the user's credentials and either calls {@link #onloginsuccess|onLoginSuccess} or calls {@link #onloginfail|onLoginFail}
+   * @memberof Login
+  */
   logInButtonPress() {
     this.setState({
       loading: true,
-      error: ''
+      message: ''
     });
     axios.post('account/login', {
       username: this.state.username,
       password: this.state.password
     })
       .then((res) => {
-        AsyncStorage.multiSet([['@app:session', res.data.token], ['@app:id', this.state.username]]);
-        return this.onLoginSuccess();
+        AsyncStorage.multiSet([['@app:session', res.data.token], ['@app:id', this.state.username]])
+          .catch((error) => {})
+          .then(() => {
+            return this.onLoginSuccess();
+          });
       })
       .catch((err) => {
         return this.onLoginFail();
@@ -58,8 +69,9 @@ export default class Login extends Component {
   }
 
   /**
-   * Redirects the user to the 'forgot password' form
-   */
+  * Redirects the user to the 'forgot password' form
+   * @memberof Login
+  */
   forgotPassword() {
     this.props.navigation.push('ForgotPassword');
   }
@@ -69,7 +81,7 @@ export default class Login extends Component {
     const buttonDisabled = (this.state.username === '') || (this.state.password === '');
     return (
       <View style={parentView}>
-        <Loader loading={this.state.loading} />
+        <Loader loading={this.state.loading} loadingMessage="Logging In" />
         <View style={header}>
           <View style={dummyElement} />
           <View style={imageContainer}>
@@ -90,7 +102,7 @@ export default class Login extends Component {
             secureTextEntry={false}
             value={this.state.username}
             onChangeText={(username) => this.setState({ username })}
-            autoFocus
+            autoFocus={false}
             autoCapitalize="none"
           />
           <CustomTextInput

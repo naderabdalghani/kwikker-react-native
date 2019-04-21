@@ -4,11 +4,12 @@ let styles;
 export default styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 100,
     borderColor: 'lightgray',
     borderWidth: 0.5,
     flexDirection: 'row',
     paddingTop: 10,
+    paddingBottom: 10,
+
   },
   profilePicture: {
     height: 60,

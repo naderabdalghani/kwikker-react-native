@@ -24,6 +24,7 @@ module.exports = {
     "comma-dangle": 0,
     "max-len": 0,
     "dot-notation": 0,
+    "spaced-comment": 0,
     
     "react/forbid-prop-types": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],

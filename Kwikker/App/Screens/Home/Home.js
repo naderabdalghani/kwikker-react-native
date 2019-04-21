@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Text, View, Image, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import axios from 'axios';
+import { DrawerActions } from 'react-navigation';
 import Kweek from '../../Components/Kweek/Kweek';
 
 export default class Home extends Component {
-static navigationOptions = {
-  headerLeft:
-  <TouchableOpacity>
+static navigationOptions = ({ navigation }) => {
+  return {
+    headerLeft:
+  <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
     <Image source={require('./../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
   </TouchableOpacity>
+  };
 };
 
 constructor(props) {
@@ -18,6 +21,7 @@ constructor(props) {
     refreshing: false,
   };
 }
+
 
 componentDidMount() {
   this.pullRefresh();
@@ -64,6 +68,7 @@ updateKweeks(id = null) {
     }
   })
     .then((response) => {
+      console.log(response.status);
       if (id === null) {
         console.log('response id null');
         this.setState({
@@ -77,7 +82,7 @@ updateKweeks(id = null) {
     })
     .catch((error) => {
     // handle error
-     console.log('error');
+      console.log('get tweets error');
     })
     .then(() => {
     // always executed
@@ -100,6 +105,7 @@ render() {
         {this.state.kweeks.map((item, index) => (
           <Kweek
             key={item.id}
+            id={item.id}
             date={item.created_at}
             profileImageUrl={item.user.profile_image_url}
             screenName={item.user.screen_name}
@@ -110,13 +116,14 @@ render() {
             kweetText={item.text}
             liked={item.liked_by_user}
             rekweeked={item.rekweeked_by_user}
-            rekweekerUserName={item.rekweek_info.rekweeker_username}
+            rekweekerUserName={item.rekweek_info}
+            mediaUrl={item.media_url}
           />
         ))
        }
       </ScrollView>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('CreateTweet')} style={{ width: 60, height: 60, borderRadius: 30, alignItems: 'flex-end', marginLeft: '80%', marginBottom: '4%' }}>
-        <Image source={require('./../../Assets/Images/tweet1.png')} style={{ width: 60, height: 60, borderRadius: 30, alignItems: 'flex-end', marginLeft: '80%', marginBottom: '4%' }} />
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('CreateTweet')} style={{ position: 'absolute', right: 20, bottom: 20, width: 60, height: 60, borderRadius: 30, alignItems: 'flex-end' }}>
+        <Image source={require('./../../Assets/Images/tweet1.png')} style={{ width: 60, height: 60, borderRadius: 30, alignItems: 'flex-end' }} />
       </TouchableOpacity>
     </View>
   );

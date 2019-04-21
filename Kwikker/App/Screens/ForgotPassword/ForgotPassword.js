@@ -1,31 +1,61 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableNativeFeedback, Image, KeyboardAvoidingView } from 'react-native';
+import { Text, View, TouchableNativeFeedback, Image } from 'react-native';
 import axios from 'axios';
 import styles from './Styles';
-import CustomTextInput2 from '../../Components/CustomTextInput2/CustomTextInput2';
+import CustomRoundedTextInput from '../../Components/CustomRoundedTextInput/CustomRoundedTextInput';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Loader from '../../Components/Loader/Loader';
 
-const { parentView, header, backButtonContainer, backButton, changePasswordText, changePasswordTextContainer, Text1Style, Text2Style, errorMessage, successMessage, searchButtonStyle, textInputsContainer } = styles;
+const {
+  parentView,
+  header,
+  backButtonContainer,
+  backButton,
+  changePasswordText,
+  changePasswordTextContainer,
+  Text1Style,
+  Text2Style,
+  errorMessage,
+  successMessage,
+  searchButtonStyle,
+  textInputsContainer
+} = styles;
 let messageStyle;
+
+/** @module ForgotPassword **/
+
 export default class ForgotPassword extends Component {
   state = { email: '', loading: false, message: '' };
 
   /**
-   *
+   * Stops the loading screen and provides the user with an error
+   * @memberof ForgotPassword
    */
   onFail() {
-
+    messageStyle = errorMessage;
+    this.setState({
+      loading: false,
+      message: 'A user with the provided email does not exist.'
+    });
   }
 
   /**
-   *
+   * Stops the loading screen and provides the user with a success message
+   * @memberof ForgotPassword
    */
   onSuccess() {
+    messageStyle = successMessage;
+    const { email } = this.state;
+    this.setState({
+      loading: false,
+      message: `We've sent an email to ${email}. Click the link in the email to reset your password.`
+    });
   }
 
   /**
-   *
+   * Searches for the entered email, if it exists, a password-reset email is sent to that email and {@link #onSuccess|onSuccess} is called,
+   * if not, {@link #onFail|onFail} is called
+   * @memberof ForgotPassword
    */
   searchButtonPress() {
     this.setState({
@@ -35,21 +65,17 @@ export default class ForgotPassword extends Component {
       email: this.state.email
     })
       .then((res) => {
-        messageStyle = successMessage;
-        this.setState({
-          loading: false,
-          message: 'A new password was sent successfully.'
-        });
+        this.onSuccess();
       })
       .catch((err) => {
-        messageStyle = errorMessage;
-        this.setState({
-          loading: false,
-          message: 'A user with the provided email does not exist.'
-        });
+        this.onFail();
       });
   }
 
+  /**
+   * Renders a message if it already exists, or an introductory text if not
+   * @memberof ForgotPassword
+   */
   renderContent() {
     if (this.state.message !== '') {
       return (
@@ -66,7 +92,6 @@ export default class ForgotPassword extends Component {
       </View>
     );
   }
-
 
   render() {
     const buttonDisabled = (this.state.email === '');
@@ -91,7 +116,7 @@ export default class ForgotPassword extends Component {
         {this.renderContent()}
 
         <View style={textInputsContainer}>
-          <CustomTextInput2
+          <CustomRoundedTextInput
             secureTextEntry={false}
             value={this.state.email}
             onChangeText={(email) => this.setState({ email })}

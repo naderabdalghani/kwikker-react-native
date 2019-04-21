@@ -4,6 +4,8 @@ import axios from 'axios';
 import Conversation from '../../Components/Conversation/Conversation';
 import styles from './Styles';
 
+/** @module Messages **/
+
 export default class Messages extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
@@ -28,10 +30,17 @@ export default class Messages extends Component {
       ),
     });
     this.pullRefresh();
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.pullRefresh();
+      }
+    );
   }
 
   /** pull to refresh functionality.
    * gets first 20 conversations
+   * @memberof Messages
   */
  pullRefresh= () => {
    this.setState({
@@ -42,6 +51,7 @@ export default class Messages extends Component {
 
  /** Get more Conversations when we get to the end of the scrollView.
  * Check we reached end of content
+ * @memberof Messages
  * @param {int} layoutMeasurement - size of the layout .
  * @param  {int} contentOffset - position on screen
  * @param  {int} contentSize - size of all content
@@ -58,6 +68,7 @@ moreConversations=({ layoutMeasurement, contentOffset, contentSize }) => {
 /** Update Conversations.
  * gets first 20 Conversation With default parameter (id=null)
  * To retrieve more send the id of the last retrieved conversation.
+ * @memberof Messages
  * @param {int} id - The id of Conversation .
  */
 updateConversations(id = null) {

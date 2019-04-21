@@ -3,6 +3,8 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import styles from './Styles';
 
+/** @module UserInSearch **/
+
 export default class UserInSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +16,7 @@ export default class UserInSearch extends React.Component {
 
   /** follow user
  *  (Post request) follow user
+ * @memberof UserInSearch
  */
   follow() {
     axios.post('interactions/follow', {
@@ -30,6 +33,7 @@ export default class UserInSearch extends React.Component {
 
   /** unfollow user
  *  (Post request) follow user
+ * @memberof UserInSearch
  */
   unfollow() {
     axios.delete('interactions/follow', { data: { username: this.props.userName } }).then((response) => {
@@ -41,7 +45,8 @@ export default class UserInSearch extends React.Component {
 
 
   /** isMuted.
- * render "Muted" Text according to data from the backend
+ * render "Muted" Image according to data from the backend
+ * @memberof UserInSearch
  */
   isMuted() {
     if (this.props.muted) {
@@ -52,6 +57,7 @@ export default class UserInSearch extends React.Component {
 
   /** followText.
  * render right Text according to data from the backend
+ * @memberof UserInSearch
  */
   followText() {
     if (this.props.blocked) {
@@ -71,6 +77,7 @@ export default class UserInSearch extends React.Component {
 
   /** isFollowingOrBlock.
  * render right Component according to data from the backend
+ * @memberof UserInSearch
  */
   isFollowingOrBlock() {
     if (this.props.blocked) {

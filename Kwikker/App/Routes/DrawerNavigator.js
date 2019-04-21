@@ -8,8 +8,14 @@ import DrawerNavContainer from '../Screens/DrawerNavContainer/DrawerNavContainer
 const DrawerNavigator = createDrawerNavigator({
 
   Home: { screen: TabNavigator },
-  Profile: { screen: ProfileStackNavigator },
-  Settings: { screen: SettingsStackNavigator },
+  Profile: { screen: ProfileStackNavigator,
+    navigationOptions: {
+      header: null,
+    }, },
+  Settings: { screen: SettingsStackNavigator,
+    navigationOptions: {
+      header: null,
+    }, },
 },
 {
   contentComponent: ({ navigation }) => <DrawerNavContainer navigation={navigation} />

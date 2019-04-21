@@ -4282,7 +4282,7 @@ hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0, hoist-non-react-
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
   integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
 
-hoist-non-react-statics@^3.0.1:
+hoist-non-react-statics@^3.0.1, hoist-non-react-statics@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.0.tgz#b09178f0122184fb95acf525daaecb4d8f45958b"
   integrity sha512-0XsbTXxgiaCDYDIWFcwkmerZPSwywfUqYmwT4jzewKTQSWoE6FCMoUVOeBJWK3E/CrWbxRG3m5GzY4lnIwGRBA==
@@ -7702,6 +7702,11 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-actionsheet@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-actionsheet/-/react-native-actionsheet-2.4.2.tgz#6a00dd51a75ef2c8974312130e405af73191500f"
+  integrity sha512-DBoWIvVwuWXuptF4t46pBqkFxaUxS+rsIdHiA05t0n4BdTIDV2R4s9bLEUVOGzb94D7VxIamsXZPA/3mmw+SXg==
+
 react-native-camera@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-2.3.0.tgz#b4e4e015609464630b0b2efdf167dcd67a5e040f"
@@ -7806,6 +7811,13 @@ react-native-menu-button@^1.0.0:
   dependencies:
     react-native-root-modal "~1.0.6"
 
+react-native-parsed-text@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/react-native-parsed-text/-/react-native-parsed-text-0.0.21.tgz#86cf233aedc7a848b801b674c81d6b5ee37162df"
+  integrity sha512-0oqnn7/2TxkQW+6z7MN8SrPdEldDlDYScCK4QfHRsCmzllZFeBfdGNdYaIkSX35JWN++SSq7VBfHR74pUDmb2A==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-push-notification-popup@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-push-notification-popup/-/react-native-push-notification-popup-1.2.0.tgz#857540c3c719287a43f1e9c38c3be3bc0d830673"
@@ -7858,6 +7870,11 @@ react-native-tab-view@^1.0.0, react-native-tab-view@^1.2.0:
   integrity sha512-2U+HxDQdjzExoC6gZ+wUhC8v8JjntppsFVU4v4pRvC/1dkN7DJv1k8UEy9+p7ucEaNrcAzu/j5N09Jf4qG36vw==
   dependencies:
     prop-types "^15.6.1"
+
+react-native-tab-view@^2.0.3:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.1.0.tgz#a3f231ccbc09691c70f972b0c18f480087bf8b77"
+  integrity sha512-jJ+B7cv3kI72mkQwL/iUQgYTH2MGNRzt1HusPAhqRVHOC5/uDjdGSmDtAghfCDnz18CKwnQZ4+CKWlYbUnQJvA==
 
 react-native-vector-icons@6.1.0:
   version "6.1.0"
@@ -7979,6 +7996,15 @@ react-navigation-tabs@1.0.2:
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
     react-native-tab-view "^1.0.0"
+
+react-navigation-tabs@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-navigation-tabs/-/react-navigation-tabs-2.1.1.tgz#6cc6a22a240881be0df533ecbe7f5f7c550a3273"
+  integrity sha512-9guo5YcdtoE31aoMDDPRMYHxHaCI+6k4zheMK4tKTz2bqL8etSEAVPyuMUGEHH4XRi0vI99iRThl7bA3w85J+A==
+  dependencies:
+    hoist-non-react-statics "^3.3.0"
+    react-lifecycles-compat "^3.0.4"
+    react-native-tab-view "^2.0.3"
 
 react-navigation@^3.5.1:
   version "3.5.1"

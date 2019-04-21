@@ -1,40 +1,53 @@
 import React from 'react';
-import { TouchableOpacity, Text, View, ScrollView, Image } from 'react-native';
+import { TouchableOpacity, Text, View, ScrollView, Image, TouchableNativeFeedback, Animated } from 'react-native';
 import styles from './Styles';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrollY: new Animated.Value(0)
+    };
+  }
+
   render() {
+    const ProfileImageHeight = this.state.scrollY.interpolate({
+      inputRange: [0, 50],
+      outputRange: [80, 40],
+      extrapolate: 'clamp'
+    });
+
     return (
 
       <View style={{ flex: 1 }}>
-        <View style={styles.Cover} />
+        <Animated.View style={styles.Cover} />
 
         <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <View style={styles.ProfileImageContainer}>
               <Image
                 style={styles.ProfileImage}
-                source={{
-                  uri: 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
-                }}
+                source={require('./../../Assets/Images/unknown.png')}
               />
             </View>
-            <TouchableOpacity style={styles.EditProfile} 
-            onPress={this.props.EditProfile}>
-            <Text style={{color:'#657786', fontWeight:'bold'}}>
+            <TouchableOpacity
+              style={styles.EditProfile}
+              onPress={this.props.EditProfile}
+            >
+              <Text style={{ color: '#657786', fontWeight: 'bold' }}>
             Edit Profile
               </Text>
             </TouchableOpacity>
           </View>
 
           <View style={{ marginLeft: 10, marginTop: 4 }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 20, }}>
-                  NAME
+            <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000' }}>
+              {this.props.username}
             </Text>
             <Text style={styles.Gray}>
-                USERNAME
+              @{this.props.username}
             </Text>
-            <Text>
+            <Text style={styles.Gray}>
                 ABOUT
             </Text>
             <View style={{ flex: 1, flexDirection: 'row' }}>

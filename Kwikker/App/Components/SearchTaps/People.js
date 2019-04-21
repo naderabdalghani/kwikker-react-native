@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image, TextInput, RefreshControl } from 'react-native';
 import UserInSearch from '../UserInSearch/UserInSearch';
 
+/** @module People **/
+
 export default class People extends React.Component {
   render() {
     return (
@@ -11,7 +13,7 @@ export default class People extends React.Component {
             enabled={false}
             refreshing={this.props.screenProps.refreshing}
           />
-)} onScroll={({ nativeEvent }) => { this.props.screenProps.moreLists(nativeEvent); }} style={{ flex: 1 }}
+)} onScroll={({ nativeEvent }) => { this.props.screenProps.moreUsersLists(nativeEvent); }} style={{ flex: 1 }}
       >
         {this.props.screenProps.users.map((item, index) => (
           <TouchableOpacity key={item.username}>

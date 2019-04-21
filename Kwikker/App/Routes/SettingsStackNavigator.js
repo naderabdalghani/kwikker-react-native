@@ -8,7 +8,7 @@ const SettingsStackNavigator = createStackNavigator({
 
   Settings: { screen: Settings,
     navigationOptions: {
-      title: 'Settings',
+      header: null,
     } },
   Account: { screen: Account,
     navigationOptions: {

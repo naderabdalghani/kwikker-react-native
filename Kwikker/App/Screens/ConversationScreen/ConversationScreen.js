@@ -5,6 +5,8 @@ import axios from 'axios';
 import styles from './Styles';
 import { auth } from '../../Utils/Authorization';
 
+/** @module ConversationScreen **/
+
 export default class ConversationScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: (
@@ -21,7 +23,6 @@ export default class ConversationScreen extends Component {
     this.state = {
       messages: [],
       refreshing: false,
-      scrolledDown: false,
       message: '',
       currentUsername: '',
     };
@@ -30,15 +31,22 @@ export default class ConversationScreen extends Component {
 
   componentDidMount() {
     AsyncStorage.getItem('@app:id').then((id) => {
-      this.setState({ currentUsername: id });
+      this.setState({ currentUsername: id, });
       this.pullRefresh();
     });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.pullRefresh();
+      }
+    );
   }
 
 
   /** Send message
  *  sends message to specifice user
  *  (Post request) we send the message and the user name
+ * @memberof ConversationScreen
  */
   async onSubmit() {
     if (this.state.message.length > 0 && !this.state.refreshing) {
@@ -52,7 +60,6 @@ export default class ConversationScreen extends Component {
         .then((response) => {
           this.setState({
             message: '',
-            scrolledDown: false,
           });
           this.textInput.clear();
           this.updateMessages();
@@ -62,14 +69,13 @@ export default class ConversationScreen extends Component {
     }
   }
 
-  /** Get more Messages when we get to the end of the scrollView.
- * Check we reached end of content
- * @param {int} layoutMeasurement - size of the layout .
+  /** Get more Messages above when we get to the beginning of the scrollView.
+ * Check we reached beginning of content
+ * @memberof ConversationScreen
  * @param  {int} contentOffset - position on screen
- * @param  {int} contentSize - size of all content
  */
 moreMessages=({ contentOffset }) => {
-  if (contentOffset.y === 0 && this.state.messages.length) {
+  if (contentOffset.y === 0 && this.state.messages.length && this.state.refreshing !== true) {
     this.setState({
       refreshing: true,
     });
@@ -79,18 +85,20 @@ moreMessages=({ contentOffset }) => {
 
 /** pull to refresh functionality.
    * gets first 20 messages
+   * @memberof ConversationScreen
   */
  pullRefresh= () => {
    this.setState({
      refreshing: true,
-   });
-   this.updateMessages();
+   },
+   () => { this.updateMessages(); });
  }
 
 
  /** styles messages.
  * if message from me text will be on the right.
  * if message from the other text will be on the left.
+ * @memberof ConversationScreen
  * @param {string} type - user name of the sender .
  */
  messageType(type) {
@@ -103,7 +111,8 @@ moreMessages=({ contentOffset }) => {
 
  /** styles messages.
  * if message from the other his image will be on the left.
- * @param {string} type - The id of Message .
+ * @memberof ConversationScreen
+ * @param {string} type - username of the sender .
  */
  userImage(type) {
    if (type !== this.state.currentUsername) {
@@ -112,22 +121,11 @@ moreMessages=({ contentOffset }) => {
    return (null);
  }
 
- /** Scroll Down once on opening conversation
- *
- */
- scrollDown() {
-   if (!this.state.scrolledDown) {
-     this.scrollView.scrollToEnd({ animated: true });
-     this.setState({
-       scrolledDown: true
-     });
-   }
- }
-
 
  /** Update Messages.
  * gets first 20 Message With default parameter (id=null)
  * To retrieve more send the id of the last retrieved message.
+ * @memberof ConversationScreen
  * @param {int} id - The id of Message .
  */
  updateMessages(id = null) {
@@ -141,13 +139,16 @@ moreMessages=({ contentOffset }) => {
      .then((response) => {
        if (id === null) {
          this.setState({
-           messages: response.data
-         });
+           messages: response.data,
+           refreshing: false,
+         },
+         () => { this.scrollView.scrollToEnd({ animated: true }); });
        } else {
-         this.setState((prevState) => ({ messages: prevState.messages.concat(response.data)
-         }));
+         this.setState((prevState) => ({
+           messages: prevState.messages.concat(response.data),
+           refreshing: false,
+         }), () => { this.scrollView.scrollTo({ y: 5 }); });
        }
-       this.setState({ refreshing: false, scrolledDown: false });
      })
      .catch((error) => {
        // handle error
@@ -165,9 +166,6 @@ moreMessages=({ contentOffset }) => {
 
        <ScrollView
          ref={(ref) => { this.scrollView = ref; }}
-         onContentSizeChange={(contentWidth, contentHeight) => {
-           this.scrollDown();
-         }}
          refreshControl={(
            <RefreshControl
              enabled={false}
@@ -179,7 +177,9 @@ moreMessages=({ contentOffset }) => {
          onScroll={({ nativeEvent }) => { this.moreMessages(nativeEvent); }}
        >
          {this.state.messages.slice(0).reverse().map((item, index) => (
-           <View key={item.id}>
+           <View
+             key={item.id}
+           >
              <View style={{ flexDirection: 'row' }}>
                {this.userImage(item.from_username)}
                <Text style={this.messageType(item.from_username)}>{item.text}</Text>
@@ -196,6 +196,7 @@ moreMessages=({ contentOffset }) => {
            ref={(input) => { this.textInput = input; }}
            style={styles.textInput}
            placeholder="Start a message"
+           value={this.state.message}
            onChangeText={(message) => this.setState({ message })}
          />
 

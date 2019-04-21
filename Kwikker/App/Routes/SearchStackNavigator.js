@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { createStackNavigator, CreateAppContainer } from 'react-navigation';
 import Search from '../Screens/Search/Search';
+import SearchBar from '../Screens/SearchBar/SearchBar';
+
 
 const SearchStackNavigator = createStackNavigator({
   Search: { screen: Search,
@@ -17,6 +19,13 @@ const SearchStackNavigator = createStackNavigator({
         fontFamily: 'CircularStd-Bold'
       },
       headerTintColor: '#fff'
+    }
+  },
+  SearchBar: { screen: SearchBar,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: 'transparent'
+      },
     }
   },
 });

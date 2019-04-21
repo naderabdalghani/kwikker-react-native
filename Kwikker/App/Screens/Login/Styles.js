@@ -45,6 +45,7 @@ export default StyleSheet.create({
   loginButtonBorder: {
     borderTopWidth: 0.75,
     borderTopColor: '#AAB8C2',
+    backgroundColor: 'white',
   },
   loginButtonContainer: {
     justifyContent: 'flex-end',

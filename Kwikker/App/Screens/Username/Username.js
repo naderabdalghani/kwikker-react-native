@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, KeyboardAvoidingView, TouchableNativeFeedback } from 'react-native';
+import { Text, View, Image, KeyboardAvoidingView, TouchableNativeFeedback, ToastAndroid } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
@@ -10,7 +10,7 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 export default class Username extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Name: '', currentUsername: '' };
+    this.state = { Password: '', Name: '', currentUsername: '', message: '' };
   }
 
   componentDidMount() {
@@ -26,14 +26,17 @@ export default class Username extends React.Component {
    */
   doneButtonPress() {
     axios.put('user/username', {
-      username: this.state.Name
+      username: this.state.Name,
+      password: this.state.Password
     })
       .then((res) => {
-        console.warn('success');
+        this.setState({ message: 'username changed successfully' });
+        ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
         this.props.navigation.goBack(null);
       })
       .catch((err) => {
-        console.warn(err);
+        this.setState({ message: "error: username didn't change, try again later" });
+        ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
         this.props.navigation.goBack(null);
       });
   }
@@ -74,6 +77,14 @@ export default class Username extends React.Component {
             secureTextEntry={false}
             value={this.state.Name}
             onChangeText={(Name) => this.setState({ Name })}
+            autoFocus={false}
+          />
+          <CustomTextInput
+            placeholder=""
+            label="Password"
+            secureTextEntry={false}
+            value={this.state.Password}
+            onChangeText={(Password) => this.setState({ Password })}
             autoFocus={false}
           />
         </View>

@@ -6,8 +6,8 @@ import People from './People';
 
 
 const SearchTapNavigator = createMaterialTopTabNavigator({
-  People: { screen: People },
   Kweeks: { screen: Kweeks },
+  People: { screen: People },
 }, {
   tabBarOptions: {
     upperCaseLabel: false,

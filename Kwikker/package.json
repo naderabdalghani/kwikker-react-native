@@ -6,7 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "lint": "eslint *.js **/*.js",
-    "refreshDoc": "documentation build App/** -f html -o docs"
+    "refreshDoc": "documentation build App/** -f html -o docs",
+    "testNader": "yarn test Authorization.test.js CustomRoundedTextInput.test.js CustomTextInput.test.js ForgotPassword.test.js Login.test.js Registration.test.js SignOut.test.js StartScreen.test.js"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.2.1",
@@ -23,6 +24,7 @@
     "react-art": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-native": "^0.59.4",
+    "react-native-actionsheet": "^2.4.2",
     "react-native-camera": "^2.3.0",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-global-font": "^1.0.2",
@@ -32,6 +34,7 @@
     "react-native-keychain": "^3.1.1",
     "react-native-loading-spinner-overlay": "^1.0.1",
     "react-native-menu-button": "^1.0.0",
+    "react-native-parsed-text": "^0.0.21",
     "react-native-push-notification-popup": "^1.2.0",
     "react-native-screens": "^1.0.0-alpha.22",
     "react-native-splash-screen": "^3.2.0",

@@ -5,6 +5,8 @@ import styles from './Styles';
 const BLUE = '#1DA1F2';
 const LIGHT_GRAY = '#AAB8C2';
 
+/** @module CustomTextInput **/
+
 class CustomTextInput extends React.Component {
   constructor(props) {
     super(props);
@@ -13,14 +15,16 @@ class CustomTextInput extends React.Component {
   state = { isFocused: false };
 
   /**
-   * Sets isFocused to true should the text input field is selected
+   * Sets text Input underline color to blue should the text input field is selected
+   * @memberof CustomTextInput
    */
   handleFocus = () => {
     this.setState({ isFocused: true });
   };
 
   /**
-   * Sets isFocused to false should the text input field is unselected
+   * Sets text Input underline color to gray should the text input field is selected
+   * @memberof CustomTextInput
    */
   handleBlur = () => {
     this.setState({ isFocused: false });
