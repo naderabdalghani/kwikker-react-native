@@ -19,6 +19,7 @@ export default class Kweeks extends React.Component {
           <TouchableOpacity key={item.username}>
             <Kweek
               key={item.id}
+              id={item.id}
               date={item.created_at}
               profileImageUrl={item.user.profile_image_url}
               screenName={item.user.screen_name}
@@ -29,7 +30,8 @@ export default class Kweeks extends React.Component {
               kweetText={item.text}
               liked={item.liked_by_user}
               rekweeked={item.rekweeked_by_user}
-              rekweekerUserName={item.rekweek_info.rekweeker_username}
+              rekweekerUserName={item.rekweek_info}
+              mediaUrl={item.media_url}
             />
           </TouchableOpacity>
         ))
