@@ -7,7 +7,7 @@ export default styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'lightskyblue',
+    backgroundColor: '#1DA1F2',
     height: 120,
   },
   ProfileImageContainer: {

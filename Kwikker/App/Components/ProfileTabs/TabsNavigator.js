@@ -19,7 +19,7 @@ const TabsNavigator = createMaterialTopTabNavigator({
     upperCaseLabel: false,
     labelStyle: {
       fontSize: 12,
-      color: 'gray'
+      color: '#657786'
     },
     tabStyle: {
     },

@@ -19,9 +19,11 @@ export default class App extends React.Component {
                 }}
               />
             </View>
-            <TouchableOpacity style={styles.EditProfile} 
-            onPress={this.props.EditProfile}>
-            <Text style={{color:'#657786', fontWeight:'bold'}}>
+            <TouchableOpacity
+              style={styles.EditProfile}
+              onPress={this.props.EditProfile}
+            >
+              <Text style={{ color: '#657786', fontWeight: 'bold' }}>
             Edit Profile
               </Text>
             </TouchableOpacity>

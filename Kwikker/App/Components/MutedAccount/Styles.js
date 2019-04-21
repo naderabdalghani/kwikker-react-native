@@ -5,14 +5,14 @@ export default styles = StyleSheet.create({
   accountContainer: {
     flex: 1,
     height: 150,
-    borderColor: 'lightgray',
+    borderColor: '#E1E8ED',
     borderWidth: 0.5,
   },
   profilePicture: {
     height: 50,
     width: 50,
     borderRadius: 50 / 2,
-    borderColor: 'lightgray',
+    borderColor: '#E1E8ED',
     borderWidth: 1,
     overflow: 'hidden',
     marginTop: 10,
@@ -32,6 +32,6 @@ export default styles = StyleSheet.create({
   },
   textContent: {
     marginBottom: 40,
-    color: 'lightgray'
+    color: '#E1E8ED'
   },
 });
