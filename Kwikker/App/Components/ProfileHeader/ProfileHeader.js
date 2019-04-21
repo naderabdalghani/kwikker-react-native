@@ -7,25 +7,14 @@ export default class App extends React.Component {
     return (
 
       <View style={{ flex: 1 }}>
-        <View style={styles.Cover}>
-          <View>
-            <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
-              <Image
-                style={styles.backButton}
-                source={require('./../../Assets/Images/back_button.png')}
-              />
-            </TouchableNativeFeedback>
-          </View>
-        </View>
+        <View style={styles.Cover} />
 
         <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <View style={styles.ProfileImageContainer}>
               <Image
                 style={styles.ProfileImage}
-                source={{
-                  uri: 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
-                }}
+                source={require('./../../Assets/Images/unknown.png')}
               />
             </View>
             <TouchableOpacity
@@ -43,7 +32,7 @@ export default class App extends React.Component {
                   NAME
             </Text>
             <Text style={styles.Gray}>
-                USERNAME
+              @{this.props.username}
             </Text>
             <Text>
                 ABOUT
