@@ -3,11 +3,10 @@ import { StyleSheet } from 'react-native';
 let styles;
 export default styles = StyleSheet.create({
   Cover: {
-    position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'lightskyblue',
+    backgroundColor: '#1DA1F2',
     height: 120,
   },
   ProfileImageContainer: {
@@ -22,6 +21,34 @@ export default styles = StyleSheet.create({
   },
   ProfileImage: {
     flex: 1, width: null, height: null
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    height: 50
+  },
+  backButtonContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  backButton: {
+    height: 30,
+    width: 30,
+    marginLeft: 12,
+  },
+  dummyElement: {
+    flex: 1,
+  },
+  titleContainer: {
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    width: '70%',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000',
   },
 
 });

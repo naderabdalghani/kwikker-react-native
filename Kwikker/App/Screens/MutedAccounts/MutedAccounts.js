@@ -5,7 +5,7 @@ import MutedAccount from '../../Components/MutedAccount/MutedAccount';
 import Styles from './Styles';
 
 
-export default class PrivecyAndSafety extends React.Component {
+export default class MutedAccounts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

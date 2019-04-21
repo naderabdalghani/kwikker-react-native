@@ -6,7 +6,7 @@ import Home from '../Screens/Home/Home';
 import FollowersList from '../Screens/FollowerList/FollowersList';
 import FollowingsList from '../Screens/FollowingList/FollowingList';
 import CreateTweet from '../Screens/CreateTweet/CreateTweet';
-import Camera from '../Screens/Camera/Camera'
+import Camera from '../Screens/Camera/Camera';
 
 const HomeStackNavigator = createStackNavigator({
 
@@ -16,8 +16,14 @@ const HomeStackNavigator = createStackNavigator({
       title: 'Home',
     }
   },
-  FollowersList: { screen: FollowersList },
-  FollowingsList: { screen: FollowingsList },
+  FollowersList: { screen: FollowersList,
+    navigationOptions: {
+      header: null,
+    }, },
+  FollowingsList: { screen: FollowingsList,
+    navigationOptions: {
+      header: null,
+    }, },
   CreateTweet: { screen: CreateTweet },
   Camera: { screen: Camera }
 });

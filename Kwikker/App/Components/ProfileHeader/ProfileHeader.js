@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, View, ScrollView, Image } from 'react-native';
+import { TouchableOpacity, Text, View, ScrollView, Image, TouchableNativeFeedback } from 'react-native';
 import styles from './Styles';
 
 export default class App extends React.Component {
@@ -7,7 +7,16 @@ export default class App extends React.Component {
     return (
 
       <View style={{ flex: 1 }}>
-        <View style={styles.Cover} />
+        <View style={styles.Cover}>
+          <View>
+            <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
+              <Image
+                style={styles.backButton}
+                source={require('./../../Assets/Images/back_button.png')}
+              />
+            </TouchableNativeFeedback>
+          </View>
+        </View>
 
         <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -19,9 +28,11 @@ export default class App extends React.Component {
                 }}
               />
             </View>
-            <TouchableOpacity style={styles.EditProfile} 
-            onPress={this.props.EditProfile}>
-            <Text style={{color:'#657786', fontWeight:'bold'}}>
+            <TouchableOpacity
+              style={styles.EditProfile}
+              onPress={this.props.EditProfile}
+            >
+              <Text style={{ color: '#657786', fontWeight: 'bold' }}>
             Edit Profile
               </Text>
             </TouchableOpacity>
