@@ -218,6 +218,14 @@ export default class Kweek extends Component {
                   <Ionicons name="ios-arrow-down" size={15} color="#657786" />
                 </TouchableOpacity>
               </View>
+              {this.props.replyTo === null ? null : (
+                <View styles={{ flexDirection: 'row' }}>
+                  <Text style={{ fontSize: 15, color: '#657786' }}>Replying to </Text>
+                  <TouchableOpacity>
+                    <Text style={styles.hashtag}>@{this.props.userName}</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
               <ParsedText
                 parse={[
                   { pattern: /@(\w+)/, style: styles.hashtag },

@@ -118,6 +118,7 @@ render() {
             rekweeked={item.rekweeked_by_user}
             rekweekerUserName={item.rekweek_info}
             mediaUrl={item.media_url}
+            replyTo={item.reply_to}
           />
         ))
        }
