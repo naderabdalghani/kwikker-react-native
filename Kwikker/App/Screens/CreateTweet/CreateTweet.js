@@ -34,7 +34,7 @@ componentDidMount() {
  * Handle submitting a kweek
  */
 submitKweek() {
-  axios.post('kweeks', {
+  axios.post('/kweeks', {
     text: this.state.text,
     reply_to: null
   })
