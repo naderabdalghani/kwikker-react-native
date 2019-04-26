@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, Image, Button, StyleSheet, TextInput } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import axios from 'axios';
+import { StackActions } from 'react-navigation';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Styles from './Styles';
 let thiss;
@@ -34,22 +35,27 @@ componentDidMount() {
  * Handle submitting a kweek
  */
 submitKweek() {
-  axios.post('/kweeks', {
+  axios.post('kweeks/', {
     text: this.state.text,
     reply_to: null
   })
     .then((response) => {
       console.log(response.status);
+      //this.props.navigation.navigate('Home');
+
     })
 
-    .catch((error) => {
+    .catch((err) => {
     // handle error
+    let error = JSON.stringify(err);
+    error = JSON.parse(error);
     console.log(error);
-    console.log('error');
+    console.log(error.response.status);
     })
     .then(() => {
     // always executed
-    //  this.navigation.setRoot('Home');
+      //this.props.navigation.navigate('Home');
+      this.props.navigation.dispatch(StackActions.popToTop());
     });
 }
 
