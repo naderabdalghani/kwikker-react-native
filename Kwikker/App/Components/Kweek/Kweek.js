@@ -18,6 +18,40 @@ export default class Kweek extends Component {
     this.ActionSheet.show();
   }
 
+  handleMenu(index) {
+    if (index === 0 && this.props.following) {
+
+    }
+    if (index === 0 && !this.props.following) {
+      
+    }
+    if (index === 1) {
+      axios.post('interactions/mutes', {
+        username: this.props.userName,
+      })
+        .then((response) => {
+          console.log(response.status);
+          //this.props.navigation.navigate('Home');
+    
+        })
+    
+        .catch((err) => {
+        // handle error
+        let error = JSON.stringify(err);
+        error = JSON.parse(error);
+        console.log(error);
+        console.log(error.response.status);
+        })
+        .then(() => {
+        // always executed
+          //this.props.navigation.navigate('Home');
+        });
+    }
+    if (index === 2) {
+      
+    }
+  }
+
   /**
    * Calculate kweek date and time
    */
@@ -254,10 +288,10 @@ export default class Kweek extends Component {
         </View>
         <ActionSheet
           ref={(o) => this.ActionSheet = o}
-          options={['Follow', 'Mute', 'Block']}
+          options={this.props.following === true ? ['Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)] : ['Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]}
           cancelButtonIndex={2}
           //destructiveButtonIndex={1}
-          onPress={(index) => { /* do something */ }}
+          onPress={(index) => { this.handleMenu(index); }}
         />
       </View>
     );
