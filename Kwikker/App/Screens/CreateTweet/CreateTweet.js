@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, Image, Button, StyleSheet, TextInput } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import { StackActions } from 'react-navigation';
+import ImagePicker from 'react-native-image-picker';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Styles from './Styles';
 let thiss;
@@ -20,7 +22,7 @@ static navigationOptions = ({ navigation }) => {
   };
 };
 
-state = { text: '', count: 280 };
+state = { text: '', count: 280, photo: null };
 
 /**
  * Disable kweek button when kweek is over 280 charecters
@@ -30,6 +32,16 @@ componentDidMount() {
   this.props.navigation.setParams({ buttonDisabled: (this.state.count <= 0) || (this.state.count === 280) });
 }
 */
+handleChoosePhoto = () => {
+  const options = {
+    noData: true,
+  };
+  ImagePicker.launchImageLibrary(options, response => {
+    if (response.uri) {
+      this.setState({ photo: response });
+    }
+  });
+};
 
 /**
  * Handle submitting a kweek
@@ -83,8 +95,9 @@ render() {
         </View>
       </View>
       <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 0.75, borderTopColor: '#AAB8C2' }}>
-        <Feather name="camera" size={36} color="rgb(29, 161, 242)" onPress={() => this.props.navigation.navigate('Camera')} style={{ marginLeft: '3%', marginTop: '1%' }}/>
-        <Text style={{ marginLeft: '65%', marginTop: '4%' }}>{this.state.count} / 280</Text>
+        <Feather name="camera" size={36} color="rgb(29, 161, 242)" onPress={() => this.props.navigation.navigate('Camera')} style={{ marginLeft: '3%', marginTop: '1%' }} />
+        <FontAwesome name="photo" size={36} color="rgb(29, 161, 242)" onPress={this.handleChoosePhoto} style={{ marginLeft: '3%', marginTop: '1%' }} />
+        <Text style={{ marginLeft: '53%', marginTop: '4%' }}>{this.state.count} / 280</Text>
       </View>
     </View>
   );
