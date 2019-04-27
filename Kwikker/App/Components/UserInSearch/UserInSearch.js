@@ -36,11 +36,17 @@ export default class UserInSearch extends React.Component {
  * @memberof UserInSearch
  */
   unfollow() {
-    axios.delete('interactions/follow', { data: { username: this.props.userName } }).then((response) => {
+    axios.delete('interactions/follow', {
+      params: {
+        username: this.props.userName
+      }
+    }).then((response) => {
       this.setState({
         following: false,
       });
-    });
+    })
+      .catch((error) => {
+      });
   }
 
 

@@ -3,7 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer'; // Note: test renderer must be required after react-native.
 import { shallow } from 'enzyme';
 import mockAxios from 'axios';
-import Home from '../App/Screens/Home/Home';
+import { Home } from '../App/Screens/Home/Home';
 
 describe('homeComponent component', () => {
   it('Mount:  get 20 kweeks on component Mount ', async () => {

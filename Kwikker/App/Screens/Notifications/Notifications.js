@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import React, { Component } from 'react';
 import { View, Text, ScrollView, RefreshControl, TouchableOpacity, Image } from 'react-native';
 import axios from 'axios';
@@ -131,10 +132,10 @@ export class Notifications extends Component {
       .then((response) => {
         if (id === null) {
           this.setState({
-            notifications: response.data
+            notifications: response.data.Notifications
           });
         } else {
-          this.setState((prevState) => ({ notifications: prevState.notifications.concat(response.data)
+          this.setState((prevState) => ({ notifications: prevState.notifications.concat(response.data.Notifications)
           }));
         }
         this.setState({ refreshing: false });

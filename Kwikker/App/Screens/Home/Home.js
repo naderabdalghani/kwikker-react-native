@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Text, View, Image, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import axios from 'axios';
+import io from 'socket.io-client';
+import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerActions } from 'react-navigation';
+import { withInAppNotification } from 'react-native-in-app-notification/src/index';
 import Kweek from '../../Components/Kweek/Kweek';
 
-export default class Home extends Component {
+export class Home extends Component {
 static navigationOptions = ({ navigation }) => {
   return {
     headerLeft:
@@ -18,12 +21,24 @@ constructor(props) {
   super(props);
   this.state = {
     kweeks: [],
+    currentUsername: '',
     refreshing: false,
   };
 }
 
-
 componentDidMount() {
+  const socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
+  socket.connect();
+  AsyncStorage.getItem('@app:id').then((id) => {
+    this.setState({ currentUsername: id, },);
+    socket.on(this.state.currentUsername, (notification) => {
+      this.props.showNotification({
+        title: notification,
+        message: ' hi ',
+        vibrate: true,
+      });
+    });
+  });
   this.pullRefresh();
   console.log('componentdidMount');
 }
@@ -130,3 +145,5 @@ render() {
   );
 }
 }
+
+export default withInAppNotification(Home);
