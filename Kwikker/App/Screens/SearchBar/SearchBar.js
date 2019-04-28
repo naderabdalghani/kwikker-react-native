@@ -191,11 +191,11 @@ updatekweeksList(username = null) {
     .then((kweeksRes) => {
       if (username === null) {
         this.setState({
-          //kweeksList: kweeksRes.data
+          kweeksList: kweeksRes.data
         });
       } else {
         this.setState((prevState) => ({
-          //kweeksList: prevState.kweeksList.concat(kweeksRes.data)
+          kweeksList: prevState.kweeksList.concat(kweeksRes.data)
         }));
       }
 

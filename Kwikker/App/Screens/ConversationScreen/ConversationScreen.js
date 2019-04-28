@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image, RefreshControl, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
+import io from 'socket.io-client';
 import styles from './Styles';
-import { auth } from '../../Utils/Authorization';
 
 /** @module ConversationScreen **/
 
@@ -30,10 +30,19 @@ export default class ConversationScreen extends Component {
 
 
   componentDidMount() {
+    const socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
+    socket.connect();
+    let eventSockt;
     AsyncStorage.getItem('@app:id').then((id) => {
-      this.setState({ currentUsername: id, });
-      this.pullRefresh();
+      this.setState({ currentUsername: id, },
+        () => {
+          if (this.props.navigation.state.params.userName.localeCompare(this.state.currentUsername) > 0) { eventSockt = this.state.currentUsername.concat(this.props.navigation.state.params.userName); } else { eventSockt = this.props.navigation.state.params.userName.concat(this.state.currentUsername); }
+        });
+      socket.on(eventSockt, (message) => {
+        this.updateMessages();
+      });
     });
+    this.pullRefresh();
     this.willFocusListener = this.props.navigation.addListener(
       'willFocus',
       () => {
@@ -55,14 +64,13 @@ export default class ConversationScreen extends Component {
         {
           text: this.state.message,
           username: this.props.navigation.state.params.userName,
-          media_url: 'null'
+          media_id: 'null'
         })
         .then((response) => {
           this.setState({
             message: '',
           });
           this.textInput.clear();
-          this.updateMessages();
         })
         .catch((error) => {
         });
@@ -158,7 +166,6 @@ moreMessages=({ contentOffset }) => {
        // always executed
      });
  }
-
 
  render() {
    return (
