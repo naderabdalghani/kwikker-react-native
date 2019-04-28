@@ -5,6 +5,15 @@ import Notification from '../Notification/Notification';
 /** @module All **/
 
 export default class All extends React.Component {
+  /** to render unseend messges.
+   * @memberof All
+ */
+  renderUnseen(index) {
+    if (index < this.props.screenProps.unseenCount) { return { backgroundColor: '#f2f2f2' }; }
+
+    return (null);
+  }
+
   render() {
     return (
       <ScrollView
@@ -19,9 +28,11 @@ export default class All extends React.Component {
       >
         {this.props.screenProps.notifications.map((item, index) => (
           <TouchableOpacity
+            style={
+              this.renderUnseen(index)
+            }
             key={item.id}
             onPress={() => {
-              this.props.screenProps.showPopNotification(item.screen_name, item.kweek_text, item.type);
             }}
           >
             <Notification

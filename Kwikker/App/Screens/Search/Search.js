@@ -67,7 +67,7 @@ export default class Search extends Component {
  */
 moreTrendLists=({ layoutMeasurement, contentOffset, contentSize }) => {
   if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true && this.state.trendsList.length) {
-    this.updateTrend(this.state.trendsList[this.state.usersList.length - 1].id);
+    this.updateTrend(this.state.trendsList[this.state.trendsList.length - 1].id);
   }
 }
 

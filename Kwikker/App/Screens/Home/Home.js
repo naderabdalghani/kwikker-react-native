@@ -36,6 +36,7 @@ componentDidMount() {
         title: notification,
         message: ' hi ',
         vibrate: true,
+        onPress: () => { this.props.navigation.push('Notifications'); }
       });
     });
   });
