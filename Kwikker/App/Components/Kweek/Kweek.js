@@ -6,12 +6,22 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import ParsedText from 'react-native-parsed-text';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
+import AsyncStorage from '@react-native-community/async-storage';
 import styles from './Styles';
 
 export default class Kweek extends Component {
   constructor(props) {
     super(props);
-    this.state = { liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };
+    this.state = { loggedUser: '', liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.setState({loggedUser: id });
+    });
+  }
+
+  getOPtions() {
+    if (this.props.userName === this.state.loggedUser) return (['Delete Kweek']);
+    if (this.props.following === true) return (['Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]); 
+    return (['Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
   }
 
   showActionSheet = () => {
@@ -19,6 +29,9 @@ export default class Kweek extends Component {
   }
 
   handleMenu(index) {
+    if (index === 0 && this.props.userName === this.state.loggedUser) {
+
+    }
     if (index === 0 && this.props.following) {
 
     }
@@ -77,17 +90,26 @@ export default class Kweek extends Component {
     if (this.props.rekweekerUserName === null) {
       return (null);
     }
-    if (this.props.rekweekerUserName !== null) {
+    if (this.props.rekweekerUserName.rekweeker_username === this.state.loggedUser) {
       return (
         <TouchableOpacity style={{ marginTop: '2%', marginBottom: '-2%' }}>
           <View style={{ flexDirection: 'row' }}>
             <EvilIcons name="retweet" size={16} color="#657786" style={{ marginLeft: '15%', marginTop: '1%' }} />
-            <Text style={{ color: '#657786', marginLeft: '3%' }}>{this.props.rekweekerUserName.rekweeker_username} rekweeked</Text>
+            <Text style={{ color: '#657786', marginLeft: '3%' }}>You rekweeked</Text>
           </View>
         </TouchableOpacity>
       );
     }
-    /* if (this.props.likerUserName != null) {
+    return (
+      <TouchableOpacity style={{ marginTop: '2%', marginBottom: '-2%' }}>
+        <View style={{ flexDirection: 'row' }}>
+          <EvilIcons name="retweet" size={16} color="#657786" style={{ marginLeft: '15%', marginTop: '1%' }} />
+          <Text style={{ color: '#657786', marginLeft: '3%' }}>{this.props.rekweekerUserName.rekweeker_username} rekweeked</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+  /* if (this.props.likerUserName != null) {
       return (
         <TouchableOpacity style={{ marginTop: '2%', marginBottom: '1%' }}>
           <View style={{ flexDirection: 'row' }}>
@@ -98,7 +120,6 @@ export default class Kweek extends Component {
       );
     }
     */
-  }
 
   /**
   * Determine whether the kweek is liked by the user or not
@@ -231,7 +252,7 @@ export default class Kweek extends Component {
   }
 
   render() {
-    console.log(this.props.id);
+    console.log(this.props.mentions);
     const url = 'http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
     return (
       <View style={{ borderBottomWidth: 0.5, borderBottomColor: '#AAB8C2' }}>
@@ -262,8 +283,10 @@ export default class Kweek extends Component {
               )}
               <ParsedText
                 parse={[
-                  { pattern: /@(\w+)/, style: styles.hashtag },
-                  { pattern: /#(\w+)/, style: styles.hashtag }
+                  { pattern: /#(\w+)/, style: styles.hashtag },
+                  //this.props.mentions.map((item, index) => (
+                  { pattern: /@(\w+)/, style: styles.hashtag }
+                  //))
                 ]}
                 style={{ fontSize: 15, color: '#000000' }}
                 childrenProps={{ allowFontScaling: false }}
@@ -288,8 +311,8 @@ export default class Kweek extends Component {
         </View>
         <ActionSheet
           ref={(o) => this.ActionSheet = o}
-          options={this.props.following === true ? ['Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)] : ['Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]}
-          cancelButtonIndex={2}
+          options={this.getOPtions()}
+          cancelButtonIndex={0}
           //destructiveButtonIndex={1}
           onPress={(index) => { this.handleMenu(index); }}
         />

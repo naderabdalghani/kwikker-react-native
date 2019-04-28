@@ -5,8 +5,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import { StackActions } from 'react-navigation';
 import ImagePicker from 'react-native-image-picker';
+import ParsedText from 'react-native-parsed-text';
 import CustomButton from '../../Components/CustomButton/CustomButton';
-import Styles from './Styles';
+import styles from './Styles';
 let thiss;
 
 export default class CreateTweet extends Component {
@@ -43,11 +44,22 @@ handleChoosePhoto = () => {
   });
 };
 
+handleCam = () => {
+  const options = {
+    noData: true,
+  };
+  ImagePicker.launchCamera(options, response => {
+    if (response.uri) {
+      this.setState({ photo: response });
+    }
+  });
+};
+
 /**
  * Handle submitting a kweek
  */
 submitKweek() {
-  axios.post('kweeks/', {
+  axios.post('kweeks', {
     text: this.state.text,
     reply_to: null
   })
@@ -86,16 +98,32 @@ render() {
               this.setState({ text: t, count: maxLength - t.length });
               //this.props.navigation.setParams({ buttonDisabled: (this.state.count <= 0) || (this.state.count === 280) });
             }}
-            value={this.state.text}
+            //value={this.state.text}
             placeholder="What's happening?"
             placeholderTextColor="#657786"
             style={{ fontSize: 18 }}
             multiline
-          />
+          >
+            <ParsedText
+              parse={[
+                { pattern: /#(\w+)/, style: styles.hashtag },
+                { pattern: /@(\w+)/, style: styles.hashtag }]}
+              style={{ fontSize: 18, color: '#000000' }}
+              childrenProps={{ allowFontScaling: false }}
+            >
+              {this.state.text}
+            </ParsedText>
+          </TextInput>
+          { this.state.photo === null ? null : (
+            <View style={{ height: 200, width: '80%', marginTop: '2%', borderWidth: 1, borderColor: '#AAB8C2', borderRadius: 5 }}>
+              <Image source={this.state.photo} style={{ height: '100%', width: '100%' }} />
+            </View>
+          )
+          }
         </View>
       </View>
-      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 0.75, borderTopColor: '#AAB8C2' }}>
-        <Feather name="camera" size={36} color="rgb(29, 161, 242)" onPress={() => this.props.navigation.navigate('Camera')} style={{ marginLeft: '3%', marginTop: '1%' }} />
+      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 0.75, borderTopColor: '#AAB8C2', backgroundColor: '#FFFFFF' }}>
+        <Feather name="camera" size={36} color="rgb(29, 161, 242)" onPress={this.handleCam} style={{ marginLeft: '3%', marginTop: '1%' }} />
         <FontAwesome name="photo" size={36} color="rgb(29, 161, 242)" onPress={this.handleChoosePhoto} style={{ marginLeft: '3%', marginTop: '1%' }} />
         <Text style={{ marginLeft: '53%', marginTop: '4%' }}>{this.state.count} / 280</Text>
       </View>
