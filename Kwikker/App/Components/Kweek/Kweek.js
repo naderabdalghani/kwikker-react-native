@@ -30,7 +30,24 @@ export default class Kweek extends Component {
 
   handleMenu(index) {
     if (index === 0 && this.props.userName === this.state.loggedUser) {
-
+      console.log('updateKweeks');
+      axios.delete('kweeks/', {
+        params: {
+          id: this.props.id
+        }
+      })
+        .then((response) => {
+          console.log(response.status);
+          
+        })
+        .catch((error) => {
+        // handle error
+          console.log('delete tweets error');
+        })
+        .then(() => {
+        // always executed
+        return;
+        });
     }
     if (index === 0 && this.props.following) {
 
