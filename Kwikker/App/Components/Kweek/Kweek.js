@@ -40,7 +40,7 @@ export default class Kweek extends Component {
     }
     if (index === 1) {
       axios.post('interactions/mutes', {
-        username: this.props.userName,
+        username: this.props.userName
       })
         .then((response) => {
           console.log(response.status);
