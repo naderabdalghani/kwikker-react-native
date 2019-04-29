@@ -13,10 +13,11 @@ let thiss;
 export default class CreateTweet extends Component {
 static navigationOptions = ({ navigation }) => {
   const { params = {} } = navigation.state;
+  const kweekId = navigation.getParam('kweekId', null);
   return {
     headerRight:
   <View style={{ marginRight: 10 }}>
-    <CustomButton marginSize={10} customFontSize={15} disabled={params.buttonDisabled} onPress={() => thiss.submitKweek()}>Kweek</CustomButton>
+    <CustomButton marginSize={10} customFontSize={15} disabled={params.buttonDisabled} onPress={() => thiss.submitKweek()}>{kweekId === null ? 'Kweek' : 'Reply'}</CustomButton>
   </View>,
     headerBackImage:
   <Feather name="x" size={24} color="rgb(29, 161, 242)" />
@@ -65,6 +66,8 @@ handleCam = () => {
  * Handle submitting a kweek
  */
 submitKweek() {
+  const { navigation } = this.props;
+  const kweekId = navigation.getParam('kweekId', null);
   if (this.state.photo !== null) {
     const formData = new FormData();
     formData.append('file', { name: this.state.photo.fileName, type: this.state.photo.type, uri: this.state.photo.uri });
@@ -92,11 +95,12 @@ submitKweek() {
       // always executed
         axios.post('kweeks/', {
           text: this.state.text,
-          reply_to: null,
+          reply_to: (kweekId === null ? null : kweekId),
           media_id: this.state.media
         })
           .then((response) => {
             console.log(response.status);
+            console.log(kweekId);
             //this.props.navigation.navigate('Home');
           })
           .catch((err) => {
@@ -114,11 +118,12 @@ submitKweek() {
   if (this.state.photo === null) {
     axios.post('kweeks/', {
       text: this.state.text,
-      reply_to: null,
+      reply_to: (kweekId === null ? null : kweekId),
       media_id: null
     })
       .then((response) => {
         console.log(response.status);
+        console.log(kweekId);
         //this.props.navigation.navigate('Home');
       })
       .catch((err) => {
@@ -137,6 +142,8 @@ submitKweek() {
 render() {
   thiss = this;
   const maxLength = 280;
+  const { navigation } = this.props;
+  const kweekId = navigation.getParam('kweekId', null);
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 10, flexDirection: 'row' }}>
@@ -150,7 +157,7 @@ render() {
               //this.props.navigation.setParams({ buttonDisabled: (this.state.count <= 0) || (this.state.count === 280) });
             }}
             //value={this.state.text}
-            placeholder="What's happening?"
+            placeholder={kweekId === null ? "What's happening?" : 'Kweek your reply'}
             placeholderTextColor="#657786"
             style={{ fontSize: 18 }}
             multiline

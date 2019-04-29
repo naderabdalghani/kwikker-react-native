@@ -151,6 +151,7 @@ render() {
             replyTo={item.reply_to}
             following={item.user.following}
             mentions={item.mentions}
+            navigation={this.props.navigation}
           />
         ))
        }
