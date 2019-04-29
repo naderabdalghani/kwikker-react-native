@@ -23,7 +23,7 @@ static navigationOptions = ({ navigation }) => {
   };
 };
 
-state = { text: '', count: 280, photo: null };
+state = { text: '', count: 280, photo: null, media: null };
 
 /**
  * Disable kweek button when kweek is over 280 charecters
@@ -40,6 +40,9 @@ handleChoosePhoto = () => {
   ImagePicker.launchImageLibrary(options, response => {
     if (response.uri) {
       this.setState({ photo: response });
+      console.log(this.state.photo.uri);
+      console.log(this.state.photo.fileName);
+      console.log(this.state.photo.type);
     }
   });
 };
@@ -51,6 +54,9 @@ handleCam = () => {
   ImagePicker.launchCamera(options, response => {
     if (response.uri) {
       this.setState({ photo: response });
+      console.log(this.state.photo.uri);
+      console.log(this.state.photo.fileName);
+      console.log(this.state.photo.type);
     }
   });
 };
@@ -59,28 +65,73 @@ handleCam = () => {
  * Handle submitting a kweek
  */
 submitKweek() {
-  axios.post('kweeks', {
-    text: this.state.text,
-    reply_to: null
-  })
-    .then((response) => {
-      console.log(response.status);
-      //this.props.navigation.navigate('Home');
-
+  if (this.state.photo !== null) {
+    const formData = new FormData();
+    formData.append('file', { name: this.state.photo.fileName, type: this.state.photo.type, uri: this.state.photo.uri });
+    axios({
+      method: 'post',
+      url: 'media/',
+      data: formData,
+      config: { headers: { 'Content-Type': 'multipart/form-data' } }
     })
+      .then((response) => {
+        console.log(response.status);
+        console.log(response.data.media_id);
+        //this.props.navigation.navigate('Home');
+        this.setState({ media: response.data.media_id });
+      })
 
-    .catch((err) => {
-    // handle error
-    let error = JSON.stringify(err);
-    error = JSON.parse(error);
-    console.log(error);
-    console.log(error.response.status);
+      .catch((err) => {
+      // handle error
+        let error = JSON.stringify(err);
+        error = JSON.parse(error);
+        console.log(error);
+        console.log(error.response.status);
+      })
+      .then(() => {
+      // always executed
+        axios.post('kweeks/', {
+          text: this.state.text,
+          reply_to: null,
+          media_id: this.state.media
+        })
+          .then((response) => {
+            console.log(response.status);
+            //this.props.navigation.navigate('Home');
+          })
+          .catch((err) => {
+          // handle error
+            let error = JSON.stringify(err);
+            error = JSON.parse(error);
+            console.log(error);
+            console.log(error.response.status);
+          })
+          .then(() => {
+            this.props.navigation.dispatch(StackActions.popToTop());
+          });
+      });
+  }
+  if (this.state.photo === null) {
+    axios.post('kweeks/', {
+      text: this.state.text,
+      reply_to: null,
+      media_id: null
     })
-    .then(() => {
-    // always executed
-      //this.props.navigation.navigate('Home');
-      this.props.navigation.dispatch(StackActions.popToTop());
-    });
+      .then((response) => {
+        console.log(response.status);
+        //this.props.navigation.navigate('Home');
+      })
+      .catch((err) => {
+      // handle error
+        let error = JSON.stringify(err);
+        error = JSON.parse(error);
+        console.log(error);
+        console.log(error.response.status);
+      })
+      .then(() => {
+        this.props.navigation.dispatch(StackActions.popToTop());
+      });
+  }
 }
 
 render() {

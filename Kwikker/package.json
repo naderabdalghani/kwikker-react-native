@@ -84,5 +84,8 @@
     "assets": [
       "./Assets/Fonts"
     ]
+  },
+  "standard": {
+      "globals": [ "fetch", "FormData" ]
   }
 }
