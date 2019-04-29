@@ -15,15 +15,14 @@ export default StyleSheet.create({
     alignSelf: 'flex-end'
   },
   messageButton: {
-    width: '25%',
+    width: '10%',
     height: 40,
     borderLeftWidth: 1,
-    marginRight: 5,
     marginBottom: 5,
+    paddingLeft: 10,
     alignSelf: 'flex-end'
   },
   buttomImage: {
-    marginRight: 25,
     width: 40,
     height: 40,
     alignSelf: 'center'
@@ -48,7 +47,6 @@ export default StyleSheet.create({
     borderTopRightRadius: 10,
     borderBottomLeftRadius: 10,
     padding: 5,
-    color: 'white',
     margin: 5,
 
   },
@@ -60,7 +58,7 @@ export default StyleSheet.create({
     fontSize: 12
   },
   textInput: {
-    width: '75%',
+    width: '65%',
     margin: 10,
     borderBottomWidth: 1,
   }

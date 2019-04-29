@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, TouchableOpacity, Image, RefreshControl, TextInput } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Image, RefreshControl, TextInput, } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
+import ImagePicker from 'react-native-image-picker';
 import io from 'socket.io-client';
 import styles from './Styles';
-
 /** @module ConversationScreen **/
 
 export default class ConversationScreen extends Component {
@@ -24,6 +25,9 @@ export default class ConversationScreen extends Component {
       messages: [],
       refreshing: false,
       message: '',
+      photo: '',
+      formData: '',
+      photoID: 'null',
       currentUsername: '',
     };
   }
@@ -51,31 +55,87 @@ export default class ConversationScreen extends Component {
     );
   }
 
-
   /** Send message
  *  sends message to specifice user
  *  (Post request) we send the message and the user name
  * @memberof ConversationScreen
  */
   async onSubmit() {
-    if (this.state.message.length > 0 && !this.state.refreshing) {
-      this.setState({ refreshing: true });
-      axios.post('direct_message/',
-        {
-          text: this.state.message,
-          username: this.props.navigation.state.params.userName,
-          media_id: 'null'
+    if ((this.state.message.length > 0 && !this.state.refreshing) || this.state.photo) {
+      if (this.state.photo) {
+        this.setState({ refreshing: true });
+        axios.post('media/', {
+          params: {
+            file: this.state.formData
+          }
         })
-        .then((response) => {
-          this.setState({
-            message: '',
+          .then((response) => {
+            console.warn(response.data.media_id);
+            this.setState({
+              photoID: response.data.media_id,
+              photo: '',
+            });
+            this.textInput.clear();
+          })
+          .catch((error) => {
+          }).then(() => {
+            axios.post('direct_message/',
+              {
+                text: this.state.message,
+                username: this.props.navigation.state.params.userName,
+                media_id: this.state.photoID
+              })
+              .then((response) => {
+                this.setState({
+                  message: '',
+                  photoID: 'null',
+                });
+                this.textInput.clear();
+              })
+              .catch((error) => {
+              });
           });
-          this.textInput.clear();
-        })
-        .catch((error) => {
-        });
+      } else {
+        axios.post('direct_message/',
+          {
+            text: this.state.message,
+            username: this.props.navigation.state.params.userName,
+            media_id: this.state.photoID
+          })
+          .then((response) => {
+            this.setState({
+              message: '',
+              photoID: 'null',
+            });
+            this.textInput.clear();
+          })
+          .catch((error) => {
+          });
+      }
     }
   }
+
+
+  /** when user choose Photo
+ * @memberof ConversationScreen
+ */
+  handleChoosePhoto = () => {
+    const options = {
+      noData: true,
+    };
+    ImagePicker.launchImageLibrary(options, (response) => {
+      if (response.uri) {
+        const data = new FormData();
+        data.append('picture', {
+          uri: response.path,
+          name: response.fileName,
+          type: response.type
+        });
+        this.setState({ photo: response, formData: data });
+      }
+    });
+  };
+
 
   /** Get more Messages above when we get to the beginning of the scrollView.
  * Check we reached beginning of content
@@ -100,6 +160,22 @@ moreMessages=({ contentOffset }) => {
      refreshing: true,
    },
    () => { this.updateMessages(); });
+ }
+
+ /** reander media
+ * @memberof ConversationScreen
+ */
+ isMedia(media) {
+   if (media) {
+     return (
+       <Image
+         resizeMode="contain"
+         source={{ uri: media }} style={{ width: 200,
+           height: 200 }}
+       />
+     );
+   }
+   return (null);
  }
 
 
@@ -189,7 +265,10 @@ moreMessages=({ contentOffset }) => {
            >
              <View style={{ flexDirection: 'row' }}>
                {this.userImage(item.from_username)}
-               <Text style={this.messageType(item.from_username)}>{item.text}</Text>
+               <View style={this.messageType(item.from_username)}>
+                 <Text style={item.from_username !== this.state.currentUsername ? { color: 'black' } : { color: 'white', }}>{item.text}</Text>
+                 {this.isMedia(item.media_url)}
+               </View>
              </View>
              <Text style={[this.messageType(item.from_username), styles.messageTime]}>{item.created_at}</Text>
            </View>
@@ -198,7 +277,14 @@ moreMessages=({ contentOffset }) => {
         }
        </ScrollView>
 
-       <View style={{ flexDirection: 'row' }}>
+       <View style={{
+         flexDirection: 'row',
+         justifyContent: 'center',
+         alignItems: 'stretch', }}
+       >
+         <TouchableOpacity onPress={this.handleChoosePhoto} style={{ alignSelf: 'center' }}>
+           <FontAwesome name="photo" size={25} color="rgb(0, 0, 0)" onPress={this.handleChoosePhoto} style={{ alignSelf: 'center' }} />
+         </TouchableOpacity>
          <TextInput
            ref={(input) => { this.textInput = input; }}
            style={styles.textInput}
@@ -211,6 +297,9 @@ moreMessages=({ contentOffset }) => {
            <Image source={require('../../Assets/Images/send.png')} style={styles.buttomImage} />
          </TouchableOpacity>
        </View>
+       <TouchableOpacity onPress={() => { this.setState({ photo: '' }); }} style={{ maxHeight: '30%', maxWidth: '30%', alignSelf: 'center' }}>
+         <Image source={this.state.photo} style={{ maxHeight: '100%', maxWidth: '100%', alignSelf: 'center' }} />
+       </TouchableOpacity>
      </View>
    );
  }

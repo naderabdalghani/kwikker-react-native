@@ -4,8 +4,6 @@ let styles;
 export default styles = StyleSheet.create({
   TrendContainer: {
     flex: 1,
-    borderColor: 'lightgray',
-    borderWidth: 0.5,
   },
   textContainer: {
     flex: 1,
