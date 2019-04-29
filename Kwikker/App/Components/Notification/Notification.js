@@ -69,11 +69,13 @@ export default class Notification extends React.Component {
         </View>
         <View style={styles.textContainer}>
           <View style={styles.textHeader}>
-            <Text style={{ fontWeight: 'bold' }}>{this.props.screenName}</Text>
-            <Text> {this.state.type}</Text>
+            <Text numberOfLines={1} style={{ fontWeight: 'bold' }}>{this.props.screenName}
+              <Text style={{ fontWeight: 'normal' }}> {this.state.type}</Text>
+            </Text>
+
 
           </View>
-          <Text style={styles.textContent}>{this.props.kweekText}</Text>
+          <Text numberOfLines={1} style={styles.textContent}>{this.props.kweekText}</Text>
         </View>
       </View>
     );

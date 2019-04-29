@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 import styles from './Styles';
 
 /** @module UserInSearch **/
@@ -9,8 +10,16 @@ export default class UserInSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      following: this.props.following
+      following: this.props.following,
+      currentUsername: '',
     };
+  }
+
+
+  componentDidMount() {
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.setState({ currentUsername: id, },);
+    });
   }
 
 
@@ -125,6 +134,18 @@ export default class UserInSearch extends React.Component {
     );
   }
 
+  /** render follow or block Button
+ *  if the user is not me
+ * @memberof UserInSearch
+ */
+
+  renderButton() {
+    if (this.props.userName !== this.state.currentUsername) {
+      return (this.isFollowingOrBlock());
+    }
+    return (null);
+  }
+
   render() {
     return (
 
@@ -139,7 +160,7 @@ export default class UserInSearch extends React.Component {
           {this.isMuted()}
         </View>
 
-        {this.isFollowingOrBlock()}
+        {this.renderButton()}
 
       </View>
     );

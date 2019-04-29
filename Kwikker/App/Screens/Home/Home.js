@@ -36,9 +36,19 @@ componentDidMount() {
         title: notification,
         message: ' hi ',
         vibrate: true,
-        onPress: () => { this.props.navigation.push('Notifications'); }
+        onPress: () => this.props.navigation.navigate('Notifications')
       });
     });
+    axios.get('user/profile', {
+      params: {
+        username: id
+      }
+    })
+      .then((response) => {
+        AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+      })
+      .catch((error) => {
+      });
   });
   this.pullRefresh();
   console.log('componentdidMount');

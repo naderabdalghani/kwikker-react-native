@@ -26,17 +26,15 @@ export default class Search extends Component {
     this.props.navigation.setParams({
       headerTitle: (
         <View style={{ width: '85%', marginTop: 5 }}>
-          <TextInput
-            ref={(ref) => { this.textInput = ref; }}
-            onFocus={() => {
+          <TouchableOpacity
+            onPress={() => {
               this.props.navigation.navigate('SearchBar', {
                 search: '',
-                trendId: null
-              });
+                trendId: null });
             }}
-            placeholder=" Search Kwikker "
-            clearButtonMode="always"
-          />
+          >
+            <Text>Search Kwikker</Text>
+          </TouchableOpacity>
         </View>
       ),
       headerRight: (
@@ -45,7 +43,15 @@ export default class Search extends Component {
 
       ),
       headerLeft: (
-        <EvilIcons name="search" size={35} color="rgb(136, 153, 166)" style={{ margin: 5 }} />
+        <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.navigate('SearchBar', {
+              search: '',
+              trendId: null });
+          }}
+        >
+          <EvilIcons name="search" size={35} color="rgb(136, 153, 166)" style={{ margin: 5 }} />
+        </TouchableOpacity>
       ),
     });
     this.updateTrend();

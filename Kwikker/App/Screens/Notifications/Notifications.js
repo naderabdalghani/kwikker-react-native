@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, RefreshControl, TouchableOpacity, Image } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 import NotificationsTaps from '../../Components/NotificationsTaps/NotificationsTaps';
 
 /** @module Notifications **/
@@ -24,12 +25,14 @@ export default class Notifications extends Component {
   }
 
   componentDidMount() {
-    this.props.navigation.setParams({
-      headerLeft: (
-        <TouchableOpacity>
-          <Image source={require('./../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
-        </TouchableOpacity>
-      ),
+    AsyncStorage.getItem('@app:image').then((image) => {
+      this.props.navigation.setParams({
+        headerLeft: (
+          <TouchableOpacity>
+            <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+          </TouchableOpacity>
+        ),
+      });
     });
     this.pullRefresh();
     this.willFocusListener = this.props.navigation.addListener(

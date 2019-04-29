@@ -25,7 +25,7 @@ const HomeStackNavigator = createStackNavigator({
       header: null,
     }, },
   CreateTweet: { screen: CreateTweet },
-  Camera: { screen: Camera }
+  Camera: { screen: Camera },
 });
 HomeStackNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
