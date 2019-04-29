@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import axios from 'axios';
 import io from 'socket.io-client';
+import PushNotification from 'react-native-push-notification';
 import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerActions } from 'react-navigation';
 import { withInAppNotification } from 'react-native-in-app-notification/src/index';
@@ -32,6 +33,9 @@ componentDidMount() {
   AsyncStorage.getItem('@app:id').then((id) => {
     this.setState({ currentUsername: id, },);
     socket.on(this.state.currentUsername, (notification) => {
+      PushNotification.localNotification({
+        message: notification,
+      });
       this.props.showNotification({
         title: notification,
         message: ' hi ',

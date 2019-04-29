@@ -140,6 +140,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-screens')
+    implementation project(':react-native-push-notification')
     implementation project(':react-native-image-picker')
     implementation project(':rn-camera-roll')
     implementation project(':react-native-camera')

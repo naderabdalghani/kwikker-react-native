@@ -2,6 +2,7 @@ package com.kwikker;
 
 import android.app.Application;
 
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
 import com.imagepicker.ImagePickerPackage;
 import fr.bamlab.rncameraroll.CameraRollPackage;
@@ -39,7 +40,8 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new KeychainPackage(),
             new SplashScreenReactPackage(),
-            new RNGestureHandlerPackage()
+            new RNGestureHandlerPackage(),
+            new ReactNativePushNotificationPackage()
       );
     }
 
