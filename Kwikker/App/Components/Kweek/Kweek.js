@@ -302,7 +302,7 @@ export default class Kweek extends Component {
           </View>
         </TouchableOpacity>
         <View style={{ flexDirection: 'row', marginTop: '3%', marginBottom: '3%' }}>
-          <TouchableOpacity style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <TouchableOpacity onPress={() => this.props.navigation.push('CreateTweet', { kweekId: this.props.id })} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <EvilIcons name="comment" size={26} color="#657786" />
             <Text>{this.props.numberOfReplies === 0 ? null : this.props.numberOfReplies}</Text>
           </TouchableOpacity>
