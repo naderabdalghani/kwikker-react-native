@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createStackNavigator, CreateAppContainer } from 'react-navigation';
 import Messages from '../Screens/Messages/Messages';
 import ConversationScreen from '../Screens/ConversationScreen/ConversationScreen';
-import ConversationSearch from '../Screens/ConversationSearch/ConversationSearch';
+import ProfileStackNavigator from './ProfileStackNavigator';
 
 const MessagesStackNavigator = createStackNavigator({
 
@@ -12,9 +12,11 @@ const MessagesStackNavigator = createStackNavigator({
       title: 'Messages'
     }
   },
-
   ConversationScreen: { screen: ConversationScreen },
-  ConversationSearch: { screen: ConversationSearch }
+  Profile: { screen: ProfileStackNavigator,
+    navigationOptions: {
+      header: null,
+    }, },
 });
 MessagesStackNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;

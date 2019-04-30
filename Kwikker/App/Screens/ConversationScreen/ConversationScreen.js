@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, TouchableOpacity, Image, RefreshControl, TextInput, } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Image, RefreshControl, TextInput, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import io from 'socket.io-client';
@@ -16,6 +17,19 @@ export default class ConversationScreen extends Component {
         <Text>@{navigation.state.params.userName} </Text>
       </View>
     ),
+    headerRight: (
+      <TouchableOpacity onPress={() => {
+        navigation.navigate('Profile', {
+        });
+      }
+    }
+      >
+        <EvilIcons
+          name="exclamation" size={35} color="rgb(0, 0, 0)" style={{ margin: 10 }}
+        />
+      </TouchableOpacity>
+
+    ),
 
   });
 
@@ -25,9 +39,8 @@ export default class ConversationScreen extends Component {
       messages: [],
       refreshing: false,
       message: '',
-      photo: '',
-      formData: '',
-      photoID: 'null',
+      photo: null,
+      photoID: null,
       currentUsername: '',
     };
   }
@@ -61,39 +74,45 @@ export default class ConversationScreen extends Component {
  * @memberof ConversationScreen
  */
   async onSubmit() {
-    if ((this.state.message.length > 0 && !this.state.refreshing) || this.state.photo) {
+    if ((this.state.message && !this.state.refreshing) || (this.state.photo && !this.state.refreshing)) {
       if (this.state.photo) {
         this.setState({ refreshing: true });
-        axios.post('media/', {
-          params: {
-            file: this.state.formData
-          }
+        const formData = new FormData();
+        formData.append('file', { name: this.state.photo.fileName, type: this.state.photo.type, uri: this.state.photo.uri });
+        axios({
+          method: 'post',
+          url: 'media/',
+          data: formData,
+          config: { headers: { 'Content-Type': 'multipart/form-data' } }
         })
           .then((response) => {
-            console.warn(response.data.media_id);
-            this.setState({
-              photoID: response.data.media_id,
-              photo: '',
-            });
-            this.textInput.clear();
+            this.setState({ photoID: response.data.media_id });
           })
-          .catch((error) => {
-          }).then(() => {
-            axios.post('direct_message/',
-              {
-                text: this.state.message,
-                username: this.props.navigation.state.params.userName,
-                media_id: this.state.photoID
-              })
-              .then((response) => {
-                this.setState({
-                  message: '',
-                  photoID: 'null',
+          .catch(() => {
+            this.setState({ refreshing: false });
+            ToastAndroid.show('failed to send image', ToastAndroid.SHORT);
+          })
+          .then(() => {
+            if (this.state.photoID) {
+              axios.post('direct_message/',
+                {
+                  text: this.state.message,
+                  username: this.props.navigation.state.params.userName,
+                  media_id: this.state.photoID
+                })
+                .then((response) => {
+                  this.setState({
+                    message: '',
+                    photoID: null,
+                    photo: null
+                  });
+                  this.textInput.clear();
+                })
+                .catch((error) => {
+                  this.setState({ refreshing: false });
+                  ToastAndroid.show('failed to send image', ToastAndroid.SHORT);
                 });
-                this.textInput.clear();
-              })
-              .catch((error) => {
-              });
+            }
           });
       } else {
         axios.post('direct_message/',
@@ -125,13 +144,7 @@ export default class ConversationScreen extends Component {
     };
     ImagePicker.launchImageLibrary(options, (response) => {
       if (response.uri) {
-        const data = new FormData();
-        data.append('picture', {
-          uri: response.path,
-          name: response.fileName,
-          type: response.type
-        });
-        this.setState({ photo: response, formData: data });
+        this.setState({ photo: response });
       }
     });
   };
@@ -170,8 +183,11 @@ moreMessages=({ contentOffset }) => {
      return (
        <Image
          resizeMode="contain"
-         source={{ uri: media }} style={{ width: 200,
-           height: 200 }}
+         source={{ uri: media }} style={{ minWidth: 200,
+           alignSelf: 'center',
+           width: '100%',
+           minHeight: 400,
+           margin: 5 }}
        />
      );
    }
@@ -243,6 +259,24 @@ moreMessages=({ contentOffset }) => {
      });
  }
 
+ /** Render X symbol.
+ * to remove picked image
+ * @memberof ConversationScreen
+ */
+
+ renderX() {
+   if (this.state.photo) {
+     return (
+       <EvilIcons
+         onPress={() => {
+           this.setState({ photo: null });
+         }} name="close" size={35} color="rgb(136, 153, 166)" style={{ margin: 5 }}
+       />
+     );
+   }
+   return (null);
+ }
+
  render() {
    return (
      <View style={{ flex: 1 }}>
@@ -266,8 +300,8 @@ moreMessages=({ contentOffset }) => {
              <View style={{ flexDirection: 'row' }}>
                {this.userImage(item.from_username)}
                <View style={this.messageType(item.from_username)}>
-                 <Text style={item.from_username !== this.state.currentUsername ? { color: 'black' } : { color: 'white', }}>{item.text}</Text>
                  {this.isMedia(item.media_url)}
+                 <Text style={item.from_username !== this.state.currentUsername ? { color: 'black' } : { color: 'white', }}>{item.text}</Text>
                </View>
              </View>
              <Text style={[this.messageType(item.from_username), styles.messageTime]}>{item.created_at}</Text>
@@ -280,7 +314,7 @@ moreMessages=({ contentOffset }) => {
        <View style={{
          flexDirection: 'row',
          justifyContent: 'center',
-         alignItems: 'stretch', }}
+       }}
        >
          <TouchableOpacity onPress={this.handleChoosePhoto} style={{ alignSelf: 'center' }}>
            <FontAwesome name="photo" size={25} color="rgb(0, 0, 0)" onPress={this.handleChoosePhoto} style={{ alignSelf: 'center' }} />
@@ -297,8 +331,9 @@ moreMessages=({ contentOffset }) => {
            <Image source={require('../../Assets/Images/send.png')} style={styles.buttomImage} />
          </TouchableOpacity>
        </View>
-       <TouchableOpacity onPress={() => { this.setState({ photo: '' }); }} style={{ maxHeight: '30%', maxWidth: '30%', alignSelf: 'center' }}>
-         <Image source={this.state.photo} style={{ maxHeight: '100%', maxWidth: '100%', alignSelf: 'center' }} />
+       { this.renderX() }
+       <TouchableOpacity style={{ maxHeight: '50%', maxWidth: '100%' }}>
+         <Image resizeMode="contain" source={this.state.photo} style={{ maxHeight: '100%', maxWidth: '100%' }} />
        </TouchableOpacity>
      </View>
    );

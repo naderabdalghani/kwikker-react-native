@@ -139,6 +139,7 @@ render() {
               screenName={item.user.screen_name}
               fromUsername={item.last_message.from_username}
               currentUsername={this.state.currentUsername}
+              mediaUrl={item.last_message.media_url}
             />
           </TouchableOpacity>
         ))
