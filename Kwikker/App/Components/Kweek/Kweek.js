@@ -274,7 +274,27 @@ export default class Kweek extends Component {
     return (
       <View style={{ borderBottomWidth: 0.5, borderBottomColor: '#AAB8C2' }}>
         {this.kweekHeader()}
-        <TouchableOpacity style={{ marginLeft: '3%', marginTop: '3%' }}>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.push('KweekExtendedView', {
+            key: this.props.key,
+            id: this.props.id,
+            date: this.props.date,
+            profileImageUrl: this.props.profileImageUrl,
+            screenName: this.props.screenName,
+            userName: this.props.userName,
+            numberOfLikes: this.props.numberOfLikes,
+            numberOfRekweeks: this.props.numberOfRekweeks,
+            numberOfReplies: this.props.numberOfReplies,
+            kweetText: this.props.kweetText,
+            liked: this.props.liked,
+            rekweeked: this.props.rekweeked,
+            rekweekerUserName: this.props.rekweekerUserName,
+            mediaUrl: this.props.mediaUrl,
+            replyTo: this.props.replyTo,
+            following: this.props.following,
+            mentions: this.props.mentions
+          })} style={{ marginLeft: '3%', marginTop: '3%' }}
+        >
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity style={{ flex: 1 }}>
               <Thumbnail source={{ uri: url }} />

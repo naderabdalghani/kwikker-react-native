@@ -3,9 +3,10 @@ import { Text, View, Image, ScrollView, TouchableOpacity, RefreshControl } from 
 import axios from 'axios';
 import { DrawerActions } from 'react-navigation';
 import Kweek from '../../Components/Kweek/Kweek';
+import KweekExtended from '../../Components/KweekExtended/KweekExtended'
 
 export default class Home extends Component {
-static navigationOptions = ({ navigation }) => {
+/*static navigationOptions = ({ navigation }) => {
   return {
     headerLeft:
   <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
@@ -31,7 +32,7 @@ componentDidMount() {
 /**
  * Pull to refresh functionality
  */
-pullRefresh= () => {
+/*pullRefresh= () => {
   console.log('pullRefresh');
   this.setState({
     refreshing: true,
@@ -46,7 +47,7 @@ pullRefresh= () => {
  * @param  {int} contentOffset - position on screen
  * @param  {int} contentSize - size of all content
  */
-moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
+/*moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
   if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true) {
     this.setState({
       refreshing: true,
@@ -60,7 +61,7 @@ moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
  * To retrieve more send the id of the last retrieved kweek.
  * @param {int} id - The id of Kweek .
  */
-updateKweeks(id = null) {
+/*updateKweeks(id = null) {
   console.log('updateKweeks');
   axios.get('kweeks/timelines/home', {
     params: {
@@ -128,4 +129,49 @@ render() {
     </View>
   );
 }
+}
+*/
+  render() {
+    const { navigation } = this.props;
+    const key = navigation.getParam('key', null);
+    const id = navigation.getParam('id', null);
+    const date = navigation.getParam('date', null);
+    const profileImageUrl = navigation.getParam('profileImageUrl', null);
+    const screenName = navigation.getParam('screenName', null);
+    const userName = navigation.getParam('userName', null);
+    const numberOfLikes = navigation.getParam('numberOfLikes', null);
+    const numberOfRekweeks = navigation.getParam('numberOfRekweeks', null);
+    const numberOfReplies = navigation.getParam('numberOfReplies', null);
+    const kweetText = navigation.getParam('kweetText', null);
+    const liked = navigation.getParam('liked', null);
+    const rekweeked = navigation.getParam('rekweeked', null);
+    const rekweekerUserName = navigation.getParam('rekweekerUserName', null);
+    const mediaUrl = navigation.getParam('mediaUrl', null);
+    const replyTo = navigation.getParam('replyTo', null);
+    const following = navigation.getParam('following', null);
+    const mentions = navigation.getParam('mentions', null);
+    return (
+      <View>
+        <KweekExtended
+          key={key}
+          id={id}
+          date={date}
+          profileImageUrl={profileImageUrl}
+          screenName={screenName}
+          userName={userName}
+          numberOfLikes={numberOfLikes}
+          numberOfRekweeks={numberOfRekweeks}
+          numberOfReplies={numberOfReplies}
+          kweetText={kweetText}
+          liked={liked}
+          rekweeked={rekweeked}
+          rekweekerUserName={rekweekerUserName}
+          mediaUrl={mediaUrl}
+          replyTo={replyTo}
+          following={following}
+          mentions={mentions}
+        />
+      </View>
+    );
+  }
 }
