@@ -24,6 +24,17 @@ export default class Kweek extends Component {
     return (['Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
   }
 
+  getMentions() {
+    if (this.props.mentions.length !== 0) {
+      const expStr = '@'.concat(this.props.mentions[0].username);
+      for (let i = 1; i < this.props.mentions.length; i++) {
+        expStr.concat('|@').concat(this.props.mentions[i].username);
+      }
+      return (RegExp(expStr));
+    }
+    return (RegExp('@hkhkahfiusvhhvuifhvushspaigupsirguahvhbuadhoutuhfdhbl'));
+  }
+
   showActionSheet = () => {
     this.ActionSheet.show();
   }
@@ -322,7 +333,7 @@ export default class Kweek extends Component {
                 parse={[
                   { pattern: /#(\w+)/, style: styles.hashtag },
                   //this.props.mentions.map((item, index) => (
-                  { pattern: /@(\w+)/, style: styles.hashtag }
+                  { pattern: this.getMentions(), style: styles.hashtag }
                   //))
                 ]}
                 style={{ fontSize: 15, color: '#000000' }}
