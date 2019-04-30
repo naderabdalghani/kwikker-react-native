@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { createStackNavigator, CreateAppContainer } from 'react-navigation';
 import Notifications from '../Screens/Notifications/Notifications';
+import KweekExtendedView from '../Screens/KweekExtendedView/KweekExtendedView';
+import CreateTweet from '../Screens/CreateTweet/CreateTweet';
 
 const NotificationsStackNavigator = createStackNavigator({
 
@@ -13,6 +15,13 @@ const NotificationsStackNavigator = createStackNavigator({
       },
     }
   },
+  KweekExtendedView: {
+    screen: KweekExtendedView,
+    navigationOptions: {
+      title: 'Kweek',
+    }
+  },
+  CreateTweet: { screen: CreateTweet },
 });
 NotificationsStackNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
