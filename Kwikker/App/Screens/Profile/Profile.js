@@ -301,8 +301,8 @@ render() {
           profileBannerUrl={this.state.profileData.profile_banner_url}
           profileImageUrl={this.state.profileData.profile_image_url}
           screenName={this.state.profileData.screen_name}
-          Following={this.state.profileData.following}
-          Blocked={this.state.profileData.blocked}
+          following={this.state.profileData.following}
+          blocked={this.state.profileData.blocked}
           myProfile={this.state.myProfile}
         />
         <View style={styles.fackTabContainer}>

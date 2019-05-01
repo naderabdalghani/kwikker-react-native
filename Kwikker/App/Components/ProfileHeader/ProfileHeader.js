@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, ScrollView, Image, TouchableNativeFeedback, Animated } from 'react-native';
+import axios from 'axios';
 import styles from './Styles';
 
 export default class App extends React.Component {
@@ -8,6 +9,8 @@ export default class App extends React.Component {
     this.state = {
       scrollY: new Animated.Value(0),
       myProfile: '',
+      following: true,
+      blocked: false,
     };
   }
 
@@ -15,7 +18,52 @@ export default class App extends React.Component {
   componentDidMount() {
     this.setState({
       myProfile: this.props.myProfile,
+      following: this.props.following,
+      blocked: this.props.blocked,
     });
+  }
+
+  follow() {
+    axios.post('interactions/follow', {
+      username: this.props.username
+    })
+      .then((response) => {
+        this.setState({
+          following: true,
+        });
+      })
+      .catch((error) => {
+      });
+  }
+
+  unfollow() {
+    axios.delete('interactions/follow', {
+      params: {
+        username: this.props.username
+      }
+    }).then((response) => {
+      this.setState({
+        following: false,
+      });
+    })
+      .catch((error) => {
+      });
+  }
+
+  block() {
+
+  }
+
+  unblock() {
+
+  }
+
+  mute() {
+
+  }
+
+  unmute() {
+
   }
 
   rightButton() {
@@ -31,10 +79,11 @@ export default class App extends React.Component {
         </TouchableOpacity>
       );
     }
-    if (this.props.Following) {
+    if (this.props.following) {
       return (
         <TouchableOpacity
           style={styles.following}
+          onPress={() => { this.unfollow(); }}
         >
           <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 15 }}>
             Following
@@ -42,7 +91,7 @@ export default class App extends React.Component {
         </TouchableOpacity>
       );
     }
-    if (this.props.Blocked) {
+    if (this.props.blocked) {
       return (
         <TouchableOpacity
           style={styles.blocked}
@@ -56,7 +105,7 @@ export default class App extends React.Component {
     return (
       <TouchableOpacity
         style={styles.follow}
-        onPress={this.props.EditProfile}
+        onPress={() => { this.follow(); }}
       >
         <Text style={{ color: '#1DA1F2', fontWeight: 'bold', fontSize: 15 }}>
             Follow
