@@ -51,7 +51,17 @@ export default class App extends React.Component {
   }
 
   unblock() {
-
+    axios.delete('interactions/blocks', {
+      params: {
+        username: this.props.username
+      }
+    })
+      .then((response) => {
+        console.log('unblocked');
+      })
+      .catch((error) => {
+        console.log('errrrrrrrrrrrrrror!');
+      });
   }
 
   mute() {
@@ -79,6 +89,7 @@ export default class App extends React.Component {
       return (
         <TouchableOpacity
           style={styles.blocked}
+          onPress={() => { this.unblock(); }}
         >
           <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 15 }}>
             Blocked
