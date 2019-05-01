@@ -8,7 +8,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       scrollY: new Animated.Value(0),
-      myProfile: '',
+      myProfile: true,
       following: true,
       blocked: false,
     };
@@ -63,18 +63,6 @@ export default class App extends React.Component {
   }
 
   rightButton() {
-    if (this.state.myProfile === 'myProfile') {
-      return (
-        <TouchableOpacity
-          style={styles.EditProfile}
-          onPress={this.props.EditProfile}
-        >
-          <Text style={{ color: '#657786', fontWeight: 'bold' }}>
-            Edit Profile
-          </Text>
-        </TouchableOpacity>
-      );
-    }
     if (this.props.following) {
       return (
         <TouchableOpacity
@@ -98,16 +86,30 @@ export default class App extends React.Component {
         </TouchableOpacity>
       );
     }
-    return (
-      <TouchableOpacity
-        style={styles.follow}
-        onPress={() => { this.follow(); }}
-      >
-        <Text style={{ color: '#1DA1F2', fontWeight: 'bold', fontSize: 15 }}>
-            Follow
-        </Text>
-      </TouchableOpacity>
-    );
+    if (this.props.following === false) {
+      return (
+        <TouchableOpacity
+          style={styles.follow}
+          onPress={() => { this.follow(); }}
+        >
+          <Text style={{ color: '#1DA1F2', fontWeight: 'bold', fontSize: 15 }}>
+              Follow
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+    if (this.state.myProfile) {
+      return (
+        <TouchableOpacity
+          style={styles.EditProfile}
+          onPress={this.props.EditProfile}
+        >
+          <Text style={{ color: '#657786', fontWeight: 'bold' }}>
+            Edit Profile
+          </Text>
+        </TouchableOpacity>
+      );
+    }
   }
 
   render() {

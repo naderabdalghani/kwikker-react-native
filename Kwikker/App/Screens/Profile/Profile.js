@@ -33,7 +33,7 @@ constructor(props) {
     kweeksTab: true,
     likesTab: false,
     profileUsername: '',
-    myProfile: '',
+    myProfile: true,
     menu: false,
   };
 }
@@ -45,8 +45,8 @@ componentDidMount() {
       currentUsername: id,
       profileUsername: this.props.navigation.state.params.username,
     }, () => {
-      this.profileOwner();
       this.pullRefresh();
+      this.profileOwner();
     });
   });
   this.willFocusListener = this.props.navigation.addListener(
@@ -72,7 +72,7 @@ showMenu = () => {
 
 
  pullRefresh= () => {
-   this.setState({ refreshing: false, manu: false },
+   this.setState({ refreshing: false, profileUsername: this.props.navigation.state.params.username, },
      () => {
        this.updateProfile(this.state.profileUsername);
        this.updateKweeks();
@@ -126,9 +126,9 @@ EditProfile() {
 
 profileOwner() {
   if (this.state.profileUsername === this.state.currentUsername) {
-    this.setState({ myProfile: 'myProfile' });
+    this.setState({ myProfile: true });
   } else {
-    this.setState({ myProfile: 'notMyProfile' });
+    this.setState({ myProfile: false });
   }
 }
 
@@ -307,6 +307,39 @@ block() {
     });
 }
 
+menuMute() {
+  if (this.state.menu) {
+    return (
+      <TouchableOpacity
+        style={styles.menuItems}
+        onPress={() => { this.mute(); }}
+      >
+        <View>
+          <Text style={styles.menuText}>Mute</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+  return (<View />);
+}
+
+menuBlock() {
+  if (this.state.menu) {
+    return (
+      <TouchableOpacity
+        style={styles.menuItems}
+        onPress={() => { this.block(); }}
+      >
+        <View>
+          <Text style={styles.menuText}>Block</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+  return (<View />);
+}
+
+
 menu() {
   if (this.state.menu) {
     return (
@@ -363,7 +396,10 @@ render() {
             </View>
           </TouchableOpacity>
         </View>
-        {this.menu()}
+        <View style={styles.itemssContainer}>
+          {this.menuMute()}
+          {this.menuBlock()}
+        </View>
       </View>
       {/* <View style={styles.itemssContainer}>
         <TouchableOpacity onPress={() => { this.mute(); }}>
