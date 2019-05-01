@@ -10,6 +10,14 @@ import Styles from './Styles';
 export default class DrawerNavContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = { username: '' };
+  }
+
+
+  componentDidMount() {
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.setState({ username: id });
+    });
   }
 
   /**
@@ -27,7 +35,7 @@ export default class DrawerNavContainer extends Component {
     return (
       <View style={Styles.container}>
         <View style={Styles.top}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')} style={{ flex: 3 }}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile', { username: this.state.username })} style={{ flex: 3 }}>
             <Image
               source={require('./../../Assets/Images/pp.png')}
               style={Styles.photo}
@@ -50,7 +58,7 @@ export default class DrawerNavContainer extends Component {
 
         </View>
         <View style={Styles.bottom}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile', { username: this.state.username })}>
             <Text style={Styles.text}> Profile </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')}>

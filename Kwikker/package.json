@@ -87,6 +87,9 @@
     ]
   },
   "standard": {
-      "globals": [ "fetch", "FormData" ]
+    "globals": [
+      "fetch",
+      "FormData"
+    ]
   }
 }

@@ -1,13 +1,117 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, ScrollView, Image, TouchableNativeFeedback, Animated } from 'react-native';
+import axios from 'axios';
 import styles from './Styles';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      scrollY: new Animated.Value(0)
+      scrollY: new Animated.Value(0),
+      myProfile: '',
+      following: true,
+      blocked: false,
     };
+  }
+
+
+  componentDidMount() {
+    this.setState({
+      myProfile: this.props.myProfile,
+      following: this.props.following,
+      blocked: this.props.blocked,
+    });
+  }
+
+  follow() {
+    axios.post('interactions/follow', {
+      username: this.props.username
+    })
+      .then((response) => {
+        this.setState({
+          following: true,
+        });
+      })
+      .catch((error) => {
+      });
+  }
+
+  unfollow() {
+    axios.delete('interactions/follow', {
+      params: {
+        username: this.props.username
+      }
+    }).then((response) => {
+      this.setState({
+        following: false,
+      });
+    })
+      .catch((error) => {
+      });
+  }
+
+  block() {
+
+  }
+
+  unblock() {
+
+  }
+
+  mute() {
+
+  }
+
+  unmute() {
+
+  }
+
+  rightButton() {
+    if (this.state.myProfile === 'myProfile') {
+      return (
+        <TouchableOpacity
+          style={styles.EditProfile}
+          onPress={this.props.EditProfile}
+        >
+          <Text style={{ color: '#657786', fontWeight: 'bold' }}>
+            Edit Profile
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+    if (this.props.following) {
+      return (
+        <TouchableOpacity
+          style={styles.following}
+          onPress={() => { this.unfollow(); }}
+        >
+          <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 15 }}>
+            Following
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+    if (this.props.blocked) {
+      return (
+        <TouchableOpacity
+          style={styles.blocked}
+        >
+          <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 15 }}>
+            Blocked
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+    return (
+      <TouchableOpacity
+        style={styles.follow}
+        onPress={() => { this.follow(); }}
+      >
+        <Text style={{ color: '#1DA1F2', fontWeight: 'bold', fontSize: 15 }}>
+            Follow
+        </Text>
+      </TouchableOpacity>
+    );
   }
 
   render() {
@@ -32,14 +136,7 @@ export default class App extends React.Component {
                 source={{ uri: this.props.profileImageUrl }}
               />
             </View>
-            <TouchableOpacity
-              style={styles.EditProfile}
-              onPress={this.props.EditProfile}
-            >
-              <Text style={{ color: '#657786', fontWeight: 'bold' }}>
-            Edit Profile
-              </Text>
-            </TouchableOpacity>
+            {this.rightButton()}
           </View>
 
           <View style={{ marginLeft: 10, marginTop: 4 }}>
