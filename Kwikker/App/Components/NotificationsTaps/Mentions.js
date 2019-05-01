@@ -50,6 +50,9 @@ export default class Mentions extends React.Component {
               rekweekerUserName={item.rekweek_info}
               mediaUrl={item.media_url}
               replyTo={item.reply_to}
+              following={item.user.following}
+              mentions={item.mentions}
+              navigation={this.props.screenProps.rootNav}
             />
           </TouchableOpacity>
         ))

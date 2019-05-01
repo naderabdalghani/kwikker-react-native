@@ -18,8 +18,23 @@ export default class Conversation extends React.Component {
 
   renderYou() {
     if (this.props.fromUsername === this.props.currentUsername) {
+      if (this.props.mediaUrl && this.props.messageText) {
+        return (<Text>You sent a photo:  </Text>);
+      }
+      if (this.props.mediaUrl) {
+        return (<Text>You sent a photo  </Text>);
+      }
       return (<Text>You: </Text>);
     }
+
+    if (this.props.mediaUrl && this.props.messageText) {
+      return (<Text>{this.props.userName} sent a photo:  </Text>);
+    }
+    if (this.props.mediaUrl) {
+      return (<Text>{this.props.userName} sent a photo  </Text>);
+    }
+
+
     return (null);
   }
 

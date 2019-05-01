@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { createStackNavigator, CreateAppContainer } from 'react-navigation';
 import Search from '../Screens/Search/Search';
 import SearchBar from '../Screens/SearchBar/SearchBar';
+import KweekExtendedView from '../Screens/KweekExtendedView/KweekExtendedView';
+import CreateTweet from '../Screens/CreateTweet/CreateTweet';
 
 
 const SearchStackNavigator = createStackNavigator({
@@ -28,6 +30,13 @@ const SearchStackNavigator = createStackNavigator({
       },
     }
   },
+  KweekExtendedView: {
+    screen: KweekExtendedView,
+    navigationOptions: {
+      title: 'Kweek',
+    }
+  },
+  CreateTweet: { screen: CreateTweet },
 });
 SearchStackNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;

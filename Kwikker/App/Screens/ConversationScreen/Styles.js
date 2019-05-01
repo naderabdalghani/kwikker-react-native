@@ -38,7 +38,6 @@ export default StyleSheet.create({
     margin: 5,
   },
   message: {
-
     marginLeft: 'auto',
     maxWidth: '75%',
     alignSelf: 'flex-end',
