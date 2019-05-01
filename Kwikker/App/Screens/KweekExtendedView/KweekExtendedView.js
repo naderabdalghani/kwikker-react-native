@@ -133,7 +133,7 @@ render() {
 */
   render() {
     const { navigation } = this.props;
-    const key = navigation.getParam('key', null);
+    //const key = navigation.getParam('key', null);
     const id = navigation.getParam('id', null);
     const date = navigation.getParam('date', null);
     const profileImageUrl = navigation.getParam('profileImageUrl', null);
@@ -153,7 +153,7 @@ render() {
     return (
       <View>
         <KweekExtended
-          key={key}
+          //key={key}
           id={id}
           date={date}
           profileImageUrl={profileImageUrl}
@@ -170,6 +170,7 @@ render() {
           replyTo={replyTo}
           following={following}
           mentions={mentions}
+          navigation={this.props.navigation}
         />
       </View>
     );

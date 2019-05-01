@@ -145,8 +145,17 @@ render() {
   const maxLength = 280;
   const { navigation } = this.props;
   const kweekId = navigation.getParam('kweekId', null);
+  const user = navigation.getParam('user', null);
   return (
     <View style={{ flex: 1 }}>
+      {kweekId === null ? null : (
+        <View styles={{ flexDirection: 'row', marginLeft: '15%' }}>
+          <Text style={{ fontSize: 18, color: '#657786', marginLeft: '15%', marginTop: '2%' }}>Replying to
+            <Text style={styles.hashtag}> @{user}</Text>
+          </Text>
+        </View>
+      )
+      }
       <View style={{ flex: 10, flexDirection: 'row' }}>
         <View style={{ flex: 1 }}>
           <Image source={require('../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, alignSelf: 'flex-start', marginTop: '15%', marginLeft: '15%' }} />

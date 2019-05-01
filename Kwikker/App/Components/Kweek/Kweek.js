@@ -287,7 +287,7 @@ export default class Kweek extends Component {
         {this.kweekHeader()}
         <TouchableOpacity
           onPress={() => this.props.navigation.push('KweekExtendedView', {
-            key: this.props.key,
+            //key: this.props.key,
             id: this.props.id,
             date: this.props.date,
             profileImageUrl: this.props.profileImageUrl,
@@ -323,18 +323,15 @@ export default class Kweek extends Component {
               </View>
               {this.props.replyTo === null ? null : (
                 <View styles={{ flexDirection: 'row' }}>
-                  <Text style={{ fontSize: 15, color: '#657786' }}>Replying to </Text>
-                  <TouchableOpacity>
-                    <Text style={styles.hashtag}>@{this.props.userName}</Text>
-                  </TouchableOpacity>
+                  <Text style={{ fontSize: 15, color: '#657786' }}>Replying to
+                    <Text style={styles.hashtag}> @{this.props.userName}</Text>
+                  </Text>
                 </View>
               )}
               <ParsedText
                 parse={[
                   { pattern: /#(\w+)/, style: styles.hashtag },
-                  //this.props.mentions.map((item, index) => (
                   { pattern: this.getMentions(), style: styles.hashtag }
-                  //))
                 ]}
                 style={{ fontSize: 15, color: '#000000' }}
                 childrenProps={{ allowFontScaling: false }}
@@ -350,7 +347,7 @@ export default class Kweek extends Component {
           </View>
         </TouchableOpacity>
         <View style={{ flexDirection: 'row', marginTop: '3%', marginBottom: '3%' }}>
-          <TouchableOpacity onPress={() => this.props.navigation.push('CreateTweet', { kweekId: this.props.id })} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <TouchableOpacity onPress={() => this.props.navigation.push('CreateTweet', { kweekId: this.props.id, user: this.props.userName })} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <EvilIcons name="comment" size={26} color="#657786" />
             <Text>{this.props.numberOfReplies === 0 ? null : this.props.numberOfReplies}</Text>
           </TouchableOpacity>
