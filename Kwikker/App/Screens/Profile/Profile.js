@@ -284,22 +284,42 @@ updateProfile(userName) {
 }
 
 mute() {
-
+  axios.post('interactions/mutes', {
+    username: this.state.profileData.username
+  })
+    .then((response) => {
+      this.setState({ menu: false });
+    })
+    .catch((error) => {
+      this.setState({ menu: false });
+    });
 }
 
 block() {
-
+  axios.post('interactions/blocks', {
+    username: this.state.profileData.username
+  })
+    .then((response) => {
+      this.menuPressed();
+    })
+    .catch((error) => {
+      this.menuPressed();
+    });
 }
 
 menu() {
   if (this.state.menu) {
     return (
-      <View style={{ width: '40%', backgroundColor: '#fff', borderColor: '#AAB8C2', borderWidth: 1, marginLeft: '55%', }}>
-        <TouchableOpacity style={{ height: 40, justifyContent: 'center', paddingLeft: 10 }}>
-          <Text style={{ color: '#000' }}>Mute</Text>
+      <View style={styles.itemssContainer}>
+        <TouchableOpacity onPress={() => { this.mute(); }}>
+          <View style={styles.menuItems}>
+            <Text style={styles.menuText}>Mute</Text>
+          </View>
         </TouchableOpacity>
-        <TouchableOpacity style={{ height: 40, justifyContent: 'center', paddingLeft: 10 }}>
-          <Text style={{ color: '#000' }}>Block</Text>
+        <TouchableOpacity onPress={() => { this.block(); }}>
+          <View style={styles.menuItems}>
+            <Text style={styles.menuText}>Block</Text>
+          </View>
         </TouchableOpacity>
       </View>
     );
@@ -345,6 +365,18 @@ render() {
         </View>
         {this.menu()}
       </View>
+      {/* <View style={styles.itemssContainer}>
+        <TouchableOpacity onPress={() => { this.mute(); }}>
+          <View style={styles.menuItems}>
+            <Text style={styles.menuText}>Mute</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => { this.block(); }}>
+          <View style={styles.menuItems}>
+            <Text style={styles.menuText}>Block</Text>
+          </View>
+        </TouchableOpacity>
+      </View> */}
       <ScrollView
         refreshControl={(
           <RefreshControl

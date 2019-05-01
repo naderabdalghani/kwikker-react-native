@@ -75,5 +75,21 @@ export default styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: 'rgba(100, 100, 100, 0.5)',
     marginRight: 10,
-  }
+  },
+  menuItems: {
+    height: 40,
+    justifyContent: 'center',
+    paddingLeft: 10,
+  },
+  itemssContainer: {
+    width: '40%',
+    backgroundColor: '#fff',
+    borderColor: '#AAB8C2',
+    borderWidth: 1,
+    marginLeft: '55%',
+    zIndex: 20,
+  },
+  menuText: {
+    color: '#000'
+  },
 });
