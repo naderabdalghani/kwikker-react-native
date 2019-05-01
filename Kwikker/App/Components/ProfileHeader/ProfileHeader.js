@@ -18,8 +18,6 @@ export default class App extends React.Component {
   componentDidMount() {
     this.setState({
       myProfile: this.props.myProfile,
-      following: this.props.following,
-      blocked: this.props.blocked,
     });
   }
 
@@ -29,7 +27,6 @@ export default class App extends React.Component {
     })
       .then((response) => {
         this.setState({
-          following: true,
         });
       })
       .catch((error) => {
@@ -43,7 +40,6 @@ export default class App extends React.Component {
       }
     }).then((response) => {
       this.setState({
-        following: false,
       });
     })
       .catch((error) => {
