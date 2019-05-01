@@ -29,13 +29,19 @@ export default class Profile extends Component {
       refreshing: false,
       kweeksTab: true,
       likesTab: false,
-
+      profileUsername: '',
+      myProfile: '',
     };
   }
 
+
   componentDidMount() {
     AsyncStorage.getItem('@app:id').then((id) => {
-      this.setState({ currentUsername: id }, () => {
+      this.setState({
+        currentUsername: id,
+        profileUsername: this.props.navigation.state.params.username,
+      }, () => {
+        this.profileOwner();
         this.pullRefresh();
       });
     });
@@ -48,83 +54,24 @@ export default class Profile extends Component {
     );
   }
 
+  profileOwner() {
+    if (this.state.profileUsername === this.state.currentUsername) {
+      this.setState({ myProfile: 'myProfile' });
+    } else {
+      this.setState({ myProfile: 'notMyProfile' });
+    }
+  }
+
 
  pullRefresh= () => {
    this.setState({ refreshing: false, },
      () => {
-       this.updateProfile(this.state.currentUsername);
+       this.updateProfile(this.state.profileUsername);
        this.updateKweeks();
        this.updateLikes();
      });
  }
 
-
- tabContent() {
-   if (this.state.kweeksTab) {
-     return (
-       <View style={{ flex: 1 }}>
-         {this.state.kweeks.map((item, index) => (
-           <TouchableOpacity key={item.id}>
-             <Kweek
-              key={item.id}
-              id={item.id}
-              date={item.created_at}
-              profileImageUrl={item.user.profile_image_url}
-              screenName={item.user.screen_name}
-              userName={item.user.username}
-              numberOfLikes={item.number_of_likes}
-              numberOfRekweeks={item.number_of_rekweeks}
-              numberOfReplies={item.number_of_replies}
-              kweetText={item.text}
-              liked={item.liked_by_user}
-              rekweeked={item.rekweeked_by_user}
-              rekweekerUserName={item.rekweek_info}
-              mediaUrl={item.media_url}
-              replyTo={item.reply_to}
-              following={item.user.following}
-              mentions={item.mentions}
-              navigation={this.props.navigation}
-            />
-           </TouchableOpacity>
-         ))
-      }
-
-       </View>
-     );
-   }
-   if (this.state.likesTab) {
-     return (
-       <View style={{ flex: 1 }}>
-         {this.state.likes.map((item, index) => (
-           <TouchableOpacity key={item.id}>
-             <Kweek
-              key={item.id}
-              id={item.id}
-              date={item.created_at}
-              profileImageUrl={item.user.profile_image_url}
-              screenName={item.user.screen_name}
-              userName={item.user.username}
-              numberOfLikes={item.number_of_likes}
-              numberOfRekweeks={item.number_of_rekweeks}
-              numberOfReplies={item.number_of_replies}
-              kweetText={item.text}
-              liked={item.liked_by_user}
-              rekweeked={item.rekweeked_by_user}
-              rekweekerUserName={item.rekweek_info}
-              mediaUrl={item.media_url}
-              replyTo={item.reply_to}
-              following={item.user.following}
-              mentions={item.mentions}
-              navigation={this.props.navigation}
-            />
-           </TouchableOpacity>
-         ))
-      }
-
-       </View>
-     );
-   }
- }
 
  kweeks() {
    this.setState({ kweeksTab: true, likesTab: false, });
@@ -165,6 +112,73 @@ moreKweeKsAndLikes=({ layoutMeasurement, contentOffset, contentSize }) => {
       refreshing: true,
     });
     this.updateLikes(this.state.likes[this.state.likes.length - 1].id);
+  }
+}
+
+tabContent() {
+  if (this.state.kweeksTab) {
+    return (
+      <View style={{ flex: 1 }}>
+        {this.state.kweeks.map((item, index) => (
+          <TouchableOpacity key={item.id}>
+            <Kweek
+              key={item.id}
+              id={item.id}
+              date={item.created_at}
+              profileImageUrl={item.user.profile_image_url}
+              screenName={item.user.screen_name}
+              userName={item.user.username}
+              numberOfLikes={item.number_of_likes}
+              numberOfRekweeks={item.number_of_rekweeks}
+              numberOfReplies={item.number_of_replies}
+              kweetText={item.text}
+              liked={item.liked_by_user}
+              rekweeked={item.rekweeked_by_user}
+              rekweekerUserName={item.rekweek_info}
+              mediaUrl={item.media_url}
+              replyTo={item.reply_to}
+              following={item.user.following}
+              mentions={item.mentions}
+              navigation={this.props.navigation}
+            />
+          </TouchableOpacity>
+        ))
+     }
+
+      </View>
+    );
+  }
+  if (this.state.likesTab) {
+    return (
+      <View style={{ flex: 1 }}>
+        {this.state.likes.map((item, index) => (
+          <TouchableOpacity key={item.id}>
+            <Kweek
+              key={item.id}
+              id={item.id}
+              date={item.created_at}
+              profileImageUrl={item.user.profile_image_url}
+              screenName={item.user.screen_name}
+              userName={item.user.username}
+              numberOfLikes={item.number_of_likes}
+              numberOfRekweeks={item.number_of_rekweeks}
+              numberOfReplies={item.number_of_replies}
+              kweetText={item.text}
+              liked={item.liked_by_user}
+              rekweeked={item.rekweeked_by_user}
+              rekweekerUserName={item.rekweek_info}
+              mediaUrl={item.media_url}
+              replyTo={item.reply_to}
+              following={item.user.following}
+              mentions={item.mentions}
+              navigation={this.props.navigation}
+            />
+          </TouchableOpacity>
+        ))
+     }
+
+      </View>
+    );
   }
 }
 
@@ -287,6 +301,9 @@ render() {
           profileBannerUrl={this.state.profileData.profile_banner_url}
           profileImageUrl={this.state.profileData.profile_image_url}
           screenName={this.state.profileData.screen_name}
+          Following={this.state.profileData.following}
+          Blocked={this.state.profileData.blocked}
+          myProfile={this.state.myProfile}
         />
         <View style={styles.fackTabContainer}>
           <TouchableOpacity style={styles.fackTab} onPress={this.kweeks.bind(this)}>

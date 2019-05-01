@@ -1,13 +1,14 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Image, TouchableNativeFeedback } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 import Styles from './Styles';
 
 
 export default class Account extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { currentUsername: '' };
+    this.state = { currentUsername: '', Email: '' };
   }
 
 
@@ -36,6 +37,23 @@ export default class Account extends React.Component {
    */
   Password() {
     this.props.navigation.push('Password');
+  }
+
+
+  getEmail() {
+    axios.get('user/email')
+      .then((res) => {
+        this.setState({
+          Email: res.data,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          Email: 'error loading email',
+        });
+      })
+      .then(() => {
+      });
   }
 
   render() {
@@ -77,7 +95,7 @@ export default class Account extends React.Component {
           <View style={Styles.box}>
             <TouchableOpacity onPress={this.Email.bind(this)}>
               <Text style={Styles.blackFont}> Email </Text>
-              <Text style={Styles.grayFont}> name@m.com </Text>
+              <Text style={Styles.grayFont}> {this.state.Email} </Text>
             </TouchableOpacity>
           </View>
           <View style={Styles.box}>
