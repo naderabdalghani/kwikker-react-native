@@ -34,6 +34,7 @@
     "react-native-invertible-scroll-view": "^1.1.1",
     "react-native-keychain": "^3.1.1",
     "react-native-loading-spinner-overlay": "^1.0.1",
+    "react-native-material-menu": "^0.4.2",
     "react-native-menu-button": "^1.0.0",
     "react-native-parsed-text": "^0.0.21",
     "react-native-push-notification": "^3.1.3",

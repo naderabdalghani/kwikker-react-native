@@ -7918,6 +7918,13 @@ react-native-loading-spinner-overlay@^1.0.1:
   dependencies:
     prop-types "^15.6.2"
 
+react-native-material-menu@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-material-menu/-/react-native-material-menu-0.4.2.tgz#1dc39c1744ef65d5e536badd5e4d6d640b1f43da"
+  integrity sha512-k4I56GKzmXDx1QDosRFGk5U8+z7Iec0MM1GM6R68fukwzEQn1UDBv8PkcwP7Z/2Ex+PfjDnTkYzCqWnCa88ouQ==
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-material-textfield@^0.8.4:
   version "0.8.4"
   resolved "https://registry.yarnpkg.com/react-native-material-textfield/-/react-native-material-textfield-0.8.4.tgz#267f3a46e9257a25a6b719ebaf34131019f901a0"

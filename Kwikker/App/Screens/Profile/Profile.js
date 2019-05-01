@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableNativeFeedback, RefreshControl, Image, TouchableOpacity, ScrollView } from 'react-native';
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import ProfileHeader from '../../Components/ProfileHeader/ProfileHeader';
@@ -19,84 +20,64 @@ const {
 } = styles;
 
 export default class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentUsername: '',
-      profileData: [],
-      kweeks: [],
-      likes: [],
-      refreshing: false,
-      kweeksTab: true,
-      likesTab: false,
-      profileUsername: '',
-      myProfile: '',
-    };
-  }
+_menu = null;
+
+constructor(props) {
+  super(props);
+  this.state = {
+    currentUsername: '',
+    profileData: [],
+    kweeks: [],
+    likes: [],
+    refreshing: false,
+    kweeksTab: true,
+    likesTab: false,
+    profileUsername: '',
+    myProfile: '',
+    menu: false,
+  };
+}
 
 
-  componentDidMount() {
-    AsyncStorage.getItem('@app:id').then((id) => {
-      this.setState({
-        currentUsername: id,
-        profileUsername: this.props.navigation.state.params.username,
-      }, () => {
-        this.profileOwner();
-        this.pullRefresh();
-      });
+componentDidMount() {
+  AsyncStorage.getItem('@app:id').then((id) => {
+    this.setState({
+      currentUsername: id,
+      profileUsername: this.props.navigation.state.params.username,
+    }, () => {
+      this.profileOwner();
+      this.pullRefresh();
     });
-    this.willFocusListener = this.props.navigation.addListener(
-      'willFocus',
-      () => {
-        this.setState({ refreshing: false,
-        }, () => { this.pullRefresh(); });
-      }
-    );
-  }
-
-  profileOwner() {
-    if (this.state.profileUsername === this.state.currentUsername) {
-      this.setState({ myProfile: 'myProfile' });
-    } else {
-      this.setState({ myProfile: 'notMyProfile' });
+  });
+  this.willFocusListener = this.props.navigation.addListener(
+    'willFocus',
+    () => {
+      this.setState({ refreshing: false,
+      }, () => { this.pullRefresh(); });
     }
-  }
+  );
+}
+
+setMenuRef = (ref) => {
+  this._menu = ref;
+};
+
+hideMenu = () => {
+  this._menu.hide();
+};
+
+showMenu = () => {
+  this._menu.show();
+};
 
 
  pullRefresh= () => {
-   this.setState({ refreshing: false, },
+   this.setState({ refreshing: false, manu: false },
      () => {
        this.updateProfile(this.state.profileUsername);
        this.updateKweeks();
        this.updateLikes();
      });
- }
-
-
- kweeks() {
-   this.setState({ kweeksTab: true, likesTab: false, });
- }
-
- likes() {
-   this.setState({ kweeksTab: false, likesTab: true });
- }
-
- Follower() {
-   this.props.navigation.navigate('FollowerList', {
-     userName: this.state.profileData.username,
-   });
- }
-
- Following() {
-   this.props.navigation.navigate('FollowingList', {
-     userName: this.state.profileData.username,
-   });
- }
-
- EditProfile() {
-   this.props.navigation.navigate('EditProfileNavigator', {
-     userName: this.state.profileData.username,
-   });
  }
 
 
@@ -112,6 +93,42 @@ moreKweeKsAndLikes=({ layoutMeasurement, contentOffset, contentSize }) => {
       refreshing: true,
     });
     this.updateLikes(this.state.likes[this.state.likes.length - 1].id);
+  }
+}
+
+
+kweeks() {
+  this.setState({ kweeksTab: true, likesTab: false, });
+}
+
+likes() {
+  this.setState({ kweeksTab: false, likesTab: true });
+}
+
+
+Follower() {
+  this.props.navigation.navigate('FollowerList', {
+    userName: this.state.profileData.username,
+  });
+}
+
+Following() {
+  this.props.navigation.navigate('FollowingList', {
+    userName: this.state.profileData.username,
+  });
+}
+
+EditProfile() {
+  this.props.navigation.navigate('EditProfileNavigator', {
+    userName: this.state.profileData.username,
+  });
+}
+
+profileOwner() {
+  if (this.state.profileUsername === this.state.currentUsername) {
+    this.setState({ myProfile: 'myProfile' });
+  } else {
+    this.setState({ myProfile: 'notMyProfile' });
   }
 }
 
@@ -266,16 +283,67 @@ updateProfile(userName) {
     });
 }
 
+mute() {
+
+}
+
+block() {
+
+}
+
+menu() {
+  if (this.state.menu) {
+    return (
+      <View style={{ width: '40%', backgroundColor: '#fff', borderColor: '#AAB8C2', borderWidth: 1, marginLeft: '55%', }}>
+        <TouchableOpacity style={{ height: 40, justifyContent: 'center', paddingLeft: 10 }}>
+          <Text style={{ color: '#000' }}>Mute</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ height: 40, justifyContent: 'center', paddingLeft: 10 }}>
+          <Text style={{ color: '#000' }}>Block</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+  return (<View />);
+}
+
+menuPressed() {
+  if (this.state.menu) {
+    this.setState({ menu: false });
+  } else {
+    this.setState({ menu: true });
+  }
+}
+
 render() {
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles.bbcontainer}>
-        <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
-          <Image
-            style={styles.backButton}
-            source={require('./../../Assets/Images/black_back_button.png')}
-          />
-        </TouchableNativeFeedback>
+      <View style={styles.headerContainer}>
+        <View style={styles.header}>
+          <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
+            <Image
+              style={styles.backButton}
+              source={require('./../../Assets/Images/black_back_button.png')}
+            />
+          </TouchableNativeFeedback>
+          {/*
+          <Menu
+            ref={this.setMenuRef}
+            button={<Text onPress={this.showMenu}>Show menu</Text>}
+          >
+            <MenuItem onPress={this.hideMenu}>Mute</MenuItem>
+            <MenuItem onPress={this.hideMenu}>Block</MenuItem>
+          </Menu> */}
+          <TouchableOpacity onPress={() => { this.menuPressed(); }}>
+            <View style={styles.menu}>
+              <Image
+                style={styles.menuImage}
+                source={require('./../../Assets/Images/menu.png')}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
+        {this.menu()}
       </View>
       <ScrollView
         refreshControl={(
