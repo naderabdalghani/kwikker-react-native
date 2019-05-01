@@ -3,7 +3,6 @@ import { Text, View, TouchableNativeFeedback, RefreshControl, Image, TouchableOp
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import ProfileHeader from '../../Components/ProfileHeader/ProfileHeader';
-import ProfileTaps from '../../Components/ProfileTaps/ProfileTaps';
 import Kweek from '../../Components/Kweek/Kweek';
 import styles from './Styles';
 
