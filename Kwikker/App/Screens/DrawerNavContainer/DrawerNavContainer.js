@@ -68,14 +68,14 @@ export default class DrawerNavContainer extends Component {
           </TouchableOpacity>
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('FollowingList', {userName: this.state.profileData.username})} style={{ flex: 1 }}
+              onPress={() => this.props.navigation.navigate('FollowingList', { userName: this.state.profileData.username })} style={{ flex: 1 }}
             >
               <Text style={Styles.followingCount}>{this.state.profileData.following_count}
                 <Text style={Styles.followingCountText}>{' '}Following</Text>
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('FollowerList', {userName: this.state.profileData.username})} style={{ flex: 1 }}
+              onPress={() => this.props.navigation.navigate('FollowerList', { userName: this.state.profileData.username })} style={{ flex: 1 }}
             >
               <Text style={Styles.followersCount}>{this.state.profileData.followers_count}
                 <Text style={Styles.followersCountText}>{' '}Follower</Text>

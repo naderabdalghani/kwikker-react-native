@@ -5,6 +5,8 @@ import SearchBar from '../Screens/SearchBar/SearchBar';
 import KweekExtendedView from '../Screens/KweekExtendedView/KweekExtendedView';
 import CreateTweet from '../Screens/CreateTweet/CreateTweet';
 import ProfileStackNavigator from './ProfileStackNavigator';
+import FollowerList from '../Screens/FollowerList/FollowersList';
+import FollowingList from '../Screens/FollowingList/FollowingList';
 
 
 const SearchStackNavigator = createStackNavigator({
@@ -32,6 +34,14 @@ const SearchStackNavigator = createStackNavigator({
     }
   },
   Profile: { screen: ProfileStackNavigator,
+    navigationOptions: {
+      header: null,
+    }, },
+  FollowerList: { screen: FollowerList,
+    navigationOptions: {
+      header: null,
+    }, },
+  FollowingList: { screen: FollowingList,
     navigationOptions: {
       header: null,
     }, },

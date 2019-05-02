@@ -11,6 +11,7 @@ export default class UserInSearch extends React.Component {
     super(props);
     this.state = {
       following: this.props.following,
+      blocked: this.props.blocked,
       currentUsername: '',
     };
   }
@@ -20,6 +21,15 @@ export default class UserInSearch extends React.Component {
     AsyncStorage.getItem('@app:id').then((id) => {
       this.setState({ currentUsername: id, },);
     });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.setState({
+          following: this.props.following,
+          blocked: this.props.blocked,
+        });
+      }
+    );
   }
 
 
@@ -41,7 +51,7 @@ export default class UserInSearch extends React.Component {
   }
 
   /** unfollow user
- *  (Post request) follow user
+ *  (delete request) follow user
  * @memberof UserInSearch
  */
   unfollow() {
@@ -52,6 +62,24 @@ export default class UserInSearch extends React.Component {
     }).then((response) => {
       this.setState({
         following: false,
+      });
+    })
+      .catch((error) => {
+      });
+  }
+
+  /** unblock user
+ *  (delete request) block user
+ * @memberof UserInSearch
+ */
+  unblock() {
+    axios.delete('interactions/blocks', {
+      params: {
+        username: this.props.userName
+      }
+    }).then((response) => {
+      this.setState({
+        blocked: false,
       });
     })
       .catch((error) => {
@@ -75,7 +103,7 @@ export default class UserInSearch extends React.Component {
  * @memberof UserInSearch
  */
   followText() {
-    if (this.props.blocked) {
+    if (this.state.blocked) {
       return (<Text />);
     }
     if (this.state.following && this.props.followsYou) {
@@ -95,9 +123,13 @@ export default class UserInSearch extends React.Component {
  * @memberof UserInSearch
  */
   isFollowingOrBlock() {
-    if (this.props.blocked) {
+    if (this.state.blocked) {
       return (
-        <TouchableOpacity style={styles.blocked}>
+        <TouchableOpacity
+          style={styles.blocked} onPress={() => {
+            this.unblock();
+          }}
+        >
           <Text style={{ color: '#000', fontWeight: 'bold' }}>
               blocked
           </Text>

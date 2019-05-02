@@ -41,7 +41,7 @@ export default class FillowersList extends Component {
 
   updateUsersList(userName = null) {
     this.setState({ refreshing: true });
-    if (this.props.navigation.state.params && this.props.navigation.state.params.userName) {
+    if (this.props.navigation.state.params) {
       axios.get('interactions/followers', {
         params: {
           last_retrieved_username: userName,
