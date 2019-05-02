@@ -4,6 +4,8 @@ import ProfileStackNavigator from './ProfileStackNavigator';
 import TabNavigator from './TabNavigator';
 import SettingsStackNavigator from './SettingsStackNavigator';
 import DrawerNavContainer from '../Screens/DrawerNavContainer/DrawerNavContainer';
+import FollowerList from '../Screens/FollowerList/FollowersList';
+import FollowingList from '../Screens/FollowingList/FollowingList';
 
 const DrawerNavigator = createDrawerNavigator({
 
@@ -13,6 +15,14 @@ const DrawerNavigator = createDrawerNavigator({
       header: null,
     }, },
   Settings: { screen: SettingsStackNavigator,
+    navigationOptions: {
+      header: null,
+    }, },
+  FollowerList: { screen: FollowerList,
+    navigationOptions: {
+      header: null,
+    }, },
+  FollowingList: { screen: FollowingList,
     navigationOptions: {
       header: null,
     }, },

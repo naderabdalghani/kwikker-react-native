@@ -10,14 +10,37 @@ import Styles from './Styles';
 export default class DrawerNavContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: '' };
+    this.state = { username: '', profileData: '' };
   }
 
 
   componentDidMount() {
     AsyncStorage.getItem('@app:id').then((id) => {
       this.setState({ username: id });
+      this.updateProfile(id);
     });
+  }
+
+
+  updateProfile(userName) {
+    axios.get('user/profile', {
+      params: {
+        username: userName
+      }
+    })
+      .then((response) => {
+        this.setState({
+          profileData: response.data,
+        });
+      })
+      .catch((error) => {
+
+        // handle error
+        // console.log(error);
+      })
+      .then(() => {
+        // always executed
+      });
   }
 
   /**
@@ -37,20 +60,24 @@ export default class DrawerNavContainer extends Component {
         <View style={Styles.top}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile', { username: this.state.username })} style={{ flex: 3 }}>
             <Image
-              source={require('./../../Assets/Images/pp.png')}
+              source={{ uri: this.state.profileData.profile_image_url }}
               style={Styles.photo}
             />
-            <Text style={Styles.userName}>UserName</Text>
-            <Text style={Styles.userHandle}>@user_handle</Text>
+            <Text style={Styles.userName}>{this.state.profileData.screen_name}</Text>
+            <Text style={Styles.userHandle}>@{this.state.profileData.username}</Text>
           </TouchableOpacity>
           <View style={{ flex: 1, flexDirection: 'row' }}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowingsList')} style={{ flex: 1 }}>
-              <Text style={Styles.followingCount}>500
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('FollowingList', {userName: this.state.profileData.username})} style={{ flex: 1 }}
+            >
+              <Text style={Styles.followingCount}>{this.state.profileData.following_count}
                 <Text style={Styles.followingCountText}>{' '}Following</Text>
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowersList')} style={{ flex: 1 }}>
-              <Text style={Styles.followersCount}>1500
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('FollowerList', {userName: this.state.profileData.username})} style={{ flex: 1 }}
+            >
+              <Text style={Styles.followersCount}>{this.state.profileData.followers_count}
                 <Text style={Styles.followersCountText}>{' '}Follower</Text>
               </Text>
             </TouchableOpacity>

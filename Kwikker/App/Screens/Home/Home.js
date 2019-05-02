@@ -27,6 +27,7 @@ constructor(props) {
   };
 }
 
+
 componentDidMount() {
   const socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
   socket.connect();

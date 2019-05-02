@@ -42,32 +42,35 @@ export default class FillowersList extends Component {
   updateUsersList(userName = null) {
     this.setState({ refreshing: true });
 
-    axios.get('interactions/following', {
-      params: {
-        last_retrieved_username: userName,
-        username: this.props.navigation.state.params.userName,
-      }
-    })
-      .then((usersRes) => {
-        if (userName === null) {
-          this.setState({
-            usersList: usersRes.data,
-          });
-        } else {
-          this.setState((prevState) => ({
-            usersList: prevState.usersList.concat(usersRes.data),
-          }));
-        }
 
-        this.setState({ refreshing: false });
+    if (this.props.navigation.state.params && this.props.navigation.state.params.userName) {
+      axios.get('interactions/following', {
+        params: {
+          last_retrieved_username: userName,
+          username: this.props.navigation.state.params.userName,
+        }
       })
-      .catch((error) => {
+        .then((usersRes) => {
+          if (userName === null) {
+            this.setState({
+              usersList: usersRes.data,
+            });
+          } else {
+            this.setState((prevState) => ({
+              usersList: prevState.usersList.concat(usersRes.data),
+            }));
+          }
+
+          this.setState({ refreshing: false });
+        })
+        .catch((error) => {
         // handle error
         // console.log(error);
-      })
-      .then(() => {
+        })
+        .then(() => {
         // always executed
-      });
+        });
+    }
   }
 
   render() {
@@ -110,6 +113,7 @@ export default class FillowersList extends Component {
                 followsYou={item.follows_you}
                 blocked={item.blocked}
                 muted={item.muted}
+                navigation={this.props.navigation}
               />
             </TouchableOpacity>
           ))

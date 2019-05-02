@@ -149,20 +149,28 @@ export default class UserInSearch extends React.Component {
   render() {
     return (
 
-      <View style={styles.container}>
-        <View style={styles.profilePicture}>
-          <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
-        </View>
-        <View style={styles.textContainer}>
-          {this.followText()}
-          <Text style={{ fontWeight: 'bold' }}>{this.props.screenName}</Text>
-          <Text style={{ color: '#AAB8C2' }}>{this.props.userName}</Text>
-          {this.isMuted()}
-        </View>
+      <TouchableOpacity
+        onPress={() => {
+          this.props.navigation.push('Profile', {
+            username: this.props.userName,
+          });
+        }}
+      >
+        <View style={styles.container}>
+          <View style={styles.profilePicture}>
+            <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
+          </View>
+          <View style={styles.textContainer}>
+            {this.followText()}
+            <Text style={{ fontWeight: 'bold' }}>{this.props.screenName}</Text>
+            <Text style={{ color: '#AAB8C2' }}>{this.props.userName}</Text>
+            {this.isMuted()}
+          </View>
 
-        {this.renderButton()}
+          {this.renderButton()}
 
-      </View>
+        </View>
+      </TouchableOpacity>
     );
   }
 }

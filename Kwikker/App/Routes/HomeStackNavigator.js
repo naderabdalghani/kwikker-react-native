@@ -3,8 +3,6 @@ import { createStackNavigator, CreateAppContainer } from 'react-navigation';
 import Image from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Home from '../Screens/Home/Home';
-import FollowersList from '../Screens/FollowerList/FollowersList';
-import FollowingsList from '../Screens/FollowingList/FollowingList';
 import CreateTweet from '../Screens/CreateTweet/CreateTweet';
 import Camera from '../Screens/Camera/Camera';
 import KweekExtendedView from '../Screens/KweekExtendedView/KweekExtendedView'
@@ -23,14 +21,6 @@ const HomeStackNavigator = createStackNavigator({
       title: 'Kweek',
     }
   },
-  FollowersList: { screen: FollowersList,
-    navigationOptions: {
-      header: null,
-    }, },
-  FollowingsList: { screen: FollowingsList,
-    navigationOptions: {
-      header: null,
-    }, },
   CreateTweet: { screen: CreateTweet },
   Camera: { screen: Camera },
 });

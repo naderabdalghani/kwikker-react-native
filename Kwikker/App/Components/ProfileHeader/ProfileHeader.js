@@ -8,9 +8,6 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       scrollY: new Animated.Value(0),
-      myProfile: true,
-      following: true,
-      blocked: false,
     };
   }
 
@@ -26,8 +23,7 @@ export default class App extends React.Component {
       username: this.props.username
     })
       .then((response) => {
-        this.setState({
-        });
+        this.props.updateProfile(this.props.username);
       })
       .catch((error) => {
       });
@@ -39,8 +35,7 @@ export default class App extends React.Component {
         username: this.props.username
       }
     }).then((response) => {
-      this.setState({
-      });
+      this.props.updateProfile(this.props.username);
     })
       .catch((error) => {
       });
@@ -57,7 +52,7 @@ export default class App extends React.Component {
       }
     })
       .then((response) => {
-        console.log('unblocked');
+        this.props.updateProfile(this.props.username);
       })
       .catch((error) => {
         console.log('errrrrrrrrrrrrrror!');
@@ -72,55 +67,112 @@ export default class App extends React.Component {
 
   }
 
+  isMuted() {
+    if (this.props.muted) {
+      return (<Image style={{ width: 25, height: 25, }} source={require('../../Assets/Images/mute.png')} />);
+    }
+    return (<Text />);
+  }
+
   rightButton() {
-    if (this.props.following) {
-      return (
-        <TouchableOpacity
-          style={styles.following}
-          onPress={() => { this.unfollow(); }}
-        >
-          <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 15 }}>
+    if (!this.props.uBlocked && !this.props.blockedView) {
+      if (this.props.following) {
+        return (
+          <TouchableOpacity
+            style={styles.following}
+            onPress={() => { this.unfollow(); }}
+          >
+            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 15 }}>
             Following
-          </Text>
-        </TouchableOpacity>
-      );
-    }
-    if (this.props.blocked) {
-      return (
-        <TouchableOpacity
-          style={styles.blocked}
-          onPress={() => { this.unblock(); }}
-        >
-          <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 15 }}>
+            </Text>
+          </TouchableOpacity>
+        );
+      }
+      if (this.props.blocked) {
+        return (
+          <TouchableOpacity
+            style={styles.blocked}
+            onPress={() => { this.unblock(); }}
+          >
+            <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 15 }}>
             Blocked
-          </Text>
-        </TouchableOpacity>
-      );
-    }
-    if (this.props.following === false) {
-      return (
-        <TouchableOpacity
-          style={styles.follow}
-          onPress={() => { this.follow(); }}
-        >
-          <Text style={{ color: '#1DA1F2', fontWeight: 'bold', fontSize: 15 }}>
+            </Text>
+          </TouchableOpacity>
+        );
+      }
+      if (this.props.following === false) {
+        return (
+          <TouchableOpacity
+            style={styles.follow}
+            onPress={() => { this.follow(); }}
+          >
+            <Text style={{ color: '#1DA1F2', fontWeight: 'bold', fontSize: 15 }}>
               Follow
-          </Text>
-        </TouchableOpacity>
-      );
-    }
-    if (this.state.myProfile) {
-      return (
-        <TouchableOpacity
-          style={styles.EditProfile}
-          onPress={this.props.EditProfile}
-        >
-          <Text style={{ color: '#657786', fontWeight: 'bold' }}>
+            </Text>
+          </TouchableOpacity>
+        );
+      }
+      if (this.props.myProfile) {
+        return (
+          <TouchableOpacity
+            style={styles.EditProfile}
+            onPress={this.props.EditProfile}
+          >
+            <Text style={{ color: '#657786', fontWeight: 'bold' }}>
             Edit Profile
+            </Text>
+          </TouchableOpacity>
+        );
+      }
+     
+    }
+
+
+    return (null);
+  }
+
+
+  youRBlocked() {
+    if (!this.props.uBlocked && !this.props.blockedView) {
+      return (
+        <View style={{ marginLeft: 10, marginTop: 4 }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000' }}>
+            {this.props.screenName}            {this.isMuted()}
           </Text>
-        </TouchableOpacity>
+          <Text style={styles.Gray}>
+          @{this.props.username}
+          </Text>
+          <Text style={styles.Gray}>
+            {this.props.bio}
+          </Text>
+          <Text style={styles.Gray}>Joined {this.props.createdAt} </Text>
+          <Text style={styles.Gray}>date {this.props.birthDate}</Text>
+
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <Text>{this.props.followingCount}</Text>
+            <TouchableOpacity onPress={this.props.Following}>
+              <Text style={styles.Gray}> Following   </Text>
+            </TouchableOpacity>
+            <Text>{this.props.followersCount}</Text>
+            <TouchableOpacity onPress={this.props.Follower}>
+              <Text style={styles.Gray}> Followers   </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
       );
     }
+    return (
+      <View style={{ marginLeft: 10, marginTop: 4 }}>
+        <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000' }}>
+          {this.props.screenName}            {this.isMuted()}
+        </Text>
+        <Text style={styles.Gray}>
+        @{this.props.username}
+        </Text>
+
+      </View>
+    );
   }
 
   render() {
@@ -148,30 +200,7 @@ export default class App extends React.Component {
             {this.rightButton()}
           </View>
 
-          <View style={{ marginLeft: 10, marginTop: 4 }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000' }}>
-              {this.props.screenName}
-            </Text>
-            <Text style={styles.Gray}>
-              @{this.props.username}
-            </Text>
-            <Text style={styles.Gray}>
-              {this.props.bio}
-            </Text>
-            <Text style={styles.Gray}>Joined {this.props.createdAt} </Text>
-            <Text style={styles.Gray}>date {this.props.birthDate}</Text>
-
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <Text>{this.props.followingCount}</Text>
-              <TouchableOpacity onPress={this.props.Following}>
-                <Text style={styles.Gray}> Following   </Text>
-              </TouchableOpacity>
-              <Text>{this.props.followersCount}</Text>
-              <TouchableOpacity onPress={this.props.Follower}>
-                <Text style={styles.Gray}> Followers   </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          {this.youRBlocked()}
 
 
         </ScrollView>

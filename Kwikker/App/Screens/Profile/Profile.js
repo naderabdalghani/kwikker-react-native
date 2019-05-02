@@ -33,7 +33,10 @@ constructor(props) {
     kweeksTab: true,
     likesTab: false,
     profileUsername: '',
-    myProfile: true,
+    myProfile: false,
+    dataLoaded: false,
+    uBlocked: true,
+    blocked: false,
     menu: false,
   };
 }
@@ -59,7 +62,9 @@ componentDidMount() {
 }
 
 setMenuRef = (ref) => {
-  this._menu = ref;
+  if (!this.state.refreshing) {
+    this._menu = ref;
+  }
 };
 
 hideMenu = () => {
@@ -107,21 +112,27 @@ likes() {
 
 
 Follower() {
-  this.props.navigation.navigate('FollowerList', {
-    userName: this.state.profileData.username,
-  });
+  if (!this.state.refreshing) {
+    this.props.navigation.push('FollowerList', {
+      userName: this.state.profileData.username,
+    });
+  }
 }
 
 Following() {
-  this.props.navigation.navigate('FollowingList', {
-    userName: this.state.profileData.username,
-  });
+  if (!this.state.refreshing) {
+    this.props.navigation.push('FollowingList', {
+      userName: this.state.profileData.username,
+    });
+  }
 }
 
 EditProfile() {
-  this.props.navigation.navigate('EditProfileNavigator', {
-    userName: this.state.profileData.username,
-  });
+  if (!this.state.refreshing) {
+    this.props.navigation.navigate('EditProfileNavigator', {
+      userName: this.state.profileData.username,
+    });
+  }
 }
 
 profileOwner() {
@@ -272,9 +283,18 @@ updateProfile(userName) {
       this.setState({
         profileData: response.data,
         refreshing: false,
+        uBlocked: false,
+        dataLoaded: true,
+        blocked: response.data.blocked
       });
     })
     .catch((error) => {
+      this.setState({
+        profileData: error.response.data,
+        refreshing: false,
+        uBlocked: true,
+        dataLoaded: true
+      });
       // handle error
       // console.log(error);
     })
@@ -290,6 +310,7 @@ unmute() {
     }
   })
     .then((response) => {
+      this.updateProfile(this.state.profileUsername);
       console.log('unmuted');
     })
     .catch((error) => {
@@ -304,6 +325,7 @@ unblock() {
     }
   })
     .then((response) => {
+      this.updateProfile(this.state.profileUsername);
       console.log('unblocked');
     })
     .catch((error) => {
@@ -316,6 +338,7 @@ mute() {
     username: this.state.profileData.username
   })
     .then((response) => {
+      this.updateProfile(this.state.profileUsername);
       this.setState({ menu: false });
     })
     .catch((error) => {
@@ -328,6 +351,7 @@ block() {
     username: this.state.profileData.username
   })
     .then((response) => {
+      this.updateProfile(this.state.profileUsername);
       this.menuPressed();
     })
     .catch((error) => {
@@ -389,6 +413,78 @@ handleMenu(index) {
   }
 }
 
+renderMenu() {
+  if (!this.state.myProfile && this.state.dataLoaded) {
+    return (
+      <TouchableOpacity onPress={this.showActionSheet}>
+        <View style={styles.menu}>
+          <Image
+            style={styles.menuImage}
+            source={require('./../../Assets/Images/menu.png')}
+          />
+        </View>
+      </TouchableOpacity>
+    );
+  }
+  return (null);
+}
+
+
+youRBlocked() {
+  if (this.state.blocked && !this.state.uBlocked) {
+    return (
+      <View>
+        <Text style={{ margin: 10 }}>
+      You blocked @{this.state.profileData.username}
+      Are you sure you want to view these Tweets? Viewing Tweets won't unblock
+      @{this.state.profileData.username}
+        </Text>
+        <TouchableOpacity
+          style={styles.follow}
+          onPress={() => { this.setState({
+            blocked: false
+          }); }}
+        >
+          <Text style={{ color: '#1DA1F2', fontWeight: 'bold', fontSize: 15 }}>
+          Yes, view profile
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+  if (!this.state.uBlocked) {
+    return (
+      <View>
+        <View style={styles.fackTabContainer}>
+          <TouchableOpacity style={styles.fackTab} onPress={this.kweeks.bind(this)}>
+            <Text style={[tabLable, this.state.kweeksTab ? tabLableActive : tabLableInActive]}>
+                Kweeks
+            </Text>
+            <View style={[indicator, this.state.kweeksTab ? indicatorActive : indicatorInActive]} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.fackTab} onPress={this.likes.bind(this)}>
+            <Text style={[tabLable, this.state.likesTab ? tabLableActive : tabLableInActive]}>
+                Likes
+            </Text>
+            <View style={[indicator, this.state.likesTab ? indicatorActive : indicatorInActive]} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.line} />
+        {this.tabContent()}
+      </View>
+
+    );
+  }
+  if (!this.state.dataLoaded) { return (null); }
+  if (this.state.uBlocked) {
+    return (
+      <Text style={{ margin: 10 }}>
+      You are blocked from following @{this.state.profileData.username} and viewing @{this.state.profileData.username}'s Tweets.
+      </Text>
+    );
+  }
+}
+
 
 render() {
   return (
@@ -409,14 +505,7 @@ render() {
             <MenuItem onPress={this.hideMenu}>Mute</MenuItem>
             <MenuItem onPress={this.hideMenu}>Block</MenuItem>
           </Menu> */}
-          <TouchableOpacity onPress={this.showActionSheet}>
-            <View style={styles.menu}>
-              <Image
-                style={styles.menuImage}
-                source={require('./../../Assets/Images/menu.png')}
-              />
-            </View>
-          </TouchableOpacity>
+          {this.renderMenu()}
         </View>
       </View>
       {/* <View style={styles.itemssContainer}>
@@ -444,7 +533,7 @@ render() {
           Follower={this.Follower.bind(this)}
           Following={this.Following.bind(this)}
           EditProfile={this.EditProfile.bind(this)}
-
+          updateProfile={this.updateProfile.bind(this)}
           ref={(ref) => { this.feedback = ref; }}
           followingCount={this.state.profileData.following_count}
           followersCount={this.state.profileData.followers_count}
@@ -457,26 +546,13 @@ render() {
           screenName={this.state.profileData.screen_name}
           following={this.state.profileData.following}
           blocked={this.state.profileData.blocked}
+          muted={this.state.profileData.muted}
           myProfile={this.state.myProfile}
+          uBlocked={this.state.uBlocked}
+          blockedView={this.state.blocked}
         />
-        <View style={styles.fackTabContainer}>
-          <TouchableOpacity style={styles.fackTab} onPress={this.kweeks.bind(this)}>
-            <Text style={[tabLable, this.state.kweeksTab ? tabLableActive : tabLableInActive]}>
-                Kweeks
-            </Text>
-            <View style={[indicator, this.state.kweeksTab ? indicatorActive : indicatorInActive]} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.fackTab} onPress={this.likes.bind(this)}>
-            <Text style={[tabLable, this.state.likesTab ? tabLableActive : tabLableInActive]}>
-                Likes
-            </Text>
-            <View style={[indicator, this.state.likesTab ? indicatorActive : indicatorInActive]} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.line} />
 
-
-        {this.tabContent()}
+        {this.youRBlocked()}
 
 
       </ScrollView>

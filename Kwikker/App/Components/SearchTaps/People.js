@@ -26,6 +26,7 @@ export default class People extends React.Component {
               followsYou={item.follows_you}
               blocked={item.blocked}
               muted={item.muted}
+              navigation={this.props.screenProps.rootNav}
             />
           </TouchableOpacity>
         ))

@@ -14,7 +14,6 @@ const MessagesStackNavigator = createStackNavigator({
     }
   },
   ConversationSearch: { screen: ConversationSearch },
-  
   ConversationScreen: { screen: ConversationScreen },
   Profile: { screen: ProfileStackNavigator,
     navigationOptions: {
