@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, ScrollView, Image, RefreshControl } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import { DrawerActions } from 'react-navigation';
 import Conversation from '../../Components/Conversation/Conversation';
 import styles from './Styles';
 
@@ -27,7 +28,7 @@ export default class Messages extends Component {
     AsyncStorage.getItem('@app:image').then((image) => {
       this.props.navigation.setParams({
         headerLeft: (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
             <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
           </TouchableOpacity>
         ),
@@ -149,7 +150,7 @@ render() {
       </ScrollView>
       <TouchableOpacity
         style={styles.messageButton} onPress={() => {
-          this.props.navigation.push('ConversationSearch');
+          this.props.navigation.navigate('ConversationSearch');
         }}
       >
         <Image source={require('./../../Assets/Images/Message1.png')} style={styles.buttomImage} />

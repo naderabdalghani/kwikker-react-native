@@ -19,7 +19,7 @@ export default class ConversationScreen extends Component {
     ),
     headerRight: (
       <TouchableOpacity onPress={() => {
-        navigation.push('Profile', {
+        navigation.navigate('Profile', {
           username: navigation.state.params.userName,
         });
       }
@@ -33,6 +33,7 @@ export default class ConversationScreen extends Component {
     ),
 
   });
+
 
   constructor(props) {
     super(props);

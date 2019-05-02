@@ -40,8 +40,8 @@ export default class PeopleSearch extends React.Component {
         </View>
         <View style={styles.textContainer}>
           {this.followText()}
-          <Text style={{ fontWeight: 'bold' }}>{this.props.screenName}</Text>
-          <Text style={{ color: '#AAB8C2' }}>{this.props.userName}</Text>
+          <Text style={{ fontWeight: 'bold' }}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.screenName}</Text>
+          <Text style={{ color: '#AAB8C2' }}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.userName}</Text>
         </View>
 
 

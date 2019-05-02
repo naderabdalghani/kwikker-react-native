@@ -19,6 +19,12 @@ export default class DrawerNavContainer extends Component {
       this.setState({ username: id });
       this.updateProfile(id);
     });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.updateProfile(this.state.username);
+      }
+    );
   }
 
 
@@ -58,24 +64,24 @@ export default class DrawerNavContainer extends Component {
     return (
       <View style={Styles.container}>
         <View style={Styles.top}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile', { username: this.state.username })} style={{ flex: 3 }}>
+          <TouchableOpacity onPress={() => { this.updateProfile(this.state.username); this.props.navigation.navigate('Profile', { username: this.state.username }); }} style={{ flex: 3 }}>
             <Image
               source={{ uri: this.state.profileData.profile_image_url }}
               style={Styles.photo}
             />
-            <Text style={Styles.userName}>{this.state.profileData.screen_name}</Text>
-            <Text style={Styles.userHandle}>@{this.state.profileData.username}</Text>
+            <Text style={Styles.userName}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.state.profileData.screen_name}</Text>
+            <Text style={Styles.userHandle}>@<Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.state.profileData.username}</Text>
           </TouchableOpacity>
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('FollowingList', { userName: this.state.profileData.username })} style={{ flex: 1 }}
+              onPress={() => { this.updateProfile(this.state.username); this.props.navigation.navigate('FollowingList', { userName: this.state.profileData.username }); }} style={{ flex: 1 }}
             >
               <Text style={Styles.followingCount}>{this.state.profileData.following_count}
                 <Text style={Styles.followingCountText}>{' '}Following</Text>
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('FollowerList', { userName: this.state.profileData.username })} style={{ flex: 1 }}
+              onPress={() => { this.updateProfile(this.state.username); this.props.navigation.navigate('FollowerList', { userName: this.state.profileData.username }); }} style={{ flex: 1 }}
             >
               <Text style={Styles.followersCount}>{this.state.profileData.followers_count}
                 <Text style={Styles.followersCountText}>{' '}Follower</Text>
@@ -85,10 +91,10 @@ export default class DrawerNavContainer extends Component {
 
         </View>
         <View style={Styles.bottom}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile', { username: this.state.username })}>
+          <TouchableOpacity onPress={() => { this.updateProfile(this.state.username); this.props.navigation.navigate('Profile', { username: this.state.username }); }}>
             <Text style={Styles.text}> Profile </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')}>
+          <TouchableOpacity onPress={() => { this.updateProfile(this.state.username); this.props.navigation.navigate('Settings'); }}>
             <Text style={Styles.text}> Settings and privacy </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.logoutButtonPressed.bind(this)}>

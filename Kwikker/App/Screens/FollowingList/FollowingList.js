@@ -87,7 +87,7 @@ export default class FillowersList extends Component {
             </TouchableNativeFeedback>
           </View>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Followers</Text>
+            <Text style={styles.title}>Following</Text>
           </View>
           <View />
           <View style={styles.dummyElement} />

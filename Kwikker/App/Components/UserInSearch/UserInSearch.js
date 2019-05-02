@@ -13,6 +13,7 @@ export default class UserInSearch extends React.Component {
       following: this.props.following,
       blocked: this.props.blocked,
       currentUsername: '',
+      clicked: false
     };
   }
 
@@ -27,6 +28,7 @@ export default class UserInSearch extends React.Component {
         this.setState({
           following: this.props.following,
           blocked: this.props.blocked,
+          clicked: false
         });
       }
     );
@@ -175,7 +177,9 @@ export default class UserInSearch extends React.Component {
     if (this.props.userName !== this.state.currentUsername) {
       return (this.isFollowingOrBlock());
     }
-    return (null);
+    return (
+      null
+    );
   }
 
   render() {
@@ -183,9 +187,13 @@ export default class UserInSearch extends React.Component {
 
       <TouchableOpacity
         onPress={() => {
-          this.props.navigation.push('Profile', {
-            username: this.props.userName,
-          });
+          if (!this.state.clicked) {
+            this.setState({ clicked: true }, () => {
+              this.props.navigation.push('Profile', {
+                username: this.props.userName,
+              });
+            });
+          }
         }}
       >
         <View style={styles.container}>
@@ -194,8 +202,8 @@ export default class UserInSearch extends React.Component {
           </View>
           <View style={styles.textContainer}>
             {this.followText()}
-            <Text style={{ fontWeight: 'bold' }}>{this.props.screenName}</Text>
-            <Text style={{ color: '#AAB8C2' }}>{this.props.userName}</Text>
+            <Text style={{ fontWeight: 'bold' }}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.screenName}</Text>
+            <Text style={{ color: '#AAB8C2' }}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.userName}</Text>
             {this.isMuted()}
           </View>
 
