@@ -129,10 +129,15 @@ Following() {
 
 EditProfile() {
   if (!this.state.refreshing) {
-    this.props.navigation.navigate('EditProfileNavigator', {
-      userName: this.state.profileData.username,
-    });
-  }
+      this.props.navigation.navigate('EditProfileNavigator', {
+        userName: this.state.profileData.username,
+        cover: this.state.profileData.profile_banner_url,
+        image: this.state.profileData.profile_image_url,
+        bio: this.state.profileData.bio,
+        birthDate: this.state.profileData.birth_date,
+        screenName: this.state.profileData.screen_name,
+  });
+ }
 }
 
 profileOwner() {
