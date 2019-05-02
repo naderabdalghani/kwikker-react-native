@@ -2,13 +2,14 @@ import React from 'react';
 import { Text, View, ScrollView, Image, TouchableNativeFeedback, TouchableOpacity, ImageBackground, ToastAndroid } from 'react-native';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
+import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { currentProfile: '', currentCover: '', Location: '', Web: '', BirthOfDate: '', profileImage: '', coverImage: '', screenName: '', bio: '', photoProfile: null, photoCover: null };
+    this.state = { currentProfile: '', currentCover: '', profileImage: '', coverImage: '', screenName: '', bio: '', photoProfile: null, photoCover: null, profile: true };
   }
 
   componentDidMount() {
@@ -21,6 +22,15 @@ export default class App extends React.Component {
       birthDate: this.props.navigation.state.params.birthDate,
       screenName: this.props.navigation.state.params.screenName,
     });
+  }
+
+  getOPtions() {
+    if (this.state.profile) return (['delete profile photo', 'Choose existing photo']);
+    return (['delete cover photo', 'Choose existing photo']);
+  }
+
+  showActionSheet = () => {
+    this.ActionSheet.show();
   }
 
   handleChoosePhoto = () => {
@@ -127,8 +137,7 @@ export default class App extends React.Component {
                   });
               }
             });
-        }
-        else if (!(this.state.currentProfile === this.state.profileImage)) {
+        } else if (!(this.state.currentProfile === this.state.profileImage)) {
           const formData = new FormData();
           formData.append('file', { name: this.state.photoProfile.fileName, type: this.state.photoProfile.type, uri: this.state.photoProfile.uri });
           axios({
@@ -160,10 +169,60 @@ export default class App extends React.Component {
                   .then((response) => {
                     this.props.navigation.goBack(null);
                   });
-                }
+              }
             });
         }
       });
+  }
+
+  deleteProfilePhoto() {
+    axios.delete('user/profile_picture', {
+    })
+      .then((response) => {
+      })
+      .catch((error) => {
+      });
+  }
+
+  deleteCoverPhoto() {
+    axios.delete('user/profile_banner', {
+    })
+      .then((response) => {
+      })
+      .catch((error) => {
+      });
+  }
+
+  handleMenu(index) {
+    if (this.state.profile) {
+      if (index === 0) {
+        this.deleteProfilePhoto();
+      }
+      if (index === 1) {
+        this.handleChooseProfile();
+      }
+    } else {
+      if (index === 0) {
+        this.deleteCoverPhoto();
+      }
+      if (index === 1) {
+        this.handleChoosePhoto();
+      }
+    }
+  }
+
+  cameraCoverPressed() {
+    this.setState({
+      profile: false,
+    });
+    this.ActionSheet.show();
+  }
+
+  cameraProfilePressed() {
+    this.setState({
+      profile: true,
+    });
+    this.ActionSheet.show();
   }
 
   render() {
@@ -194,7 +253,7 @@ export default class App extends React.Component {
             source={{ uri: this.state.coverImage }}
           >
             <View style={styles.bgOverlay}>
-              <TouchableOpacity onPress={this.handleChoosePhoto} style={styles.camraCon}>
+              <TouchableOpacity onPress={() => { this.cameraCoverPressed(); }} style={styles.camraCon}>
                 <Image
                   style={styles.camera}
                   source={require('./../../Assets/Images/camera.png')}
@@ -209,7 +268,7 @@ export default class App extends React.Component {
                 source={{ uri: this.state.profileImage }}
               >
                 <View style={styles.profileOverlay}>
-                  <TouchableOpacity onPress={this.handleChooseProfile} style={styles.camraMiniCon}>
+                  <TouchableOpacity onPress={() => { this.cameraProfilePressed(); }} style={styles.camraMiniCon}>
                     <Image
                       style={styles.cameraMini}
                       source={require('./../../Assets/Images/camera.png')}
@@ -234,6 +293,13 @@ export default class App extends React.Component {
             value={this.state.bio}
             onChangeText={(bio) => this.setState({ bio })}
             autoFocus={false}
+          />
+          <ActionSheet
+            ref={(o) => this.ActionSheet = o}
+            options={this.getOPtions()}
+            cancelButtonIndex={0}
+            //destructiveButtonIndex={1}
+            onPress={(index) => { this.handleMenu(index); }}
           />
           {/* <CustomTextInput
             placeholder=""
