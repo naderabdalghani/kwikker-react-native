@@ -3,11 +3,9 @@ import { StyleSheet } from 'react-native';
 let styles;
 export default styles = StyleSheet.create({
   Cover: {
-    top: 0,
-    left: 0,
-    right: 0,
     backgroundColor: '#1DA1F2',
     height: 120,
+    zIndex: -5,
   },
   ProfileImageContainer: {
     height: 80,
@@ -16,8 +14,9 @@ export default styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 3,
     overflow: 'hidden',
-    marginTop: 120 - (80 / 2),
+    marginTop: -30,
     marginLeft: 10,
+    zIndex: 5,
   },
   ProfileImage: {
     flex: 1, width: null, height: null
@@ -50,5 +49,30 @@ export default styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
   },
-
+  datePickerContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  datePickerText: {
+    color: 'black',
+    fontSize: 20,
+  },
+  datePickerPlaceholder: {
+    color: '#9e9e9e',
+    fontSize: 18,
+  },
+  dateText: {
+    fontSize: 20,
+    color: '#9e9e9e',
+    alignSelf: 'center',
+  },
+  dateContainer: {
+    alignSelf: 'center',
+    flexDirection: 'row',
+    marginLeft: 5,
+    marginRight: 40,
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#AAB8C2',
+  },
 });
