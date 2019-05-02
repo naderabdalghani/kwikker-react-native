@@ -6,6 +6,9 @@ import Home from '../Screens/Home/Home';
 import CreateTweet from '../Screens/CreateTweet/CreateTweet';
 import Camera from '../Screens/Camera/Camera';
 import KweekExtendedView from '../Screens/KweekExtendedView/KweekExtendedView'
+import ProfileStackNavigator from './ProfileStackNavigator';
+import FollowerList from '../Screens/FollowerList/FollowersList';
+import FollowingList from '../Screens/FollowingList/FollowingList';
 
 const HomeStackNavigator = createStackNavigator({
 
@@ -19,8 +22,21 @@ const HomeStackNavigator = createStackNavigator({
     screen: KweekExtendedView,
     navigationOptions: {
       title: 'Kweek',
-    }
+    },
   },
+
+  Profile: { screen: ProfileStackNavigator,
+    navigationOptions: {
+      header: null,
+    }, },
+  FollowerList: { screen: FollowerList,
+    navigationOptions: {
+      header: null,
+    }, },
+  FollowingList: { screen: FollowingList,
+    navigationOptions: {
+      header: null,
+    }, },
   CreateTweet: { screen: CreateTweet },
   Camera: { screen: Camera },
 });

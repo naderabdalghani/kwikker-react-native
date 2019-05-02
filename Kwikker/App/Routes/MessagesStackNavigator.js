@@ -4,6 +4,8 @@ import Messages from '../Screens/Messages/Messages';
 import ConversationScreen from '../Screens/ConversationScreen/ConversationScreen';
 import ConversationSearch from '../Screens/ConversationSearch/ConversationSearch';
 import ProfileStackNavigator from './ProfileStackNavigator';
+import FollowerList from '../Screens/FollowerList/FollowersList';
+import FollowingList from '../Screens/FollowingList/FollowingList';
 
 const MessagesStackNavigator = createStackNavigator({
 
@@ -15,6 +17,14 @@ const MessagesStackNavigator = createStackNavigator({
   },
   ConversationSearch: { screen: ConversationSearch },
   ConversationScreen: { screen: ConversationScreen },
+  FollowerList: { screen: FollowerList,
+    navigationOptions: {
+      header: null,
+    }, },
+  FollowingList: { screen: FollowingList,
+    navigationOptions: {
+      header: null,
+    }, },
   Profile: { screen: ProfileStackNavigator,
     navigationOptions: {
       header: null,
