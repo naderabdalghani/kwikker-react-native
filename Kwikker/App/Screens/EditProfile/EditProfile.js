@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, View, ScrollView, Image, TouchableNativeFeedback, TouchableOpacity } from 'react-native';
-import { DatePicker } from 'native-base';
+import { Text, View, ScrollView, Image, TouchableNativeFeedback, TouchableOpacity, ImageBackground } from 'react-native';
+import axios from 'axios';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 
@@ -21,7 +21,18 @@ export default class App extends React.Component {
   }
 
   save() {
-
+    axios.patch('user/profile', {
+      bio: this.state.bio,
+      screen_name: this.state.screenName,
+    })
+      .then((response) => {
+        // ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+        this.props.navigation.goBack(null);
+      })
+      .catch((error) => {
+        // ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+        this.props.navigation.goBack(null);
+      });
   }
 
   render() {
@@ -40,23 +51,41 @@ export default class App extends React.Component {
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Edit profile</Text>
           </View>
-          <TouchableOpacity>
-            <Text style={{color: '#1DA1F2', fontSize: 17, fontWeight: 'bold', marginTop: 5, marginLeft: 5, }}>SAVE</Text>
+          <TouchableOpacity onPress={() => { this.save(); }}>
+            <Text style={{color: '#1DA1F2', fontSize: 15, fontWeight: 'bold', marginTop: 15, marginRight: 10, }}>SAVE</Text>
           </TouchableOpacity>
         </View>
 
         
         <ScrollView style={{ flex: 1 }}>
-          <Image
+          <ImageBackground
             style={styles.Cover}
             source={{ uri: this.state.coverImage }}
-          />
+          >
+            <View style={{height: 120, backgroundColor: 'rgba(100, 100, 100, 0.5)', zIndex: 2, justifyContent: 'center', }}>
+              <TouchableOpacity style={{width: 50, height: 50, backgroundColor: 'rgba(200, 200, 200, 0.5)', borderRadius: 25, justifyContent: 'center', alignSelf: 'center', }}>
+                <Image
+                  style={styles.camera}
+                  source={require('./../../Assets/Images/camera.png')}
+                />
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <View style={styles.ProfileImageContainer}>
-              <Image
+              <ImageBackground
                 style={styles.ProfileImage}
                 source={{ uri: this.state.profileImage }}
-              />
+              >
+              <View style={{height: 80, backgroundColor: 'rgba(100, 100, 100, 0.5)', zIndex: 2, justifyContent: 'center', }}>
+                <TouchableOpacity style={{width: 40, height: 40, backgroundColor: 'rgba(200, 200, 200, 0.5)', borderRadius: 20, justifyContent: 'center', alignSelf: 'center', }}>
+                  <Image
+                    style={styles.cameraMini}
+                    source={require('./../../Assets/Images/camera.png')}
+                  />
+                </TouchableOpacity>
+              </View>
+              </ImageBackground>
             </View>
           </View>
           <CustomTextInput

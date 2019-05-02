@@ -75,4 +75,14 @@ export default styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#AAB8C2',
   },
+  camera: {
+    width: 40,
+    height: 40,
+    alignSelf: 'center',
+  },
+  cameraMini: {
+    width: 30,
+    height: 30,
+    alignSelf: 'center',
+  }
 });
