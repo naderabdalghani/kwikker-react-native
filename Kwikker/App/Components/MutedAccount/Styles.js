@@ -2,36 +2,69 @@ import { StyleSheet } from 'react-native';
 
 let styles;
 export default styles = StyleSheet.create({
-  accountContainer: {
+  container: {
     flex: 1,
-    height: 150,
-    borderColor: '#E1E8ED',
+    borderColor: 'lightgray',
     borderWidth: 0.5,
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingBottom: 10,
+
   },
   profilePicture: {
-    height: 50,
-    width: 50,
-    borderRadius: 50 / 2,
-    borderColor: '#E1E8ED',
+    height: 60,
+    width: 60,
+    borderRadius: 30,
+    borderColor: 'lightgray',
     borderWidth: 1,
     overflow: 'hidden',
-    marginTop: 10,
-    marginLeft: 40,
+    margin: 10,
   },
   ProfileImage: {
     flex: 1, width: null, height: null
   },
   textContainer: {
     flex: 1,
-    marginLeft: 40,
+    marginLeft: 30,
+    justifyContent: 'center',
   },
-  textHeader: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: 10,
+  follow: {
+    borderWidth: 1,
+    borderColor: '#1DA1F2',
+    width: '25%',
+    height: 30,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 'bold',
+    backgroundColor: 'white',
+    marginTop: 20,
+    marginRight: 5,
   },
-  textContent: {
-    marginBottom: 40,
-    color: '#E1E8ED'
+  following: {
+    borderWidth: 1,
+    borderColor: '#1DA1F2',
+    width: '25%',
+    height: 30,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 'bold',
+    backgroundColor: '#1DA1F2',
+    marginTop: 20,
+    marginRight: 5,
+  },
+  blocked: {
+    borderWidth: 1,
+    borderColor: '#000',
+    width: '25%',
+    height: 30,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 'bold',
+    backgroundColor: 'white',
+    marginTop: 20,
+    marginRight: 5,
   },
 });

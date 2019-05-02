@@ -15,6 +15,24 @@ export default class MutedAccounts extends React.Component {
     };
   }
 
+
+  componentDidMount() {
+    this.pullRefresh();
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.pullRefresh();
+      }
+    );
+  }
+
+  pullRefresh= () => {
+    this.setState({ refreshing: false },
+      () => {
+        this.muted();
+      });
+  }
+
   isThereMutedAccounts() {
     if (this.state.mutedOrNot) {
       return (
@@ -28,18 +46,16 @@ export default class MutedAccounts extends React.Component {
           style={{ flex: 1 }}
         >
           {this.state.usersList.map((item, index) => (
-            <TouchableOpacity
-              key={item.username}
-            >
-              <MutedAccount
-                key={item.username}
-                profileUrl={item.profile_image_url}
-                screenName={item.screen_name}
-                following={item.following}
-                followsYou={item.follows_you}
-                userName={item.username}
-              />
-            </TouchableOpacity>
+
+              <MutedAccount 
+                key={item.username} 
+                profileUrl={item.profile_image_url} 
+                screenName={item.screen_name} 
+                following={item.following} 
+                followsYou={item.follows_you} 
+                userName={item.username} 
+                pullRefresh={this.pullRefresh.bind(this)}
+              /> 
           ))
           }
         </ScrollView>
@@ -69,6 +85,10 @@ export default class MutedAccounts extends React.Component {
         this.setState({
           usersList: response.data, mutedOrNot: true,
         });
+        if(response.data.length === 0)
+        this.setState({
+           mutedOrNot: false,
+        });
       })
       .catch((error) => {
         this.setState({ mutedOrNot: false });
@@ -83,29 +103,26 @@ export default class MutedAccounts extends React.Component {
   render() {
     return (
 
-      <View style={Styles.container}>
-        <View>
+      <View style={{ flex: 1 }}>
 
-          <View style={Styles.header}>
-            <View style={Styles.backButtonContainer}>
-              <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
-                <Image
+
+        <View style={Styles.header}>
+          <View style={Styles.backButtonContainer}>
+            <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
+              <Image
                   style={Styles.backButton}
                   source={require('./../../Assets/Images/back_button.png')}
                 />
-              </TouchableNativeFeedback>
-            </View>
-            <View style={Styles.titleContainer}>
-              <Text style={Styles.title}>Muted Accounts</Text>
-            </View>
-            <View />
-            <View style={Styles.dummyElement} />
+            </TouchableNativeFeedback>
           </View>
-
-          {this.isThereMutedAccounts()}
-
-
+          <View style={Styles.titleContainer}>
+            <Text style={Styles.title}>Muted Accounts</Text>
+          </View>
+          <View />
+          <View style={Styles.dummyElement} />
         </View>
+
+        {this.isThereMutedAccounts()}
       </View>
     );
   }

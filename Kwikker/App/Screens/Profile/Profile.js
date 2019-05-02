@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableNativeFeedback, RefreshControl, Image, TouchableOpacity, ScrollView } from 'react-native';
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import axios from 'axios';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
 import AsyncStorage from '@react-native-community/async-storage';
