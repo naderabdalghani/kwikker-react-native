@@ -75,4 +75,29 @@ export default styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#AAB8C2',
   },
+  camera: {
+    width: 40,
+    height: 40,
+    alignSelf: 'center',
+  },
+  cameraMini: {
+    width: 30,
+    height: 30,
+    alignSelf: 'center',
+  },
+  save: {
+    color: '#1DA1F2', fontSize: 15, fontWeight: 'bold', marginTop: 15, marginRight: 10,
+  },
+  bgOverlay: {
+    height: 120, backgroundColor: 'rgba(100, 100, 100, 0.5)', zIndex: 2, justifyContent: 'center',
+  },
+  camraCon: {
+    width: 50, height: 50, backgroundColor: 'rgba(200, 200, 200, 0.5)', borderRadius: 25, justifyContent: 'center', alignSelf: 'center',
+  },
+  profileOverlay: {
+    height: 80, backgroundColor: 'rgba(100, 100, 100, 0.5)', zIndex: 2, justifyContent: 'center',
+  },
+  camraMiniCon: {
+    width: 40, height: 40, backgroundColor: 'rgba(200, 200, 200, 0.5)', borderRadius: 20, justifyContent: 'center', alignSelf: 'center',
+  }
 });
