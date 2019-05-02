@@ -1,23 +1,84 @@
 import React from 'react';
-import { Text, View, ScrollView, Image, TouchableNativeFeedback, TouchableOpacity, ImageBackground } from 'react-native';
+import { Text, View, ScrollView, Image, TouchableNativeFeedback, TouchableOpacity, ImageBackground, ToastAndroid } from 'react-native';
 import axios from 'axios';
+import ImagePicker from 'react-native-image-picker';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Name: '', Bio: '', Location: '', Web: '', BirthOfDate: '', profileImage: '', coverImage: '', screenName: '', bio: '', date: '' };
+    this.state = { currentProfile: '', currentCover: '', Location: '', Web: '', BirthOfDate: '', profileImage: '', coverImage: '', screenName: '', bio: '', photoProfile: null, photoCover: null };
   }
 
   componentDidMount() {
     this.setState({
       profileImage: this.props.navigation.state.params.image,
+      currentProfile: this.props.navigation.state.params.image,
+      currentCover: this.props.navigation.state.params.cover,
       coverImage: this.props.navigation.state.params.cover,
       bio: this.props.navigation.state.params.bio,
       birthDate: this.props.navigation.state.params.birthDate,
       screenName: this.props.navigation.state.params.screenName,
     });
+  }
+
+  handleChoosePhoto = () => {
+    const options = {
+      noData: true,
+    };
+    ImagePicker.launchImageLibrary(options, (response) => {
+      if (response.uri) {
+        this.setState({ coverImage: response.uri, photoCover: response });
+      }
+    });
+  };
+
+  handleChooseProfile = () => {
+    const options = {
+      noData: true,
+    };
+    ImagePicker.launchImageLibrary(options, (response) => {
+      if (response.uri) {
+        this.setState({ profileImage: response.uri, photoProfile: response });
+      }
+    });
+  };
+
+  updateProfilePic() {
+    const formData = new FormData();
+    formData.append('file', { name: this.state.photoProfile.fileName, type: this.state.photoProfile.type, uri: this.state.photoProfile.uri });
+    axios({
+      method: 'post',
+      url: 'user/profile_picture',
+      data: formData,
+      config: { headers: { 'Content-Type': 'multipart/form-data' } }
+    })
+      .then((response) => {
+      })
+      .catch(() => {
+      })
+      .then((response) => {
+        this.props.navigation.goBack(null);
+      });
+  }
+
+  updateCoverPic() {
+    const formdata = new FormData();
+    formdata.append('file', { name: this.state.photoCover.fileName, type: this.state.photoCover.type, uri: this.state.photoCover.uri });
+    axios({
+      method: 'post',
+      url: 'user/profile_banner',
+      data: formdata,
+      config: { headers: { 'Content-Type': 'multipart/form-data' } }
+    })
+      .then((response) => {
+      })
+      .catch(() => {
+      })
+      .then((response) => {
+        this.updateProfilePic();
+      });
   }
 
   save() {
@@ -27,11 +88,81 @@ export default class App extends React.Component {
     })
       .then((response) => {
         // ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-        this.props.navigation.goBack(null);
       })
       .catch((error) => {
         // ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-        this.props.navigation.goBack(null);
+      })
+      .then((response) => {
+        if (!(this.state.currentCover === this.state.coverImage)) {
+          const formdata = new FormData();
+          formdata.append('file', { name: this.state.photoCover.fileName, type: this.state.photoCover.type, uri: this.state.photoCover.uri });
+          axios({
+            method: 'post',
+            url: 'user/profile_banner',
+            data: formdata,
+            config: { headers: { 'Content-Type': 'multipart/form-data' } }
+          })
+            .then((response) => {
+            })
+            .catch(() => {
+            })
+            .then((response) => {
+              if (!(this.state.currentProfile === this.state.profileImage)) {
+                const formData = new FormData();
+                formData.append('file', { name: this.state.photoProfile.fileName, type: this.state.photoProfile.type, uri: this.state.photoProfile.uri });
+                axios({
+                  method: 'post',
+                  url: 'user/profile_picture',
+                  data: formData,
+                  config: { headers: { 'Content-Type': 'multipart/form-data' } }
+                })
+                  .then((response) => {
+                    this.props.navigation.goBack(null);
+                  })
+                  .catch(() => {
+                    this.props.navigation.goBack(null);
+                  })
+                  .then((response) => {
+                    this.props.navigation.goBack(null);
+                  });
+              }
+            });
+        }
+        else if (!(this.state.currentProfile === this.state.profileImage)) {
+          const formData = new FormData();
+          formData.append('file', { name: this.state.photoProfile.fileName, type: this.state.photoProfile.type, uri: this.state.photoProfile.uri });
+          axios({
+            method: 'post',
+            url: 'user/profile_picture',
+            data: formData,
+            config: { headers: { 'Content-Type': 'multipart/form-data' } }
+          })
+            .then((response) => {
+            })
+            .catch(() => {
+            })
+            .then((response) => {
+              if (!(this.state.currentCover === this.state.coverImage)) {
+                const formdata = new FormData();
+                formdata.append('file', { name: this.state.photoCover.fileName, type: this.state.photoCover.type, uri: this.state.photoCover.uri });
+                axios({
+                  method: 'post',
+                  url: 'user/profile_banner',
+                  data: formdata,
+                  config: { headers: { 'Content-Type': 'multipart/form-data' } }
+                })
+                  .then((response) => {
+                    this.props.navigation.goBack(null);
+                  })
+                  .catch(() => {
+                    this.props.navigation.goBack(null);
+                  })
+                  .then((response) => {
+                    this.props.navigation.goBack(null);
+                  });
+                }
+            });
+        }
       });
   }
 
@@ -52,18 +183,18 @@ export default class App extends React.Component {
             <Text style={styles.title}>Edit profile</Text>
           </View>
           <TouchableOpacity onPress={() => { this.save(); }}>
-            <Text style={{color: '#1DA1F2', fontSize: 15, fontWeight: 'bold', marginTop: 15, marginRight: 10, }}>SAVE</Text>
+            <Text style={styles.save}>SAVE</Text>
           </TouchableOpacity>
         </View>
 
-        
+
         <ScrollView style={{ flex: 1 }}>
           <ImageBackground
             style={styles.Cover}
             source={{ uri: this.state.coverImage }}
           >
-            <View style={{height: 120, backgroundColor: 'rgba(100, 100, 100, 0.5)', zIndex: 2, justifyContent: 'center', }}>
-              <TouchableOpacity style={{width: 50, height: 50, backgroundColor: 'rgba(200, 200, 200, 0.5)', borderRadius: 25, justifyContent: 'center', alignSelf: 'center', }}>
+            <View style={styles.bgOverlay}>
+              <TouchableOpacity onPress={this.handleChoosePhoto} style={styles.camraCon}>
                 <Image
                   style={styles.camera}
                   source={require('./../../Assets/Images/camera.png')}
@@ -77,14 +208,14 @@ export default class App extends React.Component {
                 style={styles.ProfileImage}
                 source={{ uri: this.state.profileImage }}
               >
-              <View style={{height: 80, backgroundColor: 'rgba(100, 100, 100, 0.5)', zIndex: 2, justifyContent: 'center', }}>
-                <TouchableOpacity style={{width: 40, height: 40, backgroundColor: 'rgba(200, 200, 200, 0.5)', borderRadius: 20, justifyContent: 'center', alignSelf: 'center', }}>
-                  <Image
-                    style={styles.cameraMini}
-                    source={require('./../../Assets/Images/camera.png')}
-                  />
-                </TouchableOpacity>
-              </View>
+                <View style={styles.profileOverlay}>
+                  <TouchableOpacity onPress={this.handleChooseProfile} style={styles.camraMiniCon}>
+                    <Image
+                      style={styles.cameraMini}
+                      source={require('./../../Assets/Images/camera.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
               </ImageBackground>
             </View>
           </View>
