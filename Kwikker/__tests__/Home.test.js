@@ -7,7 +7,8 @@ import { Home } from '../App/Screens/Home/Home';
 
 describe('homeComponent component', () => {
   it('Mount:  get 20 kweeks on component Mount ', async () => {
-    const wrapper = shallow(<Home />);
+    const navigationMock = { addListener: jest.fn() };
+    const wrapper = shallow(<Home navigation={navigationMock} />);
     const Instance = wrapper.instance();
     expect(wrapper.instance().state.refreshing).toBe(true);
     expect(mockAxios.get).toHaveBeenCalledTimes(1);

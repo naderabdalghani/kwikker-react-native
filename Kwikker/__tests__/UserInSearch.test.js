@@ -7,7 +7,8 @@ import UserInSearch from '../App/Components/UserInSearch/UserInSearch';
 
 describe('UserInSearch component', () => {
   it('UserInSearch component', () => {
-    const wrapper = shallow(<UserInSearch following />);
+    const navigationMock = { addListener: jest.fn() };
+    const wrapper = shallow(<UserInSearch navigation={navigationMock} following />);
     const instance = wrapper.instance();
     expect(wrapper.instance().props.following).toBe(true);
     wrapper.instance().unfollow();

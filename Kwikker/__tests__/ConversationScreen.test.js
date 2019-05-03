@@ -7,7 +7,11 @@ import ConversationScreen from '../App/Screens/ConversationScreen/ConversationSc
 
 describe('ConversationScreen component', () => {
   it('Mount:  get 20 message on component Mount ', async () => {
-    const wrapper = shallow(<ConversationScreen />);
+    const navigationMock = { addListener: jest.fn(), state: { params: { userName: 'khaled' } } };
+    const wrapper = shallow(<ConversationScreen
+
+      navigation={navigationMock}
+    />);
     const Instance = wrapper.instance();
     await Instance.setState({ refreshing: false, message: 'hi' });
     await Instance.onSubmit();
