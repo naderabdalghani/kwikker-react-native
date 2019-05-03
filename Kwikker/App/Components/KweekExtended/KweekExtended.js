@@ -86,12 +86,24 @@ export default class Kweek extends Component {
     const day = dateTime.getDate();
     const year = dateTime.getFullYear();
     const month = dateTime.getMonth();
-    const hour = dateTime.getHours();
+    let hour = dateTime.getHours();
     const minutes = dateTime.getMinutes();
-    if (now.getFullYear() === year && now.getMonth() === month && now.getDate() === day && now.getHours() === hour) { return ((now.getMinutes() - minutes).toString().concat('m')); }
-    if (now.getFullYear() === year && now.getMonth() === month && now.getDate() === day) { return ((now.getHours() - hour).toString().concat('h')); }
-    if (now.getFullYear() === year) { return ((day).toString().concat(months[month])); }
-    return ((months[month]).concat(' ').concat(year.toString()));
+    let time = '';
+    if (hour >= 12) {
+      if (hour === 12) {
+        time = hour.toString().concat(':').concat(minutes.toString()).concat(' pm');
+      } else {
+        time = (hour - 12).toString().concat(':').concat(minutes.toString()).concat(' pm');
+      }
+    } else {
+      if (hour === 0) {
+        hour = 12;
+      }
+      time = hour.toString().concat(':').concat(minutes.toString()).concat(' am');
+    }
+
+    return (time.concat(' . ').concat(day.toString()).concat(months[month]).concat(' ')
+      .concat(year.toString()));
   }
 
   /**
@@ -306,7 +318,7 @@ export default class Kweek extends Component {
           </View>
         </TouchableOpacity>
         <View style={{ flexDirection: 'row', marginBottom: '2%', borderBottomWidth: 0.5, borderBottomColor: '#AAB8C2' }}>
-          <Text style={{ color: '#657786', fontSize: 16, marginLeft: '3%', paddingBottom: '2%', paddingTop: '8%' }}>gy53he</Text>
+          <Text style={{ color: '#657786', fontSize: 16, marginLeft: '3%', paddingBottom: '2%', paddingTop: '8%' }}>{this.dateAndTime()}</Text>
         </View>
         {this.state.likesCounter === 0 && this.state.rekweeksCounter === 0 ? null : (
           <View style={{ flexDirection: 'row', marginBottom: '2%', borderBottomWidth: 0.5, borderBottomColor: '#AAB8C2', paddingBottom: '2%' }}>
