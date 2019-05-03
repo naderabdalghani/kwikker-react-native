@@ -150,8 +150,8 @@ export default class App extends React.Component {
           <Text style={styles.Gray}>
           <Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.bio}
           </Text>
-          <Text style={styles.Gray}>Joined {this.props.createdAt} </Text>
-          <Text style={styles.Gray}>date {this.props.birthDate}</Text>
+          <Text style={styles.Gray}>Joined {this.dateAndTime()} </Text>
+          <Text style={styles.Gray}>date of birth {this.props.birthDate}</Text>
 
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <Text>{this.props.followingCount}</Text>
@@ -222,7 +222,8 @@ export default class App extends React.Component {
     const dateTime = new Date(this.props.createdAt);
     const year = dateTime.getFullYear();
     const month = dateTime.getMonth();
-
+    let time = '';
+    return (time.concat(months[month]).concat(' ').concat(year.toString()));
   }
 
   render() {
@@ -237,14 +238,14 @@ export default class App extends React.Component {
       <View style={{ flex: 1 }}>
         <Image
           style={styles.Cover}
-          source={{ uri: this.props.profileBannerUrl }}
+          source={{ uri: `${this.props.profileBannerUrl}?${new Date()}` }}
         />
         <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
             <View style={styles.ProfileImageContainer}>
               <Image
                 style={styles.ProfileImage}
-                source={{ uri: this.props.profileImageUrl }}
+                source={{ uri: `${this.props.profileImageUrl}?${new Date()}` }}
               />
             </View>
             {this.chat()}
