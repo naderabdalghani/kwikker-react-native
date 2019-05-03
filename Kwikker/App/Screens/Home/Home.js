@@ -25,6 +25,7 @@ constructor(props) {
     currentUsername: '',
     refreshing: false,
   };
+  console.log('constructor');
 }
 
 componentDidMount() {
@@ -120,6 +121,7 @@ updateKweeks(id = null) {
 }
 
 render() {
+  console.log('render');
   return (
     <View style={{ flex: 1 }}>
       <ScrollView

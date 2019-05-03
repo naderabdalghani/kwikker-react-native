@@ -14,7 +14,7 @@ export default class Kweek extends Component {
     super(props);
     this.state = { loggedUser: '', liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };
     AsyncStorage.getItem('@app:id').then((id) => {
-      this.setState({loggedUser: id });
+      this.setState({ loggedUser: id });
     });
   }
 
@@ -49,7 +49,6 @@ export default class Kweek extends Component {
       })
         .then((response) => {
           console.log(response.status);
-          
         })
         .catch((error) => {
         // handle error
@@ -73,15 +72,14 @@ export default class Kweek extends Component {
         .then((response) => {
           console.log(response.status);
           //this.props.navigation.navigate('Home');
-    
         })
-    
+
         .catch((err) => {
         // handle error
-        let error = JSON.stringify(err);
-        error = JSON.parse(error);
-        console.log(error);
-        console.log(error.response.status);
+          let error = JSON.stringify(err);
+          error = JSON.parse(error);
+          console.log(error);
+          console.log(error.response.status);
         })
         .then(() => {
         // always executed
@@ -137,17 +135,6 @@ export default class Kweek extends Component {
       </TouchableOpacity>
     );
   }
-  /* if (this.props.likerUserName != null) {
-      return (
-        <TouchableOpacity style={{ marginTop: '2%', marginBottom: '1%' }}>
-          <View style={{ flexDirection: 'row' }}>
-            <Ionicons name="ios-heart" size={11} color="#657786" style={{ marginLeft: '15%', marginTop: '1%' }} />
-            <Text style={{ color: '#657786', marginLeft: '4.5%' }}>{this.props.likerUserName} liked</Text>
-          </View>
-        </TouchableOpacity>
-      );
-    }
-    */
 
   /**
   * Determine whether the kweek is liked by the user or not
@@ -250,10 +237,14 @@ export default class Kweek extends Component {
           console.log(response.status);
         })
 
-        .catch((error) => {
+        .catch((err) => {
         // handle error
          console.log('unrekweek error');
-         console.log(error);
+         //console.log(error);
+         let error = JSON.stringify(err);
+        error = JSON.parse(error);
+        console.log(error);
+        console.log(error.response.status);
         })
         .then(() => {
         // always executed
@@ -268,10 +259,14 @@ export default class Kweek extends Component {
           console.log(response.status);
         })
 
-        .catch((error) => {
+        .catch((err) => {
         // handle error
-         console.log(error);
+         //console.log(error);
          console.log('rekweek error');
+         let error = JSON.stringify(err);
+        error = JSON.parse(error);
+        console.log(error);
+        console.log(error.response.status);
         })
         .then(() => {
         // always executed
@@ -293,12 +288,12 @@ export default class Kweek extends Component {
             profileImageUrl: this.props.profileImageUrl,
             screenName: this.props.screenName,
             userName: this.props.userName,
-            numberOfLikes: this.props.numberOfLikes,
-            numberOfRekweeks: this.props.numberOfRekweeks,
+            numberOfLikes: this.state.likesCounter,
+            numberOfRekweeks: this.state.rekweeksCounter,
             numberOfReplies: this.props.numberOfReplies,
             kweetText: this.props.kweetText,
-            liked: this.props.liked,
-            rekweeked: this.props.rekweeked,
+            liked: this.state.liked,
+            rekweeked: this.state.rekweeked,
             rekweekerUserName: this.props.rekweekerUserName,
             mediaUrl: this.props.mediaUrl,
             replyTo: this.props.replyTo,
