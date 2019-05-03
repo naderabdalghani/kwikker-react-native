@@ -6,6 +6,7 @@ import FollowingList from '../Screens/FollowingList/FollowingList';
 import EditProfileNavigator from './EditProfileNavigation';
 import KweekExtendedView from '../Screens/KweekExtendedView/KweekExtendedView';
 import CreateTweet from '../Screens/CreateTweet/CreateTweet';
+import ConversationScreen from '../Screens/ConversationScreen/ConversationScreen';
 
 
 const ProfileStackNavigator = createStackNavigator({
@@ -33,5 +34,6 @@ const ProfileStackNavigator = createStackNavigator({
     }
   },
   CreateTweet: { screen: CreateTweet },
+  ConversationScreen: { screen: ConversationScreen },
 });
 export default ProfileStackNavigator;
