@@ -65,7 +65,7 @@ export default class Notification extends React.Component {
 
       <View style={styles.notificationContainer}>
         <View style={styles.profilePicture}>
-          <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
+          <Image style={styles.ProfileImage} source={{ uri: `${this.props.profileUrl}?${new Date()}` }} />
         </View>
         <View style={styles.textContainer}>
           <View style={styles.textHeader}>

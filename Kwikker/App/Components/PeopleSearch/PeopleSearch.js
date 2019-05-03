@@ -36,7 +36,7 @@ export default class PeopleSearch extends React.Component {
 
       <View style={styles.container}>
         <View style={styles.profilePicture}>
-          <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
+          <Image style={styles.ProfileImage} source={{ uri: `${this.props.profileUrl}?${new Date()}` }} />
         </View>
         <View style={styles.textContainer}>
           {this.followText()}

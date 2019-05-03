@@ -77,7 +77,7 @@ export default class DrawerNavContainer extends Component {
             }} style={{ flex: 3 }}
           >
             <Image
-              source={{ uri: this.state.profileData.profile_image_url }}
+              source={{ uri: `${this.state.profileData.profile_image_url}?${new Date()}` }}
               style={Styles.photo}
             />
             <Text style={Styles.userName}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.state.profileData.screen_name}</Text>
