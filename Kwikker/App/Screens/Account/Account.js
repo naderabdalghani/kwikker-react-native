@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import Styles from './Styles';
 
-
+/** @module Account **/
 export default class Account extends React.Component {
   constructor(props) {
     super(props);
@@ -18,28 +18,10 @@ export default class Account extends React.Component {
     });
   }
 
-  /**
-   * Redirects the user to the update Username form
-   */
-  Username() {
-    this.props.navigation.push('Username');
-  }
-
-  /**
-   * Redirects the user to the update Email form
-   */
-  Email() {
-    this.props.navigation.push('Email');
-  }
-
-  /**
-   * Redirects the user to the update Password form
-   */
-  Password() {
-    this.props.navigation.push('Password');
-  }
-
-
+  /** get Email.
+ * gets Email of the current user.
+ * @memberof Account
+ */
   getEmail() {
     axios.get('user/email')
       .then((res) => {
@@ -55,6 +37,31 @@ export default class Account extends React.Component {
       .then(() => {
       });
   }
+
+  /** update username.
+  * Redirects the user to the update Username form.
+  * @memberof Account
+  */
+  Username() {
+    this.props.navigation.push('Username');
+  }
+
+  /** update Email.
+  * Redirects the user to the update Email form.
+  * @memberof Account
+  */
+  Email() {
+    this.props.navigation.push('Email');
+  }
+
+  /** update Password.
+  * Redirects the user to the update Password form.
+  * @memberof Account
+  */
+  Password() {
+    this.props.navigation.push('Password');
+  }
+
 
   render() {
     return (

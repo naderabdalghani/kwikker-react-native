@@ -4,6 +4,7 @@ import axios from 'axios';
 import BlockedAccount from '../../Components/BlockedAccount/BlockedAccount';
 import Styles from './Styles';
 
+/** @module BlockedAccounts **/
 
 export default class BlockedAccounts extends React.Component {
   constructor(props) {
@@ -25,6 +26,10 @@ export default class BlockedAccounts extends React.Component {
     );
   }
 
+  /** pull to refresh functionality.
+   * update block list.
+   * @memberof BlockedAccounts
+  */
   pullRefresh= () => {
     this.setState({ refreshing: false },
       () => {
@@ -32,7 +37,10 @@ export default class BlockedAccounts extends React.Component {
       });
   }
 
-
+  /** content of muted list.
+  * check if there is any muted account or not.
+  * @memberof BlockedAccounts
+  */
   isThereMutedAccounts() {
     if (this.state.mutedOrNot) {
       return (
@@ -50,13 +58,13 @@ export default class BlockedAccounts extends React.Component {
               key={item.username}
             >
               <BlockedAccount
-                 key={item.username} 
-                 profileUrl={item.profile_image_url} 
-                 screenName={item.screen_name} 
-                 following={item.following} 
-                 followsYou={item.follows_you} 
-                 userName={item.username} 
-                 pullRefresh={this.pullRefresh.bind(this)}
+                key={item.username}
+                profileUrl={item.profile_image_url}
+                screenName={item.screen_name}
+                following={item.following}
+                followsYou={item.follows_you}
+                userName={item.username}
+                pullRefresh={this.pullRefresh.bind(this)}
               />
             </TouchableOpacity>
           ))
@@ -86,6 +94,11 @@ export default class BlockedAccounts extends React.Component {
     );
   }
 
+  /** muted accounts.
+  * gets list of muted account.
+  * @memberof BlockedAccounts
+  */
+
   muted() {
     axios.get('/interactions/blocks', {
 
@@ -94,10 +107,11 @@ export default class BlockedAccounts extends React.Component {
         this.setState({
           usersList: response.data, mutedOrNot: true,
         });
-        if(response.data.length === 0)
-        this.setState({
-           mutedOrNot: false,
-        });
+        if (response.data.length === 0) {
+          this.setState({
+            mutedOrNot: false,
+          });
+        }
       })
       .catch((error) => {
         this.setState({ mutedOrNot: false });
@@ -115,23 +129,23 @@ export default class BlockedAccounts extends React.Component {
       <View style={{ flex: 1 }}>
 
 
-          <View style={Styles.header}>
-            <View style={Styles.backButtonContainer}>
-              <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
-                <Image
-                  style={Styles.backButton}
-                  source={require('./../../Assets/Images/back_button.png')}
-                />
-              </TouchableNativeFeedback>
-            </View>
-            <View style={Styles.titleContainer}>
-              <Text style={Styles.title}>Blocked Accounts</Text>
-            </View>
-            <View />
-            <View style={Styles.dummyElement} />
+        <View style={Styles.header}>
+          <View style={Styles.backButtonContainer}>
+            <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
+              <Image
+                style={Styles.backButton}
+                source={require('./../../Assets/Images/back_button.png')}
+              />
+            </TouchableNativeFeedback>
           </View>
+          <View style={Styles.titleContainer}>
+            <Text style={Styles.title}>Blocked Accounts</Text>
+          </View>
+          <View />
+          <View style={Styles.dummyElement} />
+        </View>
 
-          {this.isThereMutedAccounts()}
+        {this.isThereMutedAccounts()}
 
 
       </View>
