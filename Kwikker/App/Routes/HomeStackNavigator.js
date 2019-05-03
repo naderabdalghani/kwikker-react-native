@@ -11,6 +11,7 @@ import FollowerList from '../Screens/FollowerList/FollowersList';
 import FollowingList from '../Screens/FollowingList/FollowingList';
 import Rekweekers from '../Screens/Rekweekers/Rekweekers';
 import Likers from '../Screens/Likers/Likers';
+import SearchBar from '../Screens/SearchBar/SearchBar';
 
 const HomeStackNavigator = createStackNavigator({
 
@@ -47,6 +48,7 @@ const HomeStackNavigator = createStackNavigator({
     navigationOptions: {
       header: null,
     }, },
+  SearchBar: { screen: SearchBar },
   CreateTweet: { screen: CreateTweet },
   Camera: { screen: Camera },
 });
