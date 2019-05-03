@@ -105,6 +105,7 @@ export default class Kweek extends Component {
     const minutes = dateTime.getMinutes();
     if (now.getFullYear() === year && now.getMonth() === month && now.getDate() === day && now.getHours() === hour) { return ((now.getMinutes() - minutes).toString().concat('m')); }
     if (now.getFullYear() === year && now.getMonth() === month && now.getDate() === day) { return ((now.getHours() - hour).toString().concat('h')); }
+    if (now.getFullYear() === year && now.getMonth() === month && (now.getDate() - day) <= 6) { return ((now.getDate() - day).toString().concat('d')); }
     if (now.getFullYear() === year) { return ((day).toString().concat(months[month])); }
     return ((months[month]).concat(' ').concat(year.toString()));
   }
