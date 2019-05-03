@@ -309,6 +309,7 @@ updateProfile(userName) {
         dataLoaded: true,
         blocked: response.data.blocked
       });
+      AsyncStorage.setItem('@app:image', response.data.profile_image_url);
     })
     .catch((error) => {
       this.setState({
