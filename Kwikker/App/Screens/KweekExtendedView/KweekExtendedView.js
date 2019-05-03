@@ -3,176 +3,120 @@ import { Text, View, Image, ScrollView, TouchableOpacity, RefreshControl } from 
 import axios from 'axios';
 import { DrawerActions } from 'react-navigation';
 import Kweek from '../../Components/Kweek/Kweek';
-import KweekExtended from '../../Components/KweekExtended/KweekExtended'
+import KweekExtended from '../../Components/KweekExtended/KweekExtended';
 
-export default class Home extends Component {
-/*static navigationOptions = ({ navigation }) => {
-  return {
-    headerLeft:
-  <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-    <Image source={require('./../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
-  </TouchableOpacity>
-  };
-};
+export default class KweekExtendedView extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      kweek: null,
+      replies: null,
+      refreshing: false
+    };
+    console.log('constructor');
+    //this.pullRefresh();
+  }
 
-constructor(props) {
-  super(props);
-  this.state = {
-    kweeks: [],
-    refreshing: false,
-  };
-}
+  componentDidMount() {
+    this.pullRefresh();
+    console.log('componentdidMount');
+  }
 
-
-componentDidMount() {
-  this.pullRefresh();
-  console.log('componentdidMount');
-}
-
-/**
- * Pull to refresh functionality
- */
-/*pullRefresh= () => {
-  console.log('pullRefresh');
-  this.setState({
-    refreshing: true,
-  });
-  console.log(this.state.refreshing);
-  this.updateKweeks();
-}
-
-/** Get more Kweeks when we get to the end of the scrollView.
- * Check we reached end of content
- * @param {int} layoutMeasurement - size of the layout .
- * @param  {int} contentOffset - position on screen
- * @param  {int} contentSize - size of all content
- */
-/*moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
-  if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true) {
+  pullRefresh=() => {
+    console.log('pullRefresh');
     this.setState({
       refreshing: true,
     });
-    this.updateKweeks(this.state.kweeks[this.state.kweeks.length - 1].id);
+    console.log(this.state.refreshing);
+    this.updateKweeks();
   }
-}
 
-/** Update Kweeks.
- * gets first 20 Kweeks With default parameter (id=null)
- * To retrieve more send the id of the last retrieved kweek.
- * @param {int} id - The id of Kweek .
- */
-/*updateKweeks(id = null) {
-  console.log('updateKweeks');
-  axios.get('kweeks/timelines/home', {
-    params: {
-      last_retrieved_kweek_id: id
-    }
-  })
-    .then((response) => {
-      console.log(response.status);
-      if (id === null) {
-        console.log('response id null');
-        this.setState({
-          kweeks: response.data
-        });
-      } else {
-        this.setState((prevState) => ({ kweeks: prevState.kweeks.concat(response.data)
-        }));
-      }
-      this.setState({ refreshing: false });
-    })
-    .catch((error) => {
-    // handle error
-      console.log('get tweets error');
-    })
-    .then(() => {
-    // always executed
-    });
-}
-
-render() {
-  return (
-    <View style={{ flex: 1 }}>
-      <ScrollView
-        refreshControl={(
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this.pullRefresh}
-          />
-        )}
-        style={{ flex: 1 }}
-        onScroll={({ nativeEvent }) => { this.moreKweeks(nativeEvent); }}
-      >
-        {this.state.kweeks.map((item, index) => (
-          <Kweek
-            key={item.id}
-            id={item.id}
-            date={item.created_at}
-            profileImageUrl={item.user.profile_image_url}
-            screenName={item.user.screen_name}
-            userName={item.user.username}
-            numberOfLikes={item.number_of_likes}
-            numberOfRekweeks={item.number_of_rekweeks}
-            numberOfReplies={item.number_of_replies}
-            kweetText={item.text}
-            liked={item.liked_by_user}
-            rekweeked={item.rekweeked_by_user}
-            rekweekerUserName={item.rekweek_info}
-            mediaUrl={item.media_url}
-          />
-        ))
-       }
-      </ScrollView>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('CreateTweet')} style={{ position: 'absolute', right: 20, bottom: 20, width: 60, height: 60, borderRadius: 30, alignItems: 'flex-end' }}>
-        <Image source={require('./../../Assets/Images/tweet1.png')} style={{ width: 60, height: 60, borderRadius: 30, alignItems: 'flex-end' }} />
-      </TouchableOpacity>
-    </View>
-  );
-}
-}
-*/
-  render() {
+  updateKweeks() {
     const { navigation } = this.props;
-    //const key = navigation.getParam('key', null);
-    const id = navigation.getParam('id', null);
-    const date = navigation.getParam('date', null);
-    const profileImageUrl = navigation.getParam('profileImageUrl', null);
-    const screenName = navigation.getParam('screenName', null);
-    const userName = navigation.getParam('userName', null);
-    const numberOfLikes = navigation.getParam('numberOfLikes', null);
-    const numberOfRekweeks = navigation.getParam('numberOfRekweeks', null);
-    const numberOfReplies = navigation.getParam('numberOfReplies', null);
-    const kweetText = navigation.getParam('kweetText', null);
-    const liked = navigation.getParam('liked', null);
-    const rekweeked = navigation.getParam('rekweeked', null);
-    const rekweekerUserName = navigation.getParam('rekweekerUserName', null);
-    const mediaUrl = navigation.getParam('mediaUrl', null);
-    const replyTo = navigation.getParam('replyTo', null);
-    const following = navigation.getParam('following', null);
-    const mentions = navigation.getParam('mentions', null);
+    const ids = navigation.getParam('id', null);
+    console.log('updateKweeks');
+    axios.get('kweeks/', {
+      params: {
+        id: ids
+      }
+    })
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          kweek: response.data.kweek,
+          replies: response.data.replies
+        });
+        this.setState({ refreshing: false });
+      })
+      .catch((error) => {
+      // handle error
+        console.log('get tweets error');
+      })
+      .then(() => {
+      // always executed
+      });
+  }
+
+  render() {
+    console.log('render');
     return (
-      <View>
-        <KweekExtended
-          //key={key}
-          id={id}
-          date={date}
-          profileImageUrl={profileImageUrl}
-          screenName={screenName}
-          userName={userName}
-          numberOfLikes={numberOfLikes}
-          numberOfRekweeks={numberOfRekweeks}
-          numberOfReplies={numberOfReplies}
-          kweetText={kweetText}
-          liked={liked}
-          rekweeked={rekweeked}
-          rekweekerUserName={rekweekerUserName}
-          mediaUrl={mediaUrl}
-          replyTo={replyTo}
-          following={following}
-          mentions={mentions}
-          navigation={this.props.navigation}
-        />
-      </View>
+      this.state.kweek === null ? (<View />) : (
+        <View style={{ flex: 1 }}>
+          <ScrollView
+            refreshControl={(
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.pullRefresh}
+              />
+            )}
+            style={{ flex: 1 }}
+          >
+            <KweekExtended
+              key={this.state.kweek.id}
+              id={this.state.kweek.id}
+              date={this.state.kweek.created_at}
+              profileImageUrl={this.state.kweek.user.profile_image_url}
+              screenName={this.state.kweek.user.screen_name}
+              userName={this.state.kweek.user.username}
+              numberOfLikes={this.state.kweek.number_of_likes}
+              numberOfRekweeks={this.state.kweek.number_of_rekweeks}
+              numberOfReplies={this.state.kweek.number_of_replies}
+              kweetText={this.state.kweek.text}
+              liked={this.state.kweek.liked_by_user}
+              rekweeked={this.state.kweek.rekweeked_by_user}
+              rekweekerUserName={this.state.kweek.rekweek_info}
+              mediaUrl={this.state.kweek.media_url}
+              replyTo={this.state.kweek.reply_to}
+              following={this.state.kweek.user.following}
+              mentions={this.state.kweek.mentions}
+              navigation={this.props.navigation}
+            />
+            {this.state.replies.map((item, index) => (
+              <Kweek
+                key={item.id}
+                id={item.id}
+                date={item.created_at}
+                profileImageUrl={item.user.profile_image_url}
+                screenName={item.user.screen_name}
+                userName={item.user.username}
+                numberOfLikes={item.number_of_likes}
+                numberOfRekweeks={item.number_of_rekweeks}
+                numberOfReplies={item.number_of_replies}
+                kweetText={item.text}
+                liked={item.liked_by_user}
+                rekweeked={item.rekweeked_by_user}
+                rekweekerUserName={item.rekweek_info}
+                mediaUrl={item.media_url}
+                replyTo={item.reply_to}
+                following={item.user.following}
+                mentions={item.mentions}
+                navigation={this.props.navigation}
+              />
+            ))
+          }
+          </ScrollView>
+        </View>
+      )
     );
   }
 }
