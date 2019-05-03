@@ -9,6 +9,7 @@ import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './Styles';
 
+/** @module Kweek **/
 export default class Kweek extends Component {
   constructor(props) {
     super(props);
@@ -26,12 +27,18 @@ export default class Kweek extends Component {
     );
   }
 
+  /**
+ * determine options to be shown in kweek menu
+ */
   getOPtions() {
     if (this.props.userName === this.state.loggedUser) return (['Delete Kweek']);
     if (this.props.following === true) return (['Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
     return (['Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
   }
 
+  /**
+   * determine wheather the text after @ is a mention or not
+   */
   getMentions() {
     if (this.props.mentions.length !== 0) {
       const expStr = '@'.concat(this.props.mentions[0].username);
@@ -43,10 +50,16 @@ export default class Kweek extends Component {
     return (RegExp('@hkhkahfiusvhhvuifhvushspaigupsirguahvhbuadhoutuhfdhbl'));
   }
 
+  /**
+   * open kweek menu
+   */
   showActionSheet = () => {
     this.ActionSheet.show();
   }
 
+  /**
+   * handle block press from kweek menu
+   */
   block() {
     axios.post('interactions/blocks', {
       username: this.props.userName
@@ -65,6 +78,9 @@ export default class Kweek extends Component {
       });
   }
 
+  /**
+   * handle follow press from kweek menu
+   */
   follow() {
     axios.post('interactions/follow', {
       username: this.props.userName
@@ -75,6 +91,8 @@ export default class Kweek extends Component {
       });
   }
 
+  /**
+ * handle unfollow press from kweek menu */
   unfollow() {
     axios.delete('interactions/follow', {
       params: {
@@ -87,7 +105,10 @@ export default class Kweek extends Component {
       });
   }
 
-
+  /**
+ * handle pressed buttons from kweek menu
+ * @param {int} index - index of pressed button
+ */
   handleMenu(index) {
     if (index === 0 && this.props.userName === this.state.loggedUser) {
       console.log('updateKweeks');
@@ -186,6 +207,10 @@ export default class Kweek extends Component {
     );
   }
 
+  /**
+ * navigate to search hashtags when hashtag pressed
+ * @param {string} text - text of hashtag
+ */
   goToHashtag(text) {
     const arr = [];
     for (let i = 0; i < this.props.hashtags.length; i++) {

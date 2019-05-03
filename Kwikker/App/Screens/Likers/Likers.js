@@ -4,7 +4,7 @@ import axios from 'axios';
 import UserInSearch from '../../Components/UserInSearch/UserInSearch';
 import styles from './Styles';
 
-
+/** @module LikersList **/
 export default class LikersList extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +26,9 @@ export default class LikersList extends Component {
     );
   }
 
+  /**
+   * pull to refresh functionality
+   */
   pullRefresh= () => {
     this.setState({
       refreshing: true,
