@@ -11,7 +11,7 @@ export default class MutedAccounts extends React.Component {
     this.state = {
       usersList: [],
       refreshing: true,
-      mutedOrNot: false
+      mutedOrNot: true,
     };
   }
 
