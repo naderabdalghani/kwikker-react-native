@@ -153,8 +153,8 @@ EditProfile() {
       bio: this.state.profileData.bio,
       birthDate: this.state.profileData.birth_date,
       screenName: this.state.profileData.screen_name,
-  });
- }
+    });
+  }
 }
 
 profileOwner() {
@@ -309,7 +309,9 @@ updateProfile(userName) {
         dataLoaded: true,
         blocked: response.data.blocked
       });
-      AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+      if (this.state.myProfile) {
+        AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+      }
     })
     .catch((error) => {
       this.setState({
@@ -458,15 +460,17 @@ youRBlocked() {
     return (
       <View>
         <Text style={{ margin: 10 }}>
-      You blocked @{this.state.profileData.username} 
+      You blocked @{this.state.profileData.username}
       Are you sure you want to view these Tweets? Viewing Tweets won't unblock
        @{this.state.profileData.username}
         </Text>
         <TouchableOpacity
           style={styles.follow}
-          onPress={() => { this.setState({
+          onPress={() => {
+ this.setState({
             blocked: false
-          }); }}
+          }); 
+}}
         >
           <Text style={{ color: '#1DA1F2', fontWeight: 'bold', fontSize: 15 }}>
           Yes, view profile
