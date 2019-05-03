@@ -49,7 +49,7 @@ export default class ConversationScreen extends Component {
 
 
   componentDidMount() {
-    const socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
+    let socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
     socket.connect();
     let eventSockt;
     AsyncStorage.getItem('@app:id').then((id) => {
@@ -65,6 +65,17 @@ export default class ConversationScreen extends Component {
     this.willFocusListener = this.props.navigation.addListener(
       'willFocus',
       () => {
+        socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
+        socket.connect();
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({ currentUsername: id, },
+            () => {
+              if (this.props.navigation.state.params.userName.localeCompare(this.state.currentUsername) > 0) { eventSockt = this.state.currentUsername.concat(this.props.navigation.state.params.userName); } else { eventSockt = this.props.navigation.state.params.userName.concat(this.state.currentUsername); }
+            });
+          socket.on(eventSockt, (message) => {
+            this.updateMessages();
+          });
+        });
         this.pullRefresh();
       }
     );

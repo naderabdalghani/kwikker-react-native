@@ -29,15 +29,6 @@ export default class Username extends React.Component {
     );
   }
 
-  /**
-   * Completely deletes the access token and username then redirects the user to the start screen
-   */
-  logoutButtonPressed() {
-    AsyncStorage.multiRemove(['@app:session', '@app:id']);
-    axios.defaults.headers.common['TOKEN'] = '';
-    this.props.navigation.navigate('StartScreen');
-  }
-
 
   /**
    * update user's username and go back to account settings
@@ -50,12 +41,13 @@ export default class Username extends React.Component {
       .then((res) => {
         this.setState({ message: 'username changed successfully' });
         ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-        this.logoutButtonPressed();
+        AsyncStorage.multiSet([['@app:session', res.data.token], ['@app:id', this.state.Name]]);
+        axios.defaults.headers.common['TOKEN'] = res.data.token;
+        this.props.navigation.goBack(null);
       })
       .catch((err) => {
-        this.setState({ message: "error: username didn't change, try again later" });
+        this.setState({ message: "error: username didn't change, Username already exists " });
         ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-        this.props.navigation.goBack(null);
       });
   }
 

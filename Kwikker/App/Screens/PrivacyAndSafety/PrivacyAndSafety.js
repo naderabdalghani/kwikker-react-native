@@ -14,6 +14,14 @@ export default class PrivecyAndSafety extends React.Component {
     AsyncStorage.getItem('@app:id').then((id) => {
       this.setState({ currentUsername: id });
     });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({ currentUsername: id });
+        });
+      }
+    );
   }
 
   BlockedAccounts() {

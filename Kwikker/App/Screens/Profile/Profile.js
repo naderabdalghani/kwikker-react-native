@@ -55,8 +55,15 @@ componentDidMount() {
   this.willFocusListener = this.props.navigation.addListener(
     'willFocus',
     () => {
-      this.setState({ refreshing: false,
-      }, () => { this.pullRefresh(); });
+      AsyncStorage.getItem('@app:id').then((id) => {
+        this.setState({
+          currentUsername: id,
+          profileUsername: this.props.navigation.state.params.username,
+        }, () => {
+          this.pullRefresh();
+          this.profileOwner();
+        });
+      });
     }
   );
 }
@@ -179,7 +186,7 @@ tabContent() {
               rekweeked={item.rekweeked_by_user}
               rekweekerUserName={item.rekweek_info}
               mediaUrl={item.media_url}
-              replyTo={item.reply_to}
+              replyTo={item.reply_info}
               following={item.user.following}
               mentions={item.mentions}
               navigation={this.props.navigation}
@@ -211,7 +218,7 @@ tabContent() {
               rekweeked={item.rekweeked_by_user}
               rekweekerUserName={item.rekweek_info}
               mediaUrl={item.media_url}
-              replyTo={item.reply_to}
+              replyTo={item.reply_info}
               following={item.user.following}
               mentions={item.mentions}
               navigation={this.props.navigation}
@@ -450,9 +457,9 @@ youRBlocked() {
     return (
       <View>
         <Text style={{ margin: 10 }}>
-      You blocked @{this.state.profileData.username}
+      You blocked @{this.state.profileData.username} 
       Are you sure you want to view these Tweets? Viewing Tweets won't unblock
-      @{this.state.profileData.username}
+       @{this.state.profileData.username}
         </Text>
         <TouchableOpacity
           style={styles.follow}

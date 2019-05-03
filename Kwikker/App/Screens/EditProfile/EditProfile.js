@@ -3,6 +3,7 @@ import { Text, View, ScrollView, Image, TouchableNativeFeedback, TouchableOpacit
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
+import AsyncStorage from '@react-native-community/async-storage';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 
@@ -102,7 +103,7 @@ export default class App extends React.Component {
       .catch((error) => {
         // ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
       })
-      .then((response) => {
+      .then(() => {
         if (!(this.state.currentCover === this.state.coverImage)) {
           const formdata = new FormData();
           formdata.append('file', { name: this.state.photoCover.fileName, type: this.state.photoCover.type, uri: this.state.photoCover.uri });
@@ -112,11 +113,11 @@ export default class App extends React.Component {
             data: formdata,
             config: { headers: { 'Content-Type': 'multipart/form-data' } }
           })
-            .then((response) => {
+            .then(() => {
             })
             .catch(() => {
             })
-            .then((response) => {
+            .then(() => {
               if (!(this.state.currentProfile === this.state.profileImage)) {
                 const formData = new FormData();
                 formData.append('file', { name: this.state.photoProfile.fileName, type: this.state.photoProfile.type, uri: this.state.photoProfile.uri });
@@ -126,13 +127,23 @@ export default class App extends React.Component {
                   data: formData,
                   config: { headers: { 'Content-Type': 'multipart/form-data' } }
                 })
-                  .then((response) => {
-                    this.props.navigation.goBack(null);
+                  .then(() => {
+                    axios.get('user/profile', {
+                      params: {
+                        username: this.props.navigation.state.params.username
+                      }
+                    })
+                      .then((res) => {
+                        AsyncStorage.setItem('@app:image', res.data.profile_image_url);
+                      })
+                      .catch((err) => {
+
+                      });
                   })
                   .catch(() => {
-                    this.props.navigation.goBack(null);
+                    ToastAndroid.show('error while updating profile', ToastAndroid.SHORT);
                   })
-                  .then((response) => {
+                  .then(() => {
                     this.props.navigation.goBack(null);
                   });
               }
@@ -146,11 +157,22 @@ export default class App extends React.Component {
             data: formData,
             config: { headers: { 'Content-Type': 'multipart/form-data' } }
           })
-            .then((response) => {
+            .then(() => {
+              axios.get('user/profile', {
+                params: {
+                  username: this.props.navigation.state.params.username
+                }
+              })
+                .then((res) => {
+                  AsyncStorage.setItem('@app:image', res.data.profile_image_url);
+                })
+                .catch((err) => {
+
+                });
             })
             .catch(() => {
             })
-            .then((response) => {
+            .then(() => {
               if (!(this.state.currentCover === this.state.coverImage)) {
                 const formdata = new FormData();
                 formdata.append('file', { name: this.state.photoCover.fileName, type: this.state.photoCover.type, uri: this.state.photoCover.uri });
@@ -160,18 +182,18 @@ export default class App extends React.Component {
                   data: formdata,
                   config: { headers: { 'Content-Type': 'multipart/form-data' } }
                 })
-                  .then((response) => {
-                    this.props.navigation.goBack(null);
+                  .then(() => {
                   })
                   .catch(() => {
-                    this.props.navigation.goBack(null);
+                    ToastAndroid.show('error while updating profile', ToastAndroid.SHORT);
                   })
-                  .then((response) => {
+                  .then(() => {
                     this.props.navigation.goBack(null);
                   });
               }
             });
         }
+        ToastAndroid.show('profile updated', ToastAndroid.SHORT);
       });
   }
 
