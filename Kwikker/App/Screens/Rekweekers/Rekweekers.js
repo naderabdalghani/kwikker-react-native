@@ -4,7 +4,7 @@ import axios from 'axios';
 import UserInSearch from '../../Components/UserInSearch/UserInSearch';
 import styles from './Styles';
 
-
+/** @module RekweekersList **/
 export default class RekweekersList extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +26,9 @@ export default class RekweekersList extends Component {
     );
   }
 
+  /**
+   * pull to refresh functionality
+   */
   pullRefresh= () => {
     this.setState({
       refreshing: true,

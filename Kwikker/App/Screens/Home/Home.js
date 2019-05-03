@@ -8,6 +8,7 @@ import { DrawerActions } from 'react-navigation';
 import { withInAppNotification } from 'react-native-in-app-notification/src/index';
 import Kweek from '../../Components/Kweek/Kweek';
 
+/** @module Home **/
 export class Home extends Component {
 static navigationOptions = ({ navigation }) => {
   return {
