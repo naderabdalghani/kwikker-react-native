@@ -43,6 +43,15 @@ export default class Messages extends Component {
     this.willFocusListener = this.props.navigation.addListener(
       'willFocus',
       () => {
+        AsyncStorage.getItem('@app:image').then((image) => {
+          this.props.navigation.setParams({
+            headerLeft: (
+              <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+                <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+              </TouchableOpacity>
+            ),
+          });
+        });
         this.pullRefresh();
       }
     );
