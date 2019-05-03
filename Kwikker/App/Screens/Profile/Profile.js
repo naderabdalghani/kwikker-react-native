@@ -108,6 +108,9 @@ moreKweeKsAndLikes=({ layoutMeasurement, contentOffset, contentSize }) => {
   }
 }
 
+showActionSheet = () => {
+  this.ActionSheet.show();
+}
 
 kweeks() {
   this.setState({ kweeksTab: true, likesTab: false, });
@@ -419,10 +422,6 @@ getOPtions() {
   return (['Mute', 'Unblock']);
 }
 
-showActionSheet = () => {
-  this.ActionSheet.show();
-}
-
 handleMenu(index) {
   if (index === 0 && this.state.profileData.muted === false) {
     this.mute();
@@ -459,23 +458,25 @@ youRBlocked() {
   if (this.state.blocked && !this.state.uBlocked) {
     return (
       <View>
-        <Text style={{ margin: 10 }}>
-      You blocked @{this.state.profileData.username}
-      Are you sure you want to view these Tweets? Viewing Tweets won't unblock
-       @{this.state.profileData.username}
-        </Text>
-        <TouchableOpacity
-          style={styles.follow}
-          onPress={() => {
- this.setState({
-            blocked: false
-          }); 
-}}
-        >
-          <Text style={{ color: '#1DA1F2', fontWeight: 'bold', fontSize: 15 }}>
-          Yes, view profile
-          </Text>
-        </TouchableOpacity>
+        <View style={{ alignItems: 'center', backgroundColor: '#E1E8ED', marginTop: 5, paddingBottom: '80%' }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>@{this.state.profileData.username} is</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>blocked</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 18, paddingTop: 10 }}>Are you sure you want to view</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 18 }}>these Tweets? Viewing Tweets</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 18 }}>won't unblock @{this.state.profileData.username}</Text>
+          <TouchableOpacity
+            style={{ margin: 10, borderColor: '#657786', borderWidth: 1, height: 30, borderRadius: 20, padding: 15, justifyContent: 'center', fontSize: 18 }}
+            onPress={() => {
+              this.setState({
+                blocked: false
+              });
+            }}
+          >
+            <Text style={{ fontWeight: 'bold', fontSize: 15 }}>
+              View Tweets
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
