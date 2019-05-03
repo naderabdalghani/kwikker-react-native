@@ -128,13 +128,23 @@ export default class Kweek extends Component {
       );
     }
     return (
-      <TouchableOpacity style={{ marginTop: '2%', marginBottom: '-2%' }}>
+      <TouchableOpacity onPress={() => this.props.navigation.push('Profile', { username: this.props.rekweekerUserName.rekweeker_username })} style={{ marginTop: '2%', marginBottom: '-2%' }}>
         <View style={{ flexDirection: 'row' }}>
           <EvilIcons name="retweet" size={16} color="#657786" style={{ marginLeft: '15%', marginTop: '1%' }} />
-          <Text style={{ color: '#657786', marginLeft: '3%' }}>{this.props.rekweekerUserName.rekweeker_username} rekweeked</Text>
+          <Text style={{ color: '#657786', marginLeft: '3%' }}>{this.props.rekweekerUserName.rekweeker_name} rekweeked</Text>
         </View>
       </TouchableOpacity>
     );
+  }
+
+  goToHashtag(text) {
+    const arr = [];
+    for (let i = 0; i < this.props.hashtags.length; i++) {
+      arr[i] = this.props.hashtags[i].text;
+    }
+    const j = arr.indexOf(text);
+    const hashtag = this.props.hashtags[j];
+    this.props.navigation.push('SearchBar', { search: hashtag.text, trendId: hashtag.id });
   }
 
   /**
@@ -303,7 +313,7 @@ export default class Kweek extends Component {
           })} style={{ marginLeft: '3%', marginTop: '3%' }}
         >
           <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity style={{ flex: 1 }}>
+            <TouchableOpacity onPress={() => this.props.navigation.push('Profile', { username: this.props.userName })} style={{ flex: 1 }}>
               <Thumbnail source={{ uri: this.props.profileImageUrl }} />
             </TouchableOpacity>
             <View style={{ flex: 4, flexDirection: 'column' }}>
@@ -320,14 +330,14 @@ export default class Kweek extends Component {
               {this.props.replyTo === null ? null : (
                 <View styles={{ flexDirection: 'row' }}>
                   <Text style={{ fontSize: 15, color: '#657786' }}>Replying to
-                    <Text style={styles.hashtag}> @{this.props.replyTo.reply_to_username}</Text>
+                    <Text onPress={() => this.props.navigation.push('Profile', { username: this.props.replyTo.reply_to_username })} style={styles.hashtag}> @{this.props.replyTo.reply_to_username}</Text>
                   </Text>
                 </View>
               )}
               <ParsedText
                 parse={[
-                  { pattern: /#(\w+)/, style: styles.hashtag },
-                  { pattern: this.getMentions(), style: styles.hashtag }
+                  { pattern: /#(\w+)/, style: styles.hashtag, onPress: (text) => this.goToHashtag(text) },
+                  { pattern: this.getMentions(), style: styles.hashtag, onPress: (name, index) => this.props.navigation.push('Profile', { username: name.substr(1) }) }
                 ]}
                 style={{ fontSize: 15, color: '#000000' }}
                 childrenProps={{ allowFontScaling: false }}

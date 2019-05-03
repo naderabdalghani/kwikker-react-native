@@ -90,6 +90,7 @@ export default class KweekExtendedView extends Component {
               following={this.state.kweek.user.following}
               mentions={this.state.kweek.mentions}
               navigation={this.props.navigation}
+              hashtags={this.state.kweek.hashtags}
             />
             {this.state.replies.map((item, index) => (
               <Kweek
@@ -111,6 +112,7 @@ export default class KweekExtendedView extends Component {
                 following={item.user.following}
                 mentions={item.mentions}
                 navigation={this.props.navigation}
+                hashtags={item.hashtags}
               />
             ))
           }
