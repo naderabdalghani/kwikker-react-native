@@ -39,6 +39,7 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     fontWeight: 'bold',
     backgroundColor: 'white',
+    marginRight: 10,
   },
   backButton: {
     height: 30,
@@ -56,7 +57,7 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     fontWeight: 'bold',
     backgroundColor: '#1DA1F2',
-    marginRight: 5,
+    marginRight: 10,
   },
   blocked: {
     borderWidth: 1,
@@ -69,7 +70,7 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     fontWeight: 'bold',
     backgroundColor: 'white',
-    marginRight: 5,
+    marginRight: 10,
   },
   follow: {
     borderWidth: 1,
@@ -82,6 +83,9 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     fontWeight: 'bold',
     backgroundColor: '#fff',
-    marginRight: 5,
+    marginRight: 10,
   },
+  folloerTextStyle: {
+    color: '#000', fontWeight: 'bold', padding: 2, fontSize: 15
+  }
 });

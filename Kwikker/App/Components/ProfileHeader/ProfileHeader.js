@@ -137,7 +137,7 @@ export default class App extends React.Component {
       return (
         <View style={{ marginLeft: 10, marginTop: 4, }}>
           <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000', marginRight: 10 }}>
-          <Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.screenName}            {this.isMuted()}
+            <Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.screenName}            {this.isMuted()}
           </Text>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -148,19 +148,19 @@ export default class App extends React.Component {
             </View>
           </View>
           <Text style={styles.Gray}>
-          <Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.bio}
+            <Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.bio}
           </Text>
-          <Text style={styles.Gray}>Joined {this.props.createdAt} </Text>
-          <Text style={styles.Gray}>date {this.props.birthDate}</Text>
+          <Text style={styles.Gray}>Joined {this.dateAndTime()} </Text>
+          <Text style={styles.Gray}>date of birth {this.props.birthDate}</Text>
 
           <View style={{ flex: 1, flexDirection: 'row' }}>
-            <Text>{this.props.followingCount}</Text>
+            <Text style={styles.folloerTextStyle}>{this.props.followingCount}</Text>
             <TouchableOpacity onPress={this.props.Following}>
-              <Text style={styles.Gray}> Following   </Text>
+              <Text style={styles.Gray}>Following   </Text>
             </TouchableOpacity>
-            <Text>{this.props.followersCount}</Text>
+            <Text style={styles.folloerTextStyle}>{this.props.followersCount}</Text>
             <TouchableOpacity onPress={this.props.Follower}>
-              <Text style={styles.Gray}> Followers   </Text>
+              <Text style={styles.Gray}>Followers   </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -183,7 +183,7 @@ export default class App extends React.Component {
   chat() {
     if (this.props.followsYou) {
       return (
-        <View style={{marginTop: 130, marginLeft: '30%', borderSize: 1, borderRadius: 13, borderColor: '#1DA1F2' }}>
+        <View style={{ marginTop: 130, marginLeft: '30%', borderSize: 1, borderRadius: 13, borderColor: '#1DA1F2' }}>
           <TouchableOpacity onPress={this.props.conversation}>
             <FontAwesome
               name="envelope-o"
@@ -195,17 +195,17 @@ export default class App extends React.Component {
       );
     }
     return (
-      <TouchableOpacity style={{marginTop: 120, marginLeft: '30%'}}>
-        <Text style={{color: '#fff'}}>a</Text>
-      </TouchableOpacity>
+      <View style={{ marginTop: 120, }}>
+        <Text style={{ color: '#fff' }}>a</Text>
+      </View>
     );
   }
 
   followsYou() {
     if (this.props.followsYou) {
       return (
-        <View style={{padding: 3}}>
-          <Text style={{fontSize: 12, backgroundColor: '#E1E8ED', marginTop: 2}}>
+        <View style={{ padding: 3 }}>
+          <Text style={{ fontSize: 12, backgroundColor: '#E1E8ED', marginTop: 2 }}>
             Follows you
           </Text>
         </View>
@@ -222,7 +222,8 @@ export default class App extends React.Component {
     const dateTime = new Date(this.props.createdAt);
     const year = dateTime.getFullYear();
     const month = dateTime.getMonth();
-
+    const time = '';
+    return (time.concat(months[month]).concat(' ').concat(year.toString()));
   }
 
   render() {
@@ -237,14 +238,14 @@ export default class App extends React.Component {
       <View style={{ flex: 1 }}>
         <Image
           style={styles.Cover}
-          source={{ uri: this.props.profileBannerUrl }}
+          source={{ uri: `${this.props.profileBannerUrl}?${new Date()}` }}
         />
         <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
             <View style={styles.ProfileImageContainer}>
               <Image
                 style={styles.ProfileImage}
-                source={{ uri: this.props.profileImageUrl }}
+                source={{ uri: `${this.props.profileImageUrl}?${new Date()}` }}
               />
             </View>
             {this.chat()}
