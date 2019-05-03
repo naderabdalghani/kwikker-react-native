@@ -201,7 +201,7 @@ export default class UserInSearch extends React.Component {
       >
         <View style={styles.container}>
           <View style={styles.profilePicture}>
-            <Image style={styles.ProfileImage} source={{ uri: `${this.props.profileUrl}?${new Date()}` }} />
+            <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
           </View>
           <View style={styles.textContainer}>
             {this.followText()}

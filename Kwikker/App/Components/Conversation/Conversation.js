@@ -45,7 +45,7 @@ export default class Conversation extends React.Component {
 
         <View style={styles.headerContainer}>
           <View style={styles.profilePicture}>
-            <Image style={styles.ProfileImage} source={{ uri: `${this.props.profileUrl}?${new Date()}` }} />
+            <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
           </View>
           <View style={styles.textHeader}>
             <Text style={{ fontWeight: 'bold' }}>{this.props.screenName}</Text>

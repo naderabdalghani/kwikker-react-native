@@ -229,7 +229,7 @@ moreMessages=({ contentOffset }) => {
  */
  userImage(type) {
    if (type !== this.state.currentUsername) {
-     return <Image source={{ uri: `${this.props.navigation.state.params.profileUrl}?${new Date()}` }} style={styles.userImage} />;
+     return <Image source={{ uri: this.props.navigation.state.params.profileUrl }} style={styles.userImage} />;
    }
    return (null);
  }

@@ -30,7 +30,7 @@ export default class Notifications extends Component {
       this.props.navigation.setParams({
         headerLeft: (
           <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
-            <Image source={{ uri: `${image}?${new Date()}` }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+            <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
           </TouchableOpacity>
         ),
       });
@@ -43,7 +43,7 @@ export default class Notifications extends Component {
           this.props.navigation.setParams({
             headerLeft: (
               <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
-                <Image source={{ uri: `${image}?${new Date()}` }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+                <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
               </TouchableOpacity>
             ),
           });
