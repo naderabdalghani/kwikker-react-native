@@ -116,6 +116,7 @@ export default class App extends React.Component {
             .then(() => {
             })
             .catch(() => {
+              ToastAndroid.show('error while updating profile bunner', ToastAndroid.SHORT);
             })
             .then(() => {
               if (!(this.state.currentProfile === this.state.profileImage)) {
@@ -141,7 +142,7 @@ export default class App extends React.Component {
                       });
                   })
                   .catch(() => {
-                    ToastAndroid.show('error while updating profile', ToastAndroid.SHORT);
+                    ToastAndroid.show('error while updating profile picture', ToastAndroid.SHORT);
                   })
                   .then(() => {
                     this.props.navigation.goBack(null);
@@ -167,7 +168,7 @@ export default class App extends React.Component {
                   AsyncStorage.setItem('@app:image', res.data.profile_image_url);
                 })
                 .catch((err) => {
-
+                  ToastAndroid.show('error while updating profile picture', ToastAndroid.SHORT);                  
                 });
             })
             .catch(() => {
@@ -185,7 +186,7 @@ export default class App extends React.Component {
                   .then(() => {
                   })
                   .catch(() => {
-                    ToastAndroid.show('error while updating profile', ToastAndroid.SHORT);
+                    ToastAndroid.show('error while updating profile bunner', ToastAndroid.SHORT);
                   })
                   .then(() => {
                     this.props.navigation.goBack(null);
