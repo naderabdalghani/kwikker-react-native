@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Thumbnail, Container, Header, Content } from 'native-base';
+import { Thumbnail, ToastAndroid, Container, Header, Content } from 'native-base';
 import { Text, View, TouchableOpacity, Image, Button, StyleSheet, TextInput } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -14,13 +14,13 @@ export default class Kweek extends Component {
     super(props);
     this.state = { loggedUser: '', liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };
     AsyncStorage.getItem('@app:id').then((id) => {
-      this.setState({loggedUser: id });
+      this.setState({ loggedUser: id });
     });
   }
 
   getOPtions() {
     if (this.props.userName === this.state.loggedUser) return (['Delete Kweek']);
-    if (this.props.following === true) return (['Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]); 
+    if (this.props.following === true) return (['Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
     return (['Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
   }
 
@@ -39,6 +39,47 @@ export default class Kweek extends Component {
     this.ActionSheet.show();
   }
 
+  block() {
+    axios.post('interactions/blocks', {
+      username: this.props.userName
+    })
+      .then((response) => {
+        console.log(response.status);
+        //this.props.navigation.navigate('Home');
+      })
+
+      .catch((err) => {
+      // handle error
+        let error = JSON.stringify(err);
+        error = JSON.parse(error);
+        console.log(error);
+        console.log(error.response.status);
+      });
+  }
+
+  follow() {
+    axios.post('interactions/follow', {
+      username: this.props.userName
+    })
+      .then((response) => {
+      })
+      .catch((error) => {
+      });
+  }
+
+  unfollow() {
+    axios.delete('interactions/follow', {
+      params: {
+        username: this.props.userName
+      }
+    })
+      .then((response) => {
+      })
+      .catch((error) => {
+      });
+  }
+
+
   handleMenu(index) {
     if (index === 0 && this.props.userName === this.state.loggedUser) {
       console.log('updateKweeks');
@@ -49,7 +90,6 @@ export default class Kweek extends Component {
       })
         .then((response) => {
           console.log(response.status);
-          
         })
         .catch((error) => {
         // handle error
@@ -57,14 +97,14 @@ export default class Kweek extends Component {
         })
         .then(() => {
         // always executed
-        return;
+
         });
     }
     if (index === 0 && this.props.following) {
-
+      this.unfollow();
     }
     if (index === 0 && !this.props.following) {
-      
+      this.follow();
     }
     if (index === 1) {
       axios.post('interactions/mutes', {
@@ -73,15 +113,14 @@ export default class Kweek extends Component {
         .then((response) => {
           console.log(response.status);
           //this.props.navigation.navigate('Home');
-    
         })
-    
+
         .catch((err) => {
         // handle error
-        let error = JSON.stringify(err);
-        error = JSON.parse(error);
-        console.log(error);
-        console.log(error.response.status);
+          let error = JSON.stringify(err);
+          error = JSON.parse(error);
+          console.log(error);
+          console.log(error.response.status);
         })
         .then(() => {
         // always executed
@@ -89,7 +128,7 @@ export default class Kweek extends Component {
         });
     }
     if (index === 2) {
-      
+      this.block();
     }
   }
 
@@ -252,8 +291,8 @@ export default class Kweek extends Component {
 
         .catch((error) => {
         // handle error
-         console.log('unrekweek error');
-         console.log(error);
+          console.log('unrekweek error');
+          console.log(error);
         })
         .then(() => {
         // always executed
@@ -270,8 +309,8 @@ export default class Kweek extends Component {
 
         .catch((error) => {
         // handle error
-         console.log(error);
-         console.log('rekweek error');
+          console.log(error);
+          console.log('rekweek error');
         })
         .then(() => {
         // always executed
