@@ -10,24 +10,28 @@ import Styles from './Styles';
 export default class DrawerNavContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: '', profileData: '' };
+    this.state = { profileData: '' };
   }
 
 
   componentDidMount() {
     AsyncStorage.getItem('@app:id').then((id) => {
-      this.setState({ username: id });
       this.updateProfile(id);
     });
     this.willFocusListener = this.props.navigation.addListener(
       'willFocus',
       () => {
-        this.updateProfile(this.state.username);
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.updateProfile(id);
+        });
       }
     );
   }
 
 
+  /**
+   * update data
+   */
   updateProfile(userName) {
     axios.get('user/profile', {
       params: {
@@ -49,9 +53,9 @@ export default class DrawerNavContainer extends Component {
       });
   }
 
+
   /**
    * Completely deletes the access token and username then redirects the user to the start screen
-   * @memberof DrawerNavContainer
    */
   logoutButtonPressed() {
     AsyncStorage.multiRemove(['@app:session', '@app:id']);
@@ -64,7 +68,14 @@ export default class DrawerNavContainer extends Component {
     return (
       <View style={Styles.container}>
         <View style={Styles.top}>
-          <TouchableOpacity onPress={() => { this.updateProfile(this.state.username); this.props.navigation.navigate('Profile', { username: this.state.username }); }} style={{ flex: 3 }}>
+          <TouchableOpacity
+            onPress={() => {
+              AsyncStorage.getItem('@app:id').then((id) => {
+                this.updateProfile(id);
+                this.props.navigation.navigate('Profile', { username: id });
+              });
+            }} style={{ flex: 3 }}
+          >
             <Image
               source={{ uri: this.state.profileData.profile_image_url }}
               style={Styles.photo}
@@ -74,14 +85,27 @@ export default class DrawerNavContainer extends Component {
           </TouchableOpacity>
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <TouchableOpacity
-              onPress={() => { this.updateProfile(this.state.username); this.props.navigation.navigate('FollowingList', { userName: this.state.profileData.username }); }} style={{ flex: 1 }}
+              onPress={() => {
+                AsyncStorage.getItem('@app:id').then((id) => {
+                  this.updateProfile(id);
+                  this.props.navigation.navigate('FollowingList', { userName: id });
+                });
+              }} style={{ flex: 1 }}
             >
               <Text style={Styles.followingCount}>{this.state.profileData.following_count}
                 <Text style={Styles.followingCountText}>{' '}Following</Text>
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => { this.updateProfile(this.state.username); this.props.navigation.navigate('FollowerList', { userName: this.state.profileData.username }); }} style={{ flex: 1 }}
+              onPress={() => {
+                AsyncStorage.getItem('@app:id').then((id) => {
+                  this.updateProfile(id);
+                  this.props.navigation.navigate('FollowerList', { userName: id });
+                });
+              }}
+
+
+              style={{ flex: 1 }}
             >
               <Text style={Styles.followersCount}>{this.state.profileData.followers_count}
                 <Text style={Styles.followersCountText}>{' '}Follower</Text>
@@ -91,10 +115,22 @@ export default class DrawerNavContainer extends Component {
 
         </View>
         <View style={Styles.bottom}>
-          <TouchableOpacity onPress={() => { this.updateProfile(this.state.username); this.props.navigation.navigate('Profile', { username: this.state.username }); }}>
+          <TouchableOpacity onPress={() => {
+            AsyncStorage.getItem('@app:id').then((id) => {
+              this.updateProfile(id);
+              this.props.navigation.navigate('Profile', { username: id });
+            });
+          }}
+          >
             <Text style={Styles.text}> Profile </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.updateProfile(this.state.username); this.props.navigation.navigate('Settings'); }}>
+          <TouchableOpacity onPress={() => {
+            AsyncStorage.getItem('@app:id').then((id) => {
+              this.updateProfile(id);
+              this.props.navigation.navigate('Settings');
+            });
+          }}
+          >
             <Text style={Styles.text}> Settings and privacy </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.logoutButtonPressed.bind(this)}>

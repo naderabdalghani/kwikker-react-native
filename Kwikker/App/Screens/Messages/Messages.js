@@ -52,6 +52,11 @@ export default class Messages extends Component {
             ),
           });
         });
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({
+            currentUsername: id,
+          });
+        });
         this.pullRefresh();
       }
     );

@@ -55,8 +55,15 @@ componentDidMount() {
   this.willFocusListener = this.props.navigation.addListener(
     'willFocus',
     () => {
-      this.setState({ refreshing: false,
-      }, () => { this.pullRefresh(); });
+      AsyncStorage.getItem('@app:id').then((id) => {
+        this.setState({
+          currentUsername: id,
+          profileUsername: this.props.navigation.state.params.username,
+        }, () => {
+          this.pullRefresh();
+          this.profileOwner();
+        });
+      });
     }
   );
 }

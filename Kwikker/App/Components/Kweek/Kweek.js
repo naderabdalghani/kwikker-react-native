@@ -16,6 +16,14 @@ export default class Kweek extends Component {
     AsyncStorage.getItem('@app:id').then((id) => {
       this.setState({ loggedUser: id });
     });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({ loggedUser: id });
+        });
+      }
+    );
   }
 
   getOPtions() {

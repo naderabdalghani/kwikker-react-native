@@ -13,6 +13,14 @@ export default class Settings extends Component {
     AsyncStorage.getItem('@app:id').then((id) => {
       this.setState({ username: id });
     });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({ username: id });
+        });
+      }
+    );
   }
 
   Account() {

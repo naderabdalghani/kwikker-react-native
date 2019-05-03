@@ -25,10 +25,13 @@ export default class UserInSearch extends React.Component {
     this.willFocusListener = this.props.navigation.addListener(
       'willFocus',
       () => {
-        this.setState({
-          following: this.props.following,
-          blocked: this.props.blocked,
-          clicked: false
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({
+            currentUsername: id,
+            following: this.props.following,
+            blocked: this.props.blocked,
+            clicked: false
+          });
         });
       }
     );
