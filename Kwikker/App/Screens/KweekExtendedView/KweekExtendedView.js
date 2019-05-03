@@ -5,6 +5,7 @@ import { DrawerActions } from 'react-navigation';
 import Kweek from '../../Components/Kweek/Kweek';
 import KweekExtended from '../../Components/KweekExtended/KweekExtended';
 
+/** @module KweekExtendedView **/
 export default class KweekExtendedView extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +23,9 @@ export default class KweekExtendedView extends Component {
     console.log('componentdidMount');
   }
 
+  /**
+   * pull refresh functionality
+   */
   pullRefresh=() => {
     console.log('pullRefresh');
     this.setState({
@@ -31,6 +35,9 @@ export default class KweekExtendedView extends Component {
     this.updateKweeks();
   }
 
+  /**
+   * update kweek with replies
+   */
   updateKweeks() {
     const { navigation } = this.props;
     const ids = navigation.getParam('id', null);

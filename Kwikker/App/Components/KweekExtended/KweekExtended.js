@@ -9,6 +9,7 @@ import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './Styles';
 
+/** @module Kweek **/
 export default class Kweek extends Component {
   constructor(props) {
     super(props);
@@ -18,12 +19,18 @@ export default class Kweek extends Component {
     });
   }
 
+  /**
+   * determine options to be shown in kweek menu
+   */
   getOPtions() {
     if (this.props.userName === this.state.loggedUser) return (['Delete Kweek']);
     if (this.props.following === true) return (['Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]); 
     return (['Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
   }
 
+  /**
+   * determine whether the text after @ is mention or not
+   */
   getMentions() {
     if (this.props.mentions.length !== 0) {
       const expStr = '@'.concat(this.props.mentions[0].username);
@@ -35,10 +42,17 @@ export default class Kweek extends Component {
     return (RegExp('@hkhkahfiusvhhvuifhvushspaigupsirguahvhbuadhoutuhfdhbl'));
   }
 
+  /**
+   * open kweek menu
+   */
   showActionSheet = () => {
     this.ActionSheet.show();
   }
 
+  /**
+   * navigate to search hashtag on press
+   * @param {string} text - hashtag text
+   */
   goToHashtag(text) {
     const arr = [];
     for (let i = 0; i < this.props.hashtags.length; i++) {
@@ -49,6 +63,10 @@ export default class Kweek extends Component {
     this.props.navigation.push('SearchBar', { search: hashtag.text, trendId: hashtag.id });
   }
 
+  /**
+   * handle pressed button in kweek menu
+   * @param {int} index - index of button pressed
+   */
   handleMenu(index) {
     if (index === 0 && this.props.userName === this.state.loggedUser) {
 
