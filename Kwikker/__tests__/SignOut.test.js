@@ -8,7 +8,7 @@ import DrawerNavContainer from '../App/Screens/DrawerNavContainer/DrawerNavConta
 
 describe('SignOut component', () => {
   it('logoutButtonPressed: should delete the access token and username then redirect the user to the start screen', () => {
-    const navigationMock = { navigate: jest.fn() };
+    const navigationMock = { navigate: jest.fn(), addListener: jest.fn() };
     const wrapper = shallow(<DrawerNavContainer navigation={navigationMock} />);
     const instance = wrapper.instance();
     instance.logoutButtonPressed();
