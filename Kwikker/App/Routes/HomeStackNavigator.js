@@ -5,10 +5,12 @@ import Feather from 'react-native-vector-icons/Feather';
 import Home from '../Screens/Home/Home';
 import CreateTweet from '../Screens/CreateTweet/CreateTweet';
 import Camera from '../Screens/Camera/Camera';
-import KweekExtendedView from '../Screens/KweekExtendedView/KweekExtendedView'
+import KweekExtendedView from '../Screens/KweekExtendedView/KweekExtendedView';
 import ProfileStackNavigator from './ProfileStackNavigator';
 import FollowerList from '../Screens/FollowerList/FollowersList';
 import FollowingList from '../Screens/FollowingList/FollowingList';
+import Rekweekers from '../Screens/Rekweekers/Rekweekers';
+import Likers from '../Screens/Likers/Likers';
 
 const HomeStackNavigator = createStackNavigator({
 
@@ -34,6 +36,14 @@ const HomeStackNavigator = createStackNavigator({
       header: null,
     }, },
   FollowingList: { screen: FollowingList,
+    navigationOptions: {
+      header: null,
+    }, },
+  Rekweekers: { screen: Rekweekers,
+    navigationOptions: {
+      header: null,
+    }, },
+  Likers: { screen: Likers,
     navigationOptions: {
       header: null,
     }, },

@@ -278,7 +278,7 @@ export default class Kweek extends Component {
         <TouchableOpacity style={{ marginLeft: '3%', marginTop: '3%' }}>
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity style={{ flex: 1 }}>
-              <Thumbnail source={{ uri: url }} />
+              <Thumbnail source={{ uri: this.props.profileImageUrl }} />
             </TouchableOpacity>
             <View style={{ flex: 4, flexDirection: 'column', marginTop: '1.5%' }}>
               <View style={{ flexDirection: 'row' }}>
@@ -323,14 +323,14 @@ export default class Kweek extends Component {
         {this.state.likesCounter === 0 && this.state.rekweeksCounter === 0 ? null : (
           <View style={{ flexDirection: 'row', marginBottom: '2%', borderBottomWidth: 0.5, borderBottomColor: '#AAB8C2', paddingBottom: '2%' }}>
             {this.state.rekweeksCounter === 0 ? null : (
-              <TouchableOpacity onPress={() => this.props.navigation.push('CreateTweet', { kweekId: this.props.id, user: this.props.userName })} style={{ marginLeft: '3%', marginRight: '6%' }}>
+              <TouchableOpacity onPress={() => this.props.navigation.push('Rekweekers', { kweekId: this.props.id })} style={{ marginLeft: '3%', marginRight: '6%' }}>
                 <Text style={{ fontSize: 16, color: '#000000', fontWeight: 'bold' }}>{this.state.rekweeksCounter}
                   <Text style={{ color: '#657786', fontWeight: 'normal' }}> Rekweets</Text>
                 </Text>
               </TouchableOpacity>
             )}
             {this.state.likesCounter === 0 ? null : (
-              <TouchableOpacity style={{ marginLeft: '3%' }}>
+              <TouchableOpacity onPress={() => this.props.navigation.push('Likers', { kweekId: this.props.id })} style={{ marginLeft: '3%' }}>
                 <Text style={{ fontSize: 16, color: '#000000', fontWeight: 'bold' }}>{this.state.likesCounter}
                   <Text style={{ color: '#657786', fontWeight: 'normal' }}> Likes</Text>
                 </Text>

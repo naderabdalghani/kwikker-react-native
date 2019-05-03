@@ -304,7 +304,7 @@ export default class Kweek extends Component {
         >
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity style={{ flex: 1 }}>
-              <Thumbnail source={{ uri: url }} />
+              <Thumbnail source={{ uri: this.props.profileImageUrl }} />
             </TouchableOpacity>
             <View style={{ flex: 4, flexDirection: 'column' }}>
               <View style={{ flexDirection: 'row' }}>
