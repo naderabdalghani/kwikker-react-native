@@ -450,9 +450,9 @@ youRBlocked() {
     return (
       <View>
         <Text style={{ margin: 10 }}>
-      You blocked @{this.state.profileData.username}
+      You blocked @{this.state.profileData.username} 
       Are you sure you want to view these Tweets? Viewing Tweets won't unblock
-      @{this.state.profileData.username}
+       @{this.state.profileData.username}
         </Text>
         <TouchableOpacity
           style={styles.follow}

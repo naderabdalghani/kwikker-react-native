@@ -137,18 +137,18 @@ export default class App extends React.Component {
       return (
         <View style={{ marginLeft: 10, marginTop: 4, }}>
           <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000', marginRight: 10 }}>
-            {this.props.screenName}            {this.isMuted()}
+          <Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.screenName}            {this.isMuted()}
           </Text>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1, flexDirection: 'row' }}>
               <Text style={styles.Gray}>
-                @{this.props.username}
+                @<Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.username}
               </Text>
               {this.followsYou()}
             </View>
           </View>
           <Text style={styles.Gray}>
-            {this.props.bio}
+          <Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.bio}
           </Text>
           <Text style={styles.Gray}>Joined {this.props.createdAt} </Text>
           <Text style={styles.Gray}>date {this.props.birthDate}</Text>
