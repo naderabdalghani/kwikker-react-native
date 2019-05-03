@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, Image, TouchableNativeFeedback, TouchableOpacity, ImageBackground, ToastAndroid } from 'react-native';
+import { RefreshControl, Text, View, ScrollView, Image, TouchableNativeFeedback, TouchableOpacity, ImageBackground, ToastAndroid } from 'react-native';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
@@ -10,7 +10,18 @@ import styles from './Styles';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { currentProfile: '', currentCover: '', profileImage: '', coverImage: '', screenName: '', bio: '', photoProfile: null, photoCover: null, profile: true };
+    this.state = {
+      currentProfile: '',
+      currentCover: '',
+      profileImage: '',
+      coverImage: '',
+      screenName: '',
+      bio: '',
+      photoProfile: null,
+      photoCover: null,
+      profile: true,
+      refreshing: false,
+    };
   }
 
   componentDidMount() {
@@ -28,6 +39,10 @@ export default class App extends React.Component {
   getOPtions() {
     if (this.state.profile) return (['delete profile photo', 'Choose existing photo']);
     return (['delete cover photo', 'Choose existing photo']);
+  }
+
+  pullRefresh= () => {
+    this.setState({ refreshing: false, });
   }
 
   showActionSheet = () => {
@@ -93,109 +108,113 @@ export default class App extends React.Component {
   }
 
   save() {
-    axios.patch('user/profile', {
-      bio: this.state.bio,
-      screen_name: this.state.screenName,
-    })
-      .then((response) => {
-        // ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+    if (!(this.state.refreshing)) {
+      this.setState({ refreshing: true });
+      axios.patch('user/profile', {
+        bio: this.state.bio,
+        screen_name: this.state.screenName,
       })
-      .catch((error) => {
-        // ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-      })
-      .then(() => {
-        if (!(this.state.currentCover === this.state.coverImage)) {
-          const formdata = new FormData();
-          formdata.append('file', { name: this.state.photoCover.fileName, type: this.state.photoCover.type, uri: this.state.photoCover.uri });
-          axios({
-            method: 'post',
-            url: 'user/profile_banner',
-            data: formdata,
-            config: { headers: { 'Content-Type': 'multipart/form-data' } }
-          })
-            .then(() => {
+        .then((response) => {
+          // ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+        })
+        .catch((error) => {
+          // ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+        })
+        .then(() => {
+          if (!(this.state.currentCover === this.state.coverImage)) {
+            const formdata = new FormData();
+            formdata.append('file', { name: this.state.photoCover.fileName, type: this.state.photoCover.type, uri: this.state.photoCover.uri });
+            axios({
+              method: 'post',
+              url: 'user/profile_banner',
+              data: formdata,
+              config: { headers: { 'Content-Type': 'multipart/form-data' } }
             })
-            .catch(() => {
-              ToastAndroid.show('error while updating profile bunner', ToastAndroid.SHORT);
-            })
-            .then(() => {
-              if (!(this.state.currentProfile === this.state.profileImage)) {
-                const formData = new FormData();
-                formData.append('file', { name: this.state.photoProfile.fileName, type: this.state.photoProfile.type, uri: this.state.photoProfile.uri });
-                axios({
-                  method: 'post',
-                  url: 'user/profile_picture',
-                  data: formData,
-                  config: { headers: { 'Content-Type': 'multipart/form-data' } }
-                })
-                  .then(() => {
-                    axios.get('user/profile', {
-                      params: {
-                        username: this.props.navigation.state.params.username
-                      }
-                    })
-                      .then((res) => {
-                        AsyncStorage.setItem('@app:image', res.data.profile_image_url);
-                      })
-                      .catch((err) => {
-
-                      });
-                  })
-                  .catch(() => {
-                    ToastAndroid.show('error while updating profile picture', ToastAndroid.SHORT);
-                  })
-                  .then(() => {
-                    this.props.navigation.goBack(null);
-                  });
-              }
-            });
-        } else if (!(this.state.currentProfile === this.state.profileImage)) {
-          const formData = new FormData();
-          formData.append('file', { name: this.state.photoProfile.fileName, type: this.state.photoProfile.type, uri: this.state.photoProfile.uri });
-          axios({
-            method: 'post',
-            url: 'user/profile_picture',
-            data: formData,
-            config: { headers: { 'Content-Type': 'multipart/form-data' } }
-          })
-            .then(() => {
-              axios.get('user/profile', {
-                params: {
-                  username: this.props.navigation.state.params.username
-                }
+              .then(() => {
               })
-                .then((res) => {
-                  AsyncStorage.setItem('@app:image', res.data.profile_image_url);
-                })
-                .catch((err) => {
-                });
-            })
-            .catch(() => {
-              ToastAndroid.show('error while updating profile picture', ToastAndroid.SHORT);                  
-            })
-            .then(() => {
-              if (!(this.state.currentCover === this.state.coverImage)) {
-                const formdata = new FormData();
-                formdata.append('file', { name: this.state.photoCover.fileName, type: this.state.photoCover.type, uri: this.state.photoCover.uri });
-                axios({
-                  method: 'post',
-                  url: 'user/profile_banner',
-                  data: formdata,
-                  config: { headers: { 'Content-Type': 'multipart/form-data' } }
-                })
-                  .then(() => {
+              .catch(() => {
+                ToastAndroid.show('error while updating profile bunner', ToastAndroid.SHORT);
+              })
+              .then(() => {
+                if (!(this.state.currentProfile === this.state.profileImage)) {
+                  const formData = new FormData();
+                  formData.append('file', { name: this.state.photoProfile.fileName, type: this.state.photoProfile.type, uri: this.state.photoProfile.uri });
+                  axios({
+                    method: 'post',
+                    url: 'user/profile_picture',
+                    data: formData,
+                    config: { headers: { 'Content-Type': 'multipart/form-data' } }
                   })
-                  .catch(() => {
-                    ToastAndroid.show('error while updating profile bunner', ToastAndroid.SHORT);
+                    .then(() => {
+                      axios.get('user/profile', {
+                        params: {
+                          username: this.props.navigation.state.params.username
+                        }
+                      })
+                        .then((res) => {
+                          AsyncStorage.setItem('@app:image', res.data.profile_image_url);
+                        })
+                        .catch((err) => {
+
+                        });
+                    })
+                    .catch(() => {
+                      ToastAndroid.show('error while updating profile picture', ToastAndroid.SHORT);
+                    })
+                    .then(() => {
+                      this.props.navigation.goBack(null);
+                    });
+                }
+              });
+          } else if (!(this.state.currentProfile === this.state.profileImage)) {
+            const formData = new FormData();
+            formData.append('file', { name: this.state.photoProfile.fileName, type: this.state.photoProfile.type, uri: this.state.photoProfile.uri });
+            axios({
+              method: 'post',
+              url: 'user/profile_picture',
+              data: formData,
+              config: { headers: { 'Content-Type': 'multipart/form-data' } }
+            })
+              .then(() => {
+                axios.get('user/profile', {
+                  params: {
+                    username: this.props.navigation.state.params.username
+                  }
+                })
+                  .then((res) => {
+                    AsyncStorage.setItem('@app:image', res.data.profile_image_url);
                   })
-                  .then(() => {
-                    this.props.navigation.goBack(null);
+                  .catch((err) => {
                   });
-              }
-            });
-        }
-        ToastAndroid.show('profile updated', ToastAndroid.SHORT);
-      });
+              })
+              .catch(() => {
+                ToastAndroid.show('error while updating profile picture', ToastAndroid.SHORT);
+              })
+              .then(() => {
+                if (!(this.state.currentCover === this.state.coverImage)) {
+                  const formdata = new FormData();
+                  formdata.append('file', { name: this.state.photoCover.fileName, type: this.state.photoCover.type, uri: this.state.photoCover.uri });
+                  axios({
+                    method: 'post',
+                    url: 'user/profile_banner',
+                    data: formdata,
+                    config: { headers: { 'Content-Type': 'multipart/form-data' } }
+                  })
+                    .then(() => {
+                    })
+                    .catch(() => {
+                      ToastAndroid.show('error while updating profile bunner', ToastAndroid.SHORT);
+                    })
+                    .then(() => {
+                      this.props.navigation.goBack(null);
+                    });
+                }
+              });
+          }
+          ToastAndroid.show('profile updated', ToastAndroid.SHORT);
+          this.setState({ refreshing: false });
+        });
+    }
   }
 
   deleteProfilePhoto() {
@@ -270,7 +289,15 @@ export default class App extends React.Component {
         </View>
 
 
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView
+          refreshControl={(
+            <RefreshControl
+              enabled={false}
+              refreshing={this.state.refreshing}
+            />
+)}
+          style={{ flex: 1 }}
+        >
           <ImageBackground
             style={styles.Cover}
             source={{ uri: this.state.coverImage }}
