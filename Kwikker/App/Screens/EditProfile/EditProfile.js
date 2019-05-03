@@ -168,10 +168,10 @@ export default class App extends React.Component {
                   AsyncStorage.setItem('@app:image', res.data.profile_image_url);
                 })
                 .catch((err) => {
-                  ToastAndroid.show('error while updating profile picture', ToastAndroid.SHORT);                  
                 });
             })
             .catch(() => {
+              ToastAndroid.show('error while updating profile picture', ToastAndroid.SHORT);                  
             })
             .then(() => {
               if (!(this.state.currentCover === this.state.coverImage)) {
