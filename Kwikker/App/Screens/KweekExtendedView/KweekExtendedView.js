@@ -86,7 +86,7 @@ export default class KweekExtendedView extends Component {
               rekweeked={this.state.kweek.rekweeked_by_user}
               rekweekerUserName={this.state.kweek.rekweek_info}
               mediaUrl={this.state.kweek.media_url}
-              replyTo={this.state.kweek.reply_to}
+              replyTo={this.state.kweek.reply_info}
               following={this.state.kweek.user.following}
               mentions={this.state.kweek.mentions}
               navigation={this.props.navigation}
@@ -107,7 +107,7 @@ export default class KweekExtendedView extends Component {
                 rekweeked={item.rekweeked_by_user}
                 rekweekerUserName={item.rekweek_info}
                 mediaUrl={item.media_url}
-                replyTo={item.reply_to}
+                replyTo={item.reply_info}
                 following={item.user.following}
                 mentions={item.mentions}
                 navigation={this.props.navigation}

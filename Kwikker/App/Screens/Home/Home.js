@@ -151,7 +151,7 @@ render() {
             rekweeked={item.rekweeked_by_user}
             rekweekerUserName={item.rekweek_info}
             mediaUrl={item.media_url}
-            replyTo={item.reply_to}
+            replyTo={item.reply_info}
             following={item.user.following}
             mentions={item.mentions}
             navigation={this.props.navigation}

@@ -319,7 +319,7 @@ export default class Kweek extends Component {
               {this.props.replyTo === null ? null : (
                 <View styles={{ flexDirection: 'row' }}>
                   <Text style={{ fontSize: 15, color: '#657786' }}>Replying to
-                    <Text style={styles.hashtag}> @{this.props.userName}</Text>
+                    <Text style={styles.hashtag}> @{this.props.replyTo.reply_to_username}</Text>
                   </Text>
                 </View>
               )}
