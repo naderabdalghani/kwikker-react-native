@@ -119,6 +119,16 @@ Follower() {
   }
 }
 
+conversation() {
+  if (!this.state.refreshing) {
+    this.props.navigation.push('ConversationScreen', {
+      title: this.state.profileData.screen_name,
+      profileUrl: this.state.profileData.profile_image_url,
+      userName: this.state.profileData.username,
+    });
+  }
+}
+
 Following() {
   if (!this.state.refreshing) {
     this.props.navigation.push('FollowingList', {
@@ -129,13 +139,13 @@ Following() {
 
 EditProfile() {
   if (!this.state.refreshing) {
-      this.props.navigation.navigate('EditProfileNavigator', {
-        userName: this.state.profileData.username,
-        cover: this.state.profileData.profile_banner_url,
-        image: this.state.profileData.profile_image_url,
-        bio: this.state.profileData.bio,
-        birthDate: this.state.profileData.birth_date,
-        screenName: this.state.profileData.screen_name,
+    this.props.navigation.navigate('EditProfileNavigator', {
+      userName: this.state.profileData.username,
+      cover: this.state.profileData.profile_banner_url,
+      image: this.state.profileData.profile_image_url,
+      bio: this.state.profileData.bio,
+      birthDate: this.state.profileData.birth_date,
+      screenName: this.state.profileData.screen_name,
   });
  }
 }
@@ -539,6 +549,7 @@ render() {
           Following={this.Following.bind(this)}
           EditProfile={this.EditProfile.bind(this)}
           updateProfile={this.updateProfile.bind(this)}
+          conversation={this.conversation.bind(this)}
           ref={(ref) => { this.feedback = ref; }}
           followingCount={this.state.profileData.following_count}
           followersCount={this.state.profileData.followers_count}
@@ -552,6 +563,7 @@ render() {
           following={this.state.profileData.following}
           blocked={this.state.profileData.blocked}
           muted={this.state.profileData.muted}
+          followsYou={this.state.profileData.follows_you}
           myProfile={this.state.myProfile}
           uBlocked={this.state.uBlocked}
           blockedView={this.state.blocked}

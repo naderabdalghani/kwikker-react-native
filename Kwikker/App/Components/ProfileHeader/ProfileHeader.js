@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, ScrollView, Image, TouchableNativeFeedback, Animated } from 'react-native';
 import axios from 'axios';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from './Styles';
 
 export default class App extends React.Component {
@@ -124,7 +125,6 @@ export default class App extends React.Component {
           </TouchableOpacity>
         );
       }
-     
     }
 
 
@@ -135,13 +135,18 @@ export default class App extends React.Component {
   youRBlocked() {
     if (!this.props.uBlocked && !this.props.blockedView) {
       return (
-        <View style={{ marginLeft: 10, marginTop: 4 }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000' }}>
+        <View style={{ marginLeft: 10, marginTop: 4, }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#000', marginRight: 10 }}>
             {this.props.screenName}            {this.isMuted()}
           </Text>
-          <Text style={styles.Gray}>
-          @{this.props.username}
-          </Text>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              <Text style={styles.Gray}>
+                @{this.props.username}
+              </Text>
+              {this.followsYou()}
+            </View>
+          </View>
           <Text style={styles.Gray}>
             {this.props.bio}
           </Text>
@@ -175,6 +180,42 @@ export default class App extends React.Component {
     );
   }
 
+  chat() {
+    if (this.props.followsYou) {
+      return (
+        <View style={{marginTop: 130, marginLeft: '30%', borderSize: 1, borderRadius: 13, borderColor: '#1DA1F2' }}>
+          <TouchableOpacity onPress={this.props.conversation}>
+            <FontAwesome
+              name="envelope-o"
+              size={26}
+              style={{ color: '#1DA1F2' }}
+            />
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    return (
+      <TouchableOpacity style={{marginTop: 120, marginLeft: '30%'}}>
+        <Text style={{color: '#fff'}}>a</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  followsYou() {
+    if (this.props.followsYou) {
+      return (
+        <View style={{padding: 3}}>
+          <Text style={{fontSize: 12, backgroundColor: '#E1E8ED', marginTop: 2}}>
+            Follows you
+          </Text>
+        </View>
+      );
+    }
+    return (
+      null
+    );
+  }
+
   render() {
     const ProfileImageHeight = this.state.scrollY.interpolate({
       inputRange: [0, 50],
@@ -190,13 +231,14 @@ export default class App extends React.Component {
           source={{ uri: this.props.profileBannerUrl }}
         />
         <ScrollView style={{ flex: 1 }}>
-          <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
             <View style={styles.ProfileImageContainer}>
               <Image
                 style={styles.ProfileImage}
                 source={{ uri: this.props.profileImageUrl }}
               />
             </View>
+            {this.chat()}
             {this.rightButton()}
           </View>
 
