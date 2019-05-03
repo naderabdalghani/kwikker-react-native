@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
-import { NavigationActions, DrawerActions } from 'react-navigation';
+import { NavigationActions } from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import Styles from './Styles';

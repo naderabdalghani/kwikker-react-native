@@ -18,6 +18,24 @@ export default class Username extends React.Component {
       this.setState({ currentUsername: id });
       this.setState({ Name: id });
     });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({ currentUsername: id });
+          this.setState({ Name: id });
+        });
+      }
+    );
+  }
+
+  /**
+   * Completely deletes the access token and username then redirects the user to the start screen
+   */
+  logoutButtonPressed() {
+    AsyncStorage.multiRemove(['@app:session', '@app:id']);
+    axios.defaults.headers.common['TOKEN'] = '';
+    this.props.navigation.navigate('StartScreen');
   }
 
 
@@ -32,7 +50,7 @@ export default class Username extends React.Component {
       .then((res) => {
         this.setState({ message: 'username changed successfully' });
         ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-        this.props.navigation.goBack(null);
+        this.logoutButtonPressed();
       })
       .catch((err) => {
         this.setState({ message: "error: username didn't change, try again later" });

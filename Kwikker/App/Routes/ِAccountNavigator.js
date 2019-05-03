@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Account from '../Screens/Account/Account';
 import Username from '../Screens/Username/Username';
+import StartScreen from '../Screens/StartScreen/StartScreen';
 import Email from '../Screens/Email/Email';
 import Password from '../Screens/Password/Password';
 
@@ -23,6 +24,12 @@ const AccountNavigator = createStackNavigator({
     navigationOptions: {
       header: null,
     }, },
+  StartScreen: {
+    screen: StartScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
 });
 AccountNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;

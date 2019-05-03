@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, TouchableNativeFeedback, Image } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Styles from './Styles';
 
 export default class Settings extends Component {
   constructor(props) {
     super(props);
+    this.state = { username: '', };
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.setState({ username: id });
+    });
   }
 
   Account() {
@@ -38,7 +46,7 @@ export default class Settings extends Component {
 
           <View style={Styles.developersContainer}>
             <Text style={Styles.developers}>
-              @UserName
+              @{this.state.username}
             </Text>
           </View>
 
