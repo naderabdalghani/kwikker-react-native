@@ -216,6 +216,15 @@ export default class App extends React.Component {
     );
   }
 
+  dateAndTime() {
+    const now = new Date();
+    const months = [' Jan', ' Feb', ' Mar', ' Apr', ' May', ' Jun', ' Jul', ' Aug', ' Sep', ' Oct', ' Nov', ' Dec'];
+    const dateTime = new Date(this.props.createdAt);
+    const year = dateTime.getFullYear();
+    const month = dateTime.getMonth();
+
+  }
+
   render() {
     const ProfileImageHeight = this.state.scrollY.interpolate({
       inputRange: [0, 50],
