@@ -9,17 +9,12 @@ import Password from '../App/Screens/Password/Password';
 
 describe('Email component', () => {
   it("updatePasswordButtonPress: update user's Password and go back to account settings", () => {
-    const wrapper = shallow(<Password />);
+    const navigationMock = { addListener: jest.fn(), setParams: jest.fn(), getParam: jest.fn() };
+    const wrapper = shallow(<Password
+      navigation={navigationMock}
+    />);
     const instance = wrapper.instance();
     instance.updatePasswordButtonPress();
-    if (instance.state.disable) {
-      expect(instance.state.error).toBe("passwords don't match or empty");
-    } else {
-      expect(instance.state.disable).toBe(false);
-      expect(mockAxios.put).toHaveBeenCalledTimes(1);
-      expect(mockAxios.put).toHaveBeenCalledWith('user/password', {
-        password: instance.state.New
-      });
-    }
+    expect(mockAxios.put).toHaveBeenCalledTimes(0);
   });
 });
