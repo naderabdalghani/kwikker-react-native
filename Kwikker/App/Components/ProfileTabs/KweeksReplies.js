@@ -8,7 +8,7 @@ export default class KweeksReplies extends React.Component {
     return (
       <View style={styles.Container}>
         <Text style={{ fontSize: 30 }}>
-    Your Kweets will show up here
+    Your Kweeks will show up here
         </Text>
       </View>
     );

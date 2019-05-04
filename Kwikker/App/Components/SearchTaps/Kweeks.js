@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image, TextInput, RefreshControl } from 'react-native';
 import Kweek from '../Kweek/Kweek';
 
-/** @module Kweeks **/
-
 export default class Kweeks extends React.Component {
   render() {
     return (

@@ -3,9 +3,9 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import styles from './Styles';
 
-/** @module MutedAccount **/
+/** @module BlockedAccount **/
 
-export default class MutedAccount extends React.Component {
+export default class BlockedAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +14,7 @@ export default class MutedAccount extends React.Component {
 
   /**
    * unblock user
-   * @memberof MutedAccount
+   * @memberof BlockedAccount
    */
   unblock() {
     axios.delete('interactions/blocks', {

@@ -4,7 +4,6 @@ import { createAppContainer, createMaterialTopTabNavigator } from 'react-navigat
 import Kweeks from './Kweeks';
 import People from './People';
 
-
 const SearchTapNavigator = createMaterialTopTabNavigator({
   Kweeks: { screen: Kweeks },
   People: { screen: People },
