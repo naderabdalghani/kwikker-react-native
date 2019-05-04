@@ -179,7 +179,7 @@ updateUsersList(username = null) {
  * @memberof SearchBar
  * @param {string} username - The username of user .
  */
-updatekweeksList(username = null) {
+updateKweeksList(username = null) {
   this.setState({ refreshing: true });
 
   axios.get('search/kweeks', {
