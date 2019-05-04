@@ -128,6 +128,9 @@ moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
     this.setState({
       refreshing: true,
     });
+    if (this.state.kweeks[this.state.kweeks.length - 1].rekweek_info !== null) {
+      this.updateKweeks(this.state.kweeks[this.state.kweeks.length - 1].id, this.state.kweeks[this.state.kweeks.length - 1].rekweek_info.rekweeker_username);
+    }
     this.updateKweeks(this.state.kweeks[this.state.kweeks.length - 1].id);
   }
 }
@@ -137,11 +140,12 @@ moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
  * To retrieve more send the id of the last retrieved kweek.
  * @param {int} id - The id of Kweek .
  */
-updateKweeks(id = null) {
+updateKweeks(id = null, username = null) {
   console.log('updateKweeks');
   axios.get('kweeks/timelines/home', {
     params: {
-      last_retrieved_kweek_id: id
+      last_retrieved_kweek_id: id,
+      last_retrieved_rekweeker_username: username
     }
   })
     .then((response) => {
