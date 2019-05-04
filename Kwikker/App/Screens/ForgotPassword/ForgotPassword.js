@@ -121,13 +121,13 @@ export default class ForgotPassword extends Component {
             value={this.state.email}
             onChangeText={(email) => this.setState({ email })}
             autoCapitalize="none"
-            marginSize={10}
+            marginSize="2.5%"
             marginTopSize={20}
           />
         </View>
 
         <View style={searchButtonStyle}>
-          <CustomButton onPress={this.searchButtonPress.bind(this)} marginSize={14} customFontSize={15} disabled={buttonDisabled}>Search</CustomButton>
+          <CustomButton onPress={this.searchButtonPress.bind(this)} marginSize="3.5%" customFontSize={15} disabled={buttonDisabled}>Search</CustomButton>
         </View>
       </View>
     );

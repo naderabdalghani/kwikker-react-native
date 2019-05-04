@@ -61,8 +61,8 @@ export default class DrawerNavContainer extends Component {
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
     AsyncStorage.clear().then(() => {
+      RNRestart.Restart();
     }).catch(() => {});
-    RNRestart.Restart();
   }
 
   render() {
