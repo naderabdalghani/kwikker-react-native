@@ -12,9 +12,7 @@ describe('SignOut component', () => {
     const wrapper = shallow(<DrawerNavContainer navigation={navigationMock} />);
     const instance = wrapper.instance();
     instance.logoutButtonPressed();
-    expect(mockAsyncStorage.multiRemove).toHaveBeenCalledTimes(1);
-    expect(mockAsyncStorage.multiRemove).toHaveBeenCalledWith(['@app:session', '@app:id']);
+    expect(mockAsyncStorage.clear).toHaveBeenCalledTimes(1);
     expect(mockAxios.defaults.headers.common.TOKEN).toBe('');
-    expect(navigationMock.navigate).toHaveBeenCalledWith('StartScreen');
   });
 });
