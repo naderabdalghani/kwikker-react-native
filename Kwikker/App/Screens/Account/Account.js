@@ -51,7 +51,7 @@ export default class Account extends React.Component {
   * @memberof Account
   */
   Username() {
-    this.props.navigation.push('Username');
+    this.props.navigation.navigate('Username');
   }
 
   /** update Email.
@@ -59,7 +59,7 @@ export default class Account extends React.Component {
   * @memberof Account
   */
   Email() {
-    this.props.navigation.push('Email');
+    this.props.navigation.navigate('Email');
   }
 
   /** update Password.
@@ -67,7 +67,7 @@ export default class Account extends React.Component {
   * @memberof Account
   */
   Password() {
-    this.props.navigation.push('Password');
+    this.props.navigation.navigate('Password');
   }
 
 

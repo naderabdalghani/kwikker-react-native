@@ -124,7 +124,7 @@ likes() {
 
 Follower() {
   if (!this.state.refreshing) {
-    this.props.navigation.push('FollowerList', {
+    this.props.navigation.navigate('FollowerList', {
       userName: this.state.profileData.username,
     });
   }
@@ -132,7 +132,7 @@ Follower() {
 
 conversation() {
   if (!this.state.refreshing) {
-    this.props.navigation.push('ConversationScreen', {
+    this.props.navigation.navigate('ConversationScreen', {
       title: this.state.profileData.screen_name,
       profileUrl: this.state.profileData.profile_image_url,
       userName: this.state.profileData.username,
@@ -142,7 +142,7 @@ conversation() {
 
 Following() {
   if (!this.state.refreshing) {
-    this.props.navigation.push('FollowingList', {
+    this.props.navigation.navigate('FollowingList', {
       userName: this.state.profileData.username,
     });
   }
