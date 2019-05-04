@@ -4,8 +4,9 @@ import axios from 'axios';
 import UserInSearch from '../../Components/UserInSearch/UserInSearch';
 import styles from './Styles';
 
+/** @module FollowingList **/
 
-export default class FillowersList extends Component {
+export default class FollowingList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,6 +27,9 @@ export default class FillowersList extends Component {
     );
   }
 
+  /** pull to refresh functionality.
+   * @memberof FollowingList
+  */
   pullRefresh= () => {
     this.setState({
       refreshing: true,
@@ -33,12 +37,20 @@ export default class FillowersList extends Component {
     this.updateUsersList();
   }
 
+  /**
+   * gets more folloewings after first 20
+   * @memberof FollowingList
+  */
   moreUsersLists=({ layoutMeasurement, contentOffset, contentSize }) => {
     if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true && this.state.usersList.length) {
       this.updateUsersList(this.state.usersList[this.state.usersList.length - 1].username);
     }
   }
 
+  /**
+   * updates user list with more folloewings
+   * @memberof FollowingList
+  */
   updateUsersList(userName = null) {
     this.setState({ refreshing: true });
 

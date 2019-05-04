@@ -12,6 +12,11 @@ export default class MutedAccount extends React.Component {
     };
   }
 
+
+  /**
+ * unmute user.
+ * @memberof MutedAccount
+ */
   unMute() {
     axios.delete('interactions/mutes', {
       params: {

@@ -12,7 +12,7 @@ export default class BlockedAccounts extends React.Component {
     this.state = {
       usersList: [],
       refreshing: true,
-      mutedOrNot: true,
+      blockedOrNot: true,
     };
   }
 
@@ -33,16 +33,16 @@ export default class BlockedAccounts extends React.Component {
   pullRefresh= () => {
     this.setState({ refreshing: false },
       () => {
-        this.muted();
+        this.block();
       });
   }
 
-  /** content of muted list.
-  * check if there is any muted account or not.
+  /** content of blocked list.
+  * check if there is any block account or not.
   * @memberof BlockedAccounts
   */
-  isThereMutedAccounts() {
-    if (this.state.mutedOrNot) {
+  isThereBlockedAccounts() {
+    if (this.state.blockedOrNot) {
       return (
         <ScrollView
           refreshControl={(
@@ -94,27 +94,27 @@ export default class BlockedAccounts extends React.Component {
     );
   }
 
-  /** muted accounts.
-  * gets list of muted account.
+  /** blocked accounts.
+  * gets list of blocked account.
   * @memberof BlockedAccounts
   */
 
-  muted() {
+  block() {
     axios.get('/interactions/blocks', {
 
     })
       .then((response) => {
         this.setState({
-          usersList: response.data, mutedOrNot: true,
+          usersList: response.data, blockedOrNot: true,
         });
         if (response.data.length === 0) {
           this.setState({
-            mutedOrNot: false,
+            blockedOrNot: false,
           });
         }
       })
       .catch((error) => {
-        this.setState({ mutedOrNot: false });
+        this.setState({ blockedOrNot: false });
         // handle error
         // console.log(error);
       })
@@ -145,7 +145,7 @@ export default class BlockedAccounts extends React.Component {
           <View style={Styles.dummyElement} />
         </View>
 
-        {this.isThereMutedAccounts()}
+        {this.isThereBlockedAccounts()}
 
 
       </View>

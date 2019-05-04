@@ -192,6 +192,7 @@ moreMessages=({ contentOffset }) => {
 
  /** reander media
  * @memberof ConversationScreen
+ * @param {string} media - if message has media render it.
  */
  isMedia(media) {
    if (media) {
