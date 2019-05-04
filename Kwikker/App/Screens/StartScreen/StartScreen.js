@@ -10,15 +10,16 @@ import Loader from '../../Components/Loader/Loader';
 /** @module StartScreen **/
 
 export default class StartScreen extends Component {
-  state = { loading: false };
+  state = { loading: false, blank: true };
 
-  componentDidMount() {
-    AsyncStorage.getItem('@app:session').then((token) => {
+  async componentDidMount() {
+    await AsyncStorage.getItem('@app:session').then((token) => {
       if (token) {
         axios.defaults.headers.common['TOKEN'] = token;
         this.props.navigation.navigate('Home');
       }
     }).catch((error) => {});
+    this.setState({ blank: false });
     if (Platform.OS === 'android') {
       Linking.getInitialURL().then((url) => {
         if (url.includes('kwikker.me/confirm')) {
@@ -115,6 +116,8 @@ export default class StartScreen extends Component {
       logInText,
       logInButton
     } = styles;
+    if (this.state.blank) return (null);
+
     return (
       <View style={parentView}>
         <Loader loading={this.state.loading} loadingMessage="Loading" />
