@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, StackActions } from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import Styles from './Styles';
@@ -60,8 +60,18 @@ export default class DrawerNavContainer extends Component {
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
     AsyncStorage.clear().then(() => {
-      this.props.navigation.navigate('StartScreen');
-    }).catch(() => {});
+      // this.props.navigation.navigate('StartScreen');
+    }).catch(() => {}).then(() => {
+      this.props.navigation.dispatch(StackActions.reset({
+        index: 0,
+        key: 'StartStackNavigator',
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'StartScreen'
+          }),
+        ],
+      }));
+    });
   }
 
   render() {
