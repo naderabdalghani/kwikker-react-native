@@ -38,6 +38,7 @@ constructor(props) {
     uBlocked: true,
     blocked: false,
     menu: false,
+    rekweekerUsername: null,
   };
 }
 
@@ -239,6 +240,7 @@ tabContent() {
 updateKweeks(id = null) {
   axios.get('kweeks/timelines/profile', {
     params: {
+      last_retrieved_rekweeker_username: this.state.rekweekerUsername,
       last_retrieved_kweek_id: id,
       username: this.state.profileUsername
     }
@@ -261,6 +263,11 @@ updateKweeks(id = null) {
     })
     .then(() => {
       // always executed
+      if (this.state.kweeks[this.state.kweeks.length - 1].rekweek_info === null) {
+        this.setState({ rekweekerUsername: null });
+      } else {
+        this.setState((prevState) => ({ rekweekerUsername: prevState.kweeks[prevState.kweeks.length - 1].rekweek_info.rekweeker_username }));
+      }
     });
 }
 
