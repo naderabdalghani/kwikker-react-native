@@ -11,6 +11,7 @@ YellowBox.ignoreWarnings([
   'Warning: componentWillReceiveProps is deprecated',
   'Module RCTImageLoader requires',
 ]);
+console.disableYellowBox = true;
 // 3000 is your own server port, it could be a different number
 // therefore copy the link json-server outputs once you run json-server --watch db.json
 // axios.defaults.baseURL = 'http://localhost:3000'; // fake json-server

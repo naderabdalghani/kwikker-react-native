@@ -26,7 +26,7 @@ describe('StartScreen component', () => {
     const confirmUser = await instance.confirmUser(url);
     expect(mockAxios.post).toHaveBeenCalledWith('account/registration/confirmation', {}, {
       headers: {
-        CODE: 1234
+        CODE: '1234'
       }
     });
     expect(navigationMock.push).toHaveBeenCalledWith('Login');
