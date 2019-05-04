@@ -159,8 +159,11 @@ export default class Kweek extends Component {
   handleMenu(index) {
     if (index === 1 && this.props.userName === this.state.loggedUser) {
       this.deleteKweek();
-      this.props.navigation.pop();
-      //this.props.refresh();
+      if (this.props.navigation.state.routeName === 'Homes' || this.props.navigation.state.routeName === 'KweekExtendedView') {
+        this.props.navigation.pop();
+      } else {
+        this.props.refresh();
+      }
     }
     if (index === 1 && this.props.following) {
       this.unfollow();
