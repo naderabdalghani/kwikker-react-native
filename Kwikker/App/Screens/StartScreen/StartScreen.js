@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableNativeFeedback, Linking, Platform, ToastAndroid } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { NavigationActions, StackActions } from 'react-navigation';
 import axios from 'axios';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -11,6 +13,11 @@ export default class StartScreen extends Component {
   state = { loading: false };
 
   componentDidMount() {
+    AsyncStorage.getItem('@app:session').then((token) => {
+      if (token) {
+        this.props.navigation.navigate('Notifications');
+      }
+    }).catch((error) => {});
     if (Platform.OS === 'android') {
       Linking.getInitialURL().then((url) => {
         if (url.includes('kwikker.me/confirm')) {
