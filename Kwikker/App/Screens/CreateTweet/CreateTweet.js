@@ -30,10 +30,6 @@ static navigationOptions = ({ navigation }) => {
 
 state = { text: '', count: 280, photo: null, media: null, img: null };
 
-/**
- * Disable kweek button when kweek is over 280 charecters
- */
-
 componentDidMount() {
   this.props.navigation.setParams({ buttonDisabled: (this.state.count <= 0) || (this.state.count >= 279) });
 }
