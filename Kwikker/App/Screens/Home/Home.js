@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
+import { View, Image, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import axios from 'axios';
 import io from 'socket.io-client';
 import PushNotification from 'react-native-push-notification';
@@ -26,6 +26,11 @@ constructor(props) {
     currentUsername: '',
     refreshing: false,
   };
+  PushNotification.configure({
+    onNotification() {
+      this.props.navigation.navigate('Notifications');
+    }
+  });
   console.log('constructor');
 }
 
@@ -54,7 +59,7 @@ componentDidMount() {
       .then((response) => {
         AsyncStorage.setItem('@app:image', response.data.profile_image_url);
       })
-      .catch((error) => {
+      .catch(() => {
       });
   });
   this.pullRefresh();
@@ -84,7 +89,7 @@ componentDidMount() {
           .then((response) => {
             AsyncStorage.setItem('@app:image', response.data.profile_image_url);
           })
-          .catch((error) => {
+          .catch(() => {
           });
       });
       this.pullRefresh();
@@ -145,7 +150,7 @@ updateKweeks(id = null) {
       }
       this.setState({ refreshing: false });
     })
-    .catch((error) => {
+    .catch(() => {
     // handle error
       console.log('get tweets error');
     })
@@ -168,7 +173,7 @@ render() {
         style={{ flex: 1 }}
         onScroll={({ nativeEvent }) => { this.moreKweeks(nativeEvent); }}
       >
-        {this.state.kweeks.map((item, index) => (
+        {this.state.kweeks.map((item) => (
           <Kweek
             key={item.id}
             id={item.id}

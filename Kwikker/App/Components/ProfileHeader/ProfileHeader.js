@@ -238,14 +238,14 @@ export default class App extends React.Component {
       <View style={{ flex: 1 }}>
         <Image
           style={styles.Cover}
-          source={{ uri: `${this.props.profileBannerUrl}?${new Date()}` }}
+          source={{ uri: this.props.profileBannerUrl }}
         />
         <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
             <View style={styles.ProfileImageContainer}>
               <Image
                 style={styles.ProfileImage}
-                source={{ uri: `${this.props.profileImageUrl}?${new Date()}` }}
+                source={{ uri: this.props.profileImageUrl }}
               />
             </View>
             {this.chat()}

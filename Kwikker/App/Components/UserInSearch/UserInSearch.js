@@ -206,7 +206,7 @@ export default class UserInSearch extends React.Component {
           <View style={styles.textContainer}>
             {this.followText()}
             <Text style={{ fontWeight: 'bold' }}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.screenName}</Text>
-            <Text style={{ color: '#AAB8C2' }}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.userName}</Text>
+            <Text style={{ color: '#AAB8C2' }}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>@{this.props.userName}</Text>
             {this.isMuted()}
           </View>
 

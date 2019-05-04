@@ -75,7 +75,7 @@ export default class Notification extends React.Component {
 
 
           </View>
-          <Text numberOfLines={1} style={styles.textContent}>{this.props.kweekText}</Text>
+          <Text numberOfLines={1} style={styles.textContent}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.kweekText}</Text>
         </View>
       </View>
     );
