@@ -13,7 +13,7 @@ export default StyleSheet.create({
   headerImage: {
     height: 35,
     width: 35,
-    marginTop: 10,
+    marginTop: '2.5%',
   },
   textButtonContainer: {
     alignItems: 'center',
@@ -22,17 +22,17 @@ export default StyleSheet.create({
     fontSize: 35,
     color: '#000',
     fontWeight: 'bold',
-    marginLeft: 20,
-    marginRight: 20,
+    marginLeft: '5%',
+    marginRight: '5%',
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: '7.5%',
   },
   logInContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'stretch',
-    marginLeft: 45,
-    marginBottom: 30,
+    marginLeft: '11.25%',
+    marginBottom: '5.5%',
   },
   logInText: {
     fontSize: 15,

@@ -119,7 +119,7 @@ export default class StartScreen extends Component {
         <View style={textButtonContainer}>
           <Text style={startScreenText}>See what's happening in the world right now.</Text>
           <CustomButton
-            onPress={this.signUp.bind(this)} marginSize={90} customFontSize={25}
+            onPress={this.signUp.bind(this)} marginSize="22.5%" customFontSize={25}
           >Create account
           </CustomButton>
         </View>
