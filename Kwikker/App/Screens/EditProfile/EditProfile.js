@@ -37,8 +37,8 @@ export default class App extends React.Component {
   }
 
   getOPtions() {
-    if (this.state.profile) return (['delete profile photo', 'Choose existing photo']);
-    return (['delete cover photo', 'Choose existing photo']);
+    if (this.state.profile) return (['Cancle', 'delete profile photo', 'Choose existing photo']);
+    return (['Cancle', 'delete cover photo', 'Choose existing photo']);
   }
 
   pullRefresh= () => {
@@ -237,17 +237,17 @@ export default class App extends React.Component {
 
   handleMenu(index) {
     if (this.state.profile) {
-      if (index === 0) {
+      if (index === 1) {
         this.deleteProfilePhoto();
       }
-      if (index === 1) {
+      if (index === 2) {
         this.handleChooseProfile();
       }
     } else {
-      if (index === 0) {
+      if (index === 1) {
         this.deleteCoverPhoto();
       }
-      if (index === 1) {
+      if (index === 2) {
         this.handleChoosePhoto();
       }
     }
