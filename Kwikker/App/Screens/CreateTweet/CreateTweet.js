@@ -6,8 +6,10 @@ import axios from 'axios';
 import { StackActions } from 'react-navigation';
 import ImagePicker from 'react-native-image-picker';
 import ParsedText from 'react-native-parsed-text';
+import AsyncStorage from '@react-native-community/async-storage';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import styles from './Styles';
+
 let thiss;
 
 /** @module CreateTweet **/
@@ -26,7 +28,7 @@ static navigationOptions = ({ navigation }) => {
   };
 };
 
-state = { text: '', count: 280, photo: null, media: null };
+state = { text: '', count: 280, photo: null, media: null, img: null };
 
 /**
  * Disable kweek button when kweek is over 280 charecters
@@ -148,6 +150,9 @@ submitKweek() {
 }
 
 render() {
+  AsyncStorage.getItem('@app:image').then((image) => {
+    this.setState({ img: image });
+  });
   thiss = this;
   const maxLength = 280;
   const { navigation } = this.props;
@@ -165,7 +170,7 @@ render() {
       }
       <View style={{ flex: 10, flexDirection: 'row' }}>
         <View style={{ flex: 1 }}>
-          <Image source={require('../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, alignSelf: 'flex-start', marginTop: '15%', marginLeft: '15%' }} />
+          <Image source={{ uri: this.state.img }} style={{ width: 40, height: 40, borderRadius: 20, alignSelf: 'flex-start', marginTop: '15%', marginLeft: '15%' }} />
         </View>
         <View style={{ flex: 6 }}>
           <TextInput

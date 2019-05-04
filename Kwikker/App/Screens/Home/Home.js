@@ -10,95 +10,100 @@ import Kweek from '../../Components/Kweek/Kweek';
 
 /** @module Home **/
 export class Home extends Component {
-static navigationOptions = ({ navigation }) => {
-  return {
-    headerLeft:
-  <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-    <Image source={require('./../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
-  </TouchableOpacity>
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+    return params;
   };
-};
 
-constructor(props) {
-  super(props);
-  this.state = {
-    kweeks: [],
-    currentUsername: '',
-    refreshing: false,
-  };
-  PushNotification.configure({
-    onNotification() {
-      this.props.navigation.navigate('Notifications');
-    }
-  });
-  console.log('constructor');
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      kweeks: [],
+      currentUsername: '',
+      refreshing: false,
+    };
+    PushNotification.configure({
+      onNotification() {
+        this.props.navigation.navigate('Notifications');
+      }
+    });
+    console.log('constructor');
+  }
 
 
-componentDidMount() {
-  let socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
-  socket.connect();
-  AsyncStorage.getItem('@app:id').then((id) => {
-    this.setState({ currentUsername: id, },);
-    socket.on(this.state.currentUsername, (notification) => {
-      PushNotification.localNotification({
-        message: notification,
-      });
-      this.props.showNotification({
-        title: notification,
-        message: ' hi ',
-        vibrate: true,
-        onPress: () => this.props.navigation.navigate('Notifications')
+  componentDidMount() {
+    AsyncStorage.getItem('@app:image').then((image) => {
+      this.props.navigation.setParams({
+        headerLeft: (
+          <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+            <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+          </TouchableOpacity>
+        ),
       });
     });
-    axios.get('user/profile', {
-      params: {
-        username: id
-      }
-    })
-      .then((response) => {
-        AsyncStorage.setItem('@app:image', response.data.profile_image_url);
-      })
-      .catch(() => {
+    let socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
+    socket.connect();
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.setState({ currentUsername: id, },);
+      socket.on(this.state.currentUsername, (notification) => {
+        PushNotification.localNotification({
+          message: notification,
+        });
+        this.props.showNotification({
+          title: notification,
+          message: ' hi ',
+          vibrate: true,
+          onPress: () => this.props.navigation.navigate('Notifications')
+        });
       });
-  });
-  this.pullRefresh();
-  this.willFocusListener = this.props.navigation.addListener(
-    'willFocus',
-    () => {
-      socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
-      socket.connect();
-      AsyncStorage.getItem('@app:id').then((id) => {
-        if (id !== this.state.currentUsername) {
-          this.setState({ currentUsername: id, },);
-          socket.on(this.state.currentUsername, (notification) => {
-            PushNotification.localNotification({
-              message: notification,
-            });
-            this.props.showNotification({
-              title: notification,
-              message: ' hi ',
-              vibrate: true,
-              onPress: () => this.props.navigation.navigate('Notifications')
-            });
-          });
+      axios.get('user/profile', {
+        params: {
+          username: id
         }
-        axios.get('user/profile', {
-          params: {
-            username: id
-          }
+      })
+        .then((response) => {
+          AsyncStorage.setItem('@app:image', response.data.profile_image_url);
         })
-          .then((response) => {
-            AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+        .catch(() => {
+        });
+    });
+    this.pullRefresh();
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
+        socket.connect();
+        AsyncStorage.getItem('@app:id').then((id) => {
+          if (id !== this.state.currentUsername) {
+            this.setState({ currentUsername: id, },);
+            socket.on(this.state.currentUsername, (notification) => {
+              PushNotification.localNotification({
+                message: notification,
+              });
+              this.props.showNotification({
+                title: notification,
+                message: ' hi ',
+                vibrate: true,
+                onPress: () => this.props.navigation.navigate('Notifications')
+              });
+            });
+          }
+          axios.get('user/profile', {
+            params: {
+              username: id
+            }
           })
-          .catch(() => {
-          });
-      });
-      this.pullRefresh();
-    }
-  );
-  console.log('componentdidMount');
-}
+            .then((response) => {
+              AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+            })
+            .catch(() => {
+            });
+        });
+        this.pullRefresh();
+      }
+    );
+    console.log('componentdidMount');
+  }
 
 /**
  * Pull to refresh functionality
