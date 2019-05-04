@@ -65,7 +65,7 @@ export default class Kweek extends Component {
       username: this.props.userName
     })
       .then((response) => {
-        console.log(response.status);
+        //console.log(response.status);
         //this.props.navigation.navigate('Home');
       })
 
@@ -73,8 +73,8 @@ export default class Kweek extends Component {
       // handle error
         let error = JSON.stringify(err);
         error = JSON.parse(error);
-        console.log(error);
-        console.log(error.response.status);
+        //console.log(error);
+        //console.log(error.response.status);
       });
   }
 
@@ -109,18 +109,18 @@ export default class Kweek extends Component {
    * handle delete press
    */
   deleteKweek() {
-    console.log('updateKweeks');
+    //console.log('updateKweeks');
     axios.delete('kweeks/', {
       params: {
         id: this.props.id
       }
     })
       .then((response) => {
-        console.log(response.status);
+        //console.log(response.status);
       })
       .catch((error) => {
       // handle error
-        console.log('delete tweets error');
+        //console.log('delete tweets error');
       })
       .then(() => {
       // always executed
@@ -135,7 +135,7 @@ export default class Kweek extends Component {
       username: this.props.userName
     })
       .then((response) => {
-        console.log(response.status);
+        //console.log(response.status);
         //this.props.navigation.navigate('Home');
       })
 
@@ -143,8 +143,8 @@ export default class Kweek extends Component {
       // handle error
         let error = JSON.stringify(err);
         error = JSON.parse(error);
-        console.log(error);
-        console.log(error.response.status);
+        //console.log(error);
+        //console.log(error.response.status);
       })
       .then(() => {
       // always executed
@@ -287,7 +287,7 @@ export default class Kweek extends Component {
    * Handle like button press by changing the button color and changing the counter
    */
   likePressed() {
-    console.log('like pressed');
+    //console.log('like pressed');
     if (this.state.liked) {
       this.setState({ liked: false });
       this.setState((prevState) => ({ likesCounter: prevState.likesCounter - 1 }));
@@ -297,7 +297,7 @@ export default class Kweek extends Component {
         }
       })
         .then((response) => {
-          console.log(response.status);
+          //console.log(response.status);
         })
 
         .catch((error) => {
@@ -314,7 +314,7 @@ export default class Kweek extends Component {
         id: this.props.id
       })
         .then((response) => {
-          console.log(response.status);
+          //console.log(response.status);
         })
 
         .catch((error) => {
@@ -331,7 +331,7 @@ export default class Kweek extends Component {
    * Handle rekweek button press by changing button color and changing counter
    */
   rekweekPressed() {
-    console.log('rekweek pressed');
+    //console.log('rekweek pressed');
     if (this.state.rekeeked) {
       this.setState({ rekeeked: false });
       this.setState((prevState) => ({ rekweeksCounter: prevState.rekweeksCounter - 1 }));
@@ -341,17 +341,17 @@ export default class Kweek extends Component {
         }
       })
         .then((response) => {
-          console.log(response.status);
+          //console.log(response.status);
         })
 
         .catch((err) => {
         // handle error
-         console.log('unrekweek error');
+         //console.log('unrekweek error');
          //console.log(error);
          let error = JSON.stringify(err);
         error = JSON.parse(error);
-        console.log(error);
-        console.log(error.response.status);
+        //console.log(error);
+        //console.log(error.response.status);
         })
         .then(() => {
         // always executed
@@ -363,13 +363,13 @@ export default class Kweek extends Component {
         id: this.props.id
       })
         .then((response) => {
-          console.log(response.status);
+          //console.log(response.status);
         })
 
         .catch((err) => {
         // handle error
-         console.log(error);
-         console.log('rekweek error');
+         //console.log(error);
+         //console.log('rekweek error');
         })
         .then(() => {
         // always executed
@@ -378,7 +378,7 @@ export default class Kweek extends Component {
   }
 
   render() {
-    console.log(this.props.mentions);
+    //console.log(this.props.mentions);
     const url = 'http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
     return (
       <View style={{ borderBottomWidth: 0.5, borderBottomColor: '#AAB8C2' }}>
