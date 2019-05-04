@@ -15,15 +15,15 @@ export class Home extends Component {
     return params;
   };
 
-constructor(props) {
-  super(props);
-  this.state = {
-    kweeks: [],
-    currentUsername: '',
-    refreshing: false,
-  };
-  console.log('constructor');
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      kweeks: [],
+      currentUsername: '',
+      refreshing: false,
+    };
+    console.log('constructor');
+  }
 
 
   componentDidMount() {
