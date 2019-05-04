@@ -196,6 +196,7 @@ render() {
             mentions={item.mentions}
             navigation={this.props.navigation}
             hashtags={item.hashtags}
+            refresh={() => this.pullRefresh()}
           />
         ))
        }

@@ -5,6 +5,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import RNRestart from 'react-native-restart';
 import Styles from './Styles';
+import Feather from 'react-native-vector-icons/Feather';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 /** @module DrawerNavContainer **/
 
@@ -117,25 +120,30 @@ export default class DrawerNavContainer extends Component {
 
         </View>
         <View style={Styles.bottom}>
-          <TouchableOpacity onPress={() => {
-            AsyncStorage.getItem('@app:id').then((id) => {
-              this.updateProfile(id);
-              this.props.navigation.navigate('Profile', { username: id });
-            });
-          }}
+          <TouchableOpacity
+            style={Styles.button} onPress={() => {
+              AsyncStorage.getItem('@app:id').then((id) => {
+                this.updateProfile(id);
+                this.props.navigation.navigate('Profile', { username: id });
+              });
+            }}
           >
+            <AntDesign name="user" size={28} color="#000" style={Styles.icon} />
             <Text style={Styles.text}> Profile </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {
-            AsyncStorage.getItem('@app:id').then((id) => {
-              this.updateProfile(id);
-              this.props.navigation.navigate('Settings');
-            });
-          }}
+          <TouchableOpacity
+            style={Styles.button} onPress={() => {
+              AsyncStorage.getItem('@app:id').then((id) => {
+                this.updateProfile(id);
+                this.props.navigation.navigate('Settings');
+              });
+            }}
           >
+            <Feather name="settings" size={26} color="#000" style={Styles.icon} />
             <Text style={Styles.text}> Settings and privacy </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.logoutButtonPressed.bind(this)}>
+          <TouchableOpacity style={Styles.button} onPress={this.logoutButtonPressed.bind(this)}>
+            <SimpleLineIcons name="logout" size={25} color="#000" style={Styles.icon} />
             <Text style={Styles.text}> Logout </Text>
           </TouchableOpacity>
         </View>

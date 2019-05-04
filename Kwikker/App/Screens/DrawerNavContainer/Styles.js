@@ -32,7 +32,7 @@ export default StyleSheet.create({
     color: '#000'
   },
   userHandle: {
-    color: 'rgb(136, 153, 166)',
+    color: '#657786',
   },
   followingCount: {
     color: '#000',
@@ -45,18 +45,25 @@ export default StyleSheet.create({
     flex: 1
   },
   followingCountText: {
-    color: 'rgb(136, 153, 166)',
+    color: '#657786',
     fontWeight: 'normal'
   },
   followersCountText: {
-    color: 'rgb(136, 153, 166)',
+    color: '#657786',
     fontWeight: 'normal'
   },
   text: {
     fontSize: 20,
     color: '#000',
-    marginLeft: 20,
-    marginRight: 20,
+    marginLeft: '2%',
+    //marginRight: 20,
     marginTop: '10%'
+  },
+  button: {
+    flexDirection: 'row'
+  },
+  icon: {
+    marginTop: '10%',
+    marginLeft: '5%',
   }
 });

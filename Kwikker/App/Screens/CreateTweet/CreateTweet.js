@@ -10,6 +10,7 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 import styles from './Styles';
 let thiss;
 
+/** @module CreateTweet **/
 export default class CreateTweet extends Component {
 static navigationOptions = ({ navigation }) => {
   //const { params = {} } = navigation.state;
@@ -35,6 +36,9 @@ componentDidMount() {
   this.props.navigation.setParams({ buttonDisabled: (this.state.count <= 0) || (this.state.count >= 279) });
 }
 
+/**
+ * open gallery to upload photo
+ */
 handleChoosePhoto = () => {
   const options = {
     noData: true,
@@ -49,6 +53,9 @@ handleChoosePhoto = () => {
   });
 };
 
+/**
+ * open camera to take photo
+ */
 handleCam = () => {
   const options = {
     noData: true,
