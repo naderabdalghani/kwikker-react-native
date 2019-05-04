@@ -20,7 +20,6 @@ describe('Login component', () => {
     wrapper.instance().onLoginSuccess();
     expect(mockAsyncStorage.getItem).toHaveBeenCalledTimes(1);
     expect(mockAsyncStorage.getItem).toHaveBeenCalledWith('@app:session');
-    expect(navigationMock.navigate).toHaveBeenCalledWith('DrawerNavigator');
   });
   it('signUp: should push the "Signup" screen', () => {
     const navigationMock = { push: jest.fn() };
