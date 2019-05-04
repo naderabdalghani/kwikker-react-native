@@ -31,12 +31,13 @@ export default class SearchBar extends Component {
       headerTitle: (
         <View style={{ width: '85%', marginTop: 5 }}>
           <TextInput
+            autoFocus
             defaultValue={this.props.navigation.state.params.search}
             ref={(ref) => { this.textInput = ref; }}
             onChangeText={(search) => {
               this.setState({ search }, () => {
                 this.updateUsersList();
-                this.updatekweeksList();
+                this.updateKweeksList();
               });
             }}
             placeholder=" Search Kwikker "
@@ -50,7 +51,7 @@ export default class SearchBar extends Component {
           onPress={() => {
             this.textInput.clear(); this.setState({ search: '' }, () => {
               this.updateUsersList();
-              this.updatekweeksList();
+              this.updateKweeksList();
             });
           }} name="close" size={35} color="rgb(136, 153, 166)" style={{ margin: 5 }}
         />
@@ -60,7 +61,7 @@ export default class SearchBar extends Component {
     this.setState({ search: this.props.navigation.state.params.search });
     if (this.props.navigation.state.params.search === '') {
       this.updateUsersList();
-      this.updatekweeksList();
+      this.updateKweeksList();
     } else {
       this.updateTrendsKweeks();
     }
@@ -71,7 +72,7 @@ export default class SearchBar extends Component {
         this.setState({ search: this.props.navigation.state.params.search });
         if (this.props.navigation.state.params.search === '') {
           this.updateUsersList();
-          this.updatekweeksList();
+          this.updateKweeksList();
         } else {
           this.updateTrendsKweeks();
         }

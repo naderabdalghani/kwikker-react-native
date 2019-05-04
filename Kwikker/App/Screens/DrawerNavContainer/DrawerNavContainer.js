@@ -3,7 +3,7 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import io from 'socket.io-client';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
-import RNRestart from 'react-native-restart'; 
+import RNRestart from 'react-native-restart';
 import Styles from './Styles';
 
 /** @module DrawerNavContainer **/
@@ -61,9 +61,8 @@ export default class DrawerNavContainer extends Component {
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
     AsyncStorage.clear().then(() => {
-      this.props.navigation.navigate('StartScreen');
-      RNRestart.Restart();
     }).catch(() => {});
+    RNRestart.Restart();
   }
 
   render() {

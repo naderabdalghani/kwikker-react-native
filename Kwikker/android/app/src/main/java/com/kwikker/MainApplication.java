@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
+import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.imagepicker.ImagePickerPackage;
 import fr.bamlab.rncameraroll.CameraRollPackage;
 import org.reactnative.camera.RNCameraPackage;
@@ -33,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeRestartPackage(),
             new ImagePickerPackage(),
             new CameraRollPackage(),
             new RNCameraPackage(),
