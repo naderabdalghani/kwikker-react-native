@@ -12,7 +12,7 @@ export default class BlockedAccounts extends React.Component {
     this.state = {
       usersList: [],
       refreshing: true,
-      mutedOrNot: false
+      mutedOrNot: true,
     };
   }
 

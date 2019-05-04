@@ -9,7 +9,8 @@ import Username from '../App/Screens/Username/Username';
 
 describe('Username component', () => {
   it("doneButtonPress: update user's username and go back to account settings", () => {
-    const wrapper = shallow(<Username />);
+    const navigationMock = { addListener: jest.fn() };
+    const wrapper = shallow(<Username navigation={navigationMock} />);
     const instance = wrapper.instance();
     instance.doneButtonPress();
     expect(mockAxios.put).toHaveBeenCalledTimes(1);

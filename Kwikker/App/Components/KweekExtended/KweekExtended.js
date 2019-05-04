@@ -23,9 +23,9 @@ export default class Kweek extends Component {
    * determine options to be shown in kweek menu
    */
   getOPtions() {
-    if (this.props.userName === this.state.loggedUser) return (['Delete Kweek']);
-    if (this.props.following === true) return (['Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]); 
-    return (['Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
+    if (this.props.userName === this.state.loggedUser) return (['Cancle', 'Delete Kweek']);
+    if (this.props.following === true) return (['Cancle', 'Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
+    return (['Cancle', 'Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
   }
 
   /**
@@ -64,27 +64,90 @@ export default class Kweek extends Component {
   }
 
   /**
+   * handle block press from kweek menu
+   */
+  block() {
+    axios.post('interactions/blocks', {
+      username: this.props.userName
+    })
+      .then((response) => {
+        console.log(response.status);
+        //this.props.navigation.navigate('Home');
+      })
+
+      .catch((err) => {
+      // handle error
+        let error = JSON.stringify(err);
+        error = JSON.parse(error);
+        console.log(error);
+        console.log(error.response.status);
+      });
+  }
+
+  /**
+   * handle follow press from kweek menu
+   */
+  follow() {
+    axios.post('interactions/follow', {
+      username: this.props.userName
+    })
+      .then((response) => {
+      })
+      .catch((error) => {
+      });
+  }
+
+  /**
+ * handle unfollow press from kweek menu */
+  unfollow() {
+    axios.delete('interactions/follow', {
+      params: {
+        username: this.props.userName
+      }
+    })
+      .then((response) => {
+      })
+      .catch((error) => {
+      });
+  }
+
+  /**
    * handle pressed button in kweek menu
    * @param {int} index - index of button pressed
    */
   handleMenu(index) {
-    if (index === 0 && this.props.userName === this.state.loggedUser) {
+    if (index === 1 && this.props.userName === this.state.loggedUser) {
+      console.log('updateKweeks');
+      axios.delete('kweeks/', {
+        params: {
+          id: this.props.id
+        }
+      })
+        .then((response) => {
+          console.log(response.status);
+        })
+        .catch((error) => {
+        // handle error
+          console.log('delete tweets error');
+        })
+        .then(() => {
+        // always executed
 
+        });
     }
-    if (index === 0 && this.props.following) {
-
+    if (index === 1 && this.props.following) {
+      this.unfollow();
     }
-    if (index === 0 && !this.props.following) {
-      
+    if (index === 1 && !this.props.following) {
+      this.follow();
     }
-    if (index === 1) {
+    if (index === 2) {
       axios.post('interactions/mutes', {
         username: this.props.userName
       })
         .then((response) => {
           console.log(response.status);
           //this.props.navigation.navigate('Home');
-
         })
 
         .catch((err) => {
@@ -99,11 +162,10 @@ export default class Kweek extends Component {
           //this.props.navigation.navigate('Home');
         });
     }
-    if (index === 2) {
-      
+    if (index === 3) {
+      this.block();
     }
   }
-
   /**
    * Calculate kweek date and time
    */

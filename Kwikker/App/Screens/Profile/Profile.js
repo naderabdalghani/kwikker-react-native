@@ -38,6 +38,7 @@ constructor(props) {
     uBlocked: true,
     blocked: false,
     menu: false,
+    rekweekerUsername: null,
   };
 }
 
@@ -108,6 +109,9 @@ moreKweeKsAndLikes=({ layoutMeasurement, contentOffset, contentSize }) => {
   }
 }
 
+showActionSheet = () => {
+  this.ActionSheet.show();
+}
 
 kweeks() {
   this.setState({ kweeksTab: true, likesTab: false, });
@@ -120,7 +124,7 @@ likes() {
 
 Follower() {
   if (!this.state.refreshing) {
-    this.props.navigation.push('FollowerList', {
+    this.props.navigation.navigate('FollowerList', {
       userName: this.state.profileData.username,
     });
   }
@@ -128,7 +132,7 @@ Follower() {
 
 conversation() {
   if (!this.state.refreshing) {
-    this.props.navigation.push('ConversationScreen', {
+    this.props.navigation.navigate('ConversationScreen', {
       title: this.state.profileData.screen_name,
       profileUrl: this.state.profileData.profile_image_url,
       userName: this.state.profileData.username,
@@ -138,7 +142,7 @@ conversation() {
 
 Following() {
   if (!this.state.refreshing) {
-    this.props.navigation.push('FollowingList', {
+    this.props.navigation.navigate('FollowingList', {
       userName: this.state.profileData.username,
     });
   }
@@ -153,8 +157,8 @@ EditProfile() {
       bio: this.state.profileData.bio,
       birthDate: this.state.profileData.birth_date,
       screenName: this.state.profileData.screen_name,
-  });
- }
+    });
+  }
 }
 
 profileOwner() {
@@ -236,6 +240,7 @@ tabContent() {
 updateKweeks(id = null) {
   axios.get('kweeks/timelines/profile', {
     params: {
+      last_retrieved_rekweeker_username: this.state.rekweekerUsername,
       last_retrieved_kweek_id: id,
       username: this.state.profileUsername
     }
@@ -258,6 +263,11 @@ updateKweeks(id = null) {
     })
     .then(() => {
       // always executed
+      if (this.state.kweeks[this.state.kweeks.length - 1].rekweek_info === null) {
+        this.setState({ rekweekerUsername: null });
+      } else {
+        this.setState((prevState) => ({ rekweekerUsername: prevState.kweeks[prevState.kweeks.length - 1].rekweek_info.rekweeker_username }));
+      }
     });
 }
 
@@ -309,6 +319,9 @@ updateProfile(userName) {
         dataLoaded: true,
         blocked: response.data.blocked
       });
+      if (this.state.myProfile) {
+        AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+      }
     })
     .catch((error) => {
       this.setState({
@@ -410,14 +423,10 @@ menuPressed() {
 }
 
 getOPtions() {
-  if (this.state.profileData.muted === false && this.state.profileData.blocked === false) return (['Mute', 'Block']);
-  if (this.state.profileData.muted && this.state.profileData.blocked) return (['Unmute', 'Unblock']);
-  if (this.state.profileData.blocked === false && this.state.profileData.muted) return (['Unmute', 'Block']);
-  return (['Mute', 'Unblock']);
-}
-
-showActionSheet = () => {
-  this.ActionSheet.show();
+  if (this.state.profileData.muted === false && this.state.profileData.blocked === false) return (['Mute', 'Block', 'Cancle']);
+  if (this.state.profileData.muted && this.state.profileData.blocked) return (['Unmute', 'Unblock', 'Cancle']);
+  if (this.state.profileData.blocked === false && this.state.profileData.muted) return (['Unmute', 'Block', 'Cancle']);
+  return (['Mute', 'Unblock', 'Cancle']);
 }
 
 handleMenu(index) {
@@ -456,21 +465,25 @@ youRBlocked() {
   if (this.state.blocked && !this.state.uBlocked) {
     return (
       <View>
-        <Text style={{ margin: 10 }}>
-      You blocked @{this.state.profileData.username} 
-      Are you sure you want to view these Tweets? Viewing Tweets won't unblock
-       @{this.state.profileData.username}
-        </Text>
-        <TouchableOpacity
-          style={styles.follow}
-          onPress={() => { this.setState({
-            blocked: false
-          }); }}
-        >
-          <Text style={{ color: '#1DA1F2', fontWeight: 'bold', fontSize: 15 }}>
-          Yes, view profile
-          </Text>
-        </TouchableOpacity>
+        <View style={{ alignItems: 'center', backgroundColor: '#E1E8ED', marginTop: 5, paddingBottom: '80%' }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>@{this.state.profileData.username} is</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>blocked</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 18, paddingTop: 10 }}>Are you sure you want to view</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 18 }}>these Tweets? Viewing Tweets</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 18 }}>won't unblock @{this.state.profileData.username}</Text>
+          <TouchableOpacity
+            style={{ margin: 10, borderColor: '#657786', borderWidth: 1, height: 30, borderRadius: 20, padding: 15, justifyContent: 'center', fontSize: 18 }}
+            onPress={() => {
+              this.setState({
+                blocked: false
+              });
+            }}
+          >
+            <Text style={{ fontWeight: 'bold', fontSize: 15 }}>
+              View Tweets
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -583,7 +596,7 @@ render() {
       <ActionSheet
         ref={(o) => this.ActionSheet = o}
         options={this.getOPtions()}
-        cancelButtonIndex={0}
+        cancelButtonIndex={2}
         //destructiveButtonIndex={1}
         onPress={(index) => { this.handleMenu(index); }}
       />

@@ -24,11 +24,11 @@ export default class Settings extends Component {
   }
 
   Account() {
-    this.props.navigation.push('Account');
+    this.props.navigation.navigate('Account');
   }
 
   PrivacyAndSafety() {
-    this.props.navigation.push('PrivacyAndSafety');
+    this.props.navigation.navigate('PrivacyAndSafety');
   }
 
   render() {

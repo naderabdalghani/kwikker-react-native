@@ -15,11 +15,11 @@ export default StyleSheet.create({
     alignSelf: 'flex-end'
   },
   messageButton: {
-    width: '10%',
+    width: '15%',
     height: 40,
     borderLeftWidth: 1,
-    marginBottom: 5,
-    paddingLeft: 10,
+    paddingBottom: 20,
+    paddingRight: 10,
     alignSelf: 'flex-end'
   },
   buttomImage: {
@@ -57,7 +57,7 @@ export default StyleSheet.create({
     fontSize: 12
   },
   textInput: {
-    width: '65%',
+    width: '70%',
     margin: 10,
     borderBottomWidth: 1,
   }

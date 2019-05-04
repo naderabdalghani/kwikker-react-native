@@ -118,7 +118,7 @@ export default class Login extends Component {
         <View style={loginButtonContainer}>
           <View style={loginButtonBorder}>
             <View style={logInButtonStyle}>
-              <CustomButton onPress={this.logInButtonPress.bind(this)} marginSize={15} customFontSize={17} disabled={buttonDisabled}>Log in</CustomButton>
+              <CustomButton onPress={this.logInButtonPress.bind(this)} marginSize="3.75%" customFontSize={17} disabled={buttonDisabled}>Log in</CustomButton>
             </View>
           </View>
         </View>

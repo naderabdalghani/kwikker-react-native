@@ -68,13 +68,15 @@ export default class ConversationScreen extends Component {
         socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
         socket.connect();
         AsyncStorage.getItem('@app:id').then((id) => {
-          this.setState({ currentUsername: id, },
-            () => {
-              if (this.props.navigation.state.params.userName.localeCompare(this.state.currentUsername) > 0) { eventSockt = this.state.currentUsername.concat(this.props.navigation.state.params.userName); } else { eventSockt = this.props.navigation.state.params.userName.concat(this.state.currentUsername); }
+          if (id !== this.state.currentUsername) {
+            this.setState({ currentUsername: id, },
+              () => {
+                if (this.props.navigation.state.params.userName.localeCompare(this.state.currentUsername) > 0) { eventSockt = this.state.currentUsername.concat(this.props.navigation.state.params.userName); } else { eventSockt = this.props.navigation.state.params.userName.concat(this.state.currentUsername); }
+              });
+            socket.on(eventSockt, (message) => {
+              this.updateMessages();
             });
-          socket.on(eventSockt, (message) => {
-            this.updateMessages();
-          });
+          }
         });
         this.pullRefresh();
       }
@@ -329,8 +331,8 @@ moreMessages=({ contentOffset }) => {
          justifyContent: 'center',
        }}
        >
-         <TouchableOpacity onPress={this.handleChoosePhoto} style={{ alignSelf: 'center' }}>
-           <FontAwesome name="photo" size={25} color="rgb(0, 0, 0)" onPress={this.handleChoosePhoto} style={{ alignSelf: 'center' }} />
+         <TouchableOpacity onPress={this.handleChoosePhoto} style={{ alignSelf: 'center', width: '15%' }}>
+           <FontAwesome name="photo" size={25} color="rgb(0, 0, 0)" onPress={this.handleChoosePhoto} style={{ alignSelf: 'center', paddingLeft: 10, paddingTop: 15, }} />
          </TouchableOpacity>
          <TextInput
            ref={(input) => { this.textInput = input; }}
