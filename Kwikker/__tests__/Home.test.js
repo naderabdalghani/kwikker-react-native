@@ -11,7 +11,7 @@ describe('homeComponent component', () => {
     const Instance = wrapper.instance();
     expect(wrapper.instance().state.refreshing).toBe(true);
     expect(mockAxios.get).toHaveBeenCalledTimes(1);
-    expect(mockAxios.get).toHaveBeenCalledWith('kweeks', {
+    expect(mockAxios.get).toHaveBeenCalledWith('kweeks/timelines/home', {
       params: {
         last_retrieved_kweek_id: null
       }
@@ -19,7 +19,7 @@ describe('homeComponent component', () => {
     const pullInstance = await Instance.pullRefresh();
     expect(wrapper.instance().state.refreshing).toBe(true);
     expect(mockAxios.get).toHaveBeenCalledTimes(2);
-    expect(mockAxios.get).toHaveBeenCalledWith('kweeks', {
+    expect(mockAxios.get).toHaveBeenCalledWith('kweeks/timelines/home', {
       params: {
         last_retrieved_kweek_id: null
       }
@@ -27,7 +27,7 @@ describe('homeComponent component', () => {
     const updateInstance = await Instance.updateKweeks(5);
     expect(wrapper.instance().state.refreshing).toBe(true);
     expect(mockAxios.get).toHaveBeenCalledTimes(3);
-    expect(mockAxios.get).toHaveBeenCalledWith('kweeks', {
+    expect(mockAxios.get).toHaveBeenCalledWith('kweeks/timelines/home', {
       params: {
         last_retrieved_kweek_id: 5
       }
