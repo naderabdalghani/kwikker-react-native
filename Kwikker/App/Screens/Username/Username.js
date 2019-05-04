@@ -41,9 +41,10 @@ export default class Username extends React.Component {
       .then((res) => {
         this.setState({ message: 'username changed successfully' });
         ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-        AsyncStorage.multiSet([['@app:session', res.data.token], ['@app:id', this.state.Name]]);
-        axios.defaults.headers.common['TOKEN'] = res.data.token;
-        this.props.navigation.goBack(null);
+        AsyncStorage.multiSet([['@app:session', res.data.token], ['@app:id', this.state.Name]]).then(() => {
+          axios.defaults.headers.common['TOKEN'] = res.data.token;
+          this.props.navigation.goBack(null);
+        }).catch(() => {});
       })
       .catch((err) => {
         this.setState({ message: "error: username didn't change, Username already exists " });
