@@ -54,6 +54,7 @@ export default class SignUp extends Component {
   /**
    * Displays an error message according to the error type received in the response
    * @memberof SignUp
+   * @param  {JSON} error - Error json object
    */
   onRegistrationFail(error) {
     const statusCode = error.response.status;
