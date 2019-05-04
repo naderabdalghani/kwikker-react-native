@@ -112,60 +112,80 @@ export default class Kweek extends Component {
   }
 
   /**
+   * handle delete press
+   */
+  deleteKweek() {
+    console.log('updateKweeks');
+    axios.delete('kweeks/', {
+      params: {
+        id: this.props.id
+      }
+    })
+      .then((response) => {
+        console.log(response.status);
+      })
+      .catch((error) => {
+      // handle error
+        console.log('delete tweets error');
+      })
+      .then(() => {
+      // always executed
+
+      });
+  }
+
+  /**
+   * handle mute press
+   */
+  mute() {
+    axios.post('interactions/mutes', {
+      username: this.props.userName
+    })
+      .then((response) => {
+        console.log(response.status);
+        //this.props.navigation.navigate('Home');
+      })
+
+      .catch((err) => {
+      // handle error
+        let error = JSON.stringify(err);
+        error = JSON.parse(error);
+        console.log(error);
+        console.log(error.response.status);
+      })
+      .then(() => {
+      // always executed
+        //this.props.navigation.navigate('Home');
+      });
+  }
+
+  /**
    * handle pressed button in kweek menu
    * @param {int} index - index of button pressed
    */
   handleMenu(index) {
     if (index === 1 && this.props.userName === this.state.loggedUser) {
-      console.log('updateKweeks');
-      axios.delete('kweeks/', {
-        params: {
-          id: this.props.id
-        }
-      })
-        .then((response) => {
-          console.log(response.status);
-        })
-        .catch((error) => {
-        // handle error
-          console.log('delete tweets error');
-        })
-        .then(() => {
-        // always executed
-
-        });
+      this.deleteKweek();
+      this.props.navigation.pop();
     }
     if (index === 1 && this.props.following) {
       this.unfollow();
+      this.props.navigation.pop();
     }
     if (index === 1 && !this.props.following) {
       this.follow();
+      this.props.navigation.pop();
     }
     if (index === 2) {
-      axios.post('interactions/mutes', {
-        username: this.props.userName
-      })
-        .then((response) => {
-          console.log(response.status);
-          //this.props.navigation.navigate('Home');
-        })
-
-        .catch((err) => {
-        // handle error
-          let error = JSON.stringify(err);
-          error = JSON.parse(error);
-          console.log(error);
-          console.log(error.response.status);
-        })
-        .then(() => {
-        // always executed
-          //this.props.navigation.navigate('Home');
-        });
+      this.mute();
+      this.props.navigation.pop();
     }
     if (index === 3) {
       this.block();
+      this.props.navigation.pop();
     }
   }
+
   /**
    * Calculate kweek date and time
    */
