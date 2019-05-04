@@ -58,9 +58,10 @@ export default class DrawerNavContainer extends Component {
    * Completely deletes the access token and username then redirects the user to the start screen
    */
   logoutButtonPressed() {
-    AsyncStorage.multiRemove(['@app:session', '@app:id']);
     axios.defaults.headers.common['TOKEN'] = '';
-    this.props.navigation.navigate('StartScreen');
+    AsyncStorage.clear().then(() => {
+      this.props.navigation.navigate('StartScreen');
+    }).catch(() => {});
   }
 
   render() {
