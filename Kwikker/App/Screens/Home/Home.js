@@ -4,7 +4,7 @@ import axios from 'axios';
 import io from 'socket.io-client';
 import PushNotification from 'react-native-push-notification';
 import AsyncStorage from '@react-native-community/async-storage';
-import { DrawerActions } from 'react-navigation';
+import { DrawerActions, NavigationActions } from 'react-navigation';
 import { withInAppNotification } from 'react-native-in-app-notification/src/index';
 import Kweek from '../../Components/Kweek/Kweek';
 
@@ -26,11 +26,6 @@ constructor(props) {
     currentUsername: '',
     refreshing: false,
   };
-  PushNotification.configure({
-    onNotification() {
-      this.props.navigation.navigate('Notifications');
-    }
-  });
   console.log('constructor');
 }
 

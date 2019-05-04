@@ -15,7 +15,8 @@ export default class StartScreen extends Component {
   componentDidMount() {
     AsyncStorage.getItem('@app:session').then((token) => {
       if (token) {
-        this.props.navigation.navigate('Notifications');
+        axios.defaults.headers.common['TOKEN'] = token;
+        this.props.navigation.navigate('Home');
       }
     }).catch((error) => {});
     if (Platform.OS === 'android') {
