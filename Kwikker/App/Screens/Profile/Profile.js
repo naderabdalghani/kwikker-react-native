@@ -423,10 +423,10 @@ menuPressed() {
 }
 
 getOPtions() {
-  if (this.state.profileData.muted === false && this.state.profileData.blocked === false) return (['Mute', 'Block']);
-  if (this.state.profileData.muted && this.state.profileData.blocked) return (['Unmute', 'Unblock']);
-  if (this.state.profileData.blocked === false && this.state.profileData.muted) return (['Unmute', 'Block']);
-  return (['Mute', 'Unblock']);
+  if (this.state.profileData.muted === false && this.state.profileData.blocked === false) return (['Mute', 'Block', 'Cancle']);
+  if (this.state.profileData.muted && this.state.profileData.blocked) return (['Unmute', 'Unblock', 'Cancle']);
+  if (this.state.profileData.blocked === false && this.state.profileData.muted) return (['Unmute', 'Block', 'Cancle']);
+  return (['Mute', 'Unblock', 'Cancle']);
 }
 
 handleMenu(index) {
@@ -596,7 +596,7 @@ render() {
       <ActionSheet
         ref={(o) => this.ActionSheet = o}
         options={this.getOPtions()}
-        cancelButtonIndex={0}
+        cancelButtonIndex={2}
         //destructiveButtonIndex={1}
         onPress={(index) => { this.handleMenu(index); }}
       />
