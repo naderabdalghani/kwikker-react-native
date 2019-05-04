@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, ScrollView, ToastAndroid, TouchableNativeFeedback, BackHandler } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
@@ -36,16 +37,22 @@ export default class Password extends React.Component {
             }
           })
             .then((response) => {
-              this.setState({ message: 'password changed successfully' });
-              ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-              this.props.navigation.navigate('Login');
+              ToastAndroid.show('password changed successfully', ToastAndroid.SHORT);
             })
             .catch((error) => {
-              this.setState({ message: "error: password didn't change, try again later" });
-              ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+              ToastAndroid.show("error: password didn't change, try again later", ToastAndroid.SHORT);
             })
             .then(() => {
             });
+          this.props.navigation.dispatch(StackActions.reset({
+            index: 0,
+            key: 'StartStackNavigator',
+            actions: [
+              NavigationActions.navigate({
+                routeName: 'Login'
+              }),
+            ],
+          }));
         } else {
           axios.put('user/password', {
             password: this.state.New,
