@@ -15,27 +15,18 @@ export class Home extends Component {
     return params;
   };
 
-constructor(props) {
-  super(props);
-  this.state = {
-    kweeks: [],
-    currentUsername: '',
-    refreshing: false,
-  };
-  console.log('constructor');
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      kweeks: [],
+      currentUsername: '',
+      refreshing: false,
+    };
+    console.log('constructor');
+  }
 
 
   componentDidMount() {
-    AsyncStorage.getItem('@app:image').then((image) => {
-      this.props.navigation.setParams({
-        headerLeft: (
-          <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
-            <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
-          </TouchableOpacity>
-        ),
-      });
-    });
     let socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
     socket.connect();
     AsyncStorage.getItem('@app:id').then((id) => {
@@ -58,6 +49,13 @@ constructor(props) {
       })
         .then((response) => {
           AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+          this.props.navigation.setParams({
+            headerLeft: (
+              <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+                <Image source={{ uri: response.data.profile_image_url }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+              </TouchableOpacity>
+            ),
+          });
         })
         .catch(() => {
         });
@@ -90,6 +88,13 @@ constructor(props) {
           })
             .then((response) => {
               AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+              this.props.navigation.setParams({
+                headerLeft: (
+                  <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+                    <Image source={{ uri: response.data.profile_image_url }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+                  </TouchableOpacity>
+                ),
+              });
             })
             .catch(() => {
             });
@@ -123,6 +128,9 @@ moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
     this.setState({
       refreshing: true,
     });
+    if (this.state.kweeks[this.state.kweeks.length - 1].rekweek_info !== null) {
+      this.updateKweeks(this.state.kweeks[this.state.kweeks.length - 1].id, this.state.kweeks[this.state.kweeks.length - 1].rekweek_info.rekweeker_username);
+    }
     this.updateKweeks(this.state.kweeks[this.state.kweeks.length - 1].id);
   }
 }
@@ -132,11 +140,12 @@ moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
  * To retrieve more send the id of the last retrieved kweek.
  * @param {int} id - The id of Kweek .
  */
-updateKweeks(id = null) {
+updateKweeks(id = null, username = null) {
   console.log('updateKweeks');
   axios.get('kweeks/timelines/home', {
     params: {
-      last_retrieved_kweek_id: id
+      last_retrieved_kweek_id: id,
+      last_retrieved_rekweeker_username: username
     }
   })
     .then((response) => {

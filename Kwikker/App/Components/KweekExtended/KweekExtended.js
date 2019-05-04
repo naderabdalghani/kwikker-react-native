@@ -461,6 +461,7 @@ export default class Kweek extends Component {
           cancelButtonIndex={0}
           //destructiveButtonIndex={1}
           onPress={(index) => { this.handleMenu(index); }}
+          tintColor="#000"
         />
       </View>
     );
