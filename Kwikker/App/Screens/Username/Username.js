@@ -6,6 +6,7 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 
+/** @module Username **/
 
 export default class Username extends React.Component {
   constructor(props) {
@@ -32,6 +33,7 @@ export default class Username extends React.Component {
 
   /**
    * update user's username and go back to account settings
+   * @memberof Username
    */
   doneButtonPress() {
     axios.put('user/username', {

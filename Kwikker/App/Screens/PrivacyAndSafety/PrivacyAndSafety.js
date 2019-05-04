@@ -3,6 +3,7 @@ import { Text, View, Image, TouchableNativeFeedback, TouchableOpacity } from 're
 import AsyncStorage from '@react-native-community/async-storage';
 import Styles from './Styles';
 
+/** @module PrivecyAndSafety **/
 
 export default class PrivecyAndSafety extends React.Component {
   constructor(props) {
@@ -24,10 +25,18 @@ export default class PrivecyAndSafety extends React.Component {
     );
   }
 
+  /** view blocked accounts.
+  * Redirects the user to the blocked accounts list.
+  * @memberof PrivecyAndSafety
+  */
   BlockedAccounts() {
     this.props.navigation.navigate('BlockedAccounts');
   }
 
+  /** view muted accounts.
+  * Redirects the user to the muted accounts list.
+  * @memberof PrivecyAndSafety
+  */
   MutedAccounts() {
     this.props.navigation.navigate('MutedAccounts');
   }

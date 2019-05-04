@@ -20,6 +20,8 @@ const {
   tabContentContainer,
 } = styles;
 
+/** @module Profile **/
+
 export default class Profile extends Component {
 _menu = null;
 
@@ -38,7 +40,6 @@ constructor(props) {
     dataLoaded: false,
     uBlocked: true,
     blocked: false,
-    menu: false,
     rekweekerUsername: null,
   };
 }
@@ -70,21 +71,40 @@ componentDidMount() {
   );
 }
 
-setMenuRef = (ref) => {
-  if (!this.state.refreshing) {
-    this._menu = ref;
-  }
-};
+/**
+   * options of the settings menu
+   * @memberof Profile
+  */
+getOPtions() {
+  if (this.state.profileData.muted === false && this.state.profileData.blocked === false) return (['Mute', 'Block', 'Cancle']);
+  if (this.state.profileData.muted && this.state.profileData.blocked) return (['Unmute', 'Unblock', 'Cancle']);
+  if (this.state.profileData.blocked === false && this.state.profileData.muted) return (['Unmute', 'Block', 'Cancle']);
+  return (['Mute', 'Unblock', 'Cancle']);
+}
 
-hideMenu = () => {
-  this._menu.hide();
-};
+/**
+   * gets more kweeks and likes after first 20
+   * @memberof Profile
+  */
+ moreKweeKsAndLikes=({ layoutMeasurement, contentOffset, contentSize }) => {
+   if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true && this.state.kweeks.length) {
+     this.setState({
+       refreshing: true,
+     });
+     this.updateKweeks(this.state.kweeks[this.state.kweeks.length - 1].id);
+   }
+   if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true && this.state.likes.length) {
+     this.setState({
+       refreshing: true,
+     });
+     this.updateLikes(this.state.likes[this.state.likes.length - 1].id);
+   }
+ }
 
-showMenu = () => {
-  this._menu.show();
-};
-
-
+ /** pull to refresh functionality.
+   * updates profile, kweeks and likes
+   * @memberof Profile
+  */
  pullRefresh= () => {
    this.setState({ refreshing: false, profileUsername: this.props.navigation.state.params.username, },
      () => {
@@ -94,35 +114,34 @@ showMenu = () => {
      });
  }
 
-
-moreKweeKsAndLikes=({ layoutMeasurement, contentOffset, contentSize }) => {
-  if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true && this.state.kweeks.length) {
-    this.setState({
-      refreshing: true,
-    });
-    this.updateKweeks(this.state.kweeks[this.state.kweeks.length - 1].id);
-  }
-  if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true && this.state.likes.length) {
-    this.setState({
-      refreshing: true,
-    });
-    this.updateLikes(this.state.likes[this.state.likes.length - 1].id);
-  }
-}
-
+/**
+   * open settings menu
+   * @memberof Profile
+  */
 showActionSheet = () => {
   this.ActionSheet.show();
 }
 
+/**
+   * activate kweeks tab
+   * @memberof Profile
+  */
 kweeks() {
   this.setState({ kweeksTab: true, likesTab: false, });
 }
 
+/**
+   * activate likes tab
+   * @memberof Profile
+  */
 likes() {
   this.setState({ kweeksTab: false, likesTab: true });
 }
 
-
+/**
+   * navigate to folloewrs list
+   * @memberof Profile
+  */
 Follower() {
   if (!this.state.refreshing) {
     this.props.navigation.navigate('FollowerList', {
@@ -131,6 +150,10 @@ Follower() {
   }
 }
 
+/**
+   * navigate to conversation of the frofile user
+   * @memberof Profile
+  */
 conversation() {
   if (!this.state.refreshing) {
     this.props.navigation.navigate('ConversationScreen', {
@@ -141,6 +164,10 @@ conversation() {
   }
 }
 
+/**
+   * navigate to folloing list
+   * @memberof Profile
+  */
 Following() {
   if (!this.state.refreshing) {
     this.props.navigation.navigate('FollowingList', {
@@ -149,6 +176,10 @@ Following() {
   }
 }
 
+/**
+   * navigate to edit profile
+   * @memberof Profile
+  */
 EditProfile() {
   if (!this.state.refreshing) {
     this.props.navigation.navigate('EditProfileNavigator', {
@@ -162,6 +193,10 @@ EditProfile() {
   }
 }
 
+/**
+   * chechs if the profile is the profil of the current user of not
+   * @memberof Profile
+  */
 profileOwner() {
   if (this.state.profileUsername === this.state.currentUsername) {
     this.setState({ myProfile: true });
@@ -170,6 +205,10 @@ profileOwner() {
   }
 }
 
+/**
+   * view thetab content if it's kweeks or likes or empty
+   * @memberof Profile
+  */
 tabContent() {
   if (this.state.kweeksTab) {
     if (this.state.kweeks.length !== 0) {
@@ -196,6 +235,7 @@ tabContent() {
                 following={item.user.following}
                 mentions={item.mentions}
                 navigation={this.props.navigation}
+                refresh={() => this.pullRefresh()}
               />
             </TouchableOpacity>
           ))
@@ -240,6 +280,7 @@ tabContent() {
                 following={item.user.following}
                 mentions={item.mentions}
                 navigation={this.props.navigation}
+                refresh={() => this.pullRefresh()}
               />
             </TouchableOpacity>
           ))
@@ -258,7 +299,11 @@ tabContent() {
   }
 }
 
-
+/**
+   * update kweeks or get more kweeks
+   * @memberof Profile
+   * @param {int} id - last id of kweeks.
+  */
 updateKweeks(id = null) {
   axios.get('kweeks/timelines/profile', {
     params: {
@@ -293,6 +338,11 @@ updateKweeks(id = null) {
     });
 }
 
+/**
+   * update liked kweeks or get more liked kweeks
+   * @memberof Profile
+   * @param {int} id - last id of liked kweeks.
+  */
 updateLikes(id = null) {
   axios.get('kweeks/user/liked', {
     params: {
@@ -324,6 +374,11 @@ updateLikes(id = null) {
 }
 
 
+/** updates profile
+   * gets profile info and update it
+   * @memberof Profile
+   * @param {string} userName - username of profile owner.
+  */
 updateProfile(userName) {
   this.setState({
     refreshing: true,
@@ -360,6 +415,10 @@ updateProfile(userName) {
     });
 }
 
+/**
+   * unmute the profile owner
+   * @memberof Profile
+  */
 unmute() {
   axios.delete('interactions/mutes', {
     params: {
@@ -375,6 +434,10 @@ unmute() {
     });
 }
 
+/**
+   * unblock the profile owner
+   * @memberof Profile
+  */
 unblock() {
   axios.delete('interactions/blocks', {
     params: {
@@ -390,67 +453,40 @@ unblock() {
     });
 }
 
+/**
+   * mute the profile owner
+   * @memberof Profile
+  */
 mute() {
   axios.post('interactions/mutes', {
     username: this.state.profileData.username
   })
     .then((response) => {
       this.updateProfile(this.state.profileUsername);
-      this.setState({ menu: false });
     })
     .catch((error) => {
-      this.setState({ menu: false });
     });
 }
 
+/**
+   * block the profile owner
+   * @memberof Profile
+  */
 block() {
   axios.post('interactions/blocks', {
     username: this.state.profileData.username
   })
     .then((response) => {
       this.updateProfile(this.state.profileUsername);
-      this.menuPressed();
     })
     .catch((error) => {
-      this.menuPressed();
     });
 }
 
-menu() {
-  if (this.state.menu) {
-    return (
-      <View style={styles.itemssContainer}>
-        <TouchableOpacity onPress={() => { this.mute(); }}>
-          <View style={styles.menuItems}>
-            <Text style={styles.menuText}>Mute</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => { this.block(); }}>
-          <View style={styles.menuItems}>
-            <Text style={styles.menuText}>Block</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-  return (<View />);
-}
-
-menuPressed() {
-  if (this.state.menu) {
-    this.setState({ menu: false });
-  } else {
-    this.setState({ menu: true });
-  }
-}
-
-getOPtions() {
-  if (this.state.profileData.muted === false && this.state.profileData.blocked === false) return (['Mute', 'Block', 'Cancle']);
-  if (this.state.profileData.muted && this.state.profileData.blocked) return (['Unmute', 'Unblock', 'Cancle']);
-  if (this.state.profileData.blocked === false && this.state.profileData.muted) return (['Unmute', 'Block', 'Cancle']);
-  return (['Mute', 'Unblock', 'Cancle']);
-}
-
+/**
+   * handle settings menu is inteaction
+   * @memberof Profile
+  */
 handleMenu(index) {
   if (index === 0 && this.state.profileData.muted === false) {
     this.mute();
@@ -466,23 +502,10 @@ handleMenu(index) {
   }
 }
 
-renderMenu() {
-  if (!this.state.myProfile && this.state.dataLoaded) {
-    return (
-      <TouchableOpacity onPress={this.showActionSheet}>
-        <View style={styles.menu}>
-          <Image
-            style={styles.menuImage}
-            source={require('./../../Assets/Images/menu.png')}
-          />
-        </View>
-      </TouchableOpacity>
-    );
-  }
-  return (null);
-}
-
-
+/**
+   * checks if the profile owner is blocked or not and return profile content
+   * @memberof Profile
+  */
 youRBlocked() {
   if (this.state.blocked && !this.state.uBlocked) {
     return (
@@ -542,6 +565,26 @@ youRBlocked() {
   }
 }
 
+/**
+   * checs if the profile owner is the current user or not to handle settings menu
+   * @memberof Profile
+  */
+renderMenu() {
+  if (!this.state.myProfile && this.state.dataLoaded) {
+    return (
+      <TouchableOpacity onPress={this.showActionSheet}>
+        <View style={styles.menu}>
+          <Image
+            style={styles.menuImage}
+            source={require('./../../Assets/Images/menu.png')}
+          />
+        </View>
+      </TouchableOpacity>
+    );
+  }
+  return (null);
+}
+
 
 render() {
   return (
@@ -557,29 +600,9 @@ render() {
               />
             </View>
           </TouchableNativeFeedback>
-          {/*
-          <Menu
-            ref={this.setMenuRef}
-            button={<Text onPress={this.showMenu}>Show menu</Text>}
-          >
-            <MenuItem onPress={this.hideMenu}>Mute</MenuItem>
-            <MenuItem onPress={this.hideMenu}>Block</MenuItem>
-          </Menu> */}
           {this.renderMenu()}
         </View>
       </View>
-      {/* <View style={styles.itemssContainer}>
-        <TouchableOpacity onPress={() => { this.mute(); }}>
-          <View style={styles.menuItems}>
-            <Text style={styles.menuText}>Mute</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => { this.block(); }}>
-          <View style={styles.menuItems}>
-            <Text style={styles.menuText}>Block</Text>
-          </View>
-        </TouchableOpacity>
-      </View> */}
       <ScrollView
         refreshControl={(
           <RefreshControl
