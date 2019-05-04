@@ -50,9 +50,10 @@ export default class All extends React.Component {
                 rekweeked: response.data.kweek.rekweeked_by_user,
                 rekweekerUserName: response.data.kweek.rekweek_info,
                 mediaUrl: response.data.kweek.media_url,
-                replyTo: response.data.kweek.reply_to,
+                replyTo: response.data.kweek.reply_info,
                 following: response.data.kweek.user.following,
-                mentions: response.data.kweek.mentions
+                mentions: response.data.kweek.mentions,
+                hashtags: response.data.kweek.hashtags
               });
             })
             .catch((error) => {
