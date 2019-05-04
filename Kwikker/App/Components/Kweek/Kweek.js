@@ -159,7 +159,8 @@ export default class Kweek extends Component {
   handleMenu(index) {
     if (index === 1 && this.props.userName === this.state.loggedUser) {
       this.deleteKweek();
-      this.props.refresh();
+      this.props.navigation.pop();
+      //this.props.refresh();
     }
     if (index === 1 && this.props.following) {
       this.unfollow();
@@ -397,7 +398,8 @@ export default class Kweek extends Component {
             mediaUrl: this.props.mediaUrl,
             replyTo: this.props.replyTo,
             following: this.props.following,
-            mentions: this.props.mentions
+            mentions: this.props.mentions,
+            hashtags: this.props.hashtags
           })} style={{ marginLeft: '3%', marginTop: '3%' }}
         >
           <View style={{ flexDirection: 'row' }}>
