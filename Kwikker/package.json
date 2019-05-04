@@ -7,6 +7,7 @@
     "test": "jest",
     "lint": "eslint *.js **/*.js",
     "refreshDoc": "documentation build App/** -f html -o docs",
+    "deployAPK": "cd android && ./gradlew assembleRelease",
     "testNader": "yarn test Authorization.test.js CustomRoundedTextInput.test.js CustomTextInput.test.js ForgotPassword.test.js Login.test.js Registration.test.js SignOut.test.js StartScreen.test.js"
   },
   "dependencies": {
