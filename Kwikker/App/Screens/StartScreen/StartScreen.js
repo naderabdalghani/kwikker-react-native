@@ -22,10 +22,13 @@ export default class StartScreen extends Component {
     this.setState({ blank: false });
     if (Platform.OS === 'android') {
       Linking.getInitialURL().then((url) => {
-        if (url.includes('kwikker.me/confirm')) {
-          this.confirmUser(url);
-        } else if (url.includes('kwikker.me/reset_password')) {
-          this.resetPassword(url);
+        if (url && global.deepLinking) {
+          global.deepLinking = false;
+          if (url.includes('kwikker.me/confirm')) {
+            this.confirmUser(url);
+          } else if (url.includes('kwikker.me/reset_password')) {
+            this.resetPassword(url);
+          }
         }
       })
         .catch((err) => {

@@ -1262,6 +1262,18 @@
                         .forgotPassword
                       </a></li>
                     
+                      <li><a
+                        href='#loginresendbuttonpress'
+                        class='regular pre-open'>
+                        .resendButtonPress
+                      </a></li>
+                    
+                      <li><a
+                        href='#loginrenderresendmessage'
+                        class='regular pre-open'>
+                        .renderResendMessage
+                      </a></li>
+                    
                     </ul>
                   
                   
@@ -9459,7 +9471,7 @@ To retrieve more send the id of the last retrieved kweek.</p>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onLoginFail()</span>
+            <span class='code strong strong truncate'>onLoginFail(error)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -9469,7 +9481,7 @@ To retrieve more send the id of the last retrieved kweek.</p>
 
   <p>Shows a toast message "Authentication Failed" and turns off the loading screen</p>
 
-    <div class='pre p1 fill-light mt0'>onLoginFail()</div>
+    <div class='pre p1 fill-light mt0'>onLoginFail(error: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
   
   
 
@@ -9480,6 +9492,20 @@ To retrieve more send the id of the last retrieved kweek.</p>
   
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>error</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    Error json object
+
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -9658,6 +9684,100 @@ To retrieve more send the id of the last retrieved kweek.</p>
   <p>Redirects the user to the 'forgot password' form</p>
 
     <div class='pre p1 fill-light mt0'>forgotPassword()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='loginresendbuttonpress'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>resendButtonPress()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sends a user's email then either displays a success message upon sending a new confirmation email or displays an error otherwise</p>
+
+    <div class='pre p1 fill-light mt0'>resendButtonPress()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='loginrenderresendmessage'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>renderResendMessage()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Renders a 'resend' button if an unconfirmed user tries to login</p>
+
+    <div class='pre p1 fill-light mt0'>renderResendMessage()</div>
   
   
 
@@ -11975,7 +12095,7 @@ To retrieve more send the id of the last kweek retrieved.</p>
 
   <p>Displays an error message according to the error type received in the response</p>
 
-    <div class='pre p1 fill-light mt0'>onRegistrationFail(error: any)</div>
+    <div class='pre p1 fill-light mt0'>onRegistrationFail(error: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
   
   
 
@@ -11992,8 +12112,9 @@ To retrieve more send the id of the last kweek retrieved.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>error</span> <code class='quiet'>(any)</code>
-	    
+            <span class='code bold'>error</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    Error json object
+
           </div>
           
         </div>

@@ -56,4 +56,16 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginTop: '2.5%',
   },
+  messageStyle: {
+    color: '#657786',
+    fontSize: 15,
+    marginTop: '5%',
+    marginLeft: '5%',
+  },
+  resendButton: {
+    color: 'black',
+    fontSize: 15,
+    marginLeft: '5%',
+    textDecorationLine: 'underline'
+  },
 });
