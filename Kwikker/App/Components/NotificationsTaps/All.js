@@ -3,9 +3,9 @@ import { ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import Notification from '../Notification/Notification';
 
-/** @module All **/
+/** @module NotificationsAllTab **/
 
-export default class All extends React.Component {
+export default class NotificationsAllTab extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,8 +24,8 @@ export default class All extends React.Component {
   }
 
   /** go to profile or kweek on press
-   * @memberof All
- */
+   *
+   */
   navProfileOrKweek(item) {
     if (!this.state.notifClicked) {
       this.setState({ notifClicked: true, refreshing: true }, () => {
@@ -74,8 +74,8 @@ export default class All extends React.Component {
   }
 
   /** to render unseend messges.
-   * @memberof All
- */
+   * @param  {int} index
+   */
   renderUnseen(index) {
     if (index < this.props.screenProps.unseenCount) { return { backgroundColor: '#f2f2f2' }; }
 

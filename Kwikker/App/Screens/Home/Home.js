@@ -22,7 +22,7 @@ export class Home extends Component {
       currentUsername: '',
       refreshing: false,
     };
-    console.log('constructor');
+    //console.log('constructor');
   }
 
 
@@ -102,18 +102,18 @@ export class Home extends Component {
         this.pullRefresh();
       }
     );
-    console.log('componentdidMount');
+    //console.log('componentdidMount');
   }
 
 /**
  * Pull to refresh functionality
  */
 pullRefresh= () => {
-  console.log('pullRefresh');
+  //console.log('pullRefresh');
   this.setState({
     refreshing: true,
   });
-  console.log(this.state.refreshing);
+  //console.log(this.state.refreshing);
   this.updateKweeks();
 }
 
@@ -141,7 +141,7 @@ moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
  * @param {int} id - The id of Kweek .
  */
 updateKweeks(id = null, username = null) {
-  console.log('updateKweeks');
+  //console.log('updateKweeks');
   axios.get('kweeks/timelines/home', {
     params: {
       last_retrieved_kweek_id: id,
@@ -149,9 +149,9 @@ updateKweeks(id = null, username = null) {
     }
   })
     .then((response) => {
-      console.log(response.status);
+      //console.log(response.status);
       if (id === null) {
-        console.log('response id null');
+        //console.log('response id null');
         this.setState({
           kweeks: response.data
         });
@@ -163,7 +163,7 @@ updateKweeks(id = null, username = null) {
     })
     .catch(() => {
     // handle error
-      console.log('get tweets error');
+      //console.log('get tweets error');
     })
     .then(() => {
     // always executed
@@ -171,7 +171,7 @@ updateKweeks(id = null, username = null) {
 }
 
 render() {
-  console.log('render');
+  //console.log('render');
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
