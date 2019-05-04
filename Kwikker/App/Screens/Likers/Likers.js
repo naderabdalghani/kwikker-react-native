@@ -36,13 +36,10 @@ export default class LikersList extends Component {
     this.updateUsersList();
   }
 
-  moreUsersLists=({ layoutMeasurement, contentOffset, contentSize }) => {
-    if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 && this.state.refreshing !== true && this.state.usersList.length) {
-      this.updateUsersList(this.state.usersList[this.state.usersList.length - 1].username);
-    }
-  }
-
-  updateUsersList(userName = null) {
+  /**
+   * get list of users who liked a kweek
+   */
+  updateUsersList() {
     this.setState({ refreshing: true });
     const { navigation } = this.props;
     const kweekId = navigation.getParam('kweekId', null);
@@ -54,10 +51,10 @@ export default class LikersList extends Component {
         }
       })
         .then((usersRes) => {
-            this.setState({
-              usersList: usersRes.data,
-            });
-        this.setState({ refreshing: false });
+          this.setState({
+            usersList: usersRes.data,
+          });
+          this.setState({ refreshing: false });
         })
         .catch((error) => {
         // handle error
@@ -96,7 +93,7 @@ export default class LikersList extends Component {
               refreshing={this.state.refreshing}
               onRefresh={this.pullRefresh}
             />
-)} onScroll={({ nativeEvent }) => { this.moreUsersLists(nativeEvent); }} style={{ flex: 1 }}
+      )}
         >
           {this.state.usersList.map((item, index) => (
             <TouchableOpacity key={item.username}>
