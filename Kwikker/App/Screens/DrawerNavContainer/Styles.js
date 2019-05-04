@@ -12,11 +12,11 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 20,
     marginRight: 20,
-    borderBottomColor: 'rgb(136, 153, 166)',
-    borderBottomWidth: 0.5
   },
   bottom: {
     flex: 2,
+    borderTopColor: 'rgb(136, 153, 166)',
+    borderTopWidth: 0.5
   },
   photo: {
     alignContent: 'flex-start',

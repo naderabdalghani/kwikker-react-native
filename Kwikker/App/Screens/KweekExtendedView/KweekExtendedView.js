@@ -120,6 +120,7 @@ export default class KweekExtendedView extends Component {
                 mentions={item.mentions}
                 navigation={this.props.navigation}
                 hashtags={item.hashtags}
+                refresh={() => this.pullRefresh()}
               />
             ))
           }

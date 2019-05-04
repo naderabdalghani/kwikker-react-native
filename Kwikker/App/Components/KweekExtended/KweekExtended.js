@@ -23,9 +23,9 @@ export default class Kweek extends Component {
    * determine options to be shown in kweek menu
    */
   getOPtions() {
-    if (this.props.userName === this.state.loggedUser) return (['Cancle', 'Delete Kweek']);
-    if (this.props.following === true) return (['Cancle', 'Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
-    return (['Cancle', 'Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
+    if (this.props.userName === this.state.loggedUser) return (['Cancel', 'Delete Kweek']);
+    if (this.props.following === true) return (['Cancel', 'Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
+    return (['Cancel', 'Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
   }
 
   /**
