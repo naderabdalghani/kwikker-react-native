@@ -40,13 +40,6 @@ export default class StartScreen extends Component {
 
   componentWillUnmount() {
     Linking.removeEventListener('url', this.handleOpenURL);
-    Linking.getInitialURL().then((url) => {
-      console.log('url before:');
-      console.log(url);
-      url = '';
-      console.log('url after:');
-      console.log(url);
-    }).catch(() => {});
   }
 
   /**
