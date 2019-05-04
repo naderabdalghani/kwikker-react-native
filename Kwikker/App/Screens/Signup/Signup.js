@@ -207,7 +207,7 @@ export default class SignUp extends Component {
             value={this.state.username}
             onChangeText={(username) => this.setState({ username })}
             autoFocus
-            marginSize={30}
+            marginSize="7.5%"
             marginTopSize={0}
             autoCapitalize="none"
           />
@@ -216,8 +216,8 @@ export default class SignUp extends Component {
             secureTextEntry={false}
             value={this.state.screenname}
             onChangeText={(screenname) => this.setState({ screenname })}
-            autoFocus
-            marginSize={30}
+            autoFocus={false}
+            marginSize="7.5%"
             marginTopSize={0}
             autoCapitalize="none"
           />
@@ -229,7 +229,7 @@ export default class SignUp extends Component {
             autoFocus={false}
             autoCapitalize="none"
             autoFocus={false}
-            marginSize={30}
+            marginSize="7.5%"
             marginTopSize={0}
           />
           <CustomTextInput
@@ -238,7 +238,7 @@ export default class SignUp extends Component {
             value={this.state.password}
             onChangeText={(password) => this.setState({ password })}
             autoFocus={false}
-            marginSize={30}
+            marginSize="7.5%"
             marginTopSize={0}
           />
           <View style={dateContainer}>
@@ -264,7 +264,7 @@ export default class SignUp extends Component {
         <KeyboardAvoidingView style={submitButtonContainer} keyboardVerticalOffset={0}>
           <KeyboardAvoidingView style={submitButtonBorder} behavior="padding">
             <View style={submitButtonStyle}>
-              <CustomButton onPress={this.submitButtonPress.bind(this)} marginSize={15} customFontSize={17} disabled={buttonDisabled}>Submit</CustomButton>
+              <CustomButton onPress={this.submitButtonPress.bind(this)} marginSize="3.75%" customFontSize={17} disabled={buttonDisabled}>Submit</CustomButton>
             </View>
           </KeyboardAvoidingView>
         </KeyboardAvoidingView>

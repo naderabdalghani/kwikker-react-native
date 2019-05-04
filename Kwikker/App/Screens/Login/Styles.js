@@ -7,14 +7,14 @@ export default StyleSheet.create({
   headerImage: {
     height: 35,
     width: 35,
-    marginTop: 10,
+    marginTop: '5%',
   },
   signUpButton: {
     fontSize: 17,
     color: '#1DA1F2',
     textAlign: 'center',
     alignSelf: 'center',
-    marginTop: 10,
+    marginTop: '5%',
     fontWeight: 'bold',
     flex: 1,
   },
@@ -22,9 +22,9 @@ export default StyleSheet.create({
     fontSize: 25,
     color: '#000',
     fontWeight: 'bold',
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10,
+    marginLeft: '2.5%',
+    marginRight: '2.5%',
+    marginBottom: '2.5%',
   },
   imageContainer: {
     flex: 1,
@@ -39,8 +39,8 @@ export default StyleSheet.create({
   },
   logInButtonStyle: {
     alignItems: 'flex-end',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: '2.5%',
+    marginBottom: '2.5%',
   },
   loginButtonBorder: {
     borderTopWidth: 0.75,
@@ -54,6 +54,6 @@ export default StyleSheet.create({
   forgotPasswordStyle: {
     color: '#657786',
     alignSelf: 'center',
-    marginTop: 10,
+    marginTop: '2.5%',
   },
 });

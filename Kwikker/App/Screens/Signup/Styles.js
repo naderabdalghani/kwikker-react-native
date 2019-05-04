@@ -7,21 +7,21 @@ export default StyleSheet.create({
   headerImage: {
     height: 35,
     width: 35,
-    marginTop: 10,
+    marginTop: '5%',
   },
   backButton: {
     height: 26,
     width: 26,
-    marginTop: 10,
-    marginLeft: 12,
+    marginTop: '5%',
+    marginLeft: '10%',
   },
   createAccountText: {
     fontSize: 32,
     color: '#000',
     fontWeight: 'bold',
-    marginTop: 20,
-    marginLeft: 40,
-    marginRight: 40,
+    marginTop: '5%',
+    marginLeft: '10%',
+    marginRight: '10%',
   },
   imageContainer: {
     flex: 1,
@@ -41,8 +41,8 @@ export default StyleSheet.create({
   },
   submitButtonStyle: {
     alignItems: 'flex-end',
-    marginTop: 12,
-    marginBottom: 12,
+    marginTop: '3%',
+    marginBottom: '3%',
   },
   submitButtonBorder: {
     borderTopWidth: 0.75,
@@ -60,18 +60,18 @@ export default StyleSheet.create({
     fontSize: 15,
     color: 'red',
     marginTop: 0,
-    marginLeft: 40,
+    marginLeft: '10%',
   },
   successMessage: {
     fontSize: 15,
     color: 'green',
     marginTop: 0,
-    marginLeft: 40,
+    marginLeft: '10%',
   },
   resendButton: {
     color: 'black',
     fontSize: 15,
-    marginLeft: 40,
+    marginLeft: '10%',
     textDecorationLine: 'underline'
   },
   datePickerContainer: {
@@ -94,9 +94,9 @@ export default StyleSheet.create({
   dateContainer: {
     alignSelf: 'center',
     flexDirection: 'row',
-    marginLeft: 40,
-    marginRight: 40,
-    marginTop: 10,
+    marginLeft: '10%',
+    marginRight: '10%',
+    marginTop: '2.5%',
     borderBottomWidth: 1,
     borderBottomColor: '#AAB8C2',
   },
