@@ -25,11 +25,11 @@ export default class PrivecyAndSafety extends React.Component {
   }
 
   BlockedAccounts() {
-    this.props.navigation.push('BlockedAccounts');
+    this.props.navigation.navigate('BlockedAccounts');
   }
 
   MutedAccounts() {
-    this.props.navigation.push('MutedAccounts');
+    this.props.navigation.navigate('MutedAccounts');
   }
 
   render() {

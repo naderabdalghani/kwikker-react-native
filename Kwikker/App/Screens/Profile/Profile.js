@@ -38,6 +38,7 @@ constructor(props) {
     uBlocked: true,
     blocked: false,
     menu: false,
+    rekweekerUsername: null,
   };
 }
 
@@ -123,7 +124,7 @@ likes() {
 
 Follower() {
   if (!this.state.refreshing) {
-    this.props.navigation.push('FollowerList', {
+    this.props.navigation.navigate('FollowerList', {
       userName: this.state.profileData.username,
     });
   }
@@ -131,7 +132,7 @@ Follower() {
 
 conversation() {
   if (!this.state.refreshing) {
-    this.props.navigation.push('ConversationScreen', {
+    this.props.navigation.navigate('ConversationScreen', {
       title: this.state.profileData.screen_name,
       profileUrl: this.state.profileData.profile_image_url,
       userName: this.state.profileData.username,
@@ -141,7 +142,7 @@ conversation() {
 
 Following() {
   if (!this.state.refreshing) {
-    this.props.navigation.push('FollowingList', {
+    this.props.navigation.navigate('FollowingList', {
       userName: this.state.profileData.username,
     });
   }
@@ -239,6 +240,7 @@ tabContent() {
 updateKweeks(id = null) {
   axios.get('kweeks/timelines/profile', {
     params: {
+      last_retrieved_rekweeker_username: this.state.rekweekerUsername,
       last_retrieved_kweek_id: id,
       username: this.state.profileUsername
     }
@@ -261,6 +263,11 @@ updateKweeks(id = null) {
     })
     .then(() => {
       // always executed
+      if (this.state.kweeks[this.state.kweeks.length - 1].rekweek_info === null) {
+        this.setState({ rekweekerUsername: null });
+      } else {
+        this.setState((prevState) => ({ rekweekerUsername: prevState.kweeks[prevState.kweeks.length - 1].rekweek_info.rekweeker_username }));
+      }
     });
 }
 
@@ -416,10 +423,10 @@ menuPressed() {
 }
 
 getOPtions() {
-  if (this.state.profileData.muted === false && this.state.profileData.blocked === false) return (['Mute', 'Block']);
-  if (this.state.profileData.muted && this.state.profileData.blocked) return (['Unmute', 'Unblock']);
-  if (this.state.profileData.blocked === false && this.state.profileData.muted) return (['Unmute', 'Block']);
-  return (['Mute', 'Unblock']);
+  if (this.state.profileData.muted === false && this.state.profileData.blocked === false) return (['Mute', 'Block', 'Cancle']);
+  if (this.state.profileData.muted && this.state.profileData.blocked) return (['Unmute', 'Unblock', 'Cancle']);
+  if (this.state.profileData.blocked === false && this.state.profileData.muted) return (['Unmute', 'Block', 'Cancle']);
+  return (['Mute', 'Unblock', 'Cancle']);
 }
 
 handleMenu(index) {
@@ -589,7 +596,7 @@ render() {
       <ActionSheet
         ref={(o) => this.ActionSheet = o}
         options={this.getOPtions()}
-        cancelButtonIndex={0}
+        cancelButtonIndex={2}
         //destructiveButtonIndex={1}
         onPress={(index) => { this.handleMenu(index); }}
       />

@@ -31,9 +31,9 @@ export default class Kweek extends Component {
  * determine options to be shown in kweek menu
  */
   getOPtions() {
-    if (this.props.userName === this.state.loggedUser) return (['Delete Kweek']);
-    if (this.props.following === true) return (['Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
-    return (['Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
+    if (this.props.userName === this.state.loggedUser) return (['Cancle', 'Delete Kweek']);
+    if (this.props.following === true) return (['Cancle', 'Unfollow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
+    return (['Cancle', 'Follow @'.concat(this.props.userName), 'Mute @'.concat(this.props.userName), 'Block @'.concat(this.props.userName)]);
   }
 
   /**
@@ -110,7 +110,7 @@ export default class Kweek extends Component {
  * @param {int} index - index of pressed button
  */
   handleMenu(index) {
-    if (index === 0 && this.props.userName === this.state.loggedUser) {
+    if (index === 1 && this.props.userName === this.state.loggedUser) {
       console.log('updateKweeks');
       axios.delete('kweeks/', {
         params: {
@@ -129,13 +129,13 @@ export default class Kweek extends Component {
 
         });
     }
-    if (index === 0 && this.props.following) {
+    if (index === 1 && this.props.following) {
       this.unfollow();
     }
-    if (index === 0 && !this.props.following) {
+    if (index === 1 && !this.props.following) {
       this.follow();
     }
-    if (index === 1) {
+    if (index === 2) {
       axios.post('interactions/mutes', {
         username: this.props.userName
       })
@@ -156,7 +156,7 @@ export default class Kweek extends Component {
           //this.props.navigation.navigate('Home');
         });
     }
-    if (index === 2) {
+    if (index === 3) {
       this.block();
     }
   }
