@@ -7,6 +7,11 @@ export default styles = StyleSheet.create({
     width: 30,
     marginLeft: 12,
     zIndex: 9,
+    color: '#fff',
+    backgroundColor: 'rgba(100, 100, 100, 0.1)',
+    borderRadius: 15,
+    paddingLeft: 3,
+
   },
   header: {
     flexDirection: 'row',
@@ -31,7 +36,7 @@ export default styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(29, 161, 242, 0.2)',
+    backgroundColor: 'rgba(29, 161, 242, 0.0)',
     //backgroundColor: 'rgba(55, 55, 55, 0.5)',
     height: 50,
     //justifyContent: 'center',
@@ -86,7 +91,7 @@ export default styles = StyleSheet.create({
     height: 30,
     width: 30,
     borderRadius: 20,
-    backgroundColor: 'rgba(100, 100, 100, 0.5)',
+    backgroundColor: 'rgba(100, 100, 100, 0.1)',
     marginRight: 10,
   },
   menuItems: {
@@ -106,4 +111,11 @@ export default styles = StyleSheet.create({
   menuText: {
     color: '#000'
   },
+  Container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+
 });

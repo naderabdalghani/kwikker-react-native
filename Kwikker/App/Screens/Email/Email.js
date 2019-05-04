@@ -10,9 +10,18 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 export default class Email extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Name: '@Email', message: '', Email: '' };
+    this.state = { Name: '', message: '', Email: '' };
   }
 
+  componentDidMount() {
+    this.getEmail();
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.getEmail();
+      }
+    );
+  }
 
   /**
    * update user's Email and go back to account settings
@@ -22,7 +31,7 @@ export default class Email extends React.Component {
     axios.get('user/email')
       .then((res) => {
         this.setState({
-          Email: res.data,
+          Email: res.data.email,
         });
       })
       .catch((error) => {
@@ -79,7 +88,7 @@ export default class Email extends React.Component {
             </View>
           </View>
           <CustomTextInput
-            placeholder=""
+            placeholder={this.state.Email}
             label="Email address"
             secureTextEntry={false}
             value={this.state.Name}

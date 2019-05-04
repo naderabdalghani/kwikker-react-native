@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TouchableNativeFeedback, RefreshControl, Image, TouchableOpacity, ScrollView } from 'react-native';
 import axios from 'axios';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
 import ProfileHeader from '../../Components/ProfileHeader/ProfileHeader';
 import Kweek from '../../Components/Kweek/Kweek';
@@ -171,66 +172,87 @@ profileOwner() {
 
 tabContent() {
   if (this.state.kweeksTab) {
-    return (
-      <View style={{ flex: 1 }}>
-        {this.state.kweeks.map((item, index) => (
-          <TouchableOpacity key={item.id}>
-            <Kweek
-              key={item.id}
-              id={item.id}
-              date={item.created_at}
-              profileImageUrl={item.user.profile_image_url}
-              screenName={item.user.screen_name}
-              userName={item.user.username}
-              numberOfLikes={item.number_of_likes}
-              numberOfRekweeks={item.number_of_rekweeks}
-              numberOfReplies={item.number_of_replies}
-              kweetText={item.text}
-              liked={item.liked_by_user}
-              rekweeked={item.rekweeked_by_user}
-              rekweekerUserName={item.rekweek_info}
-              mediaUrl={item.media_url}
-              replyTo={item.reply_info}
-              following={item.user.following}
-              mentions={item.mentions}
-              navigation={this.props.navigation}
-            />
-          </TouchableOpacity>
-        ))
-     }
+    if (this.state.kweeks.length !== 0) {
+      return (
+        <View style={{ flex: 1 }}>
+          {this.state.kweeks.map((item, index) => (
+            <TouchableOpacity key={item.id}>
+              <Kweek
+                key={item.id}
+                id={item.id}
+                date={item.created_at}
+                profileImageUrl={item.user.profile_image_url}
+                screenName={item.user.screen_name}
+                userName={item.user.username}
+                numberOfLikes={item.number_of_likes}
+                numberOfRekweeks={item.number_of_rekweeks}
+                numberOfReplies={item.number_of_replies}
+                kweetText={item.text}
+                liked={item.liked_by_user}
+                rekweeked={item.rekweeked_by_user}
+                rekweekerUserName={item.rekweek_info}
+                mediaUrl={item.media_url}
+                replyTo={item.reply_info}
+                following={item.user.following}
+                mentions={item.mentions}
+                navigation={this.props.navigation}
+              />
+            </TouchableOpacity>
+          ))
+      }
 
+        </View>
+      );
+    }
+    return (
+      <View style={styles.Container}>
+        <Text style={{ fontSize: 30 }}>
+          Your Kweets will
+        </Text>
+        <Text style={{ fontSize: 30 }}>
+          show up here
+        </Text>
       </View>
     );
   }
   if (this.state.likesTab) {
-    return (
-      <View style={{ flex: 1 }}>
-        {this.state.likes.map((item, index) => (
-          <TouchableOpacity key={item.id}>
-            <Kweek
-              key={item.id}
-              id={item.id}
-              date={item.created_at}
-              profileImageUrl={item.user.profile_image_url}
-              screenName={item.user.screen_name}
-              userName={item.user.username}
-              numberOfLikes={item.number_of_likes}
-              numberOfRekweeks={item.number_of_rekweeks}
-              numberOfReplies={item.number_of_replies}
-              kweetText={item.text}
-              liked={item.liked_by_user}
-              rekweeked={item.rekweeked_by_user}
-              rekweekerUserName={item.rekweek_info}
-              mediaUrl={item.media_url}
-              replyTo={item.reply_info}
-              following={item.user.following}
-              mentions={item.mentions}
-              navigation={this.props.navigation}
-            />
-          </TouchableOpacity>
-        ))
-     }
+    if (this.state.likes.length !== 0) {
+      return (
+        <View style={{ flex: 1 }}>
+          {this.state.likes.map((item, index) => (
+            <TouchableOpacity key={item.id}>
+              <Kweek
+                key={item.id}
+                id={item.id}
+                date={item.created_at}
+                profileImageUrl={item.user.profile_image_url}
+                screenName={item.user.screen_name}
+                userName={item.user.username}
+                numberOfLikes={item.number_of_likes}
+                numberOfRekweeks={item.number_of_rekweeks}
+                numberOfReplies={item.number_of_replies}
+                kweetText={item.text}
+                liked={item.liked_by_user}
+                rekweeked={item.rekweeked_by_user}
+                rekweekerUserName={item.rekweek_info}
+                mediaUrl={item.media_url}
+                replyTo={item.reply_info}
+                following={item.user.following}
+                mentions={item.mentions}
+                navigation={this.props.navigation}
+              />
+            </TouchableOpacity>
+          ))
+      }
 
+        </View>
+      );
+    }
+    return (
+      <View style={styles.Container}>
+        <Text style={{ fontSize: 30 }}>
+          No likes
+        </Text>
       </View>
     );
   }
@@ -527,10 +549,13 @@ render() {
       <View style={styles.headerContainer}>
         <View style={styles.header}>
           <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
-            <Image
-              style={styles.backButton}
-              source={require('./../../Assets/Images/black_back_button.png')}
-            />
+            <View style={styles.backButton}>
+              <FontAwesome
+                name="arrow-left"
+                size={26}
+                style={{ color: '#fff' }}
+              />
+            </View>
           </TouchableNativeFeedback>
           {/*
           <Menu

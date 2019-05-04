@@ -13,6 +13,7 @@ export default class Account extends React.Component {
 
 
   componentDidMount() {
+    this.getEmail();
     AsyncStorage.getItem('@app:id').then((id) => {
       this.setState({ currentUsername: id });
     });
@@ -22,6 +23,7 @@ export default class Account extends React.Component {
         AsyncStorage.getItem('@app:id').then((id) => {
           this.setState({ currentUsername: id });
         });
+        this.getEmail();
       }
     );
   }
@@ -34,7 +36,7 @@ export default class Account extends React.Component {
     axios.get('user/email')
       .then((res) => {
         this.setState({
-          Email: res.data,
+          Email: res.data.email,
         });
       })
       .catch((error) => {
