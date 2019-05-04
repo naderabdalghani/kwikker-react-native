@@ -15,5 +15,6 @@ describe('ConversationScreen component', () => {
     const Instance = wrapper.instance();
     await Instance.setState({ refreshing: false, message: 'hi' });
     await Instance.onSubmit();
+    expect(mockAxios.post).toHaveBeenCalledTimes(1);
   });
 });
