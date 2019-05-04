@@ -27,15 +27,6 @@ export class Home extends Component {
 
 
   componentDidMount() {
-    AsyncStorage.getItem('@app:image').then((image) => {
-      this.props.navigation.setParams({
-        headerLeft: (
-          <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
-            <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
-          </TouchableOpacity>
-        ),
-      });
-    });
     let socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
     socket.connect();
     AsyncStorage.getItem('@app:id').then((id) => {
@@ -58,6 +49,13 @@ export class Home extends Component {
       })
         .then((response) => {
           AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+          this.props.navigation.setParams({
+            headerLeft: (
+              <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+                <Image source={{ uri: response.data.profile_image_url }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+              </TouchableOpacity>
+            ),
+          });
         })
         .catch(() => {
         });
@@ -90,6 +88,13 @@ export class Home extends Component {
           })
             .then((response) => {
               AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+              this.props.navigation.setParams({
+                headerLeft: (
+                  <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+                    <Image source={{ uri: response.data.profile_image_url }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+                  </TouchableOpacity>
+                ),
+              });
             })
             .catch(() => {
             });
