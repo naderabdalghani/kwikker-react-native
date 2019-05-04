@@ -109,6 +109,8 @@ export default class All extends React.Component {
               kweekText={item.kweek_text}
               type={item.type}
               screenName={item.screen_name}
+              userName={item.username}
+              rootNav={this.props.screenProps.rootNav}
             />
           </TouchableOpacity>
         ))

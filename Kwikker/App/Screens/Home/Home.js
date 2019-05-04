@@ -69,18 +69,20 @@ componentDidMount() {
       socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
       socket.connect();
       AsyncStorage.getItem('@app:id').then((id) => {
-        this.setState({ currentUsername: id, },);
-        socket.on(this.state.currentUsername, (notification) => {
-          PushNotification.localNotification({
-            message: notification,
+        if (id !== this.state.currentUsername) {
+          this.setState({ currentUsername: id, },);
+          socket.on(this.state.currentUsername, (notification) => {
+            PushNotification.localNotification({
+              message: notification,
+            });
+            this.props.showNotification({
+              title: notification,
+              message: ' hi ',
+              vibrate: true,
+              onPress: () => this.props.navigation.navigate('Notifications')
+            });
           });
-          this.props.showNotification({
-            title: notification,
-            message: ' hi ',
-            vibrate: true,
-            onPress: () => this.props.navigation.navigate('Notifications')
-          });
-        });
+        }
         axios.get('user/profile', {
           params: {
             username: id

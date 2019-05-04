@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 import styles from './Styles';
 
 /** @module Notification **/
@@ -64,9 +64,17 @@ export default class Notification extends React.Component {
     return (
 
       <View style={styles.notificationContainer}>
-        <View style={styles.profilePicture}>
-          <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
-        </View>
+        <TouchableOpacity
+          onPress={() => {
+            this.props.rootNav.push('Profile', {
+              username: this.props.userName,
+            });
+          }}
+        >
+          <View style={styles.profilePicture}>
+            <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
+          </View>
+        </TouchableOpacity>
         <View style={styles.textContainer}>
           <View style={styles.textHeader}>
             <Text numberOfLines={1} style={{ fontWeight: 'bold' }}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.screenName}
