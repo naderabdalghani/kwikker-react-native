@@ -126,12 +126,12 @@ moreTrendsKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
 searchKweeksOrGetTrends() {
   if (this.props.navigation.state.params.search !== '' && this.props.navigation.state.params.search === this.state.search) {
     return (
-      <SearchTap screenProps={{ rootNav: this.props.navigation, refreshing: this.state.refreshing, users: this.state.usersList, kweeks: this.state.trendsKweeks, moreKweeksLists: (data) => this.moreTrendsKweeks(data), moreUsersLists: (data) => this.moreUsersLists(data) }} />
+      <SearchTap screenProps={{ rootNav: this.props.navigation, refreshing: this.state.refreshing, users: this.state.usersList, kweeks: this.state.trendsKweeks, moreKweeksLists: (data) => this.moreTrendsKweeks(data), moreUsersLists: (data) => this.moreUsersLists(data), pullRefresh: () => this.updateTrendsKweeks() }} />
 
     );
   }
   return (
-    <SearchTap screenProps={{ rootNav: this.props.navigation, refreshing: this.state.refreshing, users: this.state.usersList, kweeks: this.state.kweeksList, moreKweeksLists: (data) => this.moreKweeksLists(data), moreUsersLists: (data) => this.moreUsersLists(data) }} />
+    <SearchTap screenProps={{ rootNav: this.props.navigation, refreshing: this.state.refreshing, users: this.state.usersList, kweeks: this.state.kweeksList, moreKweeksLists: (data) => this.moreKweeksLists(data), moreUsersLists: (data) => this.moreUsersLists(data), pullRefresh: () => this.updateKweeksList() }} />
 
   );
 }

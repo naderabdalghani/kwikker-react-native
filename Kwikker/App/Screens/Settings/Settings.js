@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, TouchableNativeFeedback, Image } from 're
 import AsyncStorage from '@react-native-community/async-storage';
 import Styles from './Styles';
 
+/** @module Settings **/
 export default class Settings extends Component {
   constructor(props) {
     super(props);
@@ -23,10 +24,18 @@ export default class Settings extends Component {
     );
   }
 
+  /**
+ * navigate to Account settings.
+ * @memberof Settings
+ */
   Account() {
     this.props.navigation.navigate('Account');
   }
 
+  /**
+ * navigate to Privacy And Safety settings.
+ * @memberof Settings
+ */
   PrivacyAndSafety() {
     this.props.navigation.navigate('PrivacyAndSafety');
   }

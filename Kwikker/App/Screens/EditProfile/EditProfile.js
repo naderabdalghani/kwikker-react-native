@@ -7,7 +7,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 
-export default class App extends React.Component {
+/** @module EditPdofile **/
+
+export default class EditPdofile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,24 +33,38 @@ export default class App extends React.Component {
       currentCover: this.props.navigation.state.params.cover,
       coverImage: this.props.navigation.state.params.cover,
       bio: this.props.navigation.state.params.bio,
-      birthDate: this.props.navigation.state.params.birthDate,
       screenName: this.props.navigation.state.params.screenName,
     });
   }
 
+  /** action sheet options.
+    * determine options to be shown in update picture menu.
+    * @memberof EditPdofile
+    */
   getOPtions() {
     if (this.state.profile) return (['Cancle', 'delete profile photo', 'Choose existing photo']);
     return (['Cancle', 'delete cover photo', 'Choose existing photo']);
   }
 
+  /** pull to refresh functionality.
+   * set refreshing to false.
+   * @memberof EditPdofile
+  */
   pullRefresh= () => {
     this.setState({ refreshing: false, });
   }
 
+  /** shoe action sheet.
+   * open update picture minu.
+   * @memberof EditPdofile
+  */
   showActionSheet = () => {
     this.ActionSheet.show();
   }
 
+  /** when user choose bunner Photo
+ * @memberof EditPdofile
+ */
   handleChoosePhoto = () => {
     const options = {
       noData: true,
@@ -60,6 +76,9 @@ export default class App extends React.Component {
     });
   };
 
+  /** when user choose profile Photo
+ * @memberof EditPdofile
+ */
   handleChooseProfile = () => {
     const options = {
       noData: true,
@@ -71,42 +90,46 @@ export default class App extends React.Component {
     });
   };
 
-  updateProfilePic() {
-    const formData = new FormData();
-    formData.append('file', { name: this.state.photoProfile.fileName, type: this.state.photoProfile.type, uri: this.state.photoProfile.uri });
-    axios({
-      method: 'post',
-      url: 'user/profile_picture',
-      data: formData,
-      config: { headers: { 'Content-Type': 'multipart/form-data' } }
-    })
-      .then((response) => {
-      })
-      .catch(() => {
-      })
-      .then((response) => {
-        this.props.navigation.goBack(null);
-      });
-  }
+  // updateProfilePic() {
+  //   const formData = new FormData();
+  //   formData.append('file', { name: this.state.photoProfile.fileName, type: this.state.photoProfile.type, uri: this.state.photoProfile.uri });
+  //   axios({
+  //     method: 'post',
+  //     url: 'user/profile_picture',
+  //     data: formData,
+  //     config: { headers: { 'Content-Type': 'multipart/form-data' } }
+  //   })
+  //     .then((response) => {
+  //     })
+  //     .catch(() => {
+  //     })
+  //     .then((response) => {
+  //       this.props.navigation.goBack(null);
+  //     });
+  // }
 
-  updateCoverPic() {
-    const formdata = new FormData();
-    formdata.append('file', { name: this.state.photoCover.fileName, type: this.state.photoCover.type, uri: this.state.photoCover.uri });
-    axios({
-      method: 'post',
-      url: 'user/profile_banner',
-      data: formdata,
-      config: { headers: { 'Content-Type': 'multipart/form-data' } }
-    })
-      .then((response) => {
-      })
-      .catch(() => {
-      })
-      .then((response) => {
-        this.updateProfilePic();
-      });
-  }
+  // updateCoverPic() {
+  //   const formdata = new FormData();
+  //   formdata.append('file', { name: this.state.photoCover.fileName, type: this.state.photoCover.type, uri: this.state.photoCover.uri });
+  //   axios({
+  //     method: 'post',
+  //     url: 'user/profile_banner',
+  //     data: formdata,
+  //     config: { headers: { 'Content-Type': 'multipart/form-data' } }
+  //   })
+  //     .then((response) => {
+  //     })
+  //     .catch(() => {
+  //     })
+  //     .then((response) => {
+  //       this.updateProfilePic();
+  //     });
+  // }
 
+  /** press save button.
+   * updates pictures and screen name and bio.
+ * @memberof EditPdofile
+ */
   save() {
     if (!(this.state.refreshing)) {
       this.setState({ refreshing: true });
@@ -217,6 +240,9 @@ export default class App extends React.Component {
     }
   }
 
+  /** when user choose delete profile photo from action sheet
+ * @memberof EditPdofile
+ */
   deleteProfilePhoto() {
     axios.delete('user/profile_picture', {
     })
@@ -226,6 +252,9 @@ export default class App extends React.Component {
       });
   }
 
+  /** when user choose delete cover photo from action sheet
+ * @memberof EditPdofile
+ */
   deleteCoverPhoto() {
     axios.delete('user/profile_banner', {
     })
@@ -235,6 +264,11 @@ export default class App extends React.Component {
       });
   }
 
+  /** update photo menu
+    * handle update photo button in update photo menu
+    * @memberof EditPdofile
+    * @param {int} index - index of button pressed
+    */
   handleMenu(index) {
     if (this.state.profile) {
       if (index === 1) {
@@ -253,6 +287,9 @@ export default class App extends React.Component {
     }
   }
 
+  /** when user press button to update cover
+ * @memberof EditPdofile
+ */
   cameraCoverPressed() {
     this.setState({
       profile: false,
@@ -260,6 +297,9 @@ export default class App extends React.Component {
     this.ActionSheet.show();
   }
 
+  /** when user press button to update profile photo
+ * @memberof EditPdofile
+ */
   cameraProfilePressed() {
     this.setState({
       profile: true,

@@ -47,7 +47,7 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
   },
   fackTab: {
-    width: '25%',
+    width: '50%',
     alignItems: 'center',
 
   },

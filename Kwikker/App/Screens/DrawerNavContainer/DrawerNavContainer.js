@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
 import io from 'socket.io-client';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import RNRestart from 'react-native-restart';
-import Styles from './Styles';
 import Feather from 'react-native-vector-icons/Feather';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Styles from './Styles';
 
 /** @module DrawerNavContainer **/
 
@@ -35,6 +36,7 @@ export default class DrawerNavContainer extends Component {
 
   /**
    * update data
+   * @memberof DrawerNavContainer
    */
   updateProfile(userName) {
     axios.get('user/profile', {
@@ -60,11 +62,20 @@ export default class DrawerNavContainer extends Component {
 
   /**
    * Completely deletes the access token and username then redirects the user to the start screen
+   * @memberof DrawerNavContainer
    */
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
     AsyncStorage.clear().then(() => {
-      RNRestart.Restart();
+      this.props.navigation.dispatch(StackActions.reset({
+        index: 0,
+        key: 'StartStackNavigator',
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'StartScreen'
+          }),
+        ],
+      }));
     }).catch(() => {});
   }
 

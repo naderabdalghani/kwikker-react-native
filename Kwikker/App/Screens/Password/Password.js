@@ -7,6 +7,8 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 
+/** @module Password **/
+
 export default class Password extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +26,7 @@ export default class Password extends React.Component {
   /**
    * update user's password and go back to account settings or the 'Login' page provided that the new and confirm password are match and not empty,
    * else Shows a toast message
+   * @memberof Password
    */
   updatePasswordButtonPress() {
     if (!(this.state.disable)) {
@@ -84,6 +87,7 @@ export default class Password extends React.Component {
 
   /**
    * Doesn't render the back button if it's considered as a forgotPassword form, renders it otherwise
+   * @memberof Password
    */
   backButtonRenderer() {
     if (this.state.forgotPasswordForm === true) {
@@ -109,6 +113,7 @@ export default class Password extends React.Component {
 
   /**
    * Doesn't render the current password text input if it's considered as a forgotPassword form, renders it otherwise
+   * @memberof Password
    */
   currentPasswordRenderer() {
     if (this.state.forgotPasswordForm === true) {

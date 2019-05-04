@@ -4,6 +4,7 @@ import axios from 'axios';
 import MutedAccount from '../../Components/MutedAccount/MutedAccount';
 import Styles from './Styles';
 
+/** @module MutedAccounts **/
 
 export default class MutedAccounts extends React.Component {
   constructor(props) {
@@ -26,6 +27,10 @@ export default class MutedAccounts extends React.Component {
     );
   }
 
+  /** pull to refresh functionality.
+   * update mute list.
+   * @memberof MutedAccounts
+  */
   pullRefresh= () => {
     this.setState({ refreshing: false },
       () => {
@@ -33,6 +38,10 @@ export default class MutedAccounts extends React.Component {
       });
   }
 
+  /** content of muted list.
+  * check if there is any muted account or not.
+  * @memberof MutedAccounts
+  */
   isThereMutedAccounts() {
     if (this.state.mutedOrNot) {
       return (
@@ -47,15 +56,15 @@ export default class MutedAccounts extends React.Component {
         >
           {this.state.usersList.map((item, index) => (
 
-              <MutedAccount 
-                key={item.username} 
-                profileUrl={item.profile_image_url} 
-                screenName={item.screen_name} 
-                following={item.following} 
-                followsYou={item.follows_you} 
-                userName={item.username} 
-                pullRefresh={this.pullRefresh.bind(this)}
-              /> 
+            <MutedAccount
+              key={item.username}
+              profileUrl={item.profile_image_url}
+              screenName={item.screen_name}
+              following={item.following}
+              followsYou={item.follows_you}
+              userName={item.username}
+              pullRefresh={this.pullRefresh.bind(this)}
+            />
           ))
           }
         </ScrollView>
@@ -77,6 +86,10 @@ export default class MutedAccounts extends React.Component {
     );
   }
 
+  /** muted accounts.
+  * gets list of muted account.
+  * @memberof MutedAccounts
+  */
   muted() {
     axios.get('interactions/mutes', {
 
@@ -85,10 +98,11 @@ export default class MutedAccounts extends React.Component {
         this.setState({
           usersList: response.data, mutedOrNot: true,
         });
-        if(response.data.length === 0)
-        this.setState({
-           mutedOrNot: false,
-        });
+        if (response.data.length === 0) {
+          this.setState({
+            mutedOrNot: false,
+          });
+        }
       })
       .catch((error) => {
         this.setState({ mutedOrNot: false });
@@ -110,9 +124,9 @@ export default class MutedAccounts extends React.Component {
           <View style={Styles.backButtonContainer}>
             <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
               <Image
-                  style={Styles.backButton}
-                  source={require('./../../Assets/Images/back_button.png')}
-                />
+                style={Styles.backButton}
+                source={require('./../../Assets/Images/back_button.png')}
+              />
             </TouchableNativeFeedback>
           </View>
           <View style={Styles.titleContainer}>

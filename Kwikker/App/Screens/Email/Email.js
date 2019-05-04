@@ -6,6 +6,7 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 
+/** @module ConversationScreen **/
 
 export default class Email extends React.Component {
   constructor(props) {
@@ -24,7 +25,8 @@ export default class Email extends React.Component {
   }
 
   /**
-   * update user's Email and go back to account settings
+   * gets user Email
+   * @memberof ConversationScreen
    */
 
   getEmail() {
@@ -43,6 +45,10 @@ export default class Email extends React.Component {
       });
   }
 
+  /**
+   * update user's Email and go back to account settings
+   * @memberof ConversationScreen
+   */
   nextButtonPress() {
     axios.put('user/email', {
       email: this.state.Name

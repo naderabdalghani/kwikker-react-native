@@ -4,7 +4,9 @@ import axios from 'axios';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from './Styles';
 
-export default class App extends React.Component {
+/** @module ProfileHeader **/
+
+export default class ProfileHeader extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,11 +16,13 @@ export default class App extends React.Component {
 
 
   componentDidMount() {
-    this.setState({
-      myProfile: this.props.myProfile,
-    });
   }
 
+
+  /**
+ * follow user.
+ * @memberof ProfileHeader
+ */
   follow() {
     axios.post('interactions/follow', {
       username: this.props.username
@@ -30,6 +34,10 @@ export default class App extends React.Component {
       });
   }
 
+  /**
+ * unfollow user.
+ * @memberof ProfileHeader
+ */
   unfollow() {
     axios.delete('interactions/follow', {
       params: {
@@ -42,10 +50,10 @@ export default class App extends React.Component {
       });
   }
 
-  block() {
-
-  }
-
+  /**
+ * unblock user.
+ * @memberof ProfileHeader
+ */
   unblock() {
     axios.delete('interactions/blocks', {
       params: {
@@ -60,14 +68,10 @@ export default class App extends React.Component {
       });
   }
 
-  mute() {
-
-  }
-
-  unmute() {
-
-  }
-
+  /**
+ * checks if the profile owner is muted to show mute icon.
+ * @memberof ProfileHeader
+ */
   isMuted() {
     if (this.props.muted) {
       return (<Image style={{ width: 25, height: 25, }} source={require('../../Assets/Images/mute.png')} />);
@@ -75,6 +79,10 @@ export default class App extends React.Component {
     return (<Text />);
   }
 
+  /**
+ * handle right button style and interaction is it follow/following/edit profile/blocked.
+ * @memberof ProfileHeader
+ */
   rightButton() {
     if (!this.props.uBlocked) {
       if (this.props.following) {
@@ -131,7 +139,10 @@ export default class App extends React.Component {
     return (null);
   }
 
-
+  /**
+ * chec if the user has been blocked or not.
+ * @memberof ProfileHeader
+ */
   youRBlocked() {
     if (!this.props.uBlocked && !this.props.blockedView) {
       return (
@@ -184,6 +195,10 @@ export default class App extends React.Component {
     );
   }
 
+  /**
+ * checks if the peorile owner is following you or not to view or not the messagr icon.
+ * @memberof ProfileHeader
+ */
   chat() {
     if (this.props.followsYou) {
       return (
@@ -205,6 +220,10 @@ export default class App extends React.Component {
     );
   }
 
+  /**
+ * checks if the profilr owner is following you or not.
+ * @memberof ProfileHeader
+ */
   followsYou() {
     if (this.props.followsYou) {
       return (
@@ -220,6 +239,10 @@ export default class App extends React.Component {
     );
   }
 
+  /**
+ * return the date of joining.
+ * @memberof ProfileHeader
+ */
   dateAndTime() {
     const now = new Date();
     const months = [' Jan', ' Feb', ' Mar', ' Apr', ' May', ' Jun', ' Jul', ' Aug', ' Sep', ' Oct', ' Nov', ' Dec'];

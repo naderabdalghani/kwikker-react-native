@@ -12,6 +12,10 @@ export default class MutedAccount extends React.Component {
     };
   }
 
+  /**
+   * unblock user
+   * @memberof MutedAccount
+   */
   unblock() {
     axios.delete('interactions/blocks', {
       params: {

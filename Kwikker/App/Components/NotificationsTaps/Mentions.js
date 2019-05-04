@@ -53,6 +53,8 @@ export default class Mentions extends React.Component {
               following={item.user.following}
               mentions={item.mentions}
               navigation={this.props.screenProps.rootNav}
+              hashtags={item.hashtags}
+              refresh={() => this.props.screenProps.pullRefresh()}
             />
           </TouchableOpacity>
         ))

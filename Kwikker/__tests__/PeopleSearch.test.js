@@ -6,8 +6,17 @@ import PeopleSearch from '../App/Components/PeopleSearch/PeopleSearch';
 
 describe('PeopleSearch component', () => {
   it('PeopleSearch component', () => {
-    const wrapper = shallow(<PeopleSearch following />);
-    const instance = wrapper.instance();
+    const wrapper = shallow(<PeopleSearch
+      key="item.username"
+      profileUrl="item.profile_image_url"
+      userName="item.username"
+      screenName="item.screen_name"
+      following
+      followsYou
+      blocked={false}
+      muted={false}
+    />);
+    const componentInstance = wrapper.instance();
     expect(wrapper.instance().props.following).toBe(true);
   });
 });

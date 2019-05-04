@@ -89,9 +89,6 @@ export default class Notifications extends Component {
         return 'notification';
     }
   }
-  /** showPopNotification
-   * @memberof Notifications
-   */
 
 
   /** pull to refresh functionality.
