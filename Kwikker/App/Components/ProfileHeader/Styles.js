@@ -46,6 +46,10 @@ export default styles = StyleSheet.create({
     width: 30,
     marginLeft: 12,
   },
+  dateIcon: {
+    height: 20,
+    width: 20,
+  },
   following: {
     borderWidth: 1,
     borderColor: '#1DA1F2',

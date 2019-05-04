@@ -76,7 +76,7 @@ export default class App extends React.Component {
   }
 
   rightButton() {
-    if (!this.props.uBlocked && !this.props.blockedView) {
+    if (!this.props.uBlocked) {
       if (this.props.following) {
         return (
           <TouchableOpacity
@@ -147,11 +147,15 @@ export default class App extends React.Component {
               {this.followsYou()}
             </View>
           </View>
-          <Text style={styles.Gray}>
+          <Text style={{ color: '#000' }}>
             <Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.props.bio}
           </Text>
-          <Text style={styles.Gray}>Joined {this.dateAndTime()} </Text>
-          <Text style={styles.Gray}>date of birth {this.props.birthDate}</Text>
+          <Text style={styles.Gray}> <Image
+            style={styles.dateIcon}
+            source={require('./../../Assets/Images/date.png')}
+          /> Joined {this.dateAndTime()}
+          </Text>
+          <Text style={styles.Gray}> <Image style={styles.dateIcon} source={require('./../../Assets/Images/birth.png')} /> date of birth {this.props.birthDate}</Text>
 
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <Text style={styles.folloerTextStyle}>{this.props.followingCount}</Text>
