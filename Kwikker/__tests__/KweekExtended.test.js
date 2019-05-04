@@ -2,7 +2,7 @@ import 'react-native';
 import React from 'react';
 import renderer from 'react-test-renderer'; // Note: test renderer must be required after react-native.
 import { shallow } from 'enzyme';
-import Kweek from '../App/Components/Kweek/Kweek';
+import KweekExtended from '../App/Components/KweekExtended/KweekExtended';
 
 describe('kweek component', () => {
   it('Handle rekweeks and likes', () => {
@@ -10,7 +10,7 @@ describe('kweek component', () => {
     const rply = { reply_to_username: 'shady', reply_to_kweek_id: '5' };
     const mention = { username: 'nader' };
     const mention2 = { username: 'khaled' };
-    const wrapper = shallow(<Kweek
+    const wrapper = shallow(<KweekExtended
       navigation={navigationMock}
       key={1}
       profileUrl="www.photo.com"
