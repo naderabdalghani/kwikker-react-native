@@ -9,6 +9,7 @@ export default class BlockedAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      clicked: false,
     };
   }
 
@@ -32,7 +33,18 @@ export default class BlockedAccount extends React.Component {
   render() {
     return (
 
-      <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => {
+          if (!this.state.clicked) {
+            this.setState({ clicked: true }, () => {
+              this.props.navigation.push('Profile', {
+                username: this.props.userName,
+              });
+            });
+          }
+        }}
+        style={styles.container}
+      >
         <View style={styles.profilePicture}>
           <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
         </View>
@@ -52,7 +64,7 @@ export default class BlockedAccount extends React.Component {
           </Text>
 
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
