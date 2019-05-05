@@ -15,5 +15,8 @@ describe('Likers component', () => {
     />);
     const instance = wrapper.instance();
     expect(mockAxios.put).toHaveBeenCalledTimes(0);
+    expect(instance.state.refreshing).toBe(true);
+    instance.pullRefresh();
+    expect(instance.state.refreshing).toBe(true);
   });
 });
