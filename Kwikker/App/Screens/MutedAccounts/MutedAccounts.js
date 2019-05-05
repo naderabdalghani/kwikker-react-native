@@ -63,6 +63,7 @@ export default class MutedAccounts extends React.Component {
               following={item.following}
               followsYou={item.follows_you}
               userName={item.username}
+              navigation={this.props.navigation}
               pullRefresh={this.pullRefresh.bind(this)}
             />
           ))

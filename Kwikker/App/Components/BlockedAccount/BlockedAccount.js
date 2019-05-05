@@ -3,18 +3,19 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import styles from './Styles';
 
-/** @module MutedAccount **/
+/** @module BlockedAccount **/
 
-export default class MutedAccount extends React.Component {
+export default class BlockedAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      clicked: false,
     };
   }
 
   /**
    * unblock user
-   * @memberof MutedAccount
+   * @memberof BlockedAccount
    */
   unblock() {
     axios.delete('interactions/blocks', {
@@ -32,7 +33,18 @@ export default class MutedAccount extends React.Component {
   render() {
     return (
 
-      <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => {
+          if (!this.state.clicked) {
+            this.setState({ clicked: true }, () => {
+              this.props.navigation.push('Profile', {
+                username: this.props.userName,
+              });
+            });
+          }
+        }}
+        style={styles.container}
+      >
         <View style={styles.profilePicture}>
           <Image style={styles.ProfileImage} source={{ uri: this.props.profileUrl }} />
         </View>
@@ -52,7 +64,7 @@ export default class MutedAccount extends React.Component {
           </Text>
 
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
     );
   }
 }

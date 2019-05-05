@@ -7,9 +7,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 
-/** @module EditPdofile **/
+/** @module EditProfile **/
 
-export default class EditPdofile extends React.Component {
+export default class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,16 +39,16 @@ export default class EditPdofile extends React.Component {
 
   /** action sheet options.
     * determine options to be shown in update picture menu.
-    * @memberof EditPdofile
+    * @memberof EditProfile
     */
-  getOPtions() {
+  getOptions() {
     if (this.state.profile) return (['Cancle', 'delete profile photo', 'Choose existing photo']);
     return (['Cancle', 'delete cover photo', 'Choose existing photo']);
   }
 
   /** pull to refresh functionality.
    * set refreshing to false.
-   * @memberof EditPdofile
+   * @memberof EditProfile
   */
   pullRefresh= () => {
     this.setState({ refreshing: false, });
@@ -56,14 +56,14 @@ export default class EditPdofile extends React.Component {
 
   /** shoe action sheet.
    * open update picture minu.
-   * @memberof EditPdofile
+   * @memberof EditProfile
   */
   showActionSheet = () => {
     this.ActionSheet.show();
   }
 
   /** when user choose bunner Photo
- * @memberof EditPdofile
+ * @memberof EditProfile
  */
   handleChoosePhoto = () => {
     const options = {
@@ -77,7 +77,7 @@ export default class EditPdofile extends React.Component {
   };
 
   /** when user choose profile Photo
- * @memberof EditPdofile
+ * @memberof EditProfile
  */
   handleChooseProfile = () => {
     const options = {
@@ -128,7 +128,7 @@ export default class EditPdofile extends React.Component {
 
   /** press save button.
    * updates pictures and screen name and bio.
- * @memberof EditPdofile
+ * @memberof EditProfile
  */
   save() {
     if (!(this.state.refreshing)) {
@@ -241,7 +241,7 @@ export default class EditPdofile extends React.Component {
   }
 
   /** when user choose delete profile photo from action sheet
- * @memberof EditPdofile
+ * @memberof EditProfile
  */
   deleteProfilePhoto() {
     axios.delete('user/profile_picture', {
@@ -253,7 +253,7 @@ export default class EditPdofile extends React.Component {
   }
 
   /** when user choose delete cover photo from action sheet
- * @memberof EditPdofile
+ * @memberof EditProfile
  */
   deleteCoverPhoto() {
     axios.delete('user/profile_banner', {
@@ -266,7 +266,7 @@ export default class EditPdofile extends React.Component {
 
   /** update photo menu
     * handle update photo button in update photo menu
-    * @memberof EditPdofile
+    * @memberof EditProfile
     * @param {int} index - index of button pressed
     */
   handleMenu(index) {
@@ -288,7 +288,7 @@ export default class EditPdofile extends React.Component {
   }
 
   /** when user press button to update cover
- * @memberof EditPdofile
+ * @memberof EditProfile
  */
   cameraCoverPressed() {
     this.setState({
@@ -298,7 +298,7 @@ export default class EditPdofile extends React.Component {
   }
 
   /** when user press button to update profile photo
- * @memberof EditPdofile
+ * @memberof EditProfile
  */
   cameraProfilePressed() {
     this.setState({
@@ -386,7 +386,7 @@ export default class EditPdofile extends React.Component {
           />
           <ActionSheet
             ref={(o) => this.ActionSheet = o}
-            options={this.getOPtions()}
+            options={this.getOptions()}
             cancelButtonIndex={0}
             //destructiveButtonIndex={1}
             onPress={(index) => { this.handleMenu(index); }}

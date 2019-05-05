@@ -9,8 +9,9 @@ import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './Styles';
 
-/** @module Kweek **/
-export default class Kweek extends Component {
+/** @module kweekDetailedView **/
+
+export default class kweekDetailedView extends Component {
   constructor(props) {
     super(props);
     this.state = { loggedUser: '', liked: this.props.liked, rekeeked: this.props.rekweeked, likesCounter: this.props.numberOfLikes, rekweeksCounter: this.props.numberOfRekweeks };

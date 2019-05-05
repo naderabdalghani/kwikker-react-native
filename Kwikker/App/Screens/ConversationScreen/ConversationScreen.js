@@ -258,7 +258,17 @@ moreMessages=({ contentOffset }) => {
            messages: response.data,
            refreshing: false,
          },
-         () => { this.scrollView.scrollToEnd({ animated: true }); });
+         () => { this.scrollView.scrollToEnd({ animated: true }); },);
+         if (response.data.length >= 1) {
+           axios.post('direct_message/conversations/unseen_count',
+             {
+               to_user: response.data[0].to_username
+             })
+             .then((res) => {
+             })
+             .catch((error) => {
+             });
+         }
        } else {
          this.setState((prevState) => ({
            messages: prevState.messages.concat(response.data),

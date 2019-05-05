@@ -97,6 +97,7 @@ export default class Username extends React.Component {
             label="Password"
             secureTextEntry={false}
             value={this.state.Password}
+            secureTextEntry
             onChangeText={(Password) => this.setState({ Password })}
             autoFocus={false}
           />
