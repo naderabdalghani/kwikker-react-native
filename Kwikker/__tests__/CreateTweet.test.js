@@ -9,8 +9,8 @@ import CreateTweet from '../App/Screens/CreateTweet/CreateTweet';
 describe('Create Kweek', () => {
   it('Handle rekweeks and likes', async () => {
     const navigationMock = { addListener: jest.fn(),
-      setParam: jest.fn(),
-      navigate: jest.fn(),
+      //setParam: jest.fn(),
+      //navigate: jest.fn(),
       getParam: jest.fn(),
       state: { params: { kweekId: 'kweekId', user: 'user' } } };
     const wrapper = shallow(<CreateTweet
