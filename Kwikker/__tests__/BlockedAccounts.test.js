@@ -11,9 +11,8 @@ describe('BlockedAccounts component', () => {
     const navigationMock = { addListener: jest.fn(), goBack: jest.fn(), };
     const wrapper = shallow(<BlockedAccounts navigation={navigationMock} />);
     const instance = wrapper.instance();
-    instance.block();
     expect(mockAxios.get).toHaveBeenCalledTimes(1);
-    instance.muted();
+    instance.block();
     expect(mockAxios.get).toHaveBeenCalledTimes(2);
   });
 });
