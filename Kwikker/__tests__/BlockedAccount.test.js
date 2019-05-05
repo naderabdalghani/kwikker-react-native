@@ -6,8 +6,8 @@ import mockAxios from 'axios';
 import mockAsyncStorage from '@react-native-community/async-storage';
 import BlockedAccount from '../App/Components/BlockedAccount/BlockedAccount';
 
-describe('All component', () => {
-  it('render Kweeks', () => {
+describe('MutedAccount component', () => {
+  it('unblock: unblock user', () => {
     const wrapper = shallow(<BlockedAccount />);
     const instance = wrapper.instance();
     instance.unblock();

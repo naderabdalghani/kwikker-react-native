@@ -4,15 +4,15 @@ import renderer from 'react-test-renderer'; // Note: test renderer must be requi
 import { shallow } from 'enzyme';
 import mockAxios from 'axios';
 import mockAsyncStorage from '@react-native-community/async-storage';
-import MutedAccount from '../App/Components/MutedAccount/MutedAccount';
+import MutedAccounts from '../App/Screens/MutedAccounts/MutedAccounts';
 
-
-describe('MutedAccount component', () => {
-  it('unMute: unmute user', () => {
+describe('mutedAccounts component', () => {
+  it('muted: gets list of muted users', () => {
     const navigationMock = { addListener: jest.fn(), goBack: jest.fn(), };
-    const wrapper = shallow(<MutedAccount navigation={navigationMock} />);
+    const wrapper = shallow(<MutedAccounts navigation={navigationMock} />);
     const instance = wrapper.instance();
-    instance.unMute();
-    expect(mockAxios.delete).toHaveBeenCalledTimes(1);
+    expect(mockAxios.get).toHaveBeenCalledTimes(1);
+    instance.muted();
+    expect(mockAxios.get).toHaveBeenCalledTimes(2);
   });
 });
