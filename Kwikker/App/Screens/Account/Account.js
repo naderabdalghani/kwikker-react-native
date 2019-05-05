@@ -1,42 +1,77 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Image, TouchableNativeFeedback } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 import Styles from './Styles';
 
-
+/** @module Account **/
 export default class Account extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { currentUsername: '' };
+    this.state = { currentUsername: '', Email: '' };
   }
 
 
   componentDidMount() {
+    this.getEmail();
     AsyncStorage.getItem('@app:id').then((id) => {
       this.setState({ currentUsername: id });
     });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({ currentUsername: id });
+        });
+        this.getEmail();
+      }
+    );
   }
 
-  /**
-   * Redirects the user to the update Username form
-   */
+  /** get Email.
+ * gets Email of the current user.
+ * @memberof Account
+ */
+  getEmail() {
+    axios.get('user/email')
+      .then((res) => {
+        this.setState({
+          Email: res.data.email,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          Email: 'error loading email',
+        });
+      })
+      .then(() => {
+      });
+  }
+
+  /** update username.
+  * Redirects the user to the update Username form.
+  * @memberof Account
+  */
   Username() {
-    this.props.navigation.push('Username');
+    this.props.navigation.navigate('Username');
   }
 
-  /**
-   * Redirects the user to the update Email form
-   */
+  /** update Email.
+  * Redirects the user to the update Email form.
+  * @memberof Account
+  */
   Email() {
-    this.props.navigation.push('Email');
+    this.props.navigation.navigate('Email');
   }
 
-  /**
-   * Redirects the user to the update Password form
-   */
+  /** update Password.
+  * Redirects the user to the update Password form.
+  * @memberof Account
+  */
   Password() {
-    this.props.navigation.push('Password');
+    this.props.navigation.navigate('Password');
   }
+
 
   render() {
     return (
@@ -77,7 +112,7 @@ export default class Account extends React.Component {
           <View style={Styles.box}>
             <TouchableOpacity onPress={this.Email.bind(this)}>
               <Text style={Styles.blackFont}> Email </Text>
-              <Text style={Styles.grayFont}> name@m.com </Text>
+              <Text style={Styles.grayFont}> {this.state.Email} </Text>
             </TouchableOpacity>
           </View>
           <View style={Styles.box}>

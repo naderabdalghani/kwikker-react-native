@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, ScrollView, Image, RefreshControl } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
+import { DrawerActions } from 'react-navigation';
 import Conversation from '../../Components/Conversation/Conversation';
 import styles from './Styles';
 
@@ -16,23 +18,45 @@ export default class Messages extends Component {
     super(props);
     this.state = {
       conversations: [],
+      currentUsername: '',
       refreshing: false,
     };
   }
 
 
   componentDidMount() {
-    this.props.navigation.setParams({
-      headerLeft: (
-        <TouchableOpacity>
-          <Image source={require('./../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
-        </TouchableOpacity>
-      ),
+    AsyncStorage.getItem('@app:image').then((image) => {
+      this.props.navigation.setParams({
+        headerLeft: (
+          <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+            <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+          </TouchableOpacity>
+        ),
+      });
+    });
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.setState({
+        currentUsername: id,
+      });
     });
     this.pullRefresh();
     this.willFocusListener = this.props.navigation.addListener(
       'willFocus',
       () => {
+        AsyncStorage.getItem('@app:image').then((image) => {
+          this.props.navigation.setParams({
+            headerLeft: (
+              <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+                <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+              </TouchableOpacity>
+            ),
+          });
+        });
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({
+            currentUsername: id,
+          });
+        });
         this.pullRefresh();
       }
     );
@@ -113,6 +137,7 @@ render() {
       >
         {this.state.conversations.map((item, index) => (
           <TouchableOpacity
+            style={item.is_seen ? {} : { backgroundColor: '#f2f2f2' }}
             key={item.last_message.id} onPress={() => {
               this.props.navigation.navigate('ConversationScreen', {
                 title: item.user.screen_name,
@@ -128,6 +153,9 @@ render() {
               userName={item.user.username}
               messageTime={item.last_message.created_at}
               screenName={item.user.screen_name}
+              fromUsername={item.last_message.from_username}
+              currentUsername={this.state.currentUsername}
+              mediaUrl={item.last_message.media_url}
             />
           </TouchableOpacity>
         ))
@@ -137,7 +165,7 @@ render() {
       </ScrollView>
       <TouchableOpacity
         style={styles.messageButton} onPress={() => {
-          this.props.navigation.push('ConversationSearch');
+          this.props.navigation.navigate('ConversationSearch');
         }}
       >
         <Image source={require('./../../Assets/Images/Message1.png')} style={styles.buttomImage} />

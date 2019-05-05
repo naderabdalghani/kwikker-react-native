@@ -1,42 +1,119 @@
 import React, { Component } from 'react';
-import { Text, View, Image, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
+import { View, Image, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import axios from 'axios';
-import { DrawerActions } from 'react-navigation';
+import io from 'socket.io-client';
+import PushNotification from 'react-native-push-notification';
+import AsyncStorage from '@react-native-community/async-storage';
+import { DrawerActions, NavigationActions } from 'react-navigation';
+import { withInAppNotification } from 'react-native-in-app-notification/src/index';
 import Kweek from '../../Components/Kweek/Kweek';
 
-export default class Home extends Component {
-static navigationOptions = ({ navigation }) => {
-  return {
-    headerLeft:
-  <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-    <Image source={require('./../../Assets/Images/pp.png')} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
-  </TouchableOpacity>
+/** @module Home **/
+export class Home extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+    return params;
   };
-};
 
-constructor(props) {
-  super(props);
-  this.state = {
-    kweeks: [],
-    refreshing: false,
-  };
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      kweeks: [],
+      currentUsername: '',
+      refreshing: false,
+    };
+    //console.log('constructor');
+  }
 
 
-componentDidMount() {
-  this.pullRefresh();
-  console.log('componentdidMount');
-}
+  componentDidMount() {
+    let socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
+    socket.connect();
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.setState({ currentUsername: id, },);
+      socket.on(this.state.currentUsername, (notification) => {
+        PushNotification.localNotification({
+          message: notification,
+        });
+        this.props.showNotification({
+          title: notification,
+          message: ' hi ',
+          vibrate: true,
+          onPress: () => this.props.navigation.navigate('Notifications')
+        });
+      });
+      axios.get('user/profile', {
+        params: {
+          username: id
+        }
+      })
+        .then((response) => {
+          AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+          this.props.navigation.setParams({
+            headerLeft: (
+              <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+                <Image source={{ uri: response.data.profile_image_url }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+              </TouchableOpacity>
+            ),
+          });
+        })
+        .catch(() => {
+        });
+    });
+    this.pullRefresh();
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        socket = io('http://kwikkerbackend.eu-central-1.elasticbeanstalk.com', { transports: ['websocket'] });
+        socket.connect();
+        AsyncStorage.getItem('@app:id').then((id) => {
+          if (id !== this.state.currentUsername) {
+            this.setState({ currentUsername: id, },);
+            socket.on(this.state.currentUsername, (notification) => {
+              PushNotification.localNotification({
+                message: notification,
+              });
+              this.props.showNotification({
+                title: notification,
+                message: ' hi ',
+                vibrate: true,
+                onPress: () => this.props.navigation.navigate('Notifications')
+              });
+            });
+          }
+          axios.get('user/profile', {
+            params: {
+              username: id
+            }
+          })
+            .then((response) => {
+              AsyncStorage.setItem('@app:image', response.data.profile_image_url);
+              this.props.navigation.setParams({
+                headerLeft: (
+                  <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+                    <Image source={{ uri: response.data.profile_image_url }} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }} />
+                  </TouchableOpacity>
+                ),
+              });
+            })
+            .catch(() => {
+            });
+        });
+        this.pullRefresh();
+      }
+    );
+    //console.log('componentdidMount');
+  }
 
 /**
  * Pull to refresh functionality
  */
 pullRefresh= () => {
-  console.log('pullRefresh');
+  //console.log('pullRefresh');
   this.setState({
     refreshing: true,
   });
-  console.log(this.state.refreshing);
+  //console.log(this.state.refreshing);
   this.updateKweeks();
 }
 
@@ -51,6 +128,9 @@ moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
     this.setState({
       refreshing: true,
     });
+    if (this.state.kweeks[this.state.kweeks.length - 1].rekweek_info !== null) {
+      this.updateKweeks(this.state.kweeks[this.state.kweeks.length - 1].id, this.state.kweeks[this.state.kweeks.length - 1].rekweek_info.rekweeker_username);
+    }
     this.updateKweeks(this.state.kweeks[this.state.kweeks.length - 1].id);
   }
 }
@@ -60,17 +140,18 @@ moreKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
  * To retrieve more send the id of the last retrieved kweek.
  * @param {int} id - The id of Kweek .
  */
-updateKweeks(id = null) {
-  console.log('updateKweeks');
+updateKweeks(id = null, username = null) {
+  //console.log('updateKweeks');
   axios.get('kweeks/timelines/home', {
     params: {
-      last_retrieved_kweek_id: id
+      last_retrieved_kweek_id: id,
+      last_retrieved_rekweeker_username: username
     }
   })
     .then((response) => {
-      console.log(response.status);
+      //console.log(response.status);
       if (id === null) {
-        console.log('response id null');
+        //console.log('response id null');
         this.setState({
           kweeks: response.data
         });
@@ -80,9 +161,9 @@ updateKweeks(id = null) {
       }
       this.setState({ refreshing: false });
     })
-    .catch((error) => {
+    .catch(() => {
     // handle error
-      console.log('get tweets error');
+      //console.log('get tweets error');
     })
     .then(() => {
     // always executed
@@ -90,6 +171,7 @@ updateKweeks(id = null) {
 }
 
 render() {
+  //console.log('render');
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -102,7 +184,7 @@ render() {
         style={{ flex: 1 }}
         onScroll={({ nativeEvent }) => { this.moreKweeks(nativeEvent); }}
       >
-        {this.state.kweeks.map((item, index) => (
+        {this.state.kweeks.map((item) => (
           <Kweek
             key={item.id}
             id={item.id}
@@ -118,6 +200,12 @@ render() {
             rekweeked={item.rekweeked_by_user}
             rekweekerUserName={item.rekweek_info}
             mediaUrl={item.media_url}
+            replyTo={item.reply_info}
+            following={item.user.following}
+            mentions={item.mentions}
+            navigation={this.props.navigation}
+            hashtags={item.hashtags}
+            refresh={() => this.pullRefresh()}
           />
         ))
        }
@@ -129,3 +217,5 @@ render() {
   );
 }
 }
+
+export default withInAppNotification(Home);

@@ -31,12 +31,13 @@ export default class SearchBar extends Component {
       headerTitle: (
         <View style={{ width: '85%', marginTop: 5 }}>
           <TextInput
+            autoFocus
             defaultValue={this.props.navigation.state.params.search}
             ref={(ref) => { this.textInput = ref; }}
             onChangeText={(search) => {
               this.setState({ search }, () => {
                 this.updateUsersList();
-                this.updatekweeksList();
+                this.updateKweeksList();
               });
             }}
             placeholder=" Search Kwikker "
@@ -50,7 +51,7 @@ export default class SearchBar extends Component {
           onPress={() => {
             this.textInput.clear(); this.setState({ search: '' }, () => {
               this.updateUsersList();
-              this.updatekweeksList();
+              this.updateKweeksList();
             });
           }} name="close" size={35} color="rgb(136, 153, 166)" style={{ margin: 5 }}
         />
@@ -60,7 +61,7 @@ export default class SearchBar extends Component {
     this.setState({ search: this.props.navigation.state.params.search });
     if (this.props.navigation.state.params.search === '') {
       this.updateUsersList();
-      this.updatekweeksList();
+      this.updateKweeksList();
     } else {
       this.updateTrendsKweeks();
     }
@@ -71,7 +72,7 @@ export default class SearchBar extends Component {
         this.setState({ search: this.props.navigation.state.params.search });
         if (this.props.navigation.state.params.search === '') {
           this.updateUsersList();
-          this.updatekweeksList();
+          this.updateKweeksList();
         } else {
           this.updateTrendsKweeks();
         }
@@ -125,12 +126,12 @@ moreTrendsKweeks=({ layoutMeasurement, contentOffset, contentSize }) => {
 searchKweeksOrGetTrends() {
   if (this.props.navigation.state.params.search !== '' && this.props.navigation.state.params.search === this.state.search) {
     return (
-      <SearchTap screenProps={{ rootNav: this.props.navigation, refreshing: this.state.refreshing, users: this.state.usersList, kweeks: this.state.trendsKweeks, moreKweeksLists: (data) => this.moreTrendsKweeks(data), moreUsersLists: (data) => this.moreUsersLists(data) }} />
+      <SearchTap screenProps={{ rootNav: this.props.navigation, refreshing: this.state.refreshing, users: this.state.usersList, kweeks: this.state.trendsKweeks, moreKweeksLists: (data) => this.moreTrendsKweeks(data), moreUsersLists: (data) => this.moreUsersLists(data), pullRefresh: () => this.updateTrendsKweeks() }} />
 
     );
   }
   return (
-    <SearchTap screenProps={{ rootNav: this.props.navigation, refreshing: this.state.refreshing, users: this.state.usersList, kweeks: this.state.kweeksList, moreKweeksLists: (data) => this.moreKweeksLists(data), moreUsersLists: (data) => this.moreUsersLists(data) }} />
+    <SearchTap screenProps={{ rootNav: this.props.navigation, refreshing: this.state.refreshing, users: this.state.usersList, kweeks: this.state.kweeksList, moreKweeksLists: (data) => this.moreKweeksLists(data), moreUsersLists: (data) => this.moreUsersLists(data), pullRefresh: () => this.updateKweeksList() }} />
 
   );
 }
@@ -179,7 +180,7 @@ updateUsersList(username = null) {
  * @memberof SearchBar
  * @param {string} username - The username of user .
  */
-updatekweeksList(username = null) {
+updateKweeksList(username = null) {
   this.setState({ refreshing: true });
 
   axios.get('search/kweeks', {
@@ -191,11 +192,11 @@ updatekweeksList(username = null) {
     .then((kweeksRes) => {
       if (username === null) {
         this.setState({
-          //kweeksList: kweeksRes.data
+          kweeksList: kweeksRes.data
         });
       } else {
         this.setState((prevState) => ({
-          //kweeksList: prevState.kweeksList.concat(kweeksRes.data)
+          kweeksList: prevState.kweeksList.concat(kweeksRes.data)
         }));
       }
 

@@ -1,18 +1,43 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, TouchableNativeFeedback, Image } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Styles from './Styles';
 
+/** @module Settings **/
 export default class Settings extends Component {
   constructor(props) {
     super(props);
+    this.state = { username: '', };
   }
 
+  componentDidMount() {
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.setState({ username: id });
+    });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({ username: id });
+        });
+      }
+    );
+  }
+
+  /**
+ * navigate to Account settings.
+ * @memberof Settings
+ */
   Account() {
-    this.props.navigation.push('Account');
+    this.props.navigation.navigate('Account');
   }
 
+  /**
+ * navigate to Privacy And Safety settings.
+ * @memberof Settings
+ */
   PrivacyAndSafety() {
-    this.props.navigation.push('PrivacyAndSafety');
+    this.props.navigation.navigate('PrivacyAndSafety');
   }
 
   render() {
@@ -38,7 +63,7 @@ export default class Settings extends Component {
 
           <View style={Styles.developersContainer}>
             <Text style={Styles.developers}>
-              @UserName
+              @{this.state.username}
             </Text>
           </View>
 

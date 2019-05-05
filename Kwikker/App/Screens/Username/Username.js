@@ -6,6 +6,7 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 
+/** @module Username **/
 
 export default class Username extends React.Component {
   constructor(props) {
@@ -18,11 +19,21 @@ export default class Username extends React.Component {
       this.setState({ currentUsername: id });
       this.setState({ Name: id });
     });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({ currentUsername: id });
+          this.setState({ Name: id });
+        });
+      }
+    );
   }
 
 
   /**
    * update user's username and go back to account settings
+   * @memberof Username
    */
   doneButtonPress() {
     axios.put('user/username', {
@@ -32,12 +43,14 @@ export default class Username extends React.Component {
       .then((res) => {
         this.setState({ message: 'username changed successfully' });
         ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-        this.props.navigation.goBack(null);
+        AsyncStorage.multiSet([['@app:session', res.data.token], ['@app:id', this.state.Name]]).then(() => {
+          axios.defaults.headers.common['TOKEN'] = res.data.token;
+          this.props.navigation.goBack(null);
+        }).catch(() => {});
       })
       .catch((err) => {
-        this.setState({ message: "error: username didn't change, try again later" });
+        this.setState({ message: "error: username didn't change, Username already exists " });
         ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-        this.props.navigation.goBack(null);
       });
   }
 
@@ -84,6 +97,7 @@ export default class Username extends React.Component {
             label="Password"
             secureTextEntry={false}
             value={this.state.Password}
+            secureTextEntry
             onChangeText={(Password) => this.setState({ Password })}
             autoFocus={false}
           />

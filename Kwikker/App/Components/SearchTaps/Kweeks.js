@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image, TextInput, RefreshControl } from 'react-native';
 import Kweek from '../Kweek/Kweek';
 
-/** @module Kweeks **/
-
 export default class Kweeks extends React.Component {
   render() {
     return (
@@ -32,6 +30,12 @@ export default class Kweeks extends React.Component {
               rekweeked={item.rekweeked_by_user}
               rekweekerUserName={item.rekweek_info}
               mediaUrl={item.media_url}
+              replyTo={item.reply_info}
+              following={item.user.following}
+              mentions={item.mentions}
+              navigation={this.props.screenProps.rootNav}
+              hashtags={item.hashtags}
+              refresh={() => this.props.screenProps.pullRefresh()}
             />
           </TouchableOpacity>
         ))

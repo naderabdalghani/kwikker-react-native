@@ -9,7 +9,11 @@ import Email from '../App/Screens/Email/Email';
 
 describe('Email component', () => {
   it("nextButtonPress: update user's Email and go back to account settings", () => {
-    const wrapper = shallow(<Email />);
+    const wrapper = shallow(<Email
+      navigation={
+        { addListener: jest.fn() }
+      }
+    />);
     const instance = wrapper.instance();
     instance.nextButtonPress();
     expect(mockAxios.put).toHaveBeenCalledTimes(1);

@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
-import { NavigationActions, DrawerActions } from 'react-navigation';
+import { NavigationActions, StackActions } from 'react-navigation';
+import io from 'socket.io-client';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
+import RNRestart from 'react-native-restart';
+import Feather from 'react-native-vector-icons/Feather';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Styles from './Styles';
 
 /** @module DrawerNavContainer **/
@@ -10,16 +15,68 @@ import Styles from './Styles';
 export default class DrawerNavContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = { profileData: '' };
   }
+
+
+  componentDidMount() {
+    AsyncStorage.getItem('@app:id').then((id) => {
+      this.updateProfile(id);
+    });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.updateProfile(id);
+        });
+      }
+    );
+  }
+
+
+  /**
+   * update data
+   * @memberof DrawerNavContainer
+   */
+  updateProfile(userName) {
+    axios.get('user/profile', {
+      params: {
+        username: userName
+      }
+    })
+      .then((response) => {
+        this.setState({
+          profileData: response.data,
+        });
+      })
+      .catch((error) => {
+
+        // handle error
+        // console.log(error);
+      })
+      .then(() => {
+        // always executed
+      });
+  }
+
 
   /**
    * Completely deletes the access token and username then redirects the user to the start screen
    * @memberof DrawerNavContainer
    */
   logoutButtonPressed() {
-    AsyncStorage.multiRemove(['@app:session', '@app:id']);
     axios.defaults.headers.common['TOKEN'] = '';
-    this.props.navigation.navigate('StartScreen');
+    AsyncStorage.clear().then(() => {
+      this.props.navigation.dispatch(StackActions.reset({
+        index: 0,
+        key: 'StartStackNavigator',
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'StartScreen'
+          }),
+        ],
+      }));
+    }).catch(() => {});
   }
 
   render() {
@@ -27,22 +84,46 @@ export default class DrawerNavContainer extends Component {
     return (
       <View style={Styles.container}>
         <View style={Styles.top}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')} style={{ flex: 3 }}>
+          <TouchableOpacity
+            onPress={() => {
+              AsyncStorage.getItem('@app:id').then((id) => {
+                this.updateProfile(id);
+                this.props.navigation.navigate('Profile', { username: id });
+              });
+            }} style={{ flex: 3 }}
+          >
             <Image
-              source={require('./../../Assets/Images/pp.png')}
+              source={{ uri: this.state.profileData.profile_image_url }}
               style={Styles.photo}
             />
-            <Text style={Styles.userName}>UserName</Text>
-            <Text style={Styles.userHandle}>@user_handle</Text>
+            <Text style={Styles.userName}><Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.state.profileData.screen_name}</Text>
+            <Text style={Styles.userHandle}>@<Text style={{ color: 'white', fontSize: 0 }}>a</Text>{this.state.profileData.username}</Text>
           </TouchableOpacity>
           <View style={{ flex: 1, flexDirection: 'row' }}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowingsList')} style={{ flex: 1 }}>
-              <Text style={Styles.followingCount}>500
+            <TouchableOpacity
+              onPress={() => {
+                AsyncStorage.getItem('@app:id').then((id) => {
+                  this.updateProfile(id);
+                  this.props.navigation.navigate('FollowingList', { userName: id });
+                });
+              }} style={{ flex: 1 }}
+            >
+              <Text style={Styles.followingCount}>{this.state.profileData.following_count}
                 <Text style={Styles.followingCountText}>{' '}Following</Text>
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('FollowersList')} style={{ flex: 1 }}>
-              <Text style={Styles.followersCount}>1500
+            <TouchableOpacity
+              onPress={() => {
+                AsyncStorage.getItem('@app:id').then((id) => {
+                  this.updateProfile(id);
+                  this.props.navigation.navigate('FollowerList', { userName: id });
+                });
+              }}
+
+
+              style={{ flex: 1 }}
+            >
+              <Text style={Styles.followersCount}>{this.state.profileData.followers_count}
                 <Text style={Styles.followersCountText}>{' '}Follower</Text>
               </Text>
             </TouchableOpacity>
@@ -50,13 +131,30 @@ export default class DrawerNavContainer extends Component {
 
         </View>
         <View style={Styles.bottom}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
+          <TouchableOpacity
+            style={Styles.button} onPress={() => {
+              AsyncStorage.getItem('@app:id').then((id) => {
+                this.updateProfile(id);
+                this.props.navigation.navigate('Profile', { username: id });
+              });
+            }}
+          >
+            <AntDesign name="user" size={28} color="#000" style={Styles.icon} />
             <Text style={Styles.text}> Profile </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')}>
+          <TouchableOpacity
+            style={Styles.button} onPress={() => {
+              AsyncStorage.getItem('@app:id').then((id) => {
+                this.updateProfile(id);
+                this.props.navigation.navigate('Settings');
+              });
+            }}
+          >
+            <Feather name="settings" size={26} color="#000" style={Styles.icon} />
             <Text style={Styles.text}> Settings and privacy </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.logoutButtonPressed.bind(this)}>
+          <TouchableOpacity style={Styles.button} onPress={this.logoutButtonPressed.bind(this)}>
+            <SimpleLineIcons name="logout" size={25} color="#000" style={Styles.icon} />
             <Text style={Styles.text}> Logout </Text>
           </TouchableOpacity>
         </View>

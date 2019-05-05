@@ -3,6 +3,7 @@ import { Text, View, Image, TouchableNativeFeedback, TouchableOpacity } from 're
 import AsyncStorage from '@react-native-community/async-storage';
 import Styles from './Styles';
 
+/** @module PrivecyAndSafety **/
 
 export default class PrivecyAndSafety extends React.Component {
   constructor(props) {
@@ -14,14 +15,30 @@ export default class PrivecyAndSafety extends React.Component {
     AsyncStorage.getItem('@app:id').then((id) => {
       this.setState({ currentUsername: id });
     });
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        AsyncStorage.getItem('@app:id').then((id) => {
+          this.setState({ currentUsername: id });
+        });
+      }
+    );
   }
 
+  /** view blocked accounts.
+  * Redirects the user to the blocked accounts list.
+  * @memberof PrivecyAndSafety
+  */
   BlockedAccounts() {
-    this.props.navigation.push('BlockedAccounts');
+    this.props.navigation.navigate('BlockedAccounts');
   }
 
+  /** view muted accounts.
+  * Redirects the user to the muted accounts list.
+  * @memberof PrivecyAndSafety
+  */
   MutedAccounts() {
-    this.props.navigation.push('MutedAccounts');
+    this.props.navigation.navigate('MutedAccounts');
   }
 
   render() {

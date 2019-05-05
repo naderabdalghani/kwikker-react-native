@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, ScrollView, ToastAndroid, TouchableNativeFeedback, BackHandler } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
+
+/** @module Password **/
 
 export default class Password extends React.Component {
   constructor(props) {
@@ -23,6 +26,7 @@ export default class Password extends React.Component {
   /**
    * update user's password and go back to account settings or the 'Login' page provided that the new and confirm password are match and not empty,
    * else Shows a toast message
+   * @memberof Password
    */
   updatePasswordButtonPress() {
     if (!(this.state.disable)) {
@@ -36,16 +40,22 @@ export default class Password extends React.Component {
             }
           })
             .then((response) => {
-              this.setState({ message: 'password changed successfully' });
-              ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
-              this.props.navigation.navigate('Login');
+              ToastAndroid.show('password changed successfully', ToastAndroid.SHORT);
             })
             .catch((error) => {
-              this.setState({ message: "error: password didn't change, try again later" });
-              ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
+              ToastAndroid.show("error: password didn't change, try again later", ToastAndroid.SHORT);
             })
             .then(() => {
             });
+          this.props.navigation.dispatch(StackActions.reset({
+            index: 0,
+            key: 'StartStackNavigator',
+            actions: [
+              NavigationActions.navigate({
+                routeName: 'Login'
+              }),
+            ],
+          }));
         } else {
           axios.put('user/password', {
             password: this.state.New,
@@ -77,6 +87,7 @@ export default class Password extends React.Component {
 
   /**
    * Doesn't render the back button if it's considered as a forgotPassword form, renders it otherwise
+   * @memberof Password
    */
   backButtonRenderer() {
     if (this.state.forgotPasswordForm === true) {
@@ -102,6 +113,7 @@ export default class Password extends React.Component {
 
   /**
    * Doesn't render the current password text input if it's considered as a forgotPassword form, renders it otherwise
+   * @memberof Password
    */
   currentPasswordRenderer() {
     if (this.state.forgotPasswordForm === true) {

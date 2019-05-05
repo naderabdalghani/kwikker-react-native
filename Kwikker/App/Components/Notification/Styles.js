@@ -28,10 +28,14 @@ export default styles = StyleSheet.create({
   textHeader: {
     flex: 1,
     flexDirection: 'row',
+    marginRight: 10,
     marginTop: 10,
   },
   textContent: {
+    flex: 1,
     marginBottom: 40,
+    marginRight: 10,
+
     color: 'lightgray'
   },
 });

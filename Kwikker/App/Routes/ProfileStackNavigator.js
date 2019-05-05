@@ -4,6 +4,10 @@ import Profile from '../Screens/Profile/Profile';
 import FollowerList from '../Screens/FollowerList/FollowersList';
 import FollowingList from '../Screens/FollowingList/FollowingList';
 import EditProfileNavigator from './EditProfileNavigation';
+import KweekExtendedView from '../Screens/KweekExtendedView/KweekExtendedView';
+import CreateTweet from '../Screens/CreateTweet/CreateTweet';
+import ConversationScreen from '../Screens/ConversationScreen/ConversationScreen';
+
 
 const ProfileStackNavigator = createStackNavigator({
 
@@ -23,5 +27,13 @@ const ProfileStackNavigator = createStackNavigator({
     navigationOptions: {
       header: null,
     }, },
+  KweekExtendedView: {
+    screen: KweekExtendedView,
+    navigationOptions: {
+      title: 'Kweek',
+    }
+  },
+  CreateTweet: { screen: CreateTweet },
+  ConversationScreen: { screen: ConversationScreen },
 });
 export default ProfileStackNavigator;

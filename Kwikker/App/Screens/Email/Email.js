@@ -6,16 +6,48 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import styles from './Styles';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 
+/** @module Email **/
 
 export default class Email extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Name: '@Email', message: '' };
+    this.state = { Name: '', message: '', Email: '' };
   }
 
+  componentDidMount() {
+    this.getEmail();
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.getEmail();
+      }
+    );
+  }
+
+  /**
+   * gets user Email
+   * @memberof Email
+   */
+
+  getEmail() {
+    axios.get('user/email')
+      .then((res) => {
+        this.setState({
+          Email: res.data.email,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          Email: 'error loading email',
+        });
+      })
+      .then(() => {
+      });
+  }
 
   /**
    * update user's Email and go back to account settings
+   * @memberof Email
    */
   nextButtonPress() {
     axios.put('user/email', {
@@ -58,11 +90,11 @@ export default class Email extends React.Component {
           <View>
             <Text style={styles.labelStyle}> Current </Text>
             <View style={styles.border}>
-              <Text style={styles.labelStyle}>@Email </Text>
+              <Text style={styles.labelStyle}>{this.state.Email} </Text>
             </View>
           </View>
           <CustomTextInput
-            placeholder=""
+            placeholder={this.state.Email}
             label="Email address"
             secureTextEntry={false}
             value={this.state.Name}

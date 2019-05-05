@@ -3,10 +3,15 @@ import { createStackNavigator, CreateAppContainer } from 'react-navigation';
 import Image from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Home from '../Screens/Home/Home';
-import FollowersList from '../Screens/FollowerList/FollowersList';
-import FollowingsList from '../Screens/FollowingList/FollowingList';
 import CreateTweet from '../Screens/CreateTweet/CreateTweet';
 import Camera from '../Screens/Camera/Camera';
+import KweekExtendedView from '../Screens/KweekExtendedView/KweekExtendedView';
+import ProfileStackNavigator from './ProfileStackNavigator';
+import FollowerList from '../Screens/FollowerList/FollowersList';
+import FollowingList from '../Screens/FollowingList/FollowingList';
+import Rekweekers from '../Screens/Rekweekers/Rekweekers';
+import Likers from '../Screens/Likers/Likers';
+import SearchBar from '../Screens/SearchBar/SearchBar';
 
 const HomeStackNavigator = createStackNavigator({
 
@@ -16,16 +21,36 @@ const HomeStackNavigator = createStackNavigator({
       title: 'Home',
     }
   },
-  FollowersList: { screen: FollowersList,
+  KweekExtendedView: {
+    screen: KweekExtendedView,
+    navigationOptions: {
+      title: 'Kweek',
+    },
+  },
+
+  Profile: { screen: ProfileStackNavigator,
     navigationOptions: {
       header: null,
     }, },
-  FollowingsList: { screen: FollowingsList,
+  FollowerList: { screen: FollowerList,
     navigationOptions: {
       header: null,
     }, },
+  FollowingList: { screen: FollowingList,
+    navigationOptions: {
+      header: null,
+    }, },
+  Rekweekers: { screen: Rekweekers,
+    navigationOptions: {
+      header: null,
+    }, },
+  Likers: { screen: Likers,
+    navigationOptions: {
+      header: null,
+    }, },
+  SearchBar: { screen: SearchBar },
   CreateTweet: { screen: CreateTweet },
-  Camera: { screen: Camera }
+  Camera: { screen: Camera },
 });
 HomeStackNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;

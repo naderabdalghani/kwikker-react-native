@@ -9,21 +9,21 @@ import Account from '../App/Screens/Account/Account';
 
 describe('Account component', () => {
   it('Username: should push the "Username" screen', () => {
-    const navigationMock = { push: jest.fn() };
+    const navigationMock = { push: jest.fn(), addListener: jest.fn(), navigate: jest.fn() };
     const wrapper = shallow(<Account navigation={navigationMock} />);
     wrapper.instance().Username();
-    expect(navigationMock.push).toHaveBeenCalledWith('Username');
+    expect(navigationMock.navigate).toHaveBeenCalledWith('Username');
   });
   it('Email: should push the "Email" screen', () => {
-    const navigationMock = { push: jest.fn() };
+    const navigationMock = { push: jest.fn(), addListener: jest.fn(), navigate: jest.fn() };
     const wrapper = shallow(<Account navigation={navigationMock} />);
     wrapper.instance().Email();
-    expect(navigationMock.push).toHaveBeenCalledWith('Email');
+    expect(navigationMock.navigate).toHaveBeenCalledWith('Email');
   });
   it('Password: should push the "UsPasswordername" screen', () => {
-    const navigationMock = { push: jest.fn() };
+    const navigationMock = { push: jest.fn(), addListener: jest.fn(), navigate: jest.fn() };
     const wrapper = shallow(<Account navigation={navigationMock} />);
     wrapper.instance().Password();
-    expect(navigationMock.push).toHaveBeenCalledWith('Password');
+    expect(navigationMock.navigate).toHaveBeenCalledWith('Password');
   });
 });

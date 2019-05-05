@@ -33,7 +33,8 @@ export default styles = StyleSheet.create({
     marginLeft: 10
   },
   textContent: {
-    marginLeft: 10,
+    marginLeft: 15,
+    marginRight: 15,
     marginBottom: 10
   },
   textTime: {

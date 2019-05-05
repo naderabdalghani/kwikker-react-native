@@ -4,6 +4,7 @@ import axios from 'axios';
 import MutedAccount from '../../Components/MutedAccount/MutedAccount';
 import Styles from './Styles';
 
+/** @module MutedAccounts **/
 
 export default class MutedAccounts extends React.Component {
   constructor(props) {
@@ -11,10 +12,36 @@ export default class MutedAccounts extends React.Component {
     this.state = {
       usersList: [],
       refreshing: true,
-      mutedOrNot: false
+      mutedOrNot: true,
     };
   }
 
+
+  componentDidMount() {
+    this.pullRefresh();
+    this.willFocusListener = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.pullRefresh();
+      }
+    );
+  }
+
+  /** pull to refresh functionality.
+   * update mute list.
+   * @memberof MutedAccounts
+  */
+  pullRefresh= () => {
+    this.setState({ refreshing: false },
+      () => {
+        this.muted();
+      });
+  }
+
+  /** content of muted list.
+  * check if there is any muted account or not.
+  * @memberof MutedAccounts
+  */
   isThereMutedAccounts() {
     if (this.state.mutedOrNot) {
       return (
@@ -28,18 +55,17 @@ export default class MutedAccounts extends React.Component {
           style={{ flex: 1 }}
         >
           {this.state.usersList.map((item, index) => (
-            <TouchableOpacity
+
+            <MutedAccount
               key={item.username}
-            >
-              <MutedAccount
-                key={item.username}
-                profileUrl={item.profile_image_url}
-                screenName={item.screen_name}
-                following={item.following}
-                followsYou={item.follows_you}
-                userName={item.username}
-              />
-            </TouchableOpacity>
+              profileUrl={item.profile_image_url}
+              screenName={item.screen_name}
+              following={item.following}
+              followsYou={item.follows_you}
+              userName={item.username}
+              navigation={this.props.navigation}
+              pullRefresh={this.pullRefresh.bind(this)}
+            />
           ))
           }
         </ScrollView>
@@ -61,6 +87,10 @@ export default class MutedAccounts extends React.Component {
     );
   }
 
+  /** muted accounts.
+  * gets list of muted account.
+  * @memberof MutedAccounts
+  */
   muted() {
     axios.get('interactions/mutes', {
 
@@ -69,6 +99,11 @@ export default class MutedAccounts extends React.Component {
         this.setState({
           usersList: response.data, mutedOrNot: true,
         });
+        if (response.data.length === 0) {
+          this.setState({
+            mutedOrNot: false,
+          });
+        }
       })
       .catch((error) => {
         this.setState({ mutedOrNot: false });
@@ -83,29 +118,26 @@ export default class MutedAccounts extends React.Component {
   render() {
     return (
 
-      <View style={Styles.container}>
-        <View>
+      <View style={{ flex: 1 }}>
 
-          <View style={Styles.header}>
-            <View style={Styles.backButtonContainer}>
-              <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
-                <Image
-                  style={Styles.backButton}
-                  source={require('./../../Assets/Images/back_button.png')}
-                />
-              </TouchableNativeFeedback>
-            </View>
-            <View style={Styles.titleContainer}>
-              <Text style={Styles.title}>Muted Accounts</Text>
-            </View>
-            <View />
-            <View style={Styles.dummyElement} />
+
+        <View style={Styles.header}>
+          <View style={Styles.backButtonContainer}>
+            <TouchableNativeFeedback onPress={() => this.props.navigation.goBack(null)}>
+              <Image
+                style={Styles.backButton}
+                source={require('./../../Assets/Images/back_button.png')}
+              />
+            </TouchableNativeFeedback>
           </View>
-
-          {this.isThereMutedAccounts()}
-
-
+          <View style={Styles.titleContainer}>
+            <Text style={Styles.title}>Muted Accounts</Text>
+          </View>
+          <View />
+          <View style={Styles.dummyElement} />
         </View>
+
+        {this.isThereMutedAccounts()}
       </View>
     );
   }

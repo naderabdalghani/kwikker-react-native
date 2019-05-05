@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image, TextInput, RefreshControl } from 'react-native';
 import UserInSearch from '../UserInSearch/UserInSearch';
 
-/** @module People **/
-
 export default class People extends React.Component {
   render() {
     return (
@@ -26,6 +24,7 @@ export default class People extends React.Component {
               followsYou={item.follows_you}
               blocked={item.blocked}
               muted={item.muted}
+              navigation={this.props.screenProps.rootNav}
             />
           </TouchableOpacity>
         ))
