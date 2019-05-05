@@ -14,7 +14,7 @@ const { messageStyle, resendButton } = styles;
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: '', password: '', loading: false, message: '' };
+    this.state = { email: '', username: '', password: '', loading: false, message: '' };
     this.resendButtonPress = this.resendButtonPress.bind(this);
   }
 
@@ -126,13 +126,37 @@ export default class Login extends Component {
    * @memberof Login
    */
   renderResendMessage() {
+    let resendBtn;
+
+    if (this.state.email !== '') {
+      resendBtn = (
+        <TouchableNativeFeedback onPress={this.resendButtonPress}>
+          <Text style={resendButton}> Resend confirmation email</Text>
+        </TouchableNativeFeedback>
+      );
+    } else {
+      resendBtn = (
+        <TouchableNativeFeedback>
+          <Text style={{ ...resendButton, color: '#AAB8C2' }}> Resend confirmation email</Text>
+        </TouchableNativeFeedback>
+      );
+    }
     if (this.state.message === 'User exists but not confirmed, please confirm your account.') {
       return (
         <View>
-          <Text style={messageStyle}>{this.state.message}</Text>
-          <TouchableNativeFeedback onPress={this.resendButtonPress}>
-            <Text style={resendButton}> Resend confirmation email</Text>
-          </TouchableNativeFeedback>
+          <CustomTextInput
+            placeholder=""
+            label="Email"
+            secureTextEntry={false}
+            value={this.state.email}
+            onChangeText={(email) => this.setState({ email })}
+            autoFocus
+            autoCapitalize="none"
+          />
+          <View>
+            <Text style={messageStyle}>{this.state.message}</Text>
+            {resendBtn}
+          </View>
         </View>
       );
     }
@@ -177,8 +201,8 @@ export default class Login extends Component {
             autoFocus={false}
           />
         </View>
-        <Text style={forgotPasswordStyle} onPress={this.forgotPassword.bind(this)}>Forgot password?</Text>
         {this.renderResendMessage()}
+        <Text style={forgotPasswordStyle} onPress={this.forgotPassword.bind(this)}>Forgot password?</Text>
         <View style={loginButtonContainer}>
           <View style={loginButtonBorder}>
             <View style={logInButtonStyle}>
