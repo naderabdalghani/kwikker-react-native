@@ -21,7 +21,7 @@ describe('StartScreen component', () => {
   it('confirmUser: should confirm the user who has clicked on a confirmation link. Displays a success message if the confirmation was successful, otherwise, it displays an error message', async () => {
     const navigationMock = { push: jest.fn() };
     const wrapper = shallow(<StartScreen navigation={navigationMock} />);
-    const url = 'http://kwikker.me/confirm/1234';
+    const url = 'http://www.kwikker.me/confirm/1234';
     const instance = wrapper.instance();
     const confirmUser = await instance.confirmUser(url);
     expect(mockAxios.post).toHaveBeenCalledWith('account/registration/confirmation', {}, {
@@ -35,7 +35,7 @@ describe('StartScreen component', () => {
   it('resetPassword: should specify temporary header config defaults then redirects the user to the \'Update password\' form', async () => {
     const navigationMock = { navigate: jest.fn() };
     const wrapper = shallow(<StartScreen navigation={navigationMock} />);
-    const url = 'http://kwikker.me/reset_password/1234';
+    const url = 'http://www.kwikker.me/reset_password/1234';
     const instance = wrapper.instance();
     const resetPassword = await instance.resetPassword(url);
     expect(instance.state.loading).toBe(true);
@@ -44,7 +44,7 @@ describe('StartScreen component', () => {
   it('handleOpenURL: should handle opening a kwikker URL in iOS', () => {
     const wrapper = shallow(<StartScreen />);
     const event = {
-      url: 'http://kwikker.me/reset_password/1234'
+      url: 'http://www.kwikker.me/reset_password/1234'
     };
     wrapper.instance().confirmUser = jest.fn();
     wrapper.update();

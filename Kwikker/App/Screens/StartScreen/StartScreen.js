@@ -48,7 +48,7 @@ export default class StartScreen extends Component {
    * @memberof StartScreen
    */
   confirmUser = (url) => {
-    const confirmationCode = url.replace('http://kwikker.me/confirm/', '');
+    const confirmationCode = url.replace('http://www.kwikker.me/confirm/', '');
     this.setState({
       loading: true,
     });
@@ -80,7 +80,7 @@ export default class StartScreen extends Component {
     this.setState({
       loading: true,
     });
-    const code = url.replace('http://kwikker.me/reset_password/', '');
+    const code = url.replace('http://www.kwikker.me/reset_password/', '');
     this.props.navigation.navigate('Password', { forgotPassword: true, resetCode: code });
   }
 
