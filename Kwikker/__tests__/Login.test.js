@@ -73,24 +73,4 @@ describe('Login component', () => {
       email: instance.state.email
     });
   });
-  it('renderResendMessage: Renders a \'resend\' button if an unconfirmed user has already registered successfully or his email already exists', () => {
-    const wrapper = shallow(<Login />);
-    const { messageStyle, resendButton } = styles;
-
-    wrapper.instance().state.message = 'User exists but not confirmed, please confirm your account.';
-    const normalRender = (wrapper.instance().renderResendMessage());
-    const expectedNormalRender = (
-      <View>
-        <Text style={messageStyle}>{wrapper.instance().state.message}</Text>
-        <TouchableNativeFeedback onPress={wrapper.instance().resendButtonPress}>
-          <Text style={resendButton}> Resend confirmation email</Text>
-        </TouchableNativeFeedback>
-      </View>
-    );
-    expect(normalRender).toEqual(expectedNormalRender);
-
-    wrapper.instance().state.message = '';
-    const resendButtonRender = (wrapper.instance().renderResendMessage());
-    expect(resendButtonRender).toEqual(null);
-  });
 });
