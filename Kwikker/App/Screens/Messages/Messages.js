@@ -137,7 +137,7 @@ render() {
       >
         {this.state.conversations.map((item, index) => (
           <TouchableOpacity
-            style={item.is_seen ? { backgroundColor: '#f2f2f2' } : {}}
+            style={item.is_seen ? {} : { backgroundColor: '#f2f2f2' }}
             key={item.last_message.id} onPress={() => {
               this.props.navigation.navigate('ConversationScreen', {
                 title: item.user.screen_name,
