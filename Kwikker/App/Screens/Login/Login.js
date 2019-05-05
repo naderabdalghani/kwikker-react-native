@@ -12,7 +12,11 @@ const { messageStyle, resendButton } = styles;
 /** @module Login **/
 
 export default class Login extends Component {
-  state = { username: '', password: '', loading: false, message: '' };
+  constructor(props) {
+    super(props);
+    this.state = { username: '', password: '', loading: false, message: '' };
+    this.resendButtonPress = this.resendButtonPress.bind(this);
+  }
 
   /**
    * Shows a toast message "Authentication Failed" and turns off the loading screen
@@ -106,12 +110,14 @@ export default class Login extends Component {
           loading: false,
           message: 'Confirmation email resent successfully'
         });
+        ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
       })
       .catch((err) => {
         this.setState({
           loading: false,
           message: 'Failed to resent confirmation email'
         });
+        ToastAndroid.show(this.state.message, ToastAndroid.SHORT);
       });
   }
 

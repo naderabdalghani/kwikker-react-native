@@ -1,17 +1,33 @@
-import 'react-native';
+import { Text, View, Image, TouchableNativeFeedback, KeyboardAvoidingView, ScrollView, Keyboard } from 'react-native';
 import React from 'react';
 import renderer from 'react-test-renderer'; // Note: test renderer must be required after react-native.
 import { shallow } from 'enzyme';
 import mockAxios from 'axios';
 import mockAsyncStorage from '@react-native-community/async-storage';
 import Login from '../App/Screens/Login/Login';
+import styles from '../App/Screens/Login/Styles';
 
 describe('Login component', () => {
-  it('onLoginFail: should set the error message to "Authentication Failed" and turn off the loading screen', () => {
+  it('onLoginFail: should display an error message according to the error type received in the response', () => {
     const wrapper = shallow(<Login />);
     const instance = wrapper.instance();
-    instance.onLoginFail();
-    expect(wrapper.instance().state.message).toBe('Authentication Failed');
+    const error = {
+      response: {
+        status: 403
+      }
+    };
+    instance.onLoginFail(error);
+    expect(wrapper.instance().state.message).toBe('User exists but not confirmed, please confirm your account.');
+    expect(wrapper.instance().state.loading).toBe(false);
+
+    error.response.status = 404;
+    instance.onLoginFail(error);
+    expect(wrapper.instance().state.message).toBe('A user with matching credentials does not exist.');
+    expect(wrapper.instance().state.loading).toBe(false);
+
+    error.response.status = 400;
+    instance.onLoginFail(error);
+    expect(wrapper.instance().state.message).toBe('Authentication failed due to a network error, try again later');
     expect(wrapper.instance().state.loading).toBe(false);
   });
   it('onLoginSuccess: should set default header common access token, then, navigate to "Home" screen', () => {
@@ -44,5 +60,37 @@ describe('Login component', () => {
     const wrapper = shallow(<Login navigation={navigationMock} />);
     wrapper.instance().forgotPassword();
     expect(navigationMock.push).toHaveBeenCalledWith('ForgotPassword');
+  });
+  it('resendButtonPress: should turn on the loading screen, clear the error message, process the user\'s credentials ', async () => {
+    mockAxios.post.mockClear();
+    const wrapper = shallow(<Login />);
+    const instance = wrapper.instance();
+    const resendButtonPress = await instance.resendButtonPress();
+    expect(wrapper.instance().state.loading).toBe(false);
+    expect(wrapper.instance().state.message).toBe('Confirmation email resent successfully');
+    expect(mockAxios.post).toHaveBeenCalledTimes(1);
+    expect(mockAxios.post).toHaveBeenCalledWith('/account/registration/resend_email', {
+      email: instance.state.email
+    });
+  });
+  it('renderResendMessage: Renders a \'resend\' button if an unconfirmed user has already registered successfully or his email already exists', () => {
+    const wrapper = shallow(<Login />);
+    const { messageStyle, resendButton } = styles;
+
+    wrapper.instance().state.message = 'User exists but not confirmed, please confirm your account.';
+    const normalRender = (wrapper.instance().renderResendMessage());
+    const expectedNormalRender = (
+      <View>
+        <Text style={messageStyle}>{wrapper.instance().state.message}</Text>
+        <TouchableNativeFeedback onPress={wrapper.instance().resendButtonPress}>
+          <Text style={resendButton}> Resend confirmation email</Text>
+        </TouchableNativeFeedback>
+      </View>
+    );
+    expect(normalRender).toEqual(expectedNormalRender);
+
+    wrapper.instance().state.message = '';
+    const resendButtonRender = (wrapper.instance().renderResendMessage());
+    expect(resendButtonRender).toEqual(null);
   });
 });
