@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, Image, Button, StyleSheet, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Button, StyleSheet, TextInput, ToastAndroid } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
@@ -120,6 +120,7 @@ submitKweek() {
             this.props.navigation.dispatch(StackActions.popToTop());
           });
       });
+    ToastAndroid.show('Loading', ToastAndroid.LONG);
   }
   if (this.state.photo === null) {
     axios.post('kweeks/', {
@@ -143,6 +144,7 @@ submitKweek() {
         this.props.navigation.dispatch(StackActions.popToTop());
       });
   }
+  ToastAndroid.show('Loading', ToastAndroid.SHORT);
 }
 
 render() {
