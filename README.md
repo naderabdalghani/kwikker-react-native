@@ -1,5 +1,7 @@
 # Kwikker
 
+[![Compilation.png](https://i.postimg.cc/sgMj7GFY/Compilation.png)](https://postimg.cc/QFrZrtdC)
+
 Don't you wish that Twitter were more... Kwikker? Say no more! We've got your back with our ultra enhanced version of one of the most used social media platforms.*
 
 ## Basic Setup
